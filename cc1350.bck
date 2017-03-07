@@ -1,8 +1,3 @@
 EESchema-DOCLIB  Version 2.0
 #
-$CMP C
-D Unpolarized capacitor
-K cap capacitor
-$ENDCMP
-#
 #End Doc Library
