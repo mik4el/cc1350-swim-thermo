@@ -15,9 +15,9 @@
 ,14,"L6,L9",R_0603,2,BLM18HE152SN1,,x,x
 ,15,L7,R_0805,1,6.8uH,,x,x
 ,16,L10,VLS3015E,1,4.7uH,,x,x
-,17,P1,Molex_KK-6410-04_04x2.54mm_Straight,1,LMT_70_1,,x,
-,18,P2,Molex_KK-6410-04_04x2.54mm_Straight,1,LMT_70_2,,x,
-,19,P3,sma_female_top,1,SMA FEMALE,,x,
+,17,P1,Molex_KK-6410-04_04x2.54mm_Straight,1,LMT_70_1,,x,x
+,18,P2,Molex_KK-6410-04_04x2.54mm_Straight,1,LMT_70_2,,x,x
+,19,P3,sma_female_top,1,SMA FEMALE,,x,x
 ,20,P4,USB_Mini-B,1,USB_OTG,,x,x
 ,21,P5,Pin_Header_Straight_SMT_02x05_1_27mm,1,CONN_02X05,,x,x
 ,22,Q1,SOT-23,1,2N7002,,x,x
