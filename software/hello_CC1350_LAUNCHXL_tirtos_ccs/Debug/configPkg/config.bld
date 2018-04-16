@@ -1,0 +1,24 @@
+/* THIS IS A GENERATED FILE -- DO NOT EDIT */
+
+var target;    /* the target used for this build */
+
+/* configuro was passed the target's name explicitly */
+try {
+    target = xdc.module('ti.targets.arm.elf.M3');
+}
+catch (e) {
+    throw new Error("Can't find the target named '" + 'ti.targets.arm.elf.M3'
+                    + "' along the path '" + environment["xdc.path"]
+                    + "': please check the spelling of the target's name and that it exists along this path.");
+}
+if (!(target instanceof xdc.module("xdc.bld.ITarget").Module)) {
+    throw new Error("The module named 'ti.targets.arm.elf.M3' exists but it's not a target: please check the spelling of the target's name");
+}
+
+/* configuro was passed compiler options explicitly */
+target.ccOpts.prefix = unescape("-mv7M3%20--code_state%3D16%20--float_support%3Dvfplib%20-me%20--include_path%3D%22/Users/mikael/Code/cc1350-swim-thermo/software/hello_CC1350_LAUNCHXL_tirtos_ccs%22%20--include_path%3D%22/Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/posix/ccs%22%20--include_path%3D%22/Applications/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include%22%20--define%3DDeviceFamily_CC13X0%20-g%20--diag_warning%3D225%20--diag_warning%3D255%20--diag_wrap%3Doff%20--display_error_number%20--gen_func_subsections%3Don%20%20%20") + target.ccOpts.prefix;
+
+/* configuro was passed the target's rootDir explicitly */
+target.rootDir = '/Applications/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS';
+
+Build.targets = [target];

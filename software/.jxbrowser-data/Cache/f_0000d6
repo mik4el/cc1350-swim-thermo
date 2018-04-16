@@ -1,0 +1,434 @@
+[
+  {
+    "downloadLink": "api/bundle?vid=tirtos_cc13xx_cc26xx__2.21.00.06&download=true&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "makeofflineLink": "api/bundles?vids=tirtos_cc13xx_cc26xx__2.21.00.06",
+    "removeofflineLink": "api/resources?id=6smeL3XyA6gkzQ&path=Software/TI-RTOS for CC2650/Development Tools/CC1350 LaunchPad/Driver Examples/RF Examples&removeoffline=true",
+    "name": "RF Packet TX",
+    "resourceType": "projectSpec",
+    "coreTypes": [
+      "Cortex M.CC1350F128"
+    ],
+    "devtools": [
+      "CC1350 LaunchPad"
+    ],
+    "description": "A transmitter example on how to use the RF driver",
+    "advanced": {
+      "overrideProjectSpecDeviceId": true
+    },
+    "_id": "6smeL3XyA6gkzQ",
+    "version": "UNVERSIONED",
+    "semver": "0.0.0",
+    "dependencies": [],
+    "link": "api/linkTo/6smeL3XyA6gkzQ?analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples&extname=.projectspec",
+    "package": "TI-RTOS for CC2650",
+    "packageId": "tirtos_cc13xx_cc26xx",
+    "packageVersion": "2.21.00.06",
+    "packageUId": "tirtos_cc13xx_cc26xx__2.21.00.06",
+    "packagePath": "tirtos_cc13xx_cc26xx_2_21_00_06",
+    "allowPartialDownload": false,
+    "linkType": "local",
+    "_originalJsonFile": "tirtos_cc13xx_cc26xx_2_21_00_06/content.tirex.json",
+    "includedFilesForDownload": [],
+    "type": "resource",
+    "text": "RF Packet TX",
+    "url": "/api/resources?device=CC1350F128&package=com.ti.SIMPLELINK_CC13X0_SDK__2.10.00.36::com.ti.SIMPLELINK_CC13X2_SDK__1.60.00.29::com.ti.SIMPLELINK_MSP432_SDK__2.10.00.14::com.ti.SIMPLELINK_MSP432E4_SDK__2.10.00.17::com.ti.SIMPLELINK_CC26X2_SDK__2.10.00.44::com.ti.SIMPLELINK_CC2640R2_SDK__1.50.00.58::com.ti.SIMPLELINK_CC32XX_SDK__2.10.00.04::com.ti.SIMPLELINK_CC2640R2_SDK_BLE_EXAMPLE_PACK__1.40.00.50::com.ti.SIMPLELINK_SDK_BLE_PLUGIN__1.40.00.42::com.ti.SIMPLELINK_MSP432_SDK_WIFI_PLUGIN__1.55.00.42::com.ti.SIMPLELINK_SDK_VOICE_DETECTION_PLUGIN__1.50.00.15::com.ti.SAIL__1.20.00.02::com.ti.AZURE_CC32XX__1.00.00.10::com.ti.AWS_CC32XX__1.10.00.07::c2000ware_software_package__1.00.04.00::digital_power_c2000ware_sdk_software_package__1.00.01.00::powerSUITE_software_package__2.01.00.00::com.ti.MMWAVE_SDK__01.02.00.05::com.ti.mmwave_training__1.6.2::com.ti.mmwave_industrial_toolbox__2.2.0::msp430ware__3.80.03.07::tm4c__2.1.3.156::sitara__1.02.00.00::tirtos_msp43x__2.20.00.06::tirtos_cc13xx_cc26xx__2.21.00.06::tirtos_tivac__2.16.00.08::tirtos_simplelink__2.13.01.09::sysbios__6.50.01.12::xdctools__3.50.05.12::com.ti.SIMPLELINK_SDK_TI_15_4_STACK_PLUGIN__1.60.00.16::com.ti.mmwave_automotive_toolbox__1.2.0::com.ti.SIMPLELINK_ZIGBEE_SDK_PLUGIN__1.60.00.14&path=Software/TI-RTOS%20for%20CC2650/Development%20Tools/CC1350%20LaunchPad/Driver%20Examples/RF%20Examples",
+    "importProject": "api/importProject/6smeL3XyA6gkzQ/Cortex M.CC1350F128?connection=TIXDS110_Connection.xml&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "packageOrder": 146
+  },
+  {
+    "downloadLink": "api/bundle?vid=tirtos_cc13xx_cc26xx__2.21.00.06&download=true&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "makeofflineLink": "api/bundles?vids=tirtos_cc13xx_cc26xx__2.21.00.06",
+    "removeofflineLink": "api/resources?id=6sm0gQU-bjXW3s&path=Software/TI-RTOS for CC2650/Development Tools/CC1350 LaunchPad/Driver Examples/RF Examples&removeoffline=true",
+    "name": "RF Packet RX",
+    "resourceType": "projectSpec",
+    "coreTypes": [
+      "Cortex M.CC1350F128"
+    ],
+    "devtools": [
+      "CC1350 LaunchPad"
+    ],
+    "description": "A receiver example on how to use the RF driver",
+    "advanced": {
+      "overrideProjectSpecDeviceId": true
+    },
+    "_id": "6sm0gQU-bjXW3s",
+    "version": "UNVERSIONED",
+    "semver": "0.0.0",
+    "dependencies": [],
+    "link": "api/linkTo/6sm0gQU-bjXW3s?analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples&extname=.projectspec",
+    "package": "TI-RTOS for CC2650",
+    "packageId": "tirtos_cc13xx_cc26xx",
+    "packageVersion": "2.21.00.06",
+    "packageUId": "tirtos_cc13xx_cc26xx__2.21.00.06",
+    "packagePath": "tirtos_cc13xx_cc26xx_2_21_00_06",
+    "allowPartialDownload": false,
+    "linkType": "local",
+    "_originalJsonFile": "tirtos_cc13xx_cc26xx_2_21_00_06/content.tirex.json",
+    "includedFilesForDownload": [],
+    "type": "resource",
+    "text": "RF Packet RX",
+    "url": "/api/resources?device=CC1350F128&package=com.ti.SIMPLELINK_CC13X0_SDK__2.10.00.36::com.ti.SIMPLELINK_CC13X2_SDK__1.60.00.29::com.ti.SIMPLELINK_MSP432_SDK__2.10.00.14::com.ti.SIMPLELINK_MSP432E4_SDK__2.10.00.17::com.ti.SIMPLELINK_CC26X2_SDK__2.10.00.44::com.ti.SIMPLELINK_CC2640R2_SDK__1.50.00.58::com.ti.SIMPLELINK_CC32XX_SDK__2.10.00.04::com.ti.SIMPLELINK_CC2640R2_SDK_BLE_EXAMPLE_PACK__1.40.00.50::com.ti.SIMPLELINK_SDK_BLE_PLUGIN__1.40.00.42::com.ti.SIMPLELINK_MSP432_SDK_WIFI_PLUGIN__1.55.00.42::com.ti.SIMPLELINK_SDK_VOICE_DETECTION_PLUGIN__1.50.00.15::com.ti.SAIL__1.20.00.02::com.ti.AZURE_CC32XX__1.00.00.10::com.ti.AWS_CC32XX__1.10.00.07::c2000ware_software_package__1.00.04.00::digital_power_c2000ware_sdk_software_package__1.00.01.00::powerSUITE_software_package__2.01.00.00::com.ti.MMWAVE_SDK__01.02.00.05::com.ti.mmwave_training__1.6.2::com.ti.mmwave_industrial_toolbox__2.2.0::msp430ware__3.80.03.07::tm4c__2.1.3.156::sitara__1.02.00.00::tirtos_msp43x__2.20.00.06::tirtos_cc13xx_cc26xx__2.21.00.06::tirtos_tivac__2.16.00.08::tirtos_simplelink__2.13.01.09::sysbios__6.50.01.12::xdctools__3.50.05.12::com.ti.SIMPLELINK_SDK_TI_15_4_STACK_PLUGIN__1.60.00.16::com.ti.mmwave_automotive_toolbox__1.2.0::com.ti.SIMPLELINK_ZIGBEE_SDK_PLUGIN__1.60.00.14&path=Software/TI-RTOS%20for%20CC2650/Development%20Tools/CC1350%20LaunchPad/Driver%20Examples/RF%20Examples",
+    "importProject": "api/importProject/6sm0gQU-bjXW3s/Cortex M.CC1350F128?connection=TIXDS110_Connection.xml&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "packageOrder": 146
+  },
+  {
+    "downloadLink": "api/bundle?vid=tirtos_cc13xx_cc26xx__2.21.00.06&download=true&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "makeofflineLink": "api/bundles?vids=tirtos_cc13xx_cc26xx__2.21.00.06",
+    "removeofflineLink": "api/resources?id=6smW_QZbE6M1OA&path=Software/TI-RTOS for CC2650/Development Tools/CC1350 LaunchPad/Driver Examples/RF Examples&removeoffline=true",
+    "name": "RF Carrier Wave",
+    "resourceType": "projectSpec",
+    "coreTypes": [
+      "Cortex M.CC1350F128"
+    ],
+    "devtools": [
+      "CC1350 LaunchPad"
+    ],
+    "description": "An example that uses the RF driver to generate a carrier wave",
+    "advanced": {
+      "overrideProjectSpecDeviceId": true
+    },
+    "_id": "6smW_QZbE6M1OA",
+    "version": "UNVERSIONED",
+    "semver": "0.0.0",
+    "dependencies": [],
+    "link": "api/linkTo/6smW_QZbE6M1OA?analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples&extname=.projectspec",
+    "package": "TI-RTOS for CC2650",
+    "packageId": "tirtos_cc13xx_cc26xx",
+    "packageVersion": "2.21.00.06",
+    "packageUId": "tirtos_cc13xx_cc26xx__2.21.00.06",
+    "packagePath": "tirtos_cc13xx_cc26xx_2_21_00_06",
+    "allowPartialDownload": false,
+    "linkType": "local",
+    "_originalJsonFile": "tirtos_cc13xx_cc26xx_2_21_00_06/content.tirex.json",
+    "includedFilesForDownload": [],
+    "type": "resource",
+    "text": "RF Carrier Wave",
+    "url": "/api/resources?device=CC1350F128&package=com.ti.SIMPLELINK_CC13X0_SDK__2.10.00.36::com.ti.SIMPLELINK_CC13X2_SDK__1.60.00.29::com.ti.SIMPLELINK_MSP432_SDK__2.10.00.14::com.ti.SIMPLELINK_MSP432E4_SDK__2.10.00.17::com.ti.SIMPLELINK_CC26X2_SDK__2.10.00.44::com.ti.SIMPLELINK_CC2640R2_SDK__1.50.00.58::com.ti.SIMPLELINK_CC32XX_SDK__2.10.00.04::com.ti.SIMPLELINK_CC2640R2_SDK_BLE_EXAMPLE_PACK__1.40.00.50::com.ti.SIMPLELINK_SDK_BLE_PLUGIN__1.40.00.42::com.ti.SIMPLELINK_MSP432_SDK_WIFI_PLUGIN__1.55.00.42::com.ti.SIMPLELINK_SDK_VOICE_DETECTION_PLUGIN__1.50.00.15::com.ti.SAIL__1.20.00.02::com.ti.AZURE_CC32XX__1.00.00.10::com.ti.AWS_CC32XX__1.10.00.07::c2000ware_software_package__1.00.04.00::digital_power_c2000ware_sdk_software_package__1.00.01.00::powerSUITE_software_package__2.01.00.00::com.ti.MMWAVE_SDK__01.02.00.05::com.ti.mmwave_training__1.6.2::com.ti.mmwave_industrial_toolbox__2.2.0::msp430ware__3.80.03.07::tm4c__2.1.3.156::sitara__1.02.00.00::tirtos_msp43x__2.20.00.06::tirtos_cc13xx_cc26xx__2.21.00.06::tirtos_tivac__2.16.00.08::tirtos_simplelink__2.13.01.09::sysbios__6.50.01.12::xdctools__3.50.05.12::com.ti.SIMPLELINK_SDK_TI_15_4_STACK_PLUGIN__1.60.00.16::com.ti.mmwave_automotive_toolbox__1.2.0::com.ti.SIMPLELINK_ZIGBEE_SDK_PLUGIN__1.60.00.14&path=Software/TI-RTOS%20for%20CC2650/Development%20Tools/CC1350%20LaunchPad/Driver%20Examples/RF%20Examples",
+    "importProject": "api/importProject/6smW_QZbE6M1OA/Cortex M.CC1350F128?connection=TIXDS110_Connection.xml&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "packageOrder": 146
+  },
+  {
+    "downloadLink": "api/bundle?vid=tirtos_cc13xx_cc26xx__2.21.00.06&download=true&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "makeofflineLink": "api/bundles?vids=tirtos_cc13xx_cc26xx__2.21.00.06",
+    "removeofflineLink": "api/resources?id=6smtwhBeF18CVA&path=Software/TI-RTOS for CC2650/Development Tools/CC1350 LaunchPad/Driver Examples/RF Examples&removeoffline=true",
+    "name": "RF EasyLink TX",
+    "resourceType": "projectSpec",
+    "coreTypes": [
+      "Cortex M.CC1350F128"
+    ],
+    "devtools": [
+      "CC1350 LaunchPad"
+    ],
+    "description": "An EasyLink transmit example",
+    "advanced": {
+      "overrideProjectSpecDeviceId": true
+    },
+    "_id": "6smtwhBeF18CVA",
+    "version": "UNVERSIONED",
+    "semver": "0.0.0",
+    "dependencies": [],
+    "link": "api/linkTo/6smtwhBeF18CVA?analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples&extname=.projectspec",
+    "package": "TI-RTOS for CC2650",
+    "packageId": "tirtos_cc13xx_cc26xx",
+    "packageVersion": "2.21.00.06",
+    "packageUId": "tirtos_cc13xx_cc26xx__2.21.00.06",
+    "packagePath": "tirtos_cc13xx_cc26xx_2_21_00_06",
+    "allowPartialDownload": false,
+    "linkType": "local",
+    "_originalJsonFile": "tirtos_cc13xx_cc26xx_2_21_00_06/content.tirex.json",
+    "includedFilesForDownload": [],
+    "type": "resource",
+    "text": "RF EasyLink TX",
+    "url": "/api/resources?device=CC1350F128&package=com.ti.SIMPLELINK_CC13X0_SDK__2.10.00.36::com.ti.SIMPLELINK_CC13X2_SDK__1.60.00.29::com.ti.SIMPLELINK_MSP432_SDK__2.10.00.14::com.ti.SIMPLELINK_MSP432E4_SDK__2.10.00.17::com.ti.SIMPLELINK_CC26X2_SDK__2.10.00.44::com.ti.SIMPLELINK_CC2640R2_SDK__1.50.00.58::com.ti.SIMPLELINK_CC32XX_SDK__2.10.00.04::com.ti.SIMPLELINK_CC2640R2_SDK_BLE_EXAMPLE_PACK__1.40.00.50::com.ti.SIMPLELINK_SDK_BLE_PLUGIN__1.40.00.42::com.ti.SIMPLELINK_MSP432_SDK_WIFI_PLUGIN__1.55.00.42::com.ti.SIMPLELINK_SDK_VOICE_DETECTION_PLUGIN__1.50.00.15::com.ti.SAIL__1.20.00.02::com.ti.AZURE_CC32XX__1.00.00.10::com.ti.AWS_CC32XX__1.10.00.07::c2000ware_software_package__1.00.04.00::digital_power_c2000ware_sdk_software_package__1.00.01.00::powerSUITE_software_package__2.01.00.00::com.ti.MMWAVE_SDK__01.02.00.05::com.ti.mmwave_training__1.6.2::com.ti.mmwave_industrial_toolbox__2.2.0::msp430ware__3.80.03.07::tm4c__2.1.3.156::sitara__1.02.00.00::tirtos_msp43x__2.20.00.06::tirtos_cc13xx_cc26xx__2.21.00.06::tirtos_tivac__2.16.00.08::tirtos_simplelink__2.13.01.09::sysbios__6.50.01.12::xdctools__3.50.05.12::com.ti.SIMPLELINK_SDK_TI_15_4_STACK_PLUGIN__1.60.00.16::com.ti.mmwave_automotive_toolbox__1.2.0::com.ti.SIMPLELINK_ZIGBEE_SDK_PLUGIN__1.60.00.14&path=Software/TI-RTOS%20for%20CC2650/Development%20Tools/CC1350%20LaunchPad/Driver%20Examples/RF%20Examples",
+    "importProject": "api/importProject/6smtwhBeF18CVA/Cortex M.CC1350F128?connection=TIXDS110_Connection.xml&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "packageOrder": 146
+  },
+  {
+    "downloadLink": "api/bundle?vid=tirtos_cc13xx_cc26xx__2.21.00.06&download=true&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "makeofflineLink": "api/bundles?vids=tirtos_cc13xx_cc26xx__2.21.00.06",
+    "removeofflineLink": "api/resources?id=6smlFouEiGrkjE&path=Software/TI-RTOS for CC2650/Development Tools/CC1350 LaunchPad/Driver Examples/RF Examples&removeoffline=true",
+    "name": "RF EasyLink RX",
+    "resourceType": "projectSpec",
+    "coreTypes": [
+      "Cortex M.CC1350F128"
+    ],
+    "devtools": [
+      "CC1350 LaunchPad"
+    ],
+    "description": "An EasyLink receive example",
+    "advanced": {
+      "overrideProjectSpecDeviceId": true
+    },
+    "_id": "6smlFouEiGrkjE",
+    "version": "UNVERSIONED",
+    "semver": "0.0.0",
+    "dependencies": [],
+    "link": "api/linkTo/6smlFouEiGrkjE?analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples&extname=.projectspec",
+    "package": "TI-RTOS for CC2650",
+    "packageId": "tirtos_cc13xx_cc26xx",
+    "packageVersion": "2.21.00.06",
+    "packageUId": "tirtos_cc13xx_cc26xx__2.21.00.06",
+    "packagePath": "tirtos_cc13xx_cc26xx_2_21_00_06",
+    "allowPartialDownload": false,
+    "linkType": "local",
+    "_originalJsonFile": "tirtos_cc13xx_cc26xx_2_21_00_06/content.tirex.json",
+    "includedFilesForDownload": [],
+    "type": "resource",
+    "text": "RF EasyLink RX",
+    "url": "/api/resources?device=CC1350F128&package=com.ti.SIMPLELINK_CC13X0_SDK__2.10.00.36::com.ti.SIMPLELINK_CC13X2_SDK__1.60.00.29::com.ti.SIMPLELINK_MSP432_SDK__2.10.00.14::com.ti.SIMPLELINK_MSP432E4_SDK__2.10.00.17::com.ti.SIMPLELINK_CC26X2_SDK__2.10.00.44::com.ti.SIMPLELINK_CC2640R2_SDK__1.50.00.58::com.ti.SIMPLELINK_CC32XX_SDK__2.10.00.04::com.ti.SIMPLELINK_CC2640R2_SDK_BLE_EXAMPLE_PACK__1.40.00.50::com.ti.SIMPLELINK_SDK_BLE_PLUGIN__1.40.00.42::com.ti.SIMPLELINK_MSP432_SDK_WIFI_PLUGIN__1.55.00.42::com.ti.SIMPLELINK_SDK_VOICE_DETECTION_PLUGIN__1.50.00.15::com.ti.SAIL__1.20.00.02::com.ti.AZURE_CC32XX__1.00.00.10::com.ti.AWS_CC32XX__1.10.00.07::c2000ware_software_package__1.00.04.00::digital_power_c2000ware_sdk_software_package__1.00.01.00::powerSUITE_software_package__2.01.00.00::com.ti.MMWAVE_SDK__01.02.00.05::com.ti.mmwave_training__1.6.2::com.ti.mmwave_industrial_toolbox__2.2.0::msp430ware__3.80.03.07::tm4c__2.1.3.156::sitara__1.02.00.00::tirtos_msp43x__2.20.00.06::tirtos_cc13xx_cc26xx__2.21.00.06::tirtos_tivac__2.16.00.08::tirtos_simplelink__2.13.01.09::sysbios__6.50.01.12::xdctools__3.50.05.12::com.ti.SIMPLELINK_SDK_TI_15_4_STACK_PLUGIN__1.60.00.16::com.ti.mmwave_automotive_toolbox__1.2.0::com.ti.SIMPLELINK_ZIGBEE_SDK_PLUGIN__1.60.00.14&path=Software/TI-RTOS%20for%20CC2650/Development%20Tools/CC1350%20LaunchPad/Driver%20Examples/RF%20Examples",
+    "importProject": "api/importProject/6smlFouEiGrkjE/Cortex M.CC1350F128?connection=TIXDS110_Connection.xml&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "packageOrder": 146
+  },
+  {
+    "downloadLink": "api/bundle?vid=tirtos_cc13xx_cc26xx__2.21.00.06&download=true&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "makeofflineLink": "api/bundles?vids=tirtos_cc13xx_cc26xx__2.21.00.06",
+    "removeofflineLink": "api/resources?id=6smsQGzqBQtGTk&path=Software/TI-RTOS for CC2650/Development Tools/CC1350 LaunchPad/Driver Examples/RF Examples&removeoffline=true",
+    "name": "RF EasyLink Network Processor",
+    "resourceType": "projectSpec",
+    "coreTypes": [
+      "Cortex M.CC1350F128"
+    ],
+    "devtools": [
+      "CC1350 LaunchPad"
+    ],
+    "description": "An EasyLink AT Command Network Processor example",
+    "advanced": {
+      "overrideProjectSpecDeviceId": true
+    },
+    "_id": "6smsQGzqBQtGTk",
+    "version": "UNVERSIONED",
+    "semver": "0.0.0",
+    "dependencies": [],
+    "link": "api/linkTo/6smsQGzqBQtGTk?analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples&extname=.projectspec",
+    "package": "TI-RTOS for CC2650",
+    "packageId": "tirtos_cc13xx_cc26xx",
+    "packageVersion": "2.21.00.06",
+    "packageUId": "tirtos_cc13xx_cc26xx__2.21.00.06",
+    "packagePath": "tirtos_cc13xx_cc26xx_2_21_00_06",
+    "allowPartialDownload": false,
+    "linkType": "local",
+    "_originalJsonFile": "tirtos_cc13xx_cc26xx_2_21_00_06/content.tirex.json",
+    "includedFilesForDownload": [],
+    "type": "resource",
+    "text": "RF EasyLink Network Processor",
+    "url": "/api/resources?device=CC1350F128&package=com.ti.SIMPLELINK_CC13X0_SDK__2.10.00.36::com.ti.SIMPLELINK_CC13X2_SDK__1.60.00.29::com.ti.SIMPLELINK_MSP432_SDK__2.10.00.14::com.ti.SIMPLELINK_MSP432E4_SDK__2.10.00.17::com.ti.SIMPLELINK_CC26X2_SDK__2.10.00.44::com.ti.SIMPLELINK_CC2640R2_SDK__1.50.00.58::com.ti.SIMPLELINK_CC32XX_SDK__2.10.00.04::com.ti.SIMPLELINK_CC2640R2_SDK_BLE_EXAMPLE_PACK__1.40.00.50::com.ti.SIMPLELINK_SDK_BLE_PLUGIN__1.40.00.42::com.ti.SIMPLELINK_MSP432_SDK_WIFI_PLUGIN__1.55.00.42::com.ti.SIMPLELINK_SDK_VOICE_DETECTION_PLUGIN__1.50.00.15::com.ti.SAIL__1.20.00.02::com.ti.AZURE_CC32XX__1.00.00.10::com.ti.AWS_CC32XX__1.10.00.07::c2000ware_software_package__1.00.04.00::digital_power_c2000ware_sdk_software_package__1.00.01.00::powerSUITE_software_package__2.01.00.00::com.ti.MMWAVE_SDK__01.02.00.05::com.ti.mmwave_training__1.6.2::com.ti.mmwave_industrial_toolbox__2.2.0::msp430ware__3.80.03.07::tm4c__2.1.3.156::sitara__1.02.00.00::tirtos_msp43x__2.20.00.06::tirtos_cc13xx_cc26xx__2.21.00.06::tirtos_tivac__2.16.00.08::tirtos_simplelink__2.13.01.09::sysbios__6.50.01.12::xdctools__3.50.05.12::com.ti.SIMPLELINK_SDK_TI_15_4_STACK_PLUGIN__1.60.00.16::com.ti.mmwave_automotive_toolbox__1.2.0::com.ti.SIMPLELINK_ZIGBEE_SDK_PLUGIN__1.60.00.14&path=Software/TI-RTOS%20for%20CC2650/Development%20Tools/CC1350%20LaunchPad/Driver%20Examples/RF%20Examples",
+    "importProject": "api/importProject/6smsQGzqBQtGTk/Cortex M.CC1350F128?connection=TIXDS110_Connection.xml&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "packageOrder": 146
+  },
+  {
+    "downloadLink": "api/bundle?vid=tirtos_cc13xx_cc26xx__2.21.00.06&download=true&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "makeofflineLink": "api/bundles?vids=tirtos_cc13xx_cc26xx__2.21.00.06",
+    "removeofflineLink": "api/resources?id=6smfTYkPkOGUDE&path=Software/TI-RTOS for CC2650/Development Tools/CC1350 LaunchPad/Driver Examples/RF Examples&removeoffline=true",
+    "name": "RF Packet Error Rate Test",
+    "resourceType": "projectSpec",
+    "coreTypes": [
+      "Cortex M.CC1350F128"
+    ],
+    "devtools": [
+      "CC1350 LaunchPad"
+    ],
+    "description": "Showcases different RF transfer modes and measures the packet error rate.",
+    "advanced": {
+      "overrideProjectSpecDeviceId": true
+    },
+    "_id": "6smfTYkPkOGUDE",
+    "version": "UNVERSIONED",
+    "semver": "0.0.0",
+    "dependencies": [],
+    "link": "api/linkTo/6smfTYkPkOGUDE?analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples&extname=.projectspec",
+    "package": "TI-RTOS for CC2650",
+    "packageId": "tirtos_cc13xx_cc26xx",
+    "packageVersion": "2.21.00.06",
+    "packageUId": "tirtos_cc13xx_cc26xx__2.21.00.06",
+    "packagePath": "tirtos_cc13xx_cc26xx_2_21_00_06",
+    "allowPartialDownload": false,
+    "linkType": "local",
+    "_originalJsonFile": "tirtos_cc13xx_cc26xx_2_21_00_06/content.tirex.json",
+    "includedFilesForDownload": [],
+    "type": "resource",
+    "text": "RF Packet Error Rate Test",
+    "url": "/api/resources?device=CC1350F128&package=com.ti.SIMPLELINK_CC13X0_SDK__2.10.00.36::com.ti.SIMPLELINK_CC13X2_SDK__1.60.00.29::com.ti.SIMPLELINK_MSP432_SDK__2.10.00.14::com.ti.SIMPLELINK_MSP432E4_SDK__2.10.00.17::com.ti.SIMPLELINK_CC26X2_SDK__2.10.00.44::com.ti.SIMPLELINK_CC2640R2_SDK__1.50.00.58::com.ti.SIMPLELINK_CC32XX_SDK__2.10.00.04::com.ti.SIMPLELINK_CC2640R2_SDK_BLE_EXAMPLE_PACK__1.40.00.50::com.ti.SIMPLELINK_SDK_BLE_PLUGIN__1.40.00.42::com.ti.SIMPLELINK_MSP432_SDK_WIFI_PLUGIN__1.55.00.42::com.ti.SIMPLELINK_SDK_VOICE_DETECTION_PLUGIN__1.50.00.15::com.ti.SAIL__1.20.00.02::com.ti.AZURE_CC32XX__1.00.00.10::com.ti.AWS_CC32XX__1.10.00.07::c2000ware_software_package__1.00.04.00::digital_power_c2000ware_sdk_software_package__1.00.01.00::powerSUITE_software_package__2.01.00.00::com.ti.MMWAVE_SDK__01.02.00.05::com.ti.mmwave_training__1.6.2::com.ti.mmwave_industrial_toolbox__2.2.0::msp430ware__3.80.03.07::tm4c__2.1.3.156::sitara__1.02.00.00::tirtos_msp43x__2.20.00.06::tirtos_cc13xx_cc26xx__2.21.00.06::tirtos_tivac__2.16.00.08::tirtos_simplelink__2.13.01.09::sysbios__6.50.01.12::xdctools__3.50.05.12::com.ti.SIMPLELINK_SDK_TI_15_4_STACK_PLUGIN__1.60.00.16::com.ti.mmwave_automotive_toolbox__1.2.0::com.ti.SIMPLELINK_ZIGBEE_SDK_PLUGIN__1.60.00.14&path=Software/TI-RTOS%20for%20CC2650/Development%20Tools/CC1350%20LaunchPad/Driver%20Examples/RF%20Examples",
+    "importProject": "api/importProject/6smfTYkPkOGUDE/Cortex M.CC1350F128?connection=TIXDS110_Connection.xml&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "packageOrder": 146
+  },
+  {
+    "downloadLink": "api/bundle?vid=tirtos_cc13xx_cc26xx__2.21.00.06&download=true&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "makeofflineLink": "api/bundles?vids=tirtos_cc13xx_cc26xx__2.21.00.06",
+    "removeofflineLink": "api/resources?id=6smp-xzDY5U2y8&path=Software/TI-RTOS for CC2650/Development Tools/CC1350 LaunchPad/Driver Examples/RF Examples&removeoffline=true",
+    "name": "RF Dual Mode Wireless Sensor Network Concentrator",
+    "resourceType": "projectSpec",
+    "coreTypes": [
+      "Cortex M.CC1350F128"
+    ],
+    "devtools": [
+      "CC1350 LaunchPad"
+    ],
+    "description": "A wireless sensor network concentrator which collects data from Sub 1GHz sensor nodes and advertises data in a 2.4Ghz BLE Eddystone Beacon",
+    "advanced": {
+      "overrideProjectSpecDeviceId": true
+    },
+    "_id": "6smp-xzDY5U2y8",
+    "version": "UNVERSIONED",
+    "semver": "0.0.0",
+    "dependencies": [],
+    "link": "api/linkTo/6smp-xzDY5U2y8?analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples&extname=.projectspec",
+    "package": "TI-RTOS for CC2650",
+    "packageId": "tirtos_cc13xx_cc26xx",
+    "packageVersion": "2.21.00.06",
+    "packageUId": "tirtos_cc13xx_cc26xx__2.21.00.06",
+    "packagePath": "tirtos_cc13xx_cc26xx_2_21_00_06",
+    "allowPartialDownload": false,
+    "linkType": "local",
+    "_originalJsonFile": "tirtos_cc13xx_cc26xx_2_21_00_06/content.tirex.json",
+    "includedFilesForDownload": [],
+    "type": "resource",
+    "text": "RF Dual Mode Wireless Sensor Network Concentrator",
+    "url": "/api/resources?device=CC1350F128&package=com.ti.SIMPLELINK_CC13X0_SDK__2.10.00.36::com.ti.SIMPLELINK_CC13X2_SDK__1.60.00.29::com.ti.SIMPLELINK_MSP432_SDK__2.10.00.14::com.ti.SIMPLELINK_MSP432E4_SDK__2.10.00.17::com.ti.SIMPLELINK_CC26X2_SDK__2.10.00.44::com.ti.SIMPLELINK_CC2640R2_SDK__1.50.00.58::com.ti.SIMPLELINK_CC32XX_SDK__2.10.00.04::com.ti.SIMPLELINK_CC2640R2_SDK_BLE_EXAMPLE_PACK__1.40.00.50::com.ti.SIMPLELINK_SDK_BLE_PLUGIN__1.40.00.42::com.ti.SIMPLELINK_MSP432_SDK_WIFI_PLUGIN__1.55.00.42::com.ti.SIMPLELINK_SDK_VOICE_DETECTION_PLUGIN__1.50.00.15::com.ti.SAIL__1.20.00.02::com.ti.AZURE_CC32XX__1.00.00.10::com.ti.AWS_CC32XX__1.10.00.07::c2000ware_software_package__1.00.04.00::digital_power_c2000ware_sdk_software_package__1.00.01.00::powerSUITE_software_package__2.01.00.00::com.ti.MMWAVE_SDK__01.02.00.05::com.ti.mmwave_training__1.6.2::com.ti.mmwave_industrial_toolbox__2.2.0::msp430ware__3.80.03.07::tm4c__2.1.3.156::sitara__1.02.00.00::tirtos_msp43x__2.20.00.06::tirtos_cc13xx_cc26xx__2.21.00.06::tirtos_tivac__2.16.00.08::tirtos_simplelink__2.13.01.09::sysbios__6.50.01.12::xdctools__3.50.05.12::com.ti.SIMPLELINK_SDK_TI_15_4_STACK_PLUGIN__1.60.00.16::com.ti.mmwave_automotive_toolbox__1.2.0::com.ti.SIMPLELINK_ZIGBEE_SDK_PLUGIN__1.60.00.14&path=Software/TI-RTOS%20for%20CC2650/Development%20Tools/CC1350%20LaunchPad/Driver%20Examples/RF%20Examples",
+    "importProject": "api/importProject/6smp-xzDY5U2y8/Cortex M.CC1350F128?connection=TIXDS110_Connection.xml&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "packageOrder": 146
+  },
+  {
+    "downloadLink": "api/bundle?vid=tirtos_cc13xx_cc26xx__2.21.00.06&download=true&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "makeofflineLink": "api/bundles?vids=tirtos_cc13xx_cc26xx__2.21.00.06",
+    "removeofflineLink": "api/resources?id=6sm3vlElZGuLDU&path=Software/TI-RTOS for CC2650/Development Tools/CC1350 LaunchPad/Driver Examples/RF Examples&removeoffline=true",
+    "name": "RF Dual Mode Wireless Sensor Network Node",
+    "resourceType": "projectSpec",
+    "coreTypes": [
+      "Cortex M.CC1350F128"
+    ],
+    "devtools": [
+      "CC1350 LaunchPad"
+    ],
+    "description": "A wireless sensor network node that sends data to the Sub 1GHz collector and advertises data in a 2.4Ghz BLE Eddystone Beacon",
+    "advanced": {
+      "overrideProjectSpecDeviceId": true
+    },
+    "_id": "6sm3vlElZGuLDU",
+    "version": "UNVERSIONED",
+    "semver": "0.0.0",
+    "dependencies": [],
+    "link": "api/linkTo/6sm3vlElZGuLDU?analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples&extname=.projectspec",
+    "package": "TI-RTOS for CC2650",
+    "packageId": "tirtos_cc13xx_cc26xx",
+    "packageVersion": "2.21.00.06",
+    "packageUId": "tirtos_cc13xx_cc26xx__2.21.00.06",
+    "packagePath": "tirtos_cc13xx_cc26xx_2_21_00_06",
+    "allowPartialDownload": false,
+    "linkType": "local",
+    "_originalJsonFile": "tirtos_cc13xx_cc26xx_2_21_00_06/content.tirex.json",
+    "includedFilesForDownload": [],
+    "type": "resource",
+    "text": "RF Dual Mode Wireless Sensor Network Node",
+    "url": "/api/resources?device=CC1350F128&package=com.ti.SIMPLELINK_CC13X0_SDK__2.10.00.36::com.ti.SIMPLELINK_CC13X2_SDK__1.60.00.29::com.ti.SIMPLELINK_MSP432_SDK__2.10.00.14::com.ti.SIMPLELINK_MSP432E4_SDK__2.10.00.17::com.ti.SIMPLELINK_CC26X2_SDK__2.10.00.44::com.ti.SIMPLELINK_CC2640R2_SDK__1.50.00.58::com.ti.SIMPLELINK_CC32XX_SDK__2.10.00.04::com.ti.SIMPLELINK_CC2640R2_SDK_BLE_EXAMPLE_PACK__1.40.00.50::com.ti.SIMPLELINK_SDK_BLE_PLUGIN__1.40.00.42::com.ti.SIMPLELINK_MSP432_SDK_WIFI_PLUGIN__1.55.00.42::com.ti.SIMPLELINK_SDK_VOICE_DETECTION_PLUGIN__1.50.00.15::com.ti.SAIL__1.20.00.02::com.ti.AZURE_CC32XX__1.00.00.10::com.ti.AWS_CC32XX__1.10.00.07::c2000ware_software_package__1.00.04.00::digital_power_c2000ware_sdk_software_package__1.00.01.00::powerSUITE_software_package__2.01.00.00::com.ti.MMWAVE_SDK__01.02.00.05::com.ti.mmwave_training__1.6.2::com.ti.mmwave_industrial_toolbox__2.2.0::msp430ware__3.80.03.07::tm4c__2.1.3.156::sitara__1.02.00.00::tirtos_msp43x__2.20.00.06::tirtos_cc13xx_cc26xx__2.21.00.06::tirtos_tivac__2.16.00.08::tirtos_simplelink__2.13.01.09::sysbios__6.50.01.12::xdctools__3.50.05.12::com.ti.SIMPLELINK_SDK_TI_15_4_STACK_PLUGIN__1.60.00.16::com.ti.mmwave_automotive_toolbox__1.2.0::com.ti.SIMPLELINK_ZIGBEE_SDK_PLUGIN__1.60.00.14&path=Software/TI-RTOS%20for%20CC2650/Development%20Tools/CC1350%20LaunchPad/Driver%20Examples/RF%20Examples",
+    "importProject": "api/importProject/6sm3vlElZGuLDU/Cortex M.CC1350F128?connection=TIXDS110_Connection.xml&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "packageOrder": 146
+  },
+  {
+    "downloadLink": "api/bundle?vid=tirtos_cc13xx_cc26xx__2.21.00.06&download=true&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "makeofflineLink": "api/bundles?vids=tirtos_cc13xx_cc26xx__2.21.00.06",
+    "removeofflineLink": "api/resources?id=6smlcUV6gpTwTs&path=Software/TI-RTOS for CC2650/Development Tools/CC1350 LaunchPad/Driver Examples/RF Examples&removeoffline=true",
+    "name": "RF Wake-on-Radio TX",
+    "resourceType": "projectSpec",
+    "coreTypes": [
+      "Cortex M.CC1350F128"
+    ],
+    "devtools": [
+      "CC1350 LaunchPad"
+    ],
+    "description": "A packet TX example that sends a long preamble.",
+    "advanced": {
+      "overrideProjectSpecDeviceId": true
+    },
+    "_id": "6smlcUV6gpTwTs",
+    "version": "UNVERSIONED",
+    "semver": "0.0.0",
+    "dependencies": [],
+    "link": "api/linkTo/6smlcUV6gpTwTs?analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples&extname=.projectspec",
+    "package": "TI-RTOS for CC2650",
+    "packageId": "tirtos_cc13xx_cc26xx",
+    "packageVersion": "2.21.00.06",
+    "packageUId": "tirtos_cc13xx_cc26xx__2.21.00.06",
+    "packagePath": "tirtos_cc13xx_cc26xx_2_21_00_06",
+    "allowPartialDownload": false,
+    "linkType": "local",
+    "_originalJsonFile": "tirtos_cc13xx_cc26xx_2_21_00_06/content.tirex.json",
+    "includedFilesForDownload": [],
+    "type": "resource",
+    "text": "RF Wake-on-Radio TX",
+    "url": "/api/resources?device=CC1350F128&package=com.ti.SIMPLELINK_CC13X0_SDK__2.10.00.36::com.ti.SIMPLELINK_CC13X2_SDK__1.60.00.29::com.ti.SIMPLELINK_MSP432_SDK__2.10.00.14::com.ti.SIMPLELINK_MSP432E4_SDK__2.10.00.17::com.ti.SIMPLELINK_CC26X2_SDK__2.10.00.44::com.ti.SIMPLELINK_CC2640R2_SDK__1.50.00.58::com.ti.SIMPLELINK_CC32XX_SDK__2.10.00.04::com.ti.SIMPLELINK_CC2640R2_SDK_BLE_EXAMPLE_PACK__1.40.00.50::com.ti.SIMPLELINK_SDK_BLE_PLUGIN__1.40.00.42::com.ti.SIMPLELINK_MSP432_SDK_WIFI_PLUGIN__1.55.00.42::com.ti.SIMPLELINK_SDK_VOICE_DETECTION_PLUGIN__1.50.00.15::com.ti.SAIL__1.20.00.02::com.ti.AZURE_CC32XX__1.00.00.10::com.ti.AWS_CC32XX__1.10.00.07::c2000ware_software_package__1.00.04.00::digital_power_c2000ware_sdk_software_package__1.00.01.00::powerSUITE_software_package__2.01.00.00::com.ti.MMWAVE_SDK__01.02.00.05::com.ti.mmwave_training__1.6.2::com.ti.mmwave_industrial_toolbox__2.2.0::msp430ware__3.80.03.07::tm4c__2.1.3.156::sitara__1.02.00.00::tirtos_msp43x__2.20.00.06::tirtos_cc13xx_cc26xx__2.21.00.06::tirtos_tivac__2.16.00.08::tirtos_simplelink__2.13.01.09::sysbios__6.50.01.12::xdctools__3.50.05.12::com.ti.SIMPLELINK_SDK_TI_15_4_STACK_PLUGIN__1.60.00.16::com.ti.mmwave_automotive_toolbox__1.2.0::com.ti.SIMPLELINK_ZIGBEE_SDK_PLUGIN__1.60.00.14&path=Software/TI-RTOS%20for%20CC2650/Development%20Tools/CC1350%20LaunchPad/Driver%20Examples/RF%20Examples",
+    "importProject": "api/importProject/6smlcUV6gpTwTs/Cortex M.CC1350F128?connection=TIXDS110_Connection.xml&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "packageOrder": 146
+  },
+  {
+    "downloadLink": "api/bundle?vid=tirtos_cc13xx_cc26xx__2.21.00.06&download=true&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "makeofflineLink": "api/bundles?vids=tirtos_cc13xx_cc26xx__2.21.00.06",
+    "removeofflineLink": "api/resources?id=6smHc0K0hksnT4&path=Software/TI-RTOS for CC2650/Development Tools/CC1350 LaunchPad/Driver Examples/RF Examples&removeoffline=true",
+    "name": "RF Wake-on-Radio RX",
+    "resourceType": "projectSpec",
+    "coreTypes": [
+      "Cortex M.CC1350F128"
+    ],
+    "devtools": [
+      "CC1350 LaunchPad"
+    ],
+    "description": "A packet RX example that uses carrier sense to detect the presence of a signal.",
+    "advanced": {
+      "overrideProjectSpecDeviceId": true
+    },
+    "_id": "6smHc0K0hksnT4",
+    "version": "UNVERSIONED",
+    "semver": "0.0.0",
+    "dependencies": [],
+    "link": "api/linkTo/6smHc0K0hksnT4?analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples&extname=.projectspec",
+    "package": "TI-RTOS for CC2650",
+    "packageId": "tirtos_cc13xx_cc26xx",
+    "packageVersion": "2.21.00.06",
+    "packageUId": "tirtos_cc13xx_cc26xx__2.21.00.06",
+    "packagePath": "tirtos_cc13xx_cc26xx_2_21_00_06",
+    "allowPartialDownload": false,
+    "linkType": "local",
+    "_originalJsonFile": "tirtos_cc13xx_cc26xx_2_21_00_06/content.tirex.json",
+    "includedFilesForDownload": [],
+    "type": "resource",
+    "text": "RF Wake-on-Radio RX",
+    "url": "/api/resources?device=CC1350F128&package=com.ti.SIMPLELINK_CC13X0_SDK__2.10.00.36::com.ti.SIMPLELINK_CC13X2_SDK__1.60.00.29::com.ti.SIMPLELINK_MSP432_SDK__2.10.00.14::com.ti.SIMPLELINK_MSP432E4_SDK__2.10.00.17::com.ti.SIMPLELINK_CC26X2_SDK__2.10.00.44::com.ti.SIMPLELINK_CC2640R2_SDK__1.50.00.58::com.ti.SIMPLELINK_CC32XX_SDK__2.10.00.04::com.ti.SIMPLELINK_CC2640R2_SDK_BLE_EXAMPLE_PACK__1.40.00.50::com.ti.SIMPLELINK_SDK_BLE_PLUGIN__1.40.00.42::com.ti.SIMPLELINK_MSP432_SDK_WIFI_PLUGIN__1.55.00.42::com.ti.SIMPLELINK_SDK_VOICE_DETECTION_PLUGIN__1.50.00.15::com.ti.SAIL__1.20.00.02::com.ti.AZURE_CC32XX__1.00.00.10::com.ti.AWS_CC32XX__1.10.00.07::c2000ware_software_package__1.00.04.00::digital_power_c2000ware_sdk_software_package__1.00.01.00::powerSUITE_software_package__2.01.00.00::com.ti.MMWAVE_SDK__01.02.00.05::com.ti.mmwave_training__1.6.2::com.ti.mmwave_industrial_toolbox__2.2.0::msp430ware__3.80.03.07::tm4c__2.1.3.156::sitara__1.02.00.00::tirtos_msp43x__2.20.00.06::tirtos_cc13xx_cc26xx__2.21.00.06::tirtos_tivac__2.16.00.08::tirtos_simplelink__2.13.01.09::sysbios__6.50.01.12::xdctools__3.50.05.12::com.ti.SIMPLELINK_SDK_TI_15_4_STACK_PLUGIN__1.60.00.16::com.ti.mmwave_automotive_toolbox__1.2.0::com.ti.SIMPLELINK_ZIGBEE_SDK_PLUGIN__1.60.00.14&path=Software/TI-RTOS%20for%20CC2650/Development%20Tools/CC1350%20LaunchPad/Driver%20Examples/RF%20Examples",
+    "importProject": "api/importProject/6smHc0K0hksnT4/Cortex M.CC1350F128?connection=TIXDS110_Connection.xml&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "packageOrder": 146
+  },
+  {
+    "downloadLink": "api/bundle?vid=tirtos_cc13xx_cc26xx__2.21.00.06&download=true&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "makeofflineLink": "api/bundles?vids=tirtos_cc13xx_cc26xx__2.21.00.06",
+    "removeofflineLink": "api/resources?id=6smhDBp6UD-bJ0&path=Software/TI-RTOS for CC2650/Development Tools/CC1350 LaunchPad/Driver Examples/RF Examples&removeoffline=true",
+    "name": "RF Listen Before Talk",
+    "resourceType": "projectSpec",
+    "coreTypes": [
+      "Cortex M.CC1350F128"
+    ],
+    "devtools": [
+      "CC1350 LaunchPad"
+    ],
+    "description": "Sends a packet after performing carrier sense and shows command chaining",
+    "advanced": {
+      "overrideProjectSpecDeviceId": true
+    },
+    "_id": "6smhDBp6UD-bJ0",
+    "version": "UNVERSIONED",
+    "semver": "0.0.0",
+    "dependencies": [],
+    "link": "api/linkTo/6smhDBp6UD-bJ0?analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples&extname=.projectspec",
+    "package": "TI-RTOS for CC2650",
+    "packageId": "tirtos_cc13xx_cc26xx",
+    "packageVersion": "2.21.00.06",
+    "packageUId": "tirtos_cc13xx_cc26xx__2.21.00.06",
+    "packagePath": "tirtos_cc13xx_cc26xx_2_21_00_06",
+    "allowPartialDownload": false,
+    "linkType": "local",
+    "_originalJsonFile": "tirtos_cc13xx_cc26xx_2_21_00_06/content.tirex.json",
+    "includedFilesForDownload": [],
+    "type": "resource",
+    "text": "RF Listen Before Talk",
+    "url": "/api/resources?device=CC1350F128&package=com.ti.SIMPLELINK_CC13X0_SDK__2.10.00.36::com.ti.SIMPLELINK_CC13X2_SDK__1.60.00.29::com.ti.SIMPLELINK_MSP432_SDK__2.10.00.14::com.ti.SIMPLELINK_MSP432E4_SDK__2.10.00.17::com.ti.SIMPLELINK_CC26X2_SDK__2.10.00.44::com.ti.SIMPLELINK_CC2640R2_SDK__1.50.00.58::com.ti.SIMPLELINK_CC32XX_SDK__2.10.00.04::com.ti.SIMPLELINK_CC2640R2_SDK_BLE_EXAMPLE_PACK__1.40.00.50::com.ti.SIMPLELINK_SDK_BLE_PLUGIN__1.40.00.42::com.ti.SIMPLELINK_MSP432_SDK_WIFI_PLUGIN__1.55.00.42::com.ti.SIMPLELINK_SDK_VOICE_DETECTION_PLUGIN__1.50.00.15::com.ti.SAIL__1.20.00.02::com.ti.AZURE_CC32XX__1.00.00.10::com.ti.AWS_CC32XX__1.10.00.07::c2000ware_software_package__1.00.04.00::digital_power_c2000ware_sdk_software_package__1.00.01.00::powerSUITE_software_package__2.01.00.00::com.ti.MMWAVE_SDK__01.02.00.05::com.ti.mmwave_training__1.6.2::com.ti.mmwave_industrial_toolbox__2.2.0::msp430ware__3.80.03.07::tm4c__2.1.3.156::sitara__1.02.00.00::tirtos_msp43x__2.20.00.06::tirtos_cc13xx_cc26xx__2.21.00.06::tirtos_tivac__2.16.00.08::tirtos_simplelink__2.13.01.09::sysbios__6.50.01.12::xdctools__3.50.05.12::com.ti.SIMPLELINK_SDK_TI_15_4_STACK_PLUGIN__1.60.00.16::com.ti.mmwave_automotive_toolbox__1.2.0::com.ti.SIMPLELINK_ZIGBEE_SDK_PLUGIN__1.60.00.14&path=Software/TI-RTOS%20for%20CC2650/Development%20Tools/CC1350%20LaunchPad/Driver%20Examples/RF%20Examples",
+    "importProject": "api/importProject/6smhDBp6UD-bJ0/Cortex M.CC1350F128?connection=TIXDS110_Connection.xml&analyticsDevice=CC1350F128&analyticsDevtool=undefined&analyticsPath=Software%2FTI-RTOS%20for%20CC2650%2FDevelopment%20Tools%2FCC1350%20LaunchPad%2FDriver%20Examples%2FRF%20Examples",
+    "packageOrder": 146
+  }
+]
