@@ -52,7 +52,7 @@ int main()
     /* Call driver init functions */
     Board_initGeneral();
 
-    System_printf("hello world\n");
+    System_printf("Hello world from CC1350 Swim Thermo!\n");
 
     /*
      *  normal BIOS programs, would call BIOS_start() to enable interrupts

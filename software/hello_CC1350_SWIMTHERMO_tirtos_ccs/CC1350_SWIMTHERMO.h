@@ -63,50 +63,21 @@ extern const PIN_Config BoardGpioInitTable[];
  *      <board signal alias>        <pin mapping>   <comments>
  */
 
-/* Analog Capable DIOs */
-#define CC1350_SWIMTHERMO_DIO23_ANALOG          IOID_23
-#define CC1350_SWIMTHERMO_DIO24_ANALOG          IOID_24
-#define CC1350_SWIMTHERMO_DIO25_ANALOG          IOID_25
-#define CC1350_SWIMTHERMO_DIO26_ANALOG          IOID_26
-#define CC1350_SWIMTHERMO_DIO27_ANALOG          IOID_27
-#define CC1350_SWIMTHERMO_DIO28_ANALOG          IOID_28
-#define CC1350_SWIMTHERMO_DIO29_ANALOG          IOID_29
-#define CC1350_SWIMTHERMO_DIO30_ANALOG          IOID_30
-
-/* Digital IOs */
-#define CC1350_SWIMTHERMO_DIO0                  IOID_0
-#define CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ       IOID_1
-#define CC1350_SWIMTHERMO_DIO12                 IOID_12
-#define CC1350_SWIMTHERMO_DIO15                 IOID_15
-#define CC1350_SWIMTHERMO_DIO16_TDO             IOID_16
-#define CC1350_SWIMTHERMO_DIO17_TDI             IOID_17
-#define CC1350_SWIMTHERMO_DIO21                 IOID_21
-#define CC1350_SWIMTHERMO_DIO22                 IOID_22
-#define CC1350_SWIMTHERMO_DIO30_RF_POWER        IOID_30
-
-/* Discrete Inputs */
-#define CC1350_SWIMTHERMO_PIN_BTN1              IOID_13
-#define CC1350_SWIMTHERMO_PIN_BTN2              IOID_14
-
-
-/* GPIO */
-#define CC1350_SWIMTHERMO_GPIO_LED_ON           1
-#define CC1350_SWIMTHERMO_GPIO_LED_OFF          0
-
-/* I2C */
-#define CC1350_SWIMTHERMO_I2C0_SCL0             IOID_4
-#define CC1350_SWIMTHERMO_I2C0_SDA0             IOID_5
-
-
-/* LEDs */
-#define CC1350_SWIMTHERMO_PIN_LED_ON            1
-#define CC1350_SWIMTHERMO_PIN_LED_OFF           0
-#define CC1350_SWIMTHERMO_PIN_RLED              IOID_6
-#define CC1350_SWIMTHERMO_PIN_GLED              IOID_7
+/* IOs */
+#define CC1350_SWIMTHERMO_DIO0_RF_SW_PWR        IOID_0
+#define CC1350_SWIMTHERMO_DIO1_RF_SW            IOID_1
+#define CC1350_SWIMTHERMO_DIO2                  IOID_2
+#define CC1350_SWIMTHERMO_DIO3_TDO              IOID_3
+#define CC1350_SWIMTHERMO_DIO4_TDI              IOID_4
+#define CC1350_SWIMTHERMO_DIO5                  IOID_5
+#define CC1350_SWIMTHERMO_DIO6                  IOID_6
+#define CC1350_SWIMTHERMO_DIO7_ANALOG           IOID_7
+#define CC1350_SWIMTHERMO_DIO8                  IOID_8
+#define CC1350_SWIMTHERMO_DIO9                  IOID_9
 
 /* PWM Outputs */
-#define CC1350_SWIMTHERMO_PWMPIN0               CC1350_SWIMTHERMO_PIN_RLED
-#define CC1350_SWIMTHERMO_PWMPIN1               CC1350_SWIMTHERMO_PIN_GLED
+#define CC1350_SWIMTHERMO_PWMPIN0               PIN_UNASSIGNED
+#define CC1350_SWIMTHERMO_PWMPIN1               PIN_UNASSIGNED
 #define CC1350_SWIMTHERMO_PWMPIN2               PIN_UNASSIGNED
 #define CC1350_SWIMTHERMO_PWMPIN3               PIN_UNASSIGNED
 #define CC1350_SWIMTHERMO_PWMPIN4               PIN_UNASSIGNED
@@ -114,26 +85,11 @@ extern const PIN_Config BoardGpioInitTable[];
 #define CC1350_SWIMTHERMO_PWMPIN6               PIN_UNASSIGNED
 #define CC1350_SWIMTHERMO_PWMPIN7               PIN_UNASSIGNED
 
-/* SPI */
-#define CC1350_SWIMTHERMO_SPI_FLASH_CS          IOID_20
-#define CC1350_SWIMTHERMO_FLASH_CS_ON           0
-#define CC1350_SWIMTHERMO_FLASH_CS_OFF          1
-
-/* SPI Board */
-#define CC1350_SWIMTHERMO_SPI0_MISO             IOID_8          /* RF1.20 */
-#define CC1350_SWIMTHERMO_SPI0_MOSI             IOID_9          /* RF1.18 */
-#define CC1350_SWIMTHERMO_SPI0_CLK              IOID_10         /* RF1.16 */
-#define CC1350_SWIMTHERMO_SPI0_CSN              PIN_UNASSIGNED
-#define CC1350_SWIMTHERMO_SPI1_MISO             PIN_UNASSIGNED
-#define CC1350_SWIMTHERMO_SPI1_MOSI             PIN_UNASSIGNED
-#define CC1350_SWIMTHERMO_SPI1_CLK              PIN_UNASSIGNED
-#define CC1350_SWIMTHERMO_SPI1_CSN              PIN_UNASSIGNED
-
 /* UART Board */
-#define CC1350_SWIMTHERMO_UART_RX               IOID_2          /* RXD */
-#define CC1350_SWIMTHERMO_UART_TX               IOID_3          /* TXD */
-#define CC1350_SWIMTHERMO_UART_CTS              IOID_19         /* CTS */
-#define CC1350_SWIMTHERMO_UART_RTS              IOID_18         /* RTS */
+#define CC1350_SWIMTHERMO_UART_RX               PIN_UNASSIGNED  /* RXD */
+#define CC1350_SWIMTHERMO_UART_TX               PIN_UNASSIGNED  /* TXD */
+#define CC1350_SWIMTHERMO_UART_CTS              PIN_UNASSIGNED  /* CTS */
+#define CC1350_SWIMTHERMO_UART_RTS              PIN_UNASSIGNED  /* RTS */
 
 /*!
  *  @brief  Initialize the general board specific settings
@@ -141,20 +97,6 @@ extern const PIN_Config BoardGpioInitTable[];
  *  This function initializes the general board specific settings.
  */
 void CC1350_SWIMTHERMO_initGeneral(void);
-
-/*!
- *  @brief  Turn off the external flash on LaunchPads
- *
- */
-void CC1350_SWIMTHERMO_shutDownExtFlash(void);
-
-/*!
- *  @brief  Wake up the external flash present on the board files
- *
- *  This function toggles the chip select for the amount of time needed
- *  to wake the chip up.
- */
-void CC1350_SWIMTHERMO_wakeUpExtFlash(void);
 
 /*!
  *  @def    CC1350_SWIMTHERMO_ADCBufName
@@ -172,13 +114,6 @@ typedef enum CC1350_SWIMTHERMO_ADCBufName {
  */
 typedef enum CC1350_SWIMTHERMO_ADCBuf0ChannelName {
     CC1350_SWIMTHERMO_ADCBUF0CHANNEL0 = 0,
-    CC1350_SWIMTHERMO_ADCBUF0CHANNEL1,
-    CC1350_SWIMTHERMO_ADCBUF0CHANNEL2,
-    CC1350_SWIMTHERMO_ADCBUF0CHANNEL3,
-    CC1350_SWIMTHERMO_ADCBUF0CHANNEL4,
-    CC1350_SWIMTHERMO_ADCBUF0CHANNEL5,
-    CC1350_SWIMTHERMO_ADCBUF0CHANNEL6,
-    CC1350_SWIMTHERMO_ADCBUF0CHANNEL7,
     CC1350_SWIMTHERMO_ADCBUF0CHANNELVDDS,
     CC1350_SWIMTHERMO_ADCBUF0CHANNELDCOUPL,
     CC1350_SWIMTHERMO_ADCBUF0CHANNELVSS,
@@ -192,13 +127,6 @@ typedef enum CC1350_SWIMTHERMO_ADCBuf0ChannelName {
  */
 typedef enum CC1350_SWIMTHERMO_ADCName {
     CC1350_SWIMTHERMO_ADC0 = 0,
-    CC1350_SWIMTHERMO_ADC1,
-    CC1350_SWIMTHERMO_ADC2,
-    CC1350_SWIMTHERMO_ADC3,
-    CC1350_SWIMTHERMO_ADC4,
-    CC1350_SWIMTHERMO_ADC5,
-    CC1350_SWIMTHERMO_ADC6,
-    CC1350_SWIMTHERMO_ADC7,
     CC1350_SWIMTHERMO_ADCDCOUPL,
     CC1350_SWIMTHERMO_ADCVSS,
     CC1350_SWIMTHERMO_ADCVDDS,
@@ -221,17 +149,12 @@ typedef enum CC1350_SWIMTHERMO_CryptoName {
  *  @brief  Enum of GPIO names
  */
 typedef enum CC1350_SWIMTHERMO_GPIOName {
-    CC1350_SWIMTHERMO_GPIO_S1 = 0,
-    CC1350_SWIMTHERMO_GPIO_S2,
-    CC1350_SWIMTHERMO_SPI_MASTER_READY,
-    CC1350_SWIMTHERMO_SPI_SLAVE_READY,
-    CC1350_SWIMTHERMO_GPIO_LED_GREEN,
-    CC1350_SWIMTHERMO_GPIO_LED_RED,
-    CC1350_SWIMTHERMO_GPIO_SPI_FLASH_CS,
-    CC1350_SWIMTHERMO_SDSPI_CS,
-    CC1350_SWIMTHERMO_GPIO_LCD_CS,
-    CC1350_SWIMTHERMO_GPIO_LCD_POWER,
-    CC1350_SWIMTHERMO_GPIO_LCD_ENABLE,
+    CC1350_SWIMTHERMO_GPIO_PSU_ENABLE = 0,
+    CC1350_SWIMTHERMO_GPIO_T_ON1,
+    CC1350_SWIMTHERMO_GPIO_T_ON2,
+    CC1350_SWIMTHERMO_GPIO_BTN,
+    CC1350_SWIMTHERMO_GPIO_LED,
+
     CC1350_SWIMTHERMO_GPIOCOUNT
 } CC1350_SWIMTHERMO_GPIOName;
 
@@ -266,16 +189,6 @@ typedef enum CC1350_SWIMTHERMO_GPTimers {
 } CC1350_SWIMTHERMO_GPTimers;
 
 /*!
- *  @def    CC1350_SWIMTHERMO_I2CName
- *  @brief  Enum of I2C names
- */
-typedef enum CC1350_SWIMTHERMO_I2CName {
-    CC1350_SWIMTHERMO_I2C0 = 0,
-
-    CC1350_SWIMTHERMO_I2CCOUNT
-} CC1350_SWIMTHERMO_I2CName;
-
-/*!
  *  @def    CC1350_SWIMTHERMO_NVSName
  *  @brief  Enum of NVS names
  */
@@ -302,27 +215,6 @@ typedef enum CC1350_SWIMTHERMO_PWMName {
 
     CC1350_SWIMTHERMO_PWMCOUNT
 } CC1350_SWIMTHERMO_PWMName;
-
-/*!
- *  @def    CC1350_SWIMTHERMO_SDName
- *  @brief  Enum of SD names
- */
-typedef enum CC1350_SWIMTHERMO_SDName {
-    CC1350_SWIMTHERMO_SDSPI0 = 0,
-
-    CC1350_SWIMTHERMO_SDCOUNT
-} CC1350_SWIMTHERMO_SDName;
-
-/*!
- *  @def    CC1350_SWIMTHERMO_SPIName
- *  @brief  Enum of SPI names
- */
-typedef enum CC1350_SWIMTHERMO_SPIName {
-    CC1350_SWIMTHERMO_SPI0 = 0,
-    CC1350_SWIMTHERMO_SPI1,
-
-    CC1350_SWIMTHERMO_SPICOUNT
-} CC1350_SWIMTHERMO_SPIName;
 
 /*!
  *  @def    CC1350_SWIMTHERMO_UARTName

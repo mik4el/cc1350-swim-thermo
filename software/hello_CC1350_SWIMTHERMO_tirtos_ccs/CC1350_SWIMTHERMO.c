@@ -59,14 +59,7 @@ ADCBufCC26XX_Object adcBufCC26XXobjects[CC1350_SWIMTHERMO_ADCBUFCOUNT];
  *  entries. The mapping of dio and internal signals is package dependent.
  */
 const ADCBufCC26XX_AdcChannelLutEntry ADCBufCC26XX_adcChannelLut[CC1350_SWIMTHERMO_ADCBUF0CHANNELCOUNT] = {
-    {CC1350_SWIMTHERMO_DIO23_ANALOG, ADC_COMPB_IN_AUXIO7},
-    {CC1350_SWIMTHERMO_DIO24_ANALOG, ADC_COMPB_IN_AUXIO6},
-    {CC1350_SWIMTHERMO_DIO25_ANALOG, ADC_COMPB_IN_AUXIO5},
-    {CC1350_SWIMTHERMO_DIO26_ANALOG, ADC_COMPB_IN_AUXIO4},
-    {CC1350_SWIMTHERMO_DIO27_ANALOG, ADC_COMPB_IN_AUXIO3},
-    {CC1350_SWIMTHERMO_DIO28_ANALOG, ADC_COMPB_IN_AUXIO2},
-    {CC1350_SWIMTHERMO_DIO29_ANALOG, ADC_COMPB_IN_AUXIO1},
-    {CC1350_SWIMTHERMO_DIO30_ANALOG, ADC_COMPB_IN_AUXIO0},
+    {CC1350_SWIMTHERMO_DIO7_ANALOG, ADC_COMPB_IN_AUXIO5},
     {PIN_UNASSIGNED, ADC_COMPB_IN_VDDS},
     {PIN_UNASSIGNED, ADC_COMPB_IN_DCOUPL},
     {PIN_UNASSIGNED, ADC_COMPB_IN_VSS},
@@ -102,73 +95,10 @@ ADCCC26XX_Object adcCC26xxObjects[CC1350_SWIMTHERMO_ADCCOUNT];
 
 const ADCCC26XX_HWAttrs adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADCCOUNT] = {
     {
-        .adcDIO              = CC1350_SWIMTHERMO_DIO23_ANALOG,
-        .adcCompBInput       = ADC_COMPB_IN_AUXIO7,
-        .refSource           = ADCCC26XX_FIXED_REFERENCE,
-        .samplingDuration    = ADCCC26XX_SAMPLING_DURATION_2P7_US,
-        .inputScalingEnabled = true,
-        .triggerSource       = ADCCC26XX_TRIGGER_MANUAL,
-        .returnAdjustedVal   = false
-    },
-    {
-        .adcDIO              = CC1350_SWIMTHERMO_DIO24_ANALOG,
-        .adcCompBInput       = ADC_COMPB_IN_AUXIO6,
-        .refSource           = ADCCC26XX_FIXED_REFERENCE,
-        .samplingDuration    = ADCCC26XX_SAMPLING_DURATION_2P7_US,
-        .inputScalingEnabled = true,
-        .triggerSource       = ADCCC26XX_TRIGGER_MANUAL,
-        .returnAdjustedVal   = false
-    },
-    {
-        .adcDIO              = CC1350_SWIMTHERMO_DIO25_ANALOG,
+        .adcDIO              = CC1350_SWIMTHERMO_DIO7_ANALOG,
         .adcCompBInput       = ADC_COMPB_IN_AUXIO5,
         .refSource           = ADCCC26XX_FIXED_REFERENCE,
         .samplingDuration    = ADCCC26XX_SAMPLING_DURATION_2P7_US,
-        .inputScalingEnabled = true,
-        .triggerSource       = ADCCC26XX_TRIGGER_MANUAL,
-        .returnAdjustedVal   = false
-    },
-    {
-        .adcDIO              = CC1350_SWIMTHERMO_DIO26_ANALOG,
-        .adcCompBInput       = ADC_COMPB_IN_AUXIO4,
-        .refSource           = ADCCC26XX_FIXED_REFERENCE,
-        .samplingDuration    = ADCCC26XX_SAMPLING_DURATION_2P7_US,
-        .inputScalingEnabled = true,
-        .triggerSource       = ADCCC26XX_TRIGGER_MANUAL,
-        .returnAdjustedVal   = false
-    },
-    {
-        .adcDIO              = CC1350_SWIMTHERMO_DIO27_ANALOG,
-        .adcCompBInput       = ADC_COMPB_IN_AUXIO3,
-        .refSource           = ADCCC26XX_FIXED_REFERENCE,
-        .samplingDuration    = ADCCC26XX_SAMPLING_DURATION_2P7_US,
-        .inputScalingEnabled = true,
-        .triggerSource       = ADCCC26XX_TRIGGER_MANUAL,
-        .returnAdjustedVal   = false
-    },
-    {
-        .adcDIO              = CC1350_SWIMTHERMO_DIO28_ANALOG,
-        .adcCompBInput       = ADC_COMPB_IN_AUXIO2,
-        .refSource           = ADCCC26XX_FIXED_REFERENCE,
-        .samplingDuration    = ADCCC26XX_SAMPLING_DURATION_2P7_US,
-        .inputScalingEnabled = true,
-        .triggerSource       = ADCCC26XX_TRIGGER_MANUAL,
-        .returnAdjustedVal   = false
-    },
-    {
-        .adcDIO              = CC1350_SWIMTHERMO_DIO29_ANALOG,
-        .adcCompBInput       = ADC_COMPB_IN_AUXIO1,
-        .refSource           = ADCCC26XX_FIXED_REFERENCE,
-        .samplingDuration    = ADCCC26XX_SAMPLING_DURATION_2P7_US,
-        .inputScalingEnabled = true,
-        .triggerSource       = ADCCC26XX_TRIGGER_MANUAL,
-        .returnAdjustedVal   = false
-    },
-    {
-        .adcDIO              = CC1350_SWIMTHERMO_DIO30_ANALOG,
-        .adcCompBInput       = ADC_COMPB_IN_AUXIO0,
-        .refSource           = ADCCC26XX_FIXED_REFERENCE,
-        .samplingDuration    = ADCCC26XX_SAMPLING_DURATION_10P9_MS,
         .inputScalingEnabled = true,
         .triggerSource       = ADCCC26XX_TRIGGER_MANUAL,
         .returnAdjustedVal   = false
@@ -204,13 +134,6 @@ const ADCCC26XX_HWAttrs adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADCCOUNT] = {
 
 const ADC_Config ADC_config[CC1350_SWIMTHERMO_ADCCOUNT] = {
     {&ADCCC26XX_fxnTable, &adcCC26xxObjects[CC1350_SWIMTHERMO_ADC0], &adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADC0]},
-    {&ADCCC26XX_fxnTable, &adcCC26xxObjects[CC1350_SWIMTHERMO_ADC1], &adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADC1]},
-    {&ADCCC26XX_fxnTable, &adcCC26xxObjects[CC1350_SWIMTHERMO_ADC2], &adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADC2]},
-    {&ADCCC26XX_fxnTable, &adcCC26xxObjects[CC1350_SWIMTHERMO_ADC3], &adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADC3]},
-    {&ADCCC26XX_fxnTable, &adcCC26xxObjects[CC1350_SWIMTHERMO_ADC4], &adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADC4]},
-    {&ADCCC26XX_fxnTable, &adcCC26xxObjects[CC1350_SWIMTHERMO_ADC5], &adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADC5]},
-    {&ADCCC26XX_fxnTable, &adcCC26xxObjects[CC1350_SWIMTHERMO_ADC6], &adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADC6]},
-    {&ADCCC26XX_fxnTable, &adcCC26xxObjects[CC1350_SWIMTHERMO_ADC7], &adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADC7]},
     {&ADCCC26XX_fxnTable, &adcCC26xxObjects[CC1350_SWIMTHERMO_ADCDCOUPL], &adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADCDCOUPL]},
     {&ADCCC26XX_fxnTable, &adcCC26xxObjects[CC1350_SWIMTHERMO_ADCVSS], &adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADCVSS]},
     {&ADCCC26XX_fxnTable, &adcCC26xxObjects[CC1350_SWIMTHERMO_ADCVDDS], &adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADCVDDS]},
@@ -242,92 +165,6 @@ const CryptoCC26XX_Config CryptoCC26XX_config[CC1350_SWIMTHERMO_CRYPTOCOUNT] = {
 };
 
 /*
- *  =============================== Display ===============================
- */
-#include <ti/display/Display.h>
-#include <ti/display/DisplayUart.h>
-#include <ti/display/DisplaySharp.h>
-
-#ifndef BOARD_DISPLAY_UART_STRBUF_SIZE
-#define BOARD_DISPLAY_UART_STRBUF_SIZE    128
-#endif
-
-#ifndef BOARD_DISPLAY_SHARP_SIZE
-#define BOARD_DISPLAY_SHARP_SIZE    96
-#endif
-
-DisplayUart_Object     displayUartObject;
-DisplaySharp_Object    displaySharpObject;
-
-static char uartStringBuf[BOARD_DISPLAY_UART_STRBUF_SIZE];
-static uint_least8_t sharpDisplayBuf[BOARD_DISPLAY_SHARP_SIZE * BOARD_DISPLAY_SHARP_SIZE / 8];
-
-const DisplayUart_HWAttrs displayUartHWAttrs = {
-    .uartIdx      = CC1350_SWIMTHERMO_UART0,
-    .baudRate     = 115200,
-    .mutexTimeout = (unsigned int)(-1),
-    .strBuf       = uartStringBuf,
-    .strBufLen    = BOARD_DISPLAY_UART_STRBUF_SIZE,
-};
-
-const DisplaySharp_HWAttrsV1 displaySharpHWattrs = {
-    .spiIndex    = CC1350_SWIMTHERMO_SPI0,
-    .csPin       = CC1350_SWIMTHERMO_GPIO_LCD_CS,
-    .powerPin    = CC1350_SWIMTHERMO_GPIO_LCD_POWER,
-    .enablePin   = CC1350_SWIMTHERMO_GPIO_LCD_ENABLE,
-    .pixelWidth  = BOARD_DISPLAY_SHARP_SIZE,
-    .pixelHeight = BOARD_DISPLAY_SHARP_SIZE,
-    .displayBuf  = sharpDisplayBuf,
-};
-
-#ifndef BOARD_DISPLAY_USE_UART
-#define BOARD_DISPLAY_USE_UART 1
-#endif
-#ifndef BOARD_DISPLAY_USE_UART_ANSI
-#define BOARD_DISPLAY_USE_UART_ANSI 0
-#endif
-#ifndef BOARD_DISPLAY_USE_LCD
-#define BOARD_DISPLAY_USE_LCD 0
-#endif
-
-/*
- * This #if/#else is needed to workaround a problem with the
- * IAR compiler. The IAR compiler doesn't like the empty array
- * initialization. (IAR Error[Pe1345])
- */
-#if (BOARD_DISPLAY_USE_UART || BOARD_DISPLAY_USE_LCD)
-
-const Display_Config Display_config[] = {
-#if (BOARD_DISPLAY_USE_UART)
-    {
-#  if (BOARD_DISPLAY_USE_UART_ANSI)
-        .fxnTablePtr = &DisplayUartAnsi_fxnTable,
-#  else /* Default to minimal UART with no cursor placement */
-        .fxnTablePtr = &DisplayUartMin_fxnTable,
-#  endif
-        .object      = &displayUartObject,
-        .hwAttrs     = &displayUartHWAttrs,
-    },
-#endif
-#if (BOARD_DISPLAY_USE_LCD)
-    {
-        .fxnTablePtr = &DisplaySharp_fxnTable,
-        .object      = &displaySharpObject,
-        .hwAttrs     = &displaySharpHWattrs
-    },
-#endif
-};
-
-const uint_least8_t Display_count = sizeof(Display_config) / sizeof(Display_Config);
-
-#else
-
-const Display_Config *Display_config = NULL;
-const uint_least8_t Display_count = 0;
-
-#endif /* (BOARD_DISPLAY_USE_UART || BOARD_DISPLAY_USE_LCD) */
-
-/*
  *  =============================== GPIO ===============================
  */
 #include <ti/drivers/GPIO.h>
@@ -342,28 +179,11 @@ const uint_least8_t Display_count = 0;
  *       reduce memory usage.
  */
 GPIO_PinConfig gpioPinConfigs[] = {
-    /* Input pins */
-    GPIOCC26XX_DIO_13 | GPIO_DO_NOT_CONFIG,  /* Button 0 */
-    GPIOCC26XX_DIO_14 | GPIO_DO_NOT_CONFIG,  /* Button 1 */
-
-    GPIOCC26XX_DIO_15 | GPIO_DO_NOT_CONFIG,  /* CC1350_SWIMTHERMO_SPI_MASTER_READY */
-    GPIOCC26XX_DIO_21 | GPIO_DO_NOT_CONFIG,  /* CC1350_SWIMTHERMO_SPI_SLAVE_READY */
-
-    /* Output pins */
-    GPIOCC26XX_DIO_07 | GPIO_DO_NOT_CONFIG,  /* Green LED */
-    GPIOCC26XX_DIO_06 | GPIO_DO_NOT_CONFIG,  /* Red LED */
-
-    /* SPI Flash CSN */
-    GPIOCC26XX_DIO_20 | GPIO_DO_NOT_CONFIG,
-
-    /* SD CS */
-    GPIOCC26XX_DIO_21 | GPIO_DO_NOT_CONFIG,
-
-    /* Sharp Display - GPIO configurations will be done in the Display files */
-    GPIOCC26XX_DIO_24 | GPIO_DO_NOT_CONFIG, /* SPI chip select */
-    GPIOCC26XX_DIO_22 | GPIO_DO_NOT_CONFIG, /* LCD power control */
-    GPIOCC26XX_DIO_23 | GPIO_DO_NOT_CONFIG, /*LCD enable */
-
+    GPIOCC26XX_DIO_02  | GPIO_DO_NOT_CONFIG,  /* PSU_ENABLE */
+    GPIOCC26XX_DIO_05  | GPIO_DO_NOT_CONFIG,  /* T_ON1 */
+    GPIOCC26XX_DIO_06  | GPIO_DO_NOT_CONFIG,  /* T_ON2 */
+    GPIOCC26XX_DIO_08  | GPIO_DO_NOT_CONFIG,  /* BTN */
+    GPIOCC26XX_DIO_09  | GPIO_DO_NOT_CONFIG,  /* LED */
 };
 
 /*
@@ -374,10 +194,7 @@ GPIO_PinConfig gpioPinConfigs[] = {
  *       reduce memory usage (if placed at end of gpioPinConfigs array).
  */
 GPIO_CallbackFxn gpioCallbackFunctions[] = {
-    NULL,  /*  Button 0 */
-    NULL,  /*  Button 1 */
-    NULL,  /* CC1350_SWIMTHERMO_SPI_MASTER_READY */
-    NULL,  /* CC1350_SWIMTHERMO_SPI_SLAVE_READY */
+    NULL, /* BTN */
 };
 
 const GPIOCC26XX_Config GPIOCC26XX_config = {
@@ -419,150 +236,12 @@ const GPTimerCC26XX_Config GPTimerCC26XX_config[CC1350_SWIMTHERMO_GPTIMERPARTSCO
 };
 
 /*
- *  =============================== I2C ===============================
-*/
-#include <ti/drivers/I2C.h>
-#include <ti/drivers/i2c/I2CCC26XX.h>
-
-I2CCC26XX_Object i2cCC26xxObjects[CC1350_SWIMTHERMO_I2CCOUNT];
-
-const I2CCC26XX_HWAttrsV1 i2cCC26xxHWAttrs[CC1350_SWIMTHERMO_I2CCOUNT] = {
-    {
-        .baseAddr    = I2C0_BASE,
-        .powerMngrId = PowerCC26XX_PERIPH_I2C0,
-        .intNum      = INT_I2C_IRQ,
-        .intPriority = ~0,
-        .swiPriority = 0,
-        .sdaPin      = CC1350_SWIMTHERMO_I2C0_SDA0,
-        .sclPin      = CC1350_SWIMTHERMO_I2C0_SCL0,
-    }
-};
-
-const I2C_Config I2C_config[CC1350_SWIMTHERMO_I2CCOUNT] = {
-    {
-        .fxnTablePtr = &I2CCC26XX_fxnTable,
-        .object      = &i2cCC26xxObjects[CC1350_SWIMTHERMO_I2C0],
-        .hwAttrs     = &i2cCC26xxHWAttrs[CC1350_SWIMTHERMO_I2C0]
-    },
-};
-
-const uint_least8_t I2C_count = CC1350_SWIMTHERMO_I2CCOUNT;
-
-/*
- *  =============================== NVS ===============================
- */
-#include <ti/drivers/NVS.h>
-#include <ti/drivers/nvs/NVSSPI25X.h>
-#include <ti/drivers/nvs/NVSCC26XX.h>
-
-#define NVS_REGIONS_BASE 0x1A000
-#define SECTORSIZE       0x1000
-#define REGIONSIZE       (SECTORSIZE * 4)
-#define SPIREGIONSIZE    (SECTORSIZE * 32)
-#define VERIFYBUFSIZE    64
-
-static uint8_t verifyBuf[VERIFYBUFSIZE];
-
-/*
- * Reserve flash sectors for NVS driver use by placing an uninitialized byte
- * array at the desired flash address.
- */
-#if defined(__TI_COMPILER_VERSION__)
-
-/*
- * Place uninitialized array at NVS_REGIONS_BASE
- */
-#pragma LOCATION(flashBuf, NVS_REGIONS_BASE);
-#pragma NOINIT(flashBuf);
-static char flashBuf[REGIONSIZE];
-
-#elif defined(__IAR_SYSTEMS_ICC__)
-
-/*
- * Place uninitialized array at NVS_REGIONS_BASE
- */
-static __no_init char flashBuf[REGIONSIZE] @ NVS_REGIONS_BASE;
-
-#elif defined(__GNUC__)
-
-/*
- * Place the flash buffers in the .nvs section created in the gcc linker file.
- * The .nvs section enforces alignment on a sector boundary but may
- * be placed anywhere in flash memory.  If desired the .nvs section can be set
- * to a fixed address by changing the following in the gcc linker file:
- *
- * .nvs (FIXED_FLASH_ADDR) (NOLOAD) : AT (FIXED_FLASH_ADDR) {
- *      *(.nvs)
- * } > REGION_TEXT
- */
-__attribute__ ((section (".nvs")))
-static char flashBuf[REGIONSIZE];
-
-#endif
-
-/* Allocate objects for NVS and NVS SPI */
-NVSCC26XX_Object nvsCC26xxObjects[1];
-NVSSPI25X_Object nvsSPI25XObjects[1];
-
-/* Hardware attributes for NVS */
-const NVSCC26XX_HWAttrs nvsCC26xxHWAttrs[1] = {
-    {
-        .regionBase = (void *)flashBuf,
-        .regionSize = REGIONSIZE,
-    },
-};
-
-/* Hardware attributes for NVS SPI */
-const NVSSPI25X_HWAttrs nvsSPI25XHWAttrs[1] = {
-    {
-        .regionBaseOffset = 0,
-        .regionSize = SPIREGIONSIZE,
-        .sectorSize = SECTORSIZE,
-        .verifyBuf = verifyBuf,
-        .verifyBufSize = VERIFYBUFSIZE,
-        .spiHandle = NULL,
-        .spiIndex = 0,
-        .spiBitRate = 4000000,
-        .spiCsnGpioIndex = CC1350_SWIMTHERMO_GPIO_SPI_FLASH_CS,
-    },
-};
-
-/* NVS Region index 0 and 1 refer to NVS and NVS SPI respectively */
-const NVS_Config NVS_config[CC1350_SWIMTHERMO_NVSCOUNT] = {
-    {
-        .fxnTablePtr = &NVSCC26XX_fxnTable,
-        .object = &nvsCC26xxObjects[0],
-        .hwAttrs = &nvsCC26xxHWAttrs[0],
-    },
-    {
-        .fxnTablePtr = &NVSSPI25X_fxnTable,
-        .object = &nvsSPI25XObjects[0],
-        .hwAttrs = &nvsSPI25XHWAttrs[0],
-    },
-};
-
-const uint_least8_t NVS_count = CC1350_SWIMTHERMO_NVSCOUNT;
-
-/*
  *  =============================== PIN ===============================
  */
 #include <ti/drivers/PIN.h>
 #include <ti/drivers/pin/PINCC26XX.h>
 
 const PIN_Config BoardGpioInitTable[] = {
-
-    CC1350_SWIMTHERMO_PIN_RLED | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,          /* LED initially off             */
-    CC1350_SWIMTHERMO_PIN_GLED | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,          /* LED initially off             */
-    CC1350_SWIMTHERMO_PIN_BTN1 | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_BOTHEDGES | PIN_HYSTERESIS,             /* Button is active low          */
-    CC1350_SWIMTHERMO_PIN_BTN2 | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_BOTHEDGES | PIN_HYSTERESIS,             /* Button is active low          */
-    CC1350_SWIMTHERMO_SPI_FLASH_CS | PIN_GPIO_OUTPUT_EN | PIN_GPIO_HIGH | PIN_PUSHPULL | PIN_DRVSTR_MIN,     /* External flash chip select    */
-    CC1350_SWIMTHERMO_UART_RX | PIN_INPUT_EN | PIN_PULLDOWN,                                                 /* UART RX via debugger back channel */
-    CC1350_SWIMTHERMO_UART_TX | PIN_GPIO_OUTPUT_EN | PIN_GPIO_HIGH | PIN_PUSHPULL,                           /* UART TX via debugger back channel */
-    CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ   | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX, /* RF SW Switch defaults to 2.4 GHz path*/
-    CC1350_SWIMTHERMO_DIO30_RF_POWER | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,    /* External RF Switch is powered off by default */
-    CC1350_SWIMTHERMO_SPI0_MOSI | PIN_INPUT_EN | PIN_PULLDOWN,                                               /* SPI master out - slave in */
-    CC1350_SWIMTHERMO_SPI0_MISO | PIN_INPUT_EN | PIN_PULLDOWN,                                               /* SPI master in - slave out */
-    CC1350_SWIMTHERMO_SPI0_CLK | PIN_INPUT_EN | PIN_PULLDOWN,                                                /* SPI clock */
     PIN_TERMINATE
 };
 
@@ -639,92 +318,6 @@ const RFCC26XX_HWAttrsV2 RFCC26XX_hwAttrs = {
     .globalCallback     = &CC1350_SWIMTHERMO_rfDriverCallback,                        /* Register the board specific callback */
     .globalEventMask    = RF_GlobalEventRadioSetup | RF_GlobalEventRadioPowerDown   /* Subscribe the callback to both events */
 };
-
-/*
- *  =============================== SD ===============================
- */
-#include <ti/drivers/SD.h>
-#include <ti/drivers/sd/SDSPI.h>
-
-SDSPI_Object sdspiObjects[CC1350_SWIMTHERMO_SDCOUNT];
-
-const SDSPI_HWAttrs sdspiHWAttrs[CC1350_SWIMTHERMO_SDCOUNT] = {
-    {
-        .spiIndex = CC1350_SWIMTHERMO_SPI0,
-        .spiCsGpioIndex = CC1350_SWIMTHERMO_SDSPI_CS
-    }
-};
-
-const SD_Config SD_config[CC1350_SWIMTHERMO_SDCOUNT] = {
-    {
-        .fxnTablePtr = &SDSPI_fxnTable,
-        .object = &sdspiObjects[CC1350_SWIMTHERMO_SDSPI0],
-        .hwAttrs = &sdspiHWAttrs[CC1350_SWIMTHERMO_SDSPI0]
-    },
-};
-
-const uint_least8_t SD_count = CC1350_SWIMTHERMO_SDCOUNT;
-
-/*
- *  =============================== SPI DMA ===============================
- */
-#include <ti/drivers/SPI.h>
-#include <ti/drivers/spi/SPICC26XXDMA.h>
-
-SPICC26XXDMA_Object spiCC26XXDMAObjects[CC1350_SWIMTHERMO_SPICOUNT];
-
-/*
- * NOTE: The SPI instances below can be used by the SD driver to communicate
- * with a SD card via SPI.  The 'defaultTxBufValue' fields below are set to 0xFF
- * to satisfy the SDSPI driver requirement.
- */
-const SPICC26XXDMA_HWAttrsV1 spiCC26XXDMAHWAttrs[CC1350_SWIMTHERMO_SPICOUNT] = {
-    {
-        .baseAddr           = SSI0_BASE,
-        .intNum             = INT_SSI0_COMB,
-        .intPriority        = ~0,
-        .swiPriority        = 0,
-        .powerMngrId        = PowerCC26XX_PERIPH_SSI0,
-        .defaultTxBufValue  = 0xFF,
-        .rxChannelBitMask   = 1<<UDMA_CHAN_SSI0_RX,
-        .txChannelBitMask   = 1<<UDMA_CHAN_SSI0_TX,
-        .mosiPin            = CC1350_SWIMTHERMO_SPI0_MOSI,
-        .misoPin            = CC1350_SWIMTHERMO_SPI0_MISO,
-        .clkPin             = CC1350_SWIMTHERMO_SPI0_CLK,
-        .csnPin             = CC1350_SWIMTHERMO_SPI0_CSN,
-        .minDmaTransferSize = 10
-    },
-    {
-        .baseAddr           = SSI1_BASE,
-        .intNum             = INT_SSI1_COMB,
-        .intPriority        = ~0,
-        .swiPriority        = 0,
-        .powerMngrId        = PowerCC26XX_PERIPH_SSI1,
-        .defaultTxBufValue  = 0xFF,
-        .rxChannelBitMask   = 1<<UDMA_CHAN_SSI1_RX,
-        .txChannelBitMask   = 1<<UDMA_CHAN_SSI1_TX,
-        .mosiPin            = CC1350_SWIMTHERMO_SPI1_MOSI,
-        .misoPin            = CC1350_SWIMTHERMO_SPI1_MISO,
-        .clkPin             = CC1350_SWIMTHERMO_SPI1_CLK,
-        .csnPin             = CC1350_SWIMTHERMO_SPI1_CSN,
-        .minDmaTransferSize = 10
-    }
-};
-
-const SPI_Config SPI_config[CC1350_SWIMTHERMO_SPICOUNT] = {
-    {
-         .fxnTablePtr = &SPICC26XXDMA_fxnTable,
-         .object      = &spiCC26XXDMAObjects[CC1350_SWIMTHERMO_SPI0],
-         .hwAttrs     = &spiCC26XXDMAHWAttrs[CC1350_SWIMTHERMO_SPI0]
-    },
-    {
-         .fxnTablePtr = &SPICC26XXDMA_fxnTable,
-         .object      = &spiCC26XXDMAObjects[CC1350_SWIMTHERMO_SPI1],
-         .hwAttrs     = &spiCC26XXDMAHWAttrs[CC1350_SWIMTHERMO_SPI1]
-    },
-};
-
-const uint_least8_t SPI_count = CC1350_SWIMTHERMO_SPICOUNT;
 
 /*
  *  =============================== UART ===============================
@@ -814,92 +407,6 @@ const Watchdog_Config Watchdog_config[CC1350_SWIMTHERMO_WATCHDOGCOUNT] = {
 const uint_least8_t Watchdog_count = CC1350_SWIMTHERMO_WATCHDOGCOUNT;
 
 /*
- *  ======== CC1350_SWIMTHERMO_wakeUpExtFlash ========
- */
-void CC1350_SWIMTHERMO_wakeUpExtFlash(void)
-{
-    PIN_Config extFlashPinTable[] = {
-        CC1350_SWIMTHERMO_SPI_FLASH_CS | PIN_GPIO_OUTPUT_EN | PIN_GPIO_HIGH | PIN_PUSHPULL | PIN_INPUT_DIS | PIN_DRVSTR_MED,
-        PIN_TERMINATE
-    };
-    PIN_State extFlashPinState;
-    PIN_Handle extFlashPinHandle = PIN_open(&extFlashPinState, extFlashPinTable);
-
-    /*
-     *  To wake up we need to toggle the chip select at
-     *  least 20 ns and ten wait at least 35 us.
-     */
-
-    /* Toggle chip select for ~20ns to wake ext. flash */
-    PIN_setOutputValue(extFlashPinHandle, CC1350_SWIMTHERMO_SPI_FLASH_CS, 0);
-    /* 3 cycles per loop: 1 loop @ 48 Mhz ~= 62 ns */
-    CPUdelay(1);
-    PIN_setOutputValue(extFlashPinHandle, CC1350_SWIMTHERMO_SPI_FLASH_CS, 1);
-    /* 3 cycles per loop: 560 loops @ 48 Mhz ~= 35 us */
-    CPUdelay(560);
-
-    PIN_close(extFlashPinHandle);
-}
-
-/*
- *  ======== CC1350_SWIMTHERMO_sendExtFlashByte ========
- */
-void CC1350_SWIMTHERMO_sendExtFlashByte(PIN_Handle pinHandle, uint8_t byte)
-{
-    uint8_t i;
-
-    PIN_setOutputValue(pinHandle, CC1350_SWIMTHERMO_SPI_FLASH_CS, 0);
-
-    for (i = 0; i < 8; i++) {
-        PIN_setOutputValue(pinHandle, CC1350_SWIMTHERMO_SPI0_CLK, 0);
-        PIN_setOutputValue(pinHandle, CC1350_SWIMTHERMO_SPI0_MOSI, (byte >> (7 - i)) & 0x01);
-        PIN_setOutputValue(pinHandle, CC1350_SWIMTHERMO_SPI0_CLK, 1);
-
-        /*
-         * Waste a few cycles to keep the CLK high for at
-         * least 45% of the period.
-         * 3 cycles per loop: 8 loops @ 48 Mhz = 0.5 us.
-         */
-        CPUdelay(8);
-    }
-
-    PIN_setOutputValue(pinHandle, CC1350_SWIMTHERMO_SPI0_CLK, 0);
-    PIN_setOutputValue(pinHandle, CC1350_SWIMTHERMO_SPI_FLASH_CS, 1);
-
-    /*
-     * Keep CS high at least 40 us
-     * 3 cycles per loop: 700 loops @ 48 Mhz ~= 44 us
-     */
-    CPUdelay(700);
-}
-
-/*
- *  ======== CC1350_SWIMTHERMO_shutDownExtFlash ========
- */
-void CC1350_SWIMTHERMO_shutDownExtFlash(void)
-{
-    /* To be sure we are putting the flash into sleep and not waking it, we first have to make a wake up call */
-    CC1350_SWIMTHERMO_wakeUpExtFlash();
-
-
-    PIN_Config extFlashPinTable[] = {
-        CC1350_SWIMTHERMO_SPI_FLASH_CS | PIN_GPIO_OUTPUT_EN | PIN_GPIO_HIGH | PIN_PUSHPULL | PIN_INPUT_DIS | PIN_DRVSTR_MED,
-        CC1350_SWIMTHERMO_SPI0_CLK | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_INPUT_DIS | PIN_DRVSTR_MED,
-        CC1350_SWIMTHERMO_SPI0_MOSI | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_INPUT_DIS | PIN_DRVSTR_MED,
-        CC1350_SWIMTHERMO_SPI0_MISO | PIN_INPUT_EN | PIN_PULLDOWN,
-        PIN_TERMINATE
-    };
-    PIN_State extFlashPinState;
-    PIN_Handle extFlashPinHandle = PIN_open(&extFlashPinState, extFlashPinTable);
-
-    uint8_t extFlashShutdown = 0xB9;
-
-    CC1350_SWIMTHERMO_sendExtFlashByte(extFlashPinHandle, extFlashShutdown);
-
-    PIN_close(extFlashPinHandle);
-}
-
-/*
  *  ======== CC1350_SWIMTHERMO_initGeneral ========
  */
 void CC1350_SWIMTHERMO_initGeneral(void)
@@ -911,8 +418,6 @@ void CC1350_SWIMTHERMO_initGeneral(void)
         while (1);
     }
 
-    /* Shut down external flash as default */
-    CC1350_SWIMTHERMO_shutDownExtFlash();
 }
 
 /*
@@ -927,16 +432,16 @@ void CC1350_SWIMTHERMO_rfDriverCallback(RF_Handle client, RF_GlobalEvent events,
 
     if (events & RF_GlobalEventRadioSetup) {
         /* Power up the antenna switch */
-        PINCC26XX_setOutputValue(CC1350_SWIMTHERMO_DIO30_RF_POWER, 1);
+        PINCC26XX_setOutputValue(CC1350_SWIMTHERMO_DIO0_RF_SW_PWR, 1);
 
         if (setupCommand->common.commandNo == CMD_PROP_RADIO_DIV_SETUP) {
             /* Sub-1 GHz, requires antenna switch high */
-            PINCC26XX_setOutputValue(CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ, 1);
+            PINCC26XX_setOutputValue(CC1350_SWIMTHERMO_DIO1_RF_SW, 1);
         }
 
     } else if (events & RF_GlobalEventRadioPowerDown) {
         /* Disable antenna switch to save current */
-        PINCC26XX_setOutputValue(CC1350_SWIMTHERMO_DIO30_RF_POWER, 0);
-        PINCC26XX_setOutputValue(CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ, 0);
+        PINCC26XX_setOutputValue(CC1350_SWIMTHERMO_DIO0_RF_SW_PWR, 0);
+        PINCC26XX_setOutputValue(CC1350_SWIMTHERMO_DIO1_RF_SW, 0);
     }
 }

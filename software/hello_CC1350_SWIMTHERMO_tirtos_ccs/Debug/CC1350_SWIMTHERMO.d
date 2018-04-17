@@ -54,34 +54,19 @@ CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/
 CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/crypto/CryptoCC26XX.h
 CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/devices/cc13x0/driverlib/crypto.h
 CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/devices/cc13x0/driverlib/../inc/hw_crypto.h
-CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/display/Display.h
-CC1350_SWIMTHERMO.obj: /Applications/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdarg.h
-CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/display/DisplayUart.h
-CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/UART.h
-CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/display/DisplaySharp.h
-CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/SPI.h
-CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/grlib/grlib.h
-CC1350_SWIMTHERMO.obj: /Applications/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/assert.h
-CC1350_SWIMTHERMO.obj: /Applications/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/_ti_config.h
-CC1350_SWIMTHERMO.obj: /Applications/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/linkage.h
 CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/GPIO.h
 CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/gpio/GPIOCC26XX.h
-CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/I2C.h
-CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/i2c/I2CCC26XX.h
-CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/NVS.h
-CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/nvs/NVSSPI25X.h
-CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/nvs/NVSCC26XX.h
 CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/PWM.h
 CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/pwm/PWMTimerCC26XX.h
 CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/rf/RF.h
 CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/devices/cc13x0/driverlib/rf_common_cmd.h
 CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/devices/cc13x0/driverlib/rf_mailbox.h
 CC1350_SWIMTHERMO.obj: /Applications/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/string.h
+CC1350_SWIMTHERMO.obj: /Applications/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/_ti_config.h
+CC1350_SWIMTHERMO.obj: /Applications/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/linkage.h
 CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/devices/cc13x0/driverlib/rf_prop_cmd.h
 CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/devices/cc13x0/driverlib/rf_ble_cmd.h
-CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/SD.h
-CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/sd/SDSPI.h
-CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/spi/SPICC26XXDMA.h
+CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/UART.h
 CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/uart/UARTCC26XX.h
 CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/utils/RingBuf.h
 CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/devices/cc13x0/driverlib/uart.h
@@ -143,34 +128,19 @@ CC1350_SWIMTHERMO.obj: /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/
 /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/crypto/CryptoCC26XX.h: 
 /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/devices/cc13x0/driverlib/crypto.h: 
 /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/devices/cc13x0/driverlib/../inc/hw_crypto.h: 
-/Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/display/Display.h: 
-/Applications/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/stdarg.h: 
-/Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/display/DisplayUart.h: 
-/Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/UART.h: 
-/Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/display/DisplaySharp.h: 
-/Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/SPI.h: 
-/Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/grlib/grlib.h: 
-/Applications/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/assert.h: 
-/Applications/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/_ti_config.h: 
-/Applications/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/linkage.h: 
 /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/GPIO.h: 
 /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/gpio/GPIOCC26XX.h: 
-/Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/I2C.h: 
-/Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/i2c/I2CCC26XX.h: 
-/Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/NVS.h: 
-/Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/nvs/NVSSPI25X.h: 
-/Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/nvs/NVSCC26XX.h: 
 /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/PWM.h: 
 /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/pwm/PWMTimerCC26XX.h: 
 /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/rf/RF.h: 
 /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/devices/cc13x0/driverlib/rf_common_cmd.h: 
 /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/devices/cc13x0/driverlib/rf_mailbox.h: 
 /Applications/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/string.h: 
+/Applications/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/_ti_config.h: 
+/Applications/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/linkage.h: 
 /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/devices/cc13x0/driverlib/rf_prop_cmd.h: 
 /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/devices/cc13x0/driverlib/rf_ble_cmd.h: 
-/Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/SD.h: 
-/Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/sd/SDSPI.h: 
-/Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/spi/SPICC26XXDMA.h: 
+/Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/UART.h: 
 /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/uart/UARTCC26XX.h: 
 /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/drivers/utils/RingBuf.h: 
 /Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/source/ti/devices/cc13x0/driverlib/uart.h: 
