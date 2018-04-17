@@ -65,52 +65,6 @@ extern const PIN_Config BoardGpioInitTable[];
  *      <board signal alias>        <pin mapping>   <comments>
  */
 
-/* Discrete outputs */
-#define Board_RLED                  IOID_6
-#define Board_GLED                  IOID_7
-#define Board_LED_ON                1
-#define Board_LED_OFF               0
-
-/* Discrete inputs */
-#define Board_BTN1                  IOID_13
-#define Board_BTN2                  IOID_14
-
-/* UART Board */
-#define Board_UART_RX               IOID_2          /* RXD  */
-#define Board_UART_TX               IOID_3          /* TXD  */
-#define Board_UART_CTS              IOID_19         /* CTS  */
-#define Board_UART_RTS              IOID_18         /* RTS */
-
-/* SPI Board */
-#define Board_SPI0_MISO             IOID_8          /* RF1.20 */
-#define Board_SPI0_MOSI             IOID_9          /* RF1.18 */
-#define Board_SPI0_CLK              IOID_10         /* RF1.16 */
-#define Board_SPI0_CSN              PIN_UNASSIGNED
-#define Board_SPI1_MISO             PIN_UNASSIGNED
-#define Board_SPI1_MOSI             PIN_UNASSIGNED
-#define Board_SPI1_CLK              PIN_UNASSIGNED
-#define Board_SPI1_CSN              PIN_UNASSIGNED
-
-/* I2C */
-#define Board_I2C0_SCL0             IOID_4
-#define Board_I2C0_SDA0             IOID_5
-
-/* SPI */
-#define Board_SPI_FLASH_CS          IOID_20
-#define Board_FLASH_CS_ON           0
-#define Board_FLASH_CS_OFF          1
-
-/* Booster pack generic */
-#define Board_DIO0                  IOID_0
-#define Board_DIO1_RFSW             IOID_1
-#define Board_DIO12                 IOID_12
-#define Board_DIO15                 IOID_15
-#define Board_DIO16_TDO             IOID_16
-#define Board_DIO17_TDI             IOID_17
-#define Board_DIO21                 IOID_21
-#define Board_DIO22                 IOID_22
-#define Board_DIO30_SWPWR           IOID_30
-
 #define Board_DIO23_ANALOG          IOID_23
 #define Board_DIO24_ANALOG          IOID_24
 #define Board_DIO25_ANALOG          IOID_25
@@ -120,34 +74,10 @@ extern const PIN_Config BoardGpioInitTable[];
 #define Board_DIO29_ANALOG          IOID_29
 #define Board_DIO30_ANALOG          IOID_30
 
-/* Booster pack LCD (430BOOST - Sharp96 Rev 1.1) */
-#define Board_LCD_CS                IOID_24 // SPI chip select
-#define Board_LCD_EXTCOMIN          IOID_12 // External COM inversion
-#define Board_LCD_ENABLE            IOID_22 // LCD enable
-#define Board_LCD_POWER             IOID_23 // LCD power control
-#define Board_LCD_CS_ON             1
-#define Board_LCD_CS_OFF            0
-
-/* PWM outputs */
-#define Board_PWMPIN0                       Board_RLED
-#define Board_PWMPIN1                       Board_GLED
-#define Board_PWMPIN2                       PIN_UNASSIGNED
-#define Board_PWMPIN3                       PIN_UNASSIGNED
-#define Board_PWMPIN4                       PIN_UNASSIGNED
-#define Board_PWMPIN5                       PIN_UNASSIGNED
-#define Board_PWMPIN6                       PIN_UNASSIGNED
-#define Board_PWMPIN7                       PIN_UNASSIGNED
 
 /** ============================================================================
  *  Instance identifiers
  *  ==========================================================================*/
-/* Generic SPI instance identifiers */
-#define Board_SPI0                  CC1350_LAUNCHXL_SPI0
-#define Board_SPI1                  CC1350_LAUNCHXL_SPI1
-/* Generic UART instance identifiers */
-#define Board_UART                  CC1350_LAUNCHXL_UART0
-/* Generic Crypto instance identifiers */
-#define Board_CRYPTO                CC1350_LAUNCHXL_CRYPTO0
 /* Generic GPTimer instance identifiers */
 #define Board_GPTIMER0A             CC1350_LAUNCHXL_GPTIMER0A
 #define Board_GPTIMER0B             CC1350_LAUNCHXL_GPTIMER0B
@@ -157,71 +87,10 @@ extern const PIN_Config BoardGpioInitTable[];
 #define Board_GPTIMER2B             CC1350_LAUNCHXL_GPTIMER2B
 #define Board_GPTIMER3A             CC1350_LAUNCHXL_GPTIMER3A
 #define Board_GPTIMER3B             CC1350_LAUNCHXL_GPTIMER3B
-/* Generic PWM instance identifiers */
-#define Board_PWM0                  CC1350_LAUNCHXL_PWM0
-#define Board_PWM1                  CC1350_LAUNCHXL_PWM1
-#define Board_PWM2                  CC1350_LAUNCHXL_PWM2
-#define Board_PWM3                  CC1350_LAUNCHXL_PWM3
-#define Board_PWM4                  CC1350_LAUNCHXL_PWM4
-#define Board_PWM5                  CC1350_LAUNCHXL_PWM5
-#define Board_PWM6                  CC1350_LAUNCHXL_PWM6
-#define Board_PWM7                  CC1350_LAUNCHXL_PWM7
 
 /** ============================================================================
  *  Number of peripherals and their names
  *  ==========================================================================*/
-
-/*!
- *  @def    CC1350_LAUNCHXL_I2CName
- *  @brief  Enum of I2C names on the CC2650 dev board
- */
-typedef enum CC1350_LAUNCHXL_I2CName {
-    CC1350_LAUNCHXL_I2C0 = 0,
-
-    CC1350_LAUNCHXL_I2CCOUNT
-} CC1350_LAUNCHXL_I2CName;
-
-/*!
- *  @def    CC1350_LAUNCHXL_CryptoName
- *  @brief  Enum of Crypto names on the CC2650 dev board
- */
-typedef enum CC1350_LAUNCHXL_CryptoName {
-    CC1350_LAUNCHXL_CRYPTO0 = 0,
-
-    CC1350_LAUNCHXL_CRYPTOCOUNT
-} CC1350_LAUNCHXL_CryptoName;
-
-
-/*!
- *  @def    CC1350_LAUNCHXL_SPIName
- *  @brief  Enum of SPI names on the CC2650 dev board
- */
-typedef enum CC1350_LAUNCHXL_SPIName {
-    CC1350_LAUNCHXL_SPI0 = 0,
-    CC1350_LAUNCHXL_SPI1,
-
-    CC1350_LAUNCHXL_SPICOUNT
-} CC1350_LAUNCHXL_SPIName;
-
-/*!
- *  @def    CC1350_LAUNCHXL_UARTName
- *  @brief  Enum of UARTs on the CC2650 dev board
- */
-typedef enum CC1350_LAUNCHXL_UARTName {
-    CC1350_LAUNCHXL_UART0 = 0,
-
-    CC1350_LAUNCHXL_UARTCOUNT
-} CC1350_LAUNCHXL_UARTName;
-
-/*!
- *  @def    CC1350_LAUNCHXL_UdmaName
- *  @brief  Enum of DMA buffers
- */
-typedef enum CC1350_LAUNCHXL_UdmaName {
-    CC1350_LAUNCHXL_UDMA0 = 0,
-
-    CC1350_LAUNCHXL_UDMACOUNT
-} CC1350_LAUNCHXL_UdmaName;
 
 /*!
  *  @def    CC1350_LAUNCHXL_GPTimerName
@@ -254,23 +123,6 @@ typedef enum CC1350_LAUNCHXL_GPTimers
 } CC1350_LAUNCHXL_GPTimers;
 
 /*!
- *  @def    CC1350_LAUNCHXL_PWM
- *  @brief  Enum of PWM outputs on the board
- */
-typedef enum CC1350_LAUNCHXL_PWM
-{
-    CC1350_LAUNCHXL_PWM0 = 0,
-    CC1350_LAUNCHXL_PWM1,
-    CC1350_LAUNCHXL_PWM2,
-    CC1350_LAUNCHXL_PWM3,
-    CC1350_LAUNCHXL_PWM4,
-    CC1350_LAUNCHXL_PWM5,
-    CC1350_LAUNCHXL_PWM6,
-    CC1350_LAUNCHXL_PWM7,
-    CC1350_LAUNCHXL_PWMCOUNT
-} CC1350_LAUNCHXL_PWM;
-
-/*!
  *  @def    CC1350_LAUNCHXL_ADCBufName
  *  @brief  Enum of ADCBufs
  */
@@ -299,15 +151,6 @@ typedef enum CC1350_LAUNCHXL_ADCName {
     CC1350_LAUNCHXL_ADCCOUNT
 } CC1350_LAUNCHXL_ADCName;
 
-/*!
- *  @def    CC1350_LAUNCHXL_WatchdogName
- *  @brief  Enum of Watchdogs on the CC1350_LAUNCHXL dev board
- */
-typedef enum CC1350_LAUNCHXL_WatchdogName {
-    CC1350_LAUNCHXL_WATCHDOG0 = 0,
-
-    CC1350_LAUNCHXL_WATCHDOGCOUNT
-} CC1350_LAUNCHXL_WatchdogName;
 
 #ifdef __cplusplus
 }
