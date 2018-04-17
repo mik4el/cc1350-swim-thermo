@@ -15,6 +15,8 @@ Requires Code Composer Studio (CCS) v8 for software and Kicad for hardware. Soft
 1. Program the cc1350 with the hello world project that includes a modified board file in this repo and make sure the program runs as expected.
 1. Success!
 
+![Working hello world](https://github.com/mik4el/cc1350-swim-thermo/blob/master/working_hello_world.JPG)
+
 If you have problems, follow these debugging steps to make sure the CC1350 and board is setup as expected:
 
 Always a good idea to cycle power and restart CCS if a previously working board stopped working.
