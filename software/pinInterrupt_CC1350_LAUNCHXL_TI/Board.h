@@ -42,12 +42,7 @@ extern "C" {
 #include "CC1350_LAUNCHXL.h"
 
 /* These #defines allow us to reuse TI-RTOS across other device families */
-#define     Board_LED0              Board_RLED
-#define     Board_LED1              Board_GLED
-#define     Board_LED2              Board_LED0
-
 #define     Board_BUTTON0           Board_BTN1
-#define     Board_BUTTON1           Board_BTN2
 
 #define     Board_initGeneral() { \
     Power_init(); \
@@ -57,7 +52,6 @@ extern "C" {
 }
 
 #define     Board_initGPIO()
-#define     Board_initPWM()        PWM_init()
 #define     GPIO_toggle(n)
 #define     GPIO_write(n,m)
 

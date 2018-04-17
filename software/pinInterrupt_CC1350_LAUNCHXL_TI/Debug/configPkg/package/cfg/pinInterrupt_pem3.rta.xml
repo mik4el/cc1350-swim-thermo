@@ -74,7 +74,7 @@
     <logger>null</logger>
     <diagsMask>0000100000000000</diagsMask>
   </modMap>
-  <modMap key="xdc.runtime.SysMin">
+  <modMap key="xdc.runtime.SysStd">
     <id>14</id>
     <logger>null</logger>
     <diagsMask>0000100000000000</diagsMask>

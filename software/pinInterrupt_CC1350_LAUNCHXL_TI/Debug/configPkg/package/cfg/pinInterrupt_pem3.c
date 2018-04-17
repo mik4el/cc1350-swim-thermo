@@ -73,7 +73,7 @@
 #include <xdc/runtime/Registry.h>
 #include <xdc/runtime/Startup.h>
 #include <xdc/runtime/SysCallback.h>
-#include <xdc/runtime/SysMin.h>
+#include <xdc/runtime/SysStd.h>
 #include <xdc/runtime/System.h>
 #include <xdc/runtime/Text.h>
 #include <xdc/runtime/Timestamp.h>
@@ -865,7 +865,7 @@ typedef struct {
 
 
 /*
- * ======== xdc.runtime.SysMin INTERNALS ========
+ * ======== xdc.runtime.SysStd INTERNALS ========
  */
 
 
@@ -1060,19 +1060,19 @@ const xdc_runtime_SysCallback_Fxns__ xdc_runtime_SysCallback_Module__FXNS__C = {
 
 
 /*
- * ======== xdc.runtime.SysMin VTABLE ========
+ * ======== xdc.runtime.SysStd VTABLE ========
  */
 
 /* Module__FXNS__C */
-#pragma DATA_SECTION(xdc_runtime_SysMin_Module__FXNS__C, ".const:xdc_runtime_SysMin_Module__FXNS__C");
-const xdc_runtime_SysMin_Fxns__ xdc_runtime_SysMin_Module__FXNS__C = {
+#pragma DATA_SECTION(xdc_runtime_SysStd_Module__FXNS__C, ".const:xdc_runtime_SysStd_Module__FXNS__C");
+const xdc_runtime_SysStd_Fxns__ xdc_runtime_SysStd_Module__FXNS__C = {
     (void*)&xdc_runtime_ISystemSupport_Interface__BASE__C, /* __base */
-    &xdc_runtime_SysMin_Module__FXNS__C.__sfxns, /* __sysp */
-    xdc_runtime_SysMin_abort__E,
-    xdc_runtime_SysMin_exit__E,
-    xdc_runtime_SysMin_flush__E,
-    xdc_runtime_SysMin_putch__E,
-    xdc_runtime_SysMin_ready__E,
+    &xdc_runtime_SysStd_Module__FXNS__C.__sfxns, /* __sysp */
+    xdc_runtime_SysStd_abort__E,
+    xdc_runtime_SysStd_exit__E,
+    xdc_runtime_SysStd_flush__E,
+    xdc_runtime_SysStd_putch__E,
+    xdc_runtime_SysStd_ready__E,
     {
         NULL, /* __create */
         NULL, /* __delete */
@@ -1575,9 +1575,6 @@ const __T1_xdc_runtime_Startup_firstFxns xdc_runtime_Startup_firstFxns__A[3];
 /* --> xdc_runtime_System_Module_startup__E */
 extern xdc_Int xdc_runtime_System_Module_startup__E(xdc_Int);
 
-/* --> xdc_runtime_SysMin_Module_startup__E */
-extern xdc_Int xdc_runtime_SysMin_Module_startup__E(xdc_Int);
-
 /* --> ti_sysbios_knl_Clock_Module_startup__E */
 extern xdc_Int ti_sysbios_knl_Clock_Module_startup__E(xdc_Int);
 
@@ -1603,10 +1600,10 @@ extern xdc_Int ti_sysbios_family_arm_cc26xx_TimestampProvider_Module_startup__E(
 extern xdc_Int ti_sysbios_hal_Hwi_Module_startup__E(xdc_Int);
 
 /* --> xdc_runtime_Startup_sfxnTab__A */
-const __T1_xdc_runtime_Startup_sfxnTab xdc_runtime_Startup_sfxnTab__A[10];
+const __T1_xdc_runtime_Startup_sfxnTab xdc_runtime_Startup_sfxnTab__A[9];
 
 /* --> xdc_runtime_Startup_sfxnRts__A */
-const __T1_xdc_runtime_Startup_sfxnRts xdc_runtime_Startup_sfxnRts__A[10];
+const __T1_xdc_runtime_Startup_sfxnRts xdc_runtime_Startup_sfxnRts__A[9];
 
 
 /*
@@ -1630,24 +1627,8 @@ extern xdc_Bool xdc_runtime_SysCallback_defaultReady(xdc_Void);
 
 
 /*
- * ======== xdc.runtime.SysMin DECLARATIONS ========
+ * ======== xdc.runtime.SysStd DECLARATIONS ========
  */
-
-/* Module_State__ */
-typedef struct xdc_runtime_SysMin_Module_State__ {
-    __TA_xdc_runtime_SysMin_Module_State__outbuf outbuf;
-    xdc_UInt outidx;
-    xdc_Bool wrapped;
-} xdc_runtime_SysMin_Module_State__;
-
-/* --> xdc_runtime_SysMin_Module_State_0_outbuf__A */
-__T1_xdc_runtime_SysMin_Module_State__outbuf xdc_runtime_SysMin_Module_State_0_outbuf__A[128];
-
-/* Module__state__V */
-xdc_runtime_SysMin_Module_State__ xdc_runtime_SysMin_Module__state__V;
-
-/* --> xdc_runtime_SysMin_output__I */
-extern xdc_Void xdc_runtime_SysMin_output__I(xdc_Char*,xdc_UInt);
 
 
 /*
@@ -1834,9 +1815,6 @@ xdc__META(__TRDR__, "@(#)__TRDR__ = ti.targets.omf.elf.Elf32");
 /*
  *  ======== MODULE STARTUP DONE FUNCTIONS ========
  */
-xdc_Bool xdc_runtime_SysMin_Module__startupDone__F(void) {
-    return (&xdc_runtime_Startup_Module__state__V)->stateTab == 0 || (&xdc_runtime_Startup_Module__state__V)->stateTab[1] < 0;
-}
 
 
 xdc_Int xdc_runtime_Startup_getState__I(xdc_runtime_Types_ModuleId id) {
@@ -1844,21 +1822,21 @@ xdc_Int xdc_runtime_Startup_getState__I(xdc_runtime_Types_ModuleId id) {
         case 12:
             return ((&xdc_runtime_Startup_Module__state__V)->stateTab[0]);
         case 23:
-            return ((&xdc_runtime_Startup_Module__state__V)->stateTab[2]);
+            return ((&xdc_runtime_Startup_Module__state__V)->stateTab[1]);
         case 27:
-            return ((&xdc_runtime_Startup_Module__state__V)->stateTab[3]);
+            return ((&xdc_runtime_Startup_Module__state__V)->stateTab[2]);
         case 30:
-            return ((&xdc_runtime_Startup_Module__state__V)->stateTab[4]);
+            return ((&xdc_runtime_Startup_Module__state__V)->stateTab[3]);
         case 31:
-            return ((&xdc_runtime_Startup_Module__state__V)->stateTab[5]);
+            return ((&xdc_runtime_Startup_Module__state__V)->stateTab[4]);
         case 37:
-            return ((&xdc_runtime_Startup_Module__state__V)->stateTab[6]);
+            return ((&xdc_runtime_Startup_Module__state__V)->stateTab[5]);
         case 41:
-            return ((&xdc_runtime_Startup_Module__state__V)->stateTab[7]);
+            return ((&xdc_runtime_Startup_Module__state__V)->stateTab[6]);
         case 42:
-            return ((&xdc_runtime_Startup_Module__state__V)->stateTab[8]);
+            return ((&xdc_runtime_Startup_Module__state__V)->stateTab[7]);
         case 43:
-            return ((&xdc_runtime_Startup_Module__state__V)->stateTab[9]);
+            return ((&xdc_runtime_Startup_Module__state__V)->stateTab[8]);
     }
     return (0);
 }
@@ -1885,8 +1863,8 @@ xdc_Void xdc_runtime_Startup_exec__I(void) __attribute__ ((externally_visible));
  */
 xdc_Void xdc_runtime_Startup_exec__I(void)
 {
-    xdc_Int state[10];
-    xdc_runtime_Startup_startModsFxn__C(state, 10);
+    xdc_Int state[9];
+    xdc_runtime_Startup_startModsFxn__C(state, 9);
 }
 
 /*
@@ -2097,47 +2075,6 @@ xdc_Int xdc_runtime_System_printfExtend__I(xdc_Char **pbuf, xdc_CString *pfmt,
 end:
     *pva = va;
     return (res);
-}
-
-/*
- * ======== xdc.runtime.SysMin TEMPLATE ========
- */
-
-
-#if defined(__ti__)
-extern int HOSTwrite(int, const char *, unsigned);
-#elif (defined(gnu_targets_STD_) && defined(xdc_target__os_undefined))
-extern int _write(int, char *, int);
-#define HOSTwrite(x,y,z) _write((int)(x),(char *)(y),(int)(z))
-#elif defined(__IAR_SYSTEMS_ICC__)
-#include <yfuns.h>
-#define HOSTwrite(x,y,z) __write((x),(unsigned char *)(y),(z))
-#else
-#include <stdio.h>
-#endif
-
-/*
- *  ======== SysMin_output__I ========
- *  HOSTWrite only writes a max of N chars at a time. The amount it writes
- *  is returned. This function loops until the entire buffer is written.
- *  Being a static function allows it to conditionally compile out.
- */
-xdc_Void xdc_runtime_SysMin_output__I(xdc_Char *buf, xdc_UInt size)
-{
-#if defined(__ti__) || (defined(gnu_targets_STD_) && defined(xdc_target__os_undefined)) || defined (__IAR_SYSTEMS_ICC__)
-    xdc_Int printCount;
-    
-    while (size != 0) {
-        printCount = HOSTwrite(1, buf, size);
-        if ((printCount <= 0) || (printCount > size)) {
-            break;  /* ensure we never get stuck in an infinite loop */
-        }
-        size -= printCount;
-        buf = buf + printCount;
-    }    
-#else
-    fwrite(buf, 1, size, stdout);
-#endif
 }
 
 /*
@@ -2458,7 +2395,6 @@ xdc_Void * const ti_sysbios_rom_ROM_xdc_runtime_System_SupportProxy_ready__E = (
 #pragma DATA_SECTION(xdc_runtime_Registry_Module__state__V, ".data:xdc_runtime_Registry_Module__state__V");
 #pragma DATA_SECTION(xdc_runtime_Startup_Module__state__V, ".data:xdc_runtime_Startup_Module__state__V");
 #pragma DATA_SECTION(xdc_runtime_System_Module__state__V, ".data:xdc_runtime_System_Module__state__V");
-#pragma DATA_SECTION(xdc_runtime_SysMin_Module__state__V, ".data:xdc_runtime_SysMin_Module__state__V");
 #pragma DATA_SECTION(xdc_runtime_Text_Module__state__V, ".data:xdc_runtime_Text_Module__state__V");
 #pragma DATA_SECTION(ti_sysbios_knl_Clock_Module__state__V, ".data:ti_sysbios_knl_Clock_Module__state__V");
 #pragma DATA_SECTION(ti_sysbios_knl_Swi_Module__state__V, ".data:ti_sysbios_knl_Swi_Module__state__V");
@@ -6676,32 +6612,30 @@ const __T1_xdc_runtime_Startup_firstFxns xdc_runtime_Startup_firstFxns__A[3] = {
 
 /* --> xdc_runtime_Startup_sfxnTab__A */
 #pragma DATA_SECTION(xdc_runtime_Startup_sfxnTab__A, ".const:xdc_runtime_Startup_sfxnTab__A");
-const __T1_xdc_runtime_Startup_sfxnTab xdc_runtime_Startup_sfxnTab__A[10] = {
+const __T1_xdc_runtime_Startup_sfxnTab xdc_runtime_Startup_sfxnTab__A[9] = {
     ((xdc_Int(*)(xdc_Int))((xdc_Fxn)xdc_runtime_System_Module_startup__E)),  /* [0] */
-    ((xdc_Int(*)(xdc_Int))((xdc_Fxn)xdc_runtime_SysMin_Module_startup__E)),  /* [1] */
-    ((xdc_Int(*)(xdc_Int))((xdc_Fxn)ti_sysbios_knl_Clock_Module_startup__E)),  /* [2] */
-    ((xdc_Int(*)(xdc_Int))((xdc_Fxn)ti_sysbios_knl_Mailbox_Module_startup__E)),  /* [3] */
-    ((xdc_Int(*)(xdc_Int))((xdc_Fxn)ti_sysbios_knl_Swi_Module_startup__E)),  /* [4] */
-    ((xdc_Int(*)(xdc_Int))((xdc_Fxn)ti_sysbios_knl_Task_Module_startup__E)),  /* [5] */
-    ((xdc_Int(*)(xdc_Int))((xdc_Fxn)ti_sysbios_family_arm_m3_Hwi_Module_startup__E)),  /* [6] */
-    ((xdc_Int(*)(xdc_Int))((xdc_Fxn)ti_sysbios_family_arm_cc26xx_Timer_Module_startup__E)),  /* [7] */
-    ((xdc_Int(*)(xdc_Int))((xdc_Fxn)ti_sysbios_family_arm_cc26xx_TimestampProvider_Module_startup__E)),  /* [8] */
-    ((xdc_Int(*)(xdc_Int))((xdc_Fxn)ti_sysbios_hal_Hwi_Module_startup__E)),  /* [9] */
+    ((xdc_Int(*)(xdc_Int))((xdc_Fxn)ti_sysbios_knl_Clock_Module_startup__E)),  /* [1] */
+    ((xdc_Int(*)(xdc_Int))((xdc_Fxn)ti_sysbios_knl_Mailbox_Module_startup__E)),  /* [2] */
+    ((xdc_Int(*)(xdc_Int))((xdc_Fxn)ti_sysbios_knl_Swi_Module_startup__E)),  /* [3] */
+    ((xdc_Int(*)(xdc_Int))((xdc_Fxn)ti_sysbios_knl_Task_Module_startup__E)),  /* [4] */
+    ((xdc_Int(*)(xdc_Int))((xdc_Fxn)ti_sysbios_family_arm_m3_Hwi_Module_startup__E)),  /* [5] */
+    ((xdc_Int(*)(xdc_Int))((xdc_Fxn)ti_sysbios_family_arm_cc26xx_Timer_Module_startup__E)),  /* [6] */
+    ((xdc_Int(*)(xdc_Int))((xdc_Fxn)ti_sysbios_family_arm_cc26xx_TimestampProvider_Module_startup__E)),  /* [7] */
+    ((xdc_Int(*)(xdc_Int))((xdc_Fxn)ti_sysbios_hal_Hwi_Module_startup__E)),  /* [8] */
 };
 
 /* --> xdc_runtime_Startup_sfxnRts__A */
 #pragma DATA_SECTION(xdc_runtime_Startup_sfxnRts__A, ".const:xdc_runtime_Startup_sfxnRts__A");
-const __T1_xdc_runtime_Startup_sfxnRts xdc_runtime_Startup_sfxnRts__A[10] = {
+const __T1_xdc_runtime_Startup_sfxnRts xdc_runtime_Startup_sfxnRts__A[9] = {
     1,  /* [0] */
-    1,  /* [1] */
+    0,  /* [1] */
     0,  /* [2] */
     0,  /* [3] */
     0,  /* [4] */
     0,  /* [5] */
     0,  /* [6] */
-    0,  /* [7] */
-    1,  /* [8] */
-    0,  /* [9] */
+    1,  /* [7] */
+    0,  /* [8] */
 };
 
 /* Module__diagsEnabled__C */
@@ -6903,114 +6837,80 @@ __FAR__ const CT__xdc_runtime_SysCallback_readyFxn xdc_runtime_SysCallback_ready
 
 
 /*
- * ======== xdc.runtime.SysMin INITIALIZERS ========
+ * ======== xdc.runtime.SysStd INITIALIZERS ========
  */
 
-/* --> xdc_runtime_SysMin_Module_State_0_outbuf__A */
-__T1_xdc_runtime_SysMin_Module_State__outbuf xdc_runtime_SysMin_Module_State_0_outbuf__A[128];
-
-/* Module__state__V */
-#if defined (__ICCARM__)
-#pragma location = ".data_xdc_runtime_SysMin_Module__state__V"
-#endif
-#if defined(__GNUC__) && !(defined(__MACH__) && defined(__APPLE__))
-#ifndef __TI_COMPILER_VERSION__
-xdc_runtime_SysMin_Module_State__ xdc_runtime_SysMin_Module__state__V __attribute__ ((section(".data_xdc_runtime_SysMin_Module__state__V")));
-#endif
-#endif
-xdc_runtime_SysMin_Module_State__ xdc_runtime_SysMin_Module__state__V = {
-    ((void*)xdc_runtime_SysMin_Module_State_0_outbuf__A),  /* outbuf */
-    (xdc_UInt)0x0,  /* outidx */
-    0,  /* wrapped */
-};
-
 /* Module__diagsEnabled__C */
-#pragma DATA_SECTION(xdc_runtime_SysMin_Module__diagsEnabled__C, ".const:xdc_runtime_SysMin_Module__diagsEnabled__C");
-__FAR__ const CT__xdc_runtime_SysMin_Module__diagsEnabled xdc_runtime_SysMin_Module__diagsEnabled__C = (xdc_Bits32)0x10;
+#pragma DATA_SECTION(xdc_runtime_SysStd_Module__diagsEnabled__C, ".const:xdc_runtime_SysStd_Module__diagsEnabled__C");
+__FAR__ const CT__xdc_runtime_SysStd_Module__diagsEnabled xdc_runtime_SysStd_Module__diagsEnabled__C = (xdc_Bits32)0x10;
 
 /* Module__diagsIncluded__C */
-#pragma DATA_SECTION(xdc_runtime_SysMin_Module__diagsIncluded__C, ".const:xdc_runtime_SysMin_Module__diagsIncluded__C");
-__FAR__ const CT__xdc_runtime_SysMin_Module__diagsIncluded xdc_runtime_SysMin_Module__diagsIncluded__C = (xdc_Bits32)0x10;
+#pragma DATA_SECTION(xdc_runtime_SysStd_Module__diagsIncluded__C, ".const:xdc_runtime_SysStd_Module__diagsIncluded__C");
+__FAR__ const CT__xdc_runtime_SysStd_Module__diagsIncluded xdc_runtime_SysStd_Module__diagsIncluded__C = (xdc_Bits32)0x10;
 
 /* Module__diagsMask__C */
-#pragma DATA_SECTION(xdc_runtime_SysMin_Module__diagsMask__C, ".const:xdc_runtime_SysMin_Module__diagsMask__C");
-__FAR__ const CT__xdc_runtime_SysMin_Module__diagsMask xdc_runtime_SysMin_Module__diagsMask__C = ((CT__xdc_runtime_SysMin_Module__diagsMask)0);
+#pragma DATA_SECTION(xdc_runtime_SysStd_Module__diagsMask__C, ".const:xdc_runtime_SysStd_Module__diagsMask__C");
+__FAR__ const CT__xdc_runtime_SysStd_Module__diagsMask xdc_runtime_SysStd_Module__diagsMask__C = ((CT__xdc_runtime_SysStd_Module__diagsMask)0);
 
 /* Module__gateObj__C */
-#pragma DATA_SECTION(xdc_runtime_SysMin_Module__gateObj__C, ".const:xdc_runtime_SysMin_Module__gateObj__C");
-__FAR__ const CT__xdc_runtime_SysMin_Module__gateObj xdc_runtime_SysMin_Module__gateObj__C = ((CT__xdc_runtime_SysMin_Module__gateObj)0);
+#pragma DATA_SECTION(xdc_runtime_SysStd_Module__gateObj__C, ".const:xdc_runtime_SysStd_Module__gateObj__C");
+__FAR__ const CT__xdc_runtime_SysStd_Module__gateObj xdc_runtime_SysStd_Module__gateObj__C = ((CT__xdc_runtime_SysStd_Module__gateObj)0);
 
 /* Module__gatePrms__C */
-#pragma DATA_SECTION(xdc_runtime_SysMin_Module__gatePrms__C, ".const:xdc_runtime_SysMin_Module__gatePrms__C");
-__FAR__ const CT__xdc_runtime_SysMin_Module__gatePrms xdc_runtime_SysMin_Module__gatePrms__C = ((CT__xdc_runtime_SysMin_Module__gatePrms)0);
+#pragma DATA_SECTION(xdc_runtime_SysStd_Module__gatePrms__C, ".const:xdc_runtime_SysStd_Module__gatePrms__C");
+__FAR__ const CT__xdc_runtime_SysStd_Module__gatePrms xdc_runtime_SysStd_Module__gatePrms__C = ((CT__xdc_runtime_SysStd_Module__gatePrms)0);
 
 /* Module__id__C */
-#pragma DATA_SECTION(xdc_runtime_SysMin_Module__id__C, ".const:xdc_runtime_SysMin_Module__id__C");
-__FAR__ const CT__xdc_runtime_SysMin_Module__id xdc_runtime_SysMin_Module__id__C = (xdc_Bits16)0xe;
+#pragma DATA_SECTION(xdc_runtime_SysStd_Module__id__C, ".const:xdc_runtime_SysStd_Module__id__C");
+__FAR__ const CT__xdc_runtime_SysStd_Module__id xdc_runtime_SysStd_Module__id__C = (xdc_Bits16)0xe;
 
 /* Module__loggerDefined__C */
-#pragma DATA_SECTION(xdc_runtime_SysMin_Module__loggerDefined__C, ".const:xdc_runtime_SysMin_Module__loggerDefined__C");
-__FAR__ const CT__xdc_runtime_SysMin_Module__loggerDefined xdc_runtime_SysMin_Module__loggerDefined__C = 0;
+#pragma DATA_SECTION(xdc_runtime_SysStd_Module__loggerDefined__C, ".const:xdc_runtime_SysStd_Module__loggerDefined__C");
+__FAR__ const CT__xdc_runtime_SysStd_Module__loggerDefined xdc_runtime_SysStd_Module__loggerDefined__C = 0;
 
 /* Module__loggerObj__C */
-#pragma DATA_SECTION(xdc_runtime_SysMin_Module__loggerObj__C, ".const:xdc_runtime_SysMin_Module__loggerObj__C");
-__FAR__ const CT__xdc_runtime_SysMin_Module__loggerObj xdc_runtime_SysMin_Module__loggerObj__C = ((CT__xdc_runtime_SysMin_Module__loggerObj)0);
+#pragma DATA_SECTION(xdc_runtime_SysStd_Module__loggerObj__C, ".const:xdc_runtime_SysStd_Module__loggerObj__C");
+__FAR__ const CT__xdc_runtime_SysStd_Module__loggerObj xdc_runtime_SysStd_Module__loggerObj__C = ((CT__xdc_runtime_SysStd_Module__loggerObj)0);
 
 /* Module__loggerFxn0__C */
-#pragma DATA_SECTION(xdc_runtime_SysMin_Module__loggerFxn0__C, ".const:xdc_runtime_SysMin_Module__loggerFxn0__C");
-__FAR__ const CT__xdc_runtime_SysMin_Module__loggerFxn0 xdc_runtime_SysMin_Module__loggerFxn0__C = ((CT__xdc_runtime_SysMin_Module__loggerFxn0)0);
+#pragma DATA_SECTION(xdc_runtime_SysStd_Module__loggerFxn0__C, ".const:xdc_runtime_SysStd_Module__loggerFxn0__C");
+__FAR__ const CT__xdc_runtime_SysStd_Module__loggerFxn0 xdc_runtime_SysStd_Module__loggerFxn0__C = ((CT__xdc_runtime_SysStd_Module__loggerFxn0)0);
 
 /* Module__loggerFxn1__C */
-#pragma DATA_SECTION(xdc_runtime_SysMin_Module__loggerFxn1__C, ".const:xdc_runtime_SysMin_Module__loggerFxn1__C");
-__FAR__ const CT__xdc_runtime_SysMin_Module__loggerFxn1 xdc_runtime_SysMin_Module__loggerFxn1__C = ((CT__xdc_runtime_SysMin_Module__loggerFxn1)0);
+#pragma DATA_SECTION(xdc_runtime_SysStd_Module__loggerFxn1__C, ".const:xdc_runtime_SysStd_Module__loggerFxn1__C");
+__FAR__ const CT__xdc_runtime_SysStd_Module__loggerFxn1 xdc_runtime_SysStd_Module__loggerFxn1__C = ((CT__xdc_runtime_SysStd_Module__loggerFxn1)0);
 
 /* Module__loggerFxn2__C */
-#pragma DATA_SECTION(xdc_runtime_SysMin_Module__loggerFxn2__C, ".const:xdc_runtime_SysMin_Module__loggerFxn2__C");
-__FAR__ const CT__xdc_runtime_SysMin_Module__loggerFxn2 xdc_runtime_SysMin_Module__loggerFxn2__C = ((CT__xdc_runtime_SysMin_Module__loggerFxn2)0);
+#pragma DATA_SECTION(xdc_runtime_SysStd_Module__loggerFxn2__C, ".const:xdc_runtime_SysStd_Module__loggerFxn2__C");
+__FAR__ const CT__xdc_runtime_SysStd_Module__loggerFxn2 xdc_runtime_SysStd_Module__loggerFxn2__C = ((CT__xdc_runtime_SysStd_Module__loggerFxn2)0);
 
 /* Module__loggerFxn4__C */
-#pragma DATA_SECTION(xdc_runtime_SysMin_Module__loggerFxn4__C, ".const:xdc_runtime_SysMin_Module__loggerFxn4__C");
-__FAR__ const CT__xdc_runtime_SysMin_Module__loggerFxn4 xdc_runtime_SysMin_Module__loggerFxn4__C = ((CT__xdc_runtime_SysMin_Module__loggerFxn4)0);
+#pragma DATA_SECTION(xdc_runtime_SysStd_Module__loggerFxn4__C, ".const:xdc_runtime_SysStd_Module__loggerFxn4__C");
+__FAR__ const CT__xdc_runtime_SysStd_Module__loggerFxn4 xdc_runtime_SysStd_Module__loggerFxn4__C = ((CT__xdc_runtime_SysStd_Module__loggerFxn4)0);
 
 /* Module__loggerFxn8__C */
-#pragma DATA_SECTION(xdc_runtime_SysMin_Module__loggerFxn8__C, ".const:xdc_runtime_SysMin_Module__loggerFxn8__C");
-__FAR__ const CT__xdc_runtime_SysMin_Module__loggerFxn8 xdc_runtime_SysMin_Module__loggerFxn8__C = ((CT__xdc_runtime_SysMin_Module__loggerFxn8)0);
+#pragma DATA_SECTION(xdc_runtime_SysStd_Module__loggerFxn8__C, ".const:xdc_runtime_SysStd_Module__loggerFxn8__C");
+__FAR__ const CT__xdc_runtime_SysStd_Module__loggerFxn8 xdc_runtime_SysStd_Module__loggerFxn8__C = ((CT__xdc_runtime_SysStd_Module__loggerFxn8)0);
 
 /* Module__startupDoneFxn__C */
-#pragma DATA_SECTION(xdc_runtime_SysMin_Module__startupDoneFxn__C, ".const:xdc_runtime_SysMin_Module__startupDoneFxn__C");
-__FAR__ const CT__xdc_runtime_SysMin_Module__startupDoneFxn xdc_runtime_SysMin_Module__startupDoneFxn__C = ((CT__xdc_runtime_SysMin_Module__startupDoneFxn)0);
+#pragma DATA_SECTION(xdc_runtime_SysStd_Module__startupDoneFxn__C, ".const:xdc_runtime_SysStd_Module__startupDoneFxn__C");
+__FAR__ const CT__xdc_runtime_SysStd_Module__startupDoneFxn xdc_runtime_SysStd_Module__startupDoneFxn__C = ((CT__xdc_runtime_SysStd_Module__startupDoneFxn)0);
 
 /* Object__count__C */
-#pragma DATA_SECTION(xdc_runtime_SysMin_Object__count__C, ".const:xdc_runtime_SysMin_Object__count__C");
-__FAR__ const CT__xdc_runtime_SysMin_Object__count xdc_runtime_SysMin_Object__count__C = 0;
+#pragma DATA_SECTION(xdc_runtime_SysStd_Object__count__C, ".const:xdc_runtime_SysStd_Object__count__C");
+__FAR__ const CT__xdc_runtime_SysStd_Object__count xdc_runtime_SysStd_Object__count__C = 0;
 
 /* Object__heap__C */
-#pragma DATA_SECTION(xdc_runtime_SysMin_Object__heap__C, ".const:xdc_runtime_SysMin_Object__heap__C");
-__FAR__ const CT__xdc_runtime_SysMin_Object__heap xdc_runtime_SysMin_Object__heap__C = 0;
+#pragma DATA_SECTION(xdc_runtime_SysStd_Object__heap__C, ".const:xdc_runtime_SysStd_Object__heap__C");
+__FAR__ const CT__xdc_runtime_SysStd_Object__heap xdc_runtime_SysStd_Object__heap__C = 0;
 
 /* Object__sizeof__C */
-#pragma DATA_SECTION(xdc_runtime_SysMin_Object__sizeof__C, ".const:xdc_runtime_SysMin_Object__sizeof__C");
-__FAR__ const CT__xdc_runtime_SysMin_Object__sizeof xdc_runtime_SysMin_Object__sizeof__C = 0;
+#pragma DATA_SECTION(xdc_runtime_SysStd_Object__sizeof__C, ".const:xdc_runtime_SysStd_Object__sizeof__C");
+__FAR__ const CT__xdc_runtime_SysStd_Object__sizeof xdc_runtime_SysStd_Object__sizeof__C = 0;
 
 /* Object__table__C */
-#pragma DATA_SECTION(xdc_runtime_SysMin_Object__table__C, ".const:xdc_runtime_SysMin_Object__table__C");
-__FAR__ const CT__xdc_runtime_SysMin_Object__table xdc_runtime_SysMin_Object__table__C = 0;
-
-/* bufSize__C */
-#pragma DATA_SECTION(xdc_runtime_SysMin_bufSize__C, ".const:xdc_runtime_SysMin_bufSize__C");
-__FAR__ const CT__xdc_runtime_SysMin_bufSize xdc_runtime_SysMin_bufSize__C = (xdc_SizeT)0x80;
-
-/* flushAtExit__C */
-#pragma DATA_SECTION(xdc_runtime_SysMin_flushAtExit__C, ".const:xdc_runtime_SysMin_flushAtExit__C");
-__FAR__ const CT__xdc_runtime_SysMin_flushAtExit xdc_runtime_SysMin_flushAtExit__C = 1;
-
-/* outputFxn__C */
-#pragma DATA_SECTION(xdc_runtime_SysMin_outputFxn__C, ".const:xdc_runtime_SysMin_outputFxn__C");
-__FAR__ const CT__xdc_runtime_SysMin_outputFxn xdc_runtime_SysMin_outputFxn__C = ((CT__xdc_runtime_SysMin_outputFxn)0);
-
-/* outputFunc__C */
-#pragma DATA_SECTION(xdc_runtime_SysMin_outputFunc__C, ".const:xdc_runtime_SysMin_outputFunc__C");
-__FAR__ const CT__xdc_runtime_SysMin_outputFunc xdc_runtime_SysMin_outputFunc__C = ((CT__xdc_runtime_SysMin_outputFunc)((xdc_Fxn)xdc_runtime_SysMin_output__I));
+#pragma DATA_SECTION(xdc_runtime_SysStd_Object__table__C, ".const:xdc_runtime_SysStd_Object__table__C");
+__FAR__ const CT__xdc_runtime_SysStd_Object__table xdc_runtime_SysStd_Object__table__C = 0;
 
 
 /*
@@ -7549,42 +7449,42 @@ xdc_Void xdc_runtime_Main_Module_GateProxy_leave__E( xdc_runtime_Main_Module_Gat
  * ======== xdc.runtime.System_SupportProxy PROXY BODY ========
  */
 
-/* DELEGATES TO xdc.runtime.SysMin */
+/* DELEGATES TO xdc.runtime.SysStd */
 
 /* Module__startupDone__S */
 xdc_Bool xdc_runtime_System_SupportProxy_Module__startupDone__S( void ) 
 {
-    return xdc_runtime_SysMin_Module__startupDone__S();
+    return xdc_runtime_SysStd_Module__startupDone__S();
 }
 
 /* abort__E */
 xdc_Void xdc_runtime_System_SupportProxy_abort__E( xdc_CString str )
 {
-    xdc_runtime_SysMin_abort(str);
+    xdc_runtime_SysStd_abort(str);
 }
 
 /* exit__E */
 xdc_Void xdc_runtime_System_SupportProxy_exit__E( xdc_Int stat )
 {
-    xdc_runtime_SysMin_exit(stat);
+    xdc_runtime_SysStd_exit(stat);
 }
 
 /* flush__E */
 xdc_Void xdc_runtime_System_SupportProxy_flush__E( void )
 {
-    xdc_runtime_SysMin_flush();
+    xdc_runtime_SysStd_flush();
 }
 
 /* putch__E */
 xdc_Void xdc_runtime_System_SupportProxy_putch__E( xdc_Char ch )
 {
-    xdc_runtime_SysMin_putch(ch);
+    xdc_runtime_SysStd_putch(ch);
 }
 
 /* ready__E */
 xdc_Bool xdc_runtime_System_SupportProxy_ready__E( void )
 {
-    return xdc_runtime_SysMin_ready();
+    return xdc_runtime_SysStd_ready();
 }
 
 
@@ -8287,13 +8187,13 @@ xdc_Bool xdc_runtime_Startup_Module__startupDone__S( void )
 
 
 /*
- * ======== xdc.runtime.SysMin SYSTEM FUNCTIONS ========
+ * ======== xdc.runtime.SysStd SYSTEM FUNCTIONS ========
  */
 
 /* Module__startupDone__S */
-xdc_Bool xdc_runtime_SysMin_Module__startupDone__S( void )
+xdc_Bool xdc_runtime_SysStd_Module__startupDone__S( void )
 {
-    return xdc_runtime_SysMin_Module__startupDone__F();
+    return 1;
 }
 
 
@@ -8309,7 +8209,7 @@ xdc_Bool xdc_runtime_System_SupportProxy_Proxy__abstract__S( void )
 }
 xdc_Ptr xdc_runtime_System_SupportProxy_Proxy__delegate__S( void )
 {
-    return (xdc_Ptr)&xdc_runtime_SysMin_Module__FXNS__C;
+    return (xdc_Ptr)&xdc_runtime_SysStd_Module__FXNS__C;
 }
 
 

@@ -232,23 +232,23 @@ __obj = [
     {},    // #229 xdc.runtime.System
     [],    // #230 xdc.runtime.System/$instances
     {},    // #231 xdc.runtime.Assert.Desc#7
-    {},    // #232 xdc.runtime.SysMin
-    [],    // #233 xdc.runtime.SysMin/$instances
-    {},    // #234 xdc.runtime.SysMin/common$
-    [],    // #235 xdc.runtime.SysMin/configNameMap$
-    {},    // #236 xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Memory'
-    [],    // #237 xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Memory'/fields
-    {},    // #238 xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Diagnostics'
-    [],    // #239 xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Diagnostics'/fields
-    {},    // #240 xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Concurrency'
-    [],    // #241 xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Concurrency'/fields
-    {},    // #242 xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Log Events'
-    [],    // #243 xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Log Events'/fields
-    {},    // #244 xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Asserts'
-    [],    // #245 xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Asserts'/fields
-    {},    // #246 xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Errors'
-    [],    // #247 xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Errors'/fields
-    [],    // #248 xdc.runtime.SysMin/viewNameMap$
+    {},    // #232 xdc.runtime.SysStd
+    [],    // #233 xdc.runtime.SysStd/$instances
+    {},    // #234 xdc.runtime.SysStd/common$
+    [],    // #235 xdc.runtime.SysStd/configNameMap$
+    {},    // #236 xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Memory'
+    [],    // #237 xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Memory'/fields
+    {},    // #238 xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Diagnostics'
+    [],    // #239 xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Diagnostics'/fields
+    {},    // #240 xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Concurrency'
+    [],    // #241 xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Concurrency'/fields
+    {},    // #242 xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Log Events'
+    [],    // #243 xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Log Events'/fields
+    {},    // #244 xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Asserts'
+    [],    // #245 xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Asserts'/fields
+    {},    // #246 xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Errors'
+    [],    // #247 xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Errors'/fields
+    [],    // #248 xdc.runtime.SysStd/viewNameMap$
     {},    // #249 xdc.runtime.System/common$
     [],    // #250 xdc.runtime.System/configNameMap$
     {},    // #251 xdc.runtime.System/configNameMap$/'xdc.runtime/Memory'
@@ -1134,7 +1134,7 @@ __o = __obj[1]
     __o['xdc.runtime.Registry'] = __obj[191.0]
     __o['xdc.runtime.Startup'] = __obj[208.0]
     __o['xdc.runtime.SysCallback'] = __obj[265.0]
-    __o['xdc.runtime.SysMin'] = __obj[232.0]
+    __o['xdc.runtime.SysStd'] = __obj[232.0]
     __o['xdc.runtime.System'] = __obj[229.0]
     __o['xdc.runtime.Text'] = __obj[282.0]
     __o['xdc.runtime.Timestamp'] = __obj[302.0]
@@ -3009,29 +3009,27 @@ __o = __obj[226]  // xdc.runtime.Startup/sfxnRts
     __o['$category'] = String(java.net.URLDecoder.decode('Vector', 'UTF-8'))
     __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.Startup%2FsfxnRts', 'UTF-8'))
     __o['0'] = true
-    __o['1'] = true
+    __o['1'] = false
     __o['2'] = false
     __o['3'] = false
     __o['4'] = false
     __o['5'] = false
     __o['6'] = false
-    __o['7'] = false
-    __o['8'] = true
-    __o['9'] = false
+    __o['7'] = true
+    __o['8'] = false
 
 __o = __obj[227]  // xdc.runtime.Startup/sfxnTab
     __o['$category'] = String(java.net.URLDecoder.decode('Vector', 'UTF-8'))
     __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.Startup%2FsfxnTab', 'UTF-8'))
     __o['0'] = String(java.net.URLDecoder.decode('%26xdc_runtime_System_Module_startup__E', 'UTF-8'))
-    __o['1'] = String(java.net.URLDecoder.decode('%26xdc_runtime_SysMin_Module_startup__E', 'UTF-8'))
-    __o['2'] = String(java.net.URLDecoder.decode('%26ti_sysbios_knl_Clock_Module_startup__E', 'UTF-8'))
-    __o['3'] = String(java.net.URLDecoder.decode('%26ti_sysbios_knl_Mailbox_Module_startup__E', 'UTF-8'))
-    __o['4'] = String(java.net.URLDecoder.decode('%26ti_sysbios_knl_Swi_Module_startup__E', 'UTF-8'))
-    __o['5'] = String(java.net.URLDecoder.decode('%26ti_sysbios_knl_Task_Module_startup__E', 'UTF-8'))
-    __o['6'] = String(java.net.URLDecoder.decode('%26ti_sysbios_family_arm_m3_Hwi_Module_startup__E', 'UTF-8'))
-    __o['7'] = String(java.net.URLDecoder.decode('%26ti_sysbios_family_arm_cc26xx_Timer_Module_startup__E', 'UTF-8'))
-    __o['8'] = String(java.net.URLDecoder.decode('%26ti_sysbios_family_arm_cc26xx_TimestampProvider_Module_startup__E', 'UTF-8'))
-    __o['9'] = String(java.net.URLDecoder.decode('%26ti_sysbios_hal_Hwi_Module_startup__E', 'UTF-8'))
+    __o['1'] = String(java.net.URLDecoder.decode('%26ti_sysbios_knl_Clock_Module_startup__E', 'UTF-8'))
+    __o['2'] = String(java.net.URLDecoder.decode('%26ti_sysbios_knl_Mailbox_Module_startup__E', 'UTF-8'))
+    __o['3'] = String(java.net.URLDecoder.decode('%26ti_sysbios_knl_Swi_Module_startup__E', 'UTF-8'))
+    __o['4'] = String(java.net.URLDecoder.decode('%26ti_sysbios_knl_Task_Module_startup__E', 'UTF-8'))
+    __o['5'] = String(java.net.URLDecoder.decode('%26ti_sysbios_family_arm_m3_Hwi_Module_startup__E', 'UTF-8'))
+    __o['6'] = String(java.net.URLDecoder.decode('%26ti_sysbios_family_arm_cc26xx_Timer_Module_startup__E', 'UTF-8'))
+    __o['7'] = String(java.net.URLDecoder.decode('%26ti_sysbios_family_arm_cc26xx_TimestampProvider_Module_startup__E', 'UTF-8'))
+    __o['8'] = String(java.net.URLDecoder.decode('%26ti_sysbios_hal_Hwi_Module_startup__E', 'UTF-8'))
 
 __o = __obj[228]  // xdc.runtime.Startup/viewNameMap$
     __o.$keys = []
@@ -3086,10 +3084,10 @@ __o = __obj[231]  // xdc.runtime.Assert.Desc#7
     __o['mask'] = 16
     __o['msg'] = String(java.net.URLDecoder.decode('A_cannotFitIntoArg%3A+sizeof%28Float%29+%3E+sizeof%28Arg%29', 'UTF-8'))
 
-__o = __obj[232]  // xdc.runtime.SysMin
+__o = __obj[232]  // xdc.runtime.SysStd
     __o['$category'] = String(java.net.URLDecoder.decode('Module', 'UTF-8'))
     __o['$instances'] = __obj[233.0]
-    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysMin', 'UTF-8'))
+    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysStd', 'UTF-8'))
     __o['Module__diagsEnabled'] = 16
     __o['Module__diagsIncluded'] = 16
     __o['Module__diagsMask'] = null
@@ -3108,24 +3106,18 @@ __o = __obj[232]  // xdc.runtime.SysMin
     __o['Object__heap'] = null
     __o['Object__sizeof'] = 0
     __o['Object__table'] = null
-    __o['bufSize'] = 128
     __o['common$'] = __obj[234.0]
     __o['configNameMap$'] = __obj[235.0]
-    __o['flushAtExit'] = true
-    __o['outputFunc'] = String(java.net.URLDecoder.decode('%26xdc_runtime_SysMin_output__I', 'UTF-8'))
-    __o['outputFxn'] = null
     __o['rovShowRawTab$'] = true
-    __o['rovViewInfo'] = __obj[64.0]
-    __o['sectionName'] = null
     __o['viewNameMap$'] = __obj[248.0]
 
-__o = __obj[233]  // xdc.runtime.SysMin/$instances
+__o = __obj[233]  // xdc.runtime.SysStd/$instances
     __o['$category'] = String(java.net.URLDecoder.decode('Vector', 'UTF-8'))
-    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysMin%2F%24instances', 'UTF-8'))
+    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysStd%2F%24instances', 'UTF-8'))
 
-__o = __obj[234]  // xdc.runtime.SysMin/common$
+__o = __obj[234]  // xdc.runtime.SysStd/common$
     __o['$category'] = String(java.net.URLDecoder.decode('Struct', 'UTF-8'))
-    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysMin%2Fcommon%24', 'UTF-8'))
+    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysStd%2Fcommon%24', 'UTF-8'))
     __o['diags_ANALYSIS'] = String(java.net.URLDecoder.decode('xdc.runtime.Diags.ALWAYS_OFF', 'UTF-8'))
     __o['diags_ASSERT'] = String(java.net.URLDecoder.decode('xdc.runtime.Diags.ALWAYS_ON', 'UTF-8'))
     __o['diags_ENTRY'] = String(java.net.URLDecoder.decode('xdc.runtime.Diags.ALWAYS_OFF', 'UTF-8'))
@@ -3154,7 +3146,7 @@ __o = __obj[234]  // xdc.runtime.SysMin/common$
     __o['outPolicy'] = String(java.net.URLDecoder.decode('xdc.runtime.Types.COMMON_FILE', 'UTF-8'))
     __o['romPatchTable'] = false
 
-__o = __obj[235]  // xdc.runtime.SysMin/configNameMap$
+__o = __obj[235]  // xdc.runtime.SysStd/configNameMap$
     __o.$keys = []
     __o.push(__o['xdc.runtime/Memory'] = __obj[236.0]); __o.$keys.push('xdc.runtime/Memory')
     __o.push(__o['xdc.runtime/Diagnostics'] = __obj[238.0]); __o.$keys.push('xdc.runtime/Diagnostics')
@@ -3163,18 +3155,18 @@ __o = __obj[235]  // xdc.runtime.SysMin/configNameMap$
     __o.push(__o['xdc.runtime/Asserts'] = __obj[244.0]); __o.$keys.push('xdc.runtime/Asserts')
     __o.push(__o['xdc.runtime/Errors'] = __obj[246.0]); __o.$keys.push('xdc.runtime/Errors')
     __o['$category'] = String(java.net.URLDecoder.decode('Map', 'UTF-8'))
-    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysMin%2FconfigNameMap%24', 'UTF-8'))
+    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysStd%2FconfigNameMap%24', 'UTF-8'))
 
-__o = __obj[236]  // xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Memory'
+__o = __obj[236]  // xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Memory'
     __o['$category'] = String(java.net.URLDecoder.decode('Struct', 'UTF-8'))
-    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysMin%2FconfigNameMap%24%2F%27xdc.runtime%2FMemory%27', 'UTF-8'))
+    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysStd%2FconfigNameMap%24%2F%27xdc.runtime%2FMemory%27', 'UTF-8'))
     __o['fields'] = __obj[237.0]
     __o['viewFxn'] = undefined
     __o['viewType'] = String(java.net.URLDecoder.decode('module', 'UTF-8'))
 
-__o = __obj[237]  // xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Memory'/fields
+__o = __obj[237]  // xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Memory'/fields
     __o['$category'] = String(java.net.URLDecoder.decode('Vector', 'UTF-8'))
-    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysMin%2FconfigNameMap%24%2F%27xdc.runtime%2FMemory%27%2Ffields', 'UTF-8'))
+    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysStd%2FconfigNameMap%24%2F%27xdc.runtime%2FMemory%27%2Ffields', 'UTF-8'))
     __o['0'] = String(java.net.URLDecoder.decode('common%24.instanceHeap', 'UTF-8'))
     __o['1'] = String(java.net.URLDecoder.decode('common%24.instanceSection', 'UTF-8'))
     __o['2'] = String(java.net.URLDecoder.decode('common%24.memoryPolicy', 'UTF-8'))
@@ -3183,16 +3175,16 @@ __o = __obj[237]  // xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Memory'/fiel
     __o['5'] = String(java.net.URLDecoder.decode('common%24.fxntab', 'UTF-8'))
     __o['6'] = String(java.net.URLDecoder.decode('common%24.romPatchTable', 'UTF-8'))
 
-__o = __obj[238]  // xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Diagnostics'
+__o = __obj[238]  // xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Diagnostics'
     __o['$category'] = String(java.net.URLDecoder.decode('Struct', 'UTF-8'))
-    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysMin%2FconfigNameMap%24%2F%27xdc.runtime%2FDiagnostics%27', 'UTF-8'))
+    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysStd%2FconfigNameMap%24%2F%27xdc.runtime%2FDiagnostics%27', 'UTF-8'))
     __o['fields'] = __obj[239.0]
     __o['viewFxn'] = undefined
     __o['viewType'] = String(java.net.URLDecoder.decode('module', 'UTF-8'))
 
-__o = __obj[239]  // xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Diagnostics'/fields
+__o = __obj[239]  // xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Diagnostics'/fields
     __o['$category'] = String(java.net.URLDecoder.decode('Vector', 'UTF-8'))
-    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysMin%2FconfigNameMap%24%2F%27xdc.runtime%2FDiagnostics%27%2Ffields', 'UTF-8'))
+    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysStd%2FconfigNameMap%24%2F%27xdc.runtime%2FDiagnostics%27%2Ffields', 'UTF-8'))
     __o['0'] = String(java.net.URLDecoder.decode('common%24.logger', 'UTF-8'))
     __o['1'] = String(java.net.URLDecoder.decode('common%24.diags_ASSERT', 'UTF-8'))
     __o['2'] = String(java.net.URLDecoder.decode('common%24.diags_ENTRY', 'UTF-8'))
@@ -3209,59 +3201,59 @@ __o = __obj[239]  // xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Diagnostics'
     __o['13'] = String(java.net.URLDecoder.decode('common%24.diags_INFO', 'UTF-8'))
     __o['14'] = String(java.net.URLDecoder.decode('common%24.diags_ANALYSIS', 'UTF-8'))
 
-__o = __obj[240]  // xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Concurrency'
+__o = __obj[240]  // xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Concurrency'
     __o['$category'] = String(java.net.URLDecoder.decode('Struct', 'UTF-8'))
-    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysMin%2FconfigNameMap%24%2F%27xdc.runtime%2FConcurrency%27', 'UTF-8'))
+    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysStd%2FconfigNameMap%24%2F%27xdc.runtime%2FConcurrency%27', 'UTF-8'))
     __o['fields'] = __obj[241.0]
     __o['viewFxn'] = undefined
     __o['viewType'] = String(java.net.URLDecoder.decode('module', 'UTF-8'))
 
-__o = __obj[241]  // xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Concurrency'/fields
+__o = __obj[241]  // xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Concurrency'/fields
     __o['$category'] = String(java.net.URLDecoder.decode('Vector', 'UTF-8'))
-    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysMin%2FconfigNameMap%24%2F%27xdc.runtime%2FConcurrency%27%2Ffields', 'UTF-8'))
+    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysStd%2FconfigNameMap%24%2F%27xdc.runtime%2FConcurrency%27%2Ffields', 'UTF-8'))
     __o['0'] = String(java.net.URLDecoder.decode('common%24.gate', 'UTF-8'))
     __o['1'] = String(java.net.URLDecoder.decode('common%24.gateParams', 'UTF-8'))
 
-__o = __obj[242]  // xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Log Events'
+__o = __obj[242]  // xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Log Events'
     __o['$category'] = String(java.net.URLDecoder.decode('Struct', 'UTF-8'))
-    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysMin%2FconfigNameMap%24%2F%27xdc.runtime%2FLog+Events%27', 'UTF-8'))
+    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysStd%2FconfigNameMap%24%2F%27xdc.runtime%2FLog+Events%27', 'UTF-8'))
     __o['fields'] = __obj[243.0]
     __o['viewFxn'] = undefined
     __o['viewType'] = String(java.net.URLDecoder.decode('instance', 'UTF-8'))
 
-__o = __obj[243]  // xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Log Events'/fields
+__o = __obj[243]  // xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Log Events'/fields
     __o['$category'] = String(java.net.URLDecoder.decode('Vector', 'UTF-8'))
-    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysMin%2FconfigNameMap%24%2F%27xdc.runtime%2FLog+Events%27%2Ffields', 'UTF-8'))
+    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysStd%2FconfigNameMap%24%2F%27xdc.runtime%2FLog+Events%27%2Ffields', 'UTF-8'))
     __o['0'] = String(java.net.URLDecoder.decode('Log.Event', 'UTF-8'))
 
-__o = __obj[244]  // xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Asserts'
+__o = __obj[244]  // xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Asserts'
     __o['$category'] = String(java.net.URLDecoder.decode('Struct', 'UTF-8'))
-    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysMin%2FconfigNameMap%24%2F%27xdc.runtime%2FAsserts%27', 'UTF-8'))
+    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysStd%2FconfigNameMap%24%2F%27xdc.runtime%2FAsserts%27', 'UTF-8'))
     __o['fields'] = __obj[245.0]
     __o['viewFxn'] = undefined
     __o['viewType'] = String(java.net.URLDecoder.decode('instance', 'UTF-8'))
 
-__o = __obj[245]  // xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Asserts'/fields
+__o = __obj[245]  // xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Asserts'/fields
     __o['$category'] = String(java.net.URLDecoder.decode('Vector', 'UTF-8'))
-    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysMin%2FconfigNameMap%24%2F%27xdc.runtime%2FAsserts%27%2Ffields', 'UTF-8'))
+    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysStd%2FconfigNameMap%24%2F%27xdc.runtime%2FAsserts%27%2Ffields', 'UTF-8'))
     __o['0'] = String(java.net.URLDecoder.decode('Assert.Id', 'UTF-8'))
 
-__o = __obj[246]  // xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Errors'
+__o = __obj[246]  // xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Errors'
     __o['$category'] = String(java.net.URLDecoder.decode('Struct', 'UTF-8'))
-    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysMin%2FconfigNameMap%24%2F%27xdc.runtime%2FErrors%27', 'UTF-8'))
+    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysStd%2FconfigNameMap%24%2F%27xdc.runtime%2FErrors%27', 'UTF-8'))
     __o['fields'] = __obj[247.0]
     __o['viewFxn'] = undefined
     __o['viewType'] = String(java.net.URLDecoder.decode('instance', 'UTF-8'))
 
-__o = __obj[247]  // xdc.runtime.SysMin/configNameMap$/'xdc.runtime/Errors'/fields
+__o = __obj[247]  // xdc.runtime.SysStd/configNameMap$/'xdc.runtime/Errors'/fields
     __o['$category'] = String(java.net.URLDecoder.decode('Vector', 'UTF-8'))
-    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysMin%2FconfigNameMap%24%2F%27xdc.runtime%2FErrors%27%2Ffields', 'UTF-8'))
+    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysStd%2FconfigNameMap%24%2F%27xdc.runtime%2FErrors%27%2Ffields', 'UTF-8'))
     __o['0'] = String(java.net.URLDecoder.decode('Error.Id', 'UTF-8'))
 
-__o = __obj[248]  // xdc.runtime.SysMin/viewNameMap$
+__o = __obj[248]  // xdc.runtime.SysStd/viewNameMap$
     __o.$keys = []
     __o['$category'] = String(java.net.URLDecoder.decode('Map', 'UTF-8'))
-    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysMin%2FviewNameMap%24', 'UTF-8'))
+    __o['$name'] = String(java.net.URLDecoder.decode('xdc.runtime.SysStd%2FviewNameMap%24', 'UTF-8'))
 
 __o = __obj[249]  // xdc.runtime.System/common$
     __o['$category'] = String(java.net.URLDecoder.decode('Struct', 'UTF-8'))

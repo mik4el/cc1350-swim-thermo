@@ -109,9 +109,9 @@ digraph configuration {
         xdc_runtime_SysCallback [style=filled,fillcolor=lightgray, label="SysCallback"];
         xdc_runtime__top -> xdc_runtime_SysCallback[style=invis];
         xdc_runtime_SysCallback -> xdc_runtime__bot[style=invis];
-        xdc_runtime_SysMin [style=filled,fillcolor=lightgray, label="SysMin"];
-        xdc_runtime__top -> xdc_runtime_SysMin[style=invis];
-        xdc_runtime_SysMin -> xdc_runtime__bot[style=invis];
+        xdc_runtime_SysStd [style=filled,fillcolor=lightgray, label="SysStd"];
+        xdc_runtime__top -> xdc_runtime_SysStd[style=invis];
+        xdc_runtime_SysStd -> xdc_runtime__bot[style=invis];
         xdc_runtime_Text [style=filled,fillcolor=lightgray, label="Text"];
         xdc_runtime__top -> xdc_runtime_Text[style=invis];
         xdc_runtime_Text -> xdc_runtime__bot[style=invis];

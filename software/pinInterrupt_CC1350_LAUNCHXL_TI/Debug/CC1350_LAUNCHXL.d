@@ -144,14 +144,6 @@ CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/c
 CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc13xxware_2_04_03_17272/driverlib/gpio.h
 CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc13xxware_2_04_03_17272/inc/hw_gpio.h
 CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/family/arm/m3/Hwi.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/tidrivers_cc13xx_cc26xx_2_21_00_04/packages/ti/drivers/PWM.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/tidrivers_cc13xx_cc26xx_2_21_00_04/packages/ti/drivers/pwm/PWMTimerCC26XX.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/tidrivers_cc13xx_cc26xx_2_21_00_04/packages/ti/drivers/timer/GPTimerCC26XX.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/family/arm/m3/Hwi.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc13xxware_2_04_03_17272/driverlib/event.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc13xxware_2_04_03_17272/inc/hw_event.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc13xxware_2_04_03_17272/driverlib/timer.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc13xxware_2_04_03_17272/inc/hw_gpt.h
 CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/tidrivers_cc13xx_cc26xx_2_21_00_04/packages/ti/drivers/Power.h
 CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/tidrivers_cc13xx_cc26xx_2_21_00_04/packages/ti/drivers/utils/List.h
 CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/tidrivers_cc13xx_cc26xx_2_21_00_04/packages/ti/drivers/power/PowerCC26XX.h
@@ -189,57 +181,6 @@ CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/b
 CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/package/Clock_TimerProxy.h
 CC1350_LAUNCHXL.obj: /Users/mikael/Code/cc1350-swim-thermo/software/pinInterrupt_CC1350_LAUNCHXL_TI/Board.h
 CC1350_LAUNCHXL.obj: /Users/mikael/Code/cc1350-swim-thermo/software/pinInterrupt_CC1350_LAUNCHXL_TI/CC1350_LAUNCHXL.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/tidrivers_cc13xx_cc26xx_2_21_00_04/packages/ti/drivers/rf/RF.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/BIOS.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/package/BIOS_RtsGateProxy.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Clock.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Semaphore.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Types.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/IInstance.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Diags.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Log.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Assert.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Queue.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Task.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Types.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/IInstance.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Task__prologue.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Error.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Assert.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Diags.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Log.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/IHeap.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Queue.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/IModule.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/interfaces/ITaskSupport.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Types.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Error.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/IModule.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Clock.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/package/Task_SupportProxy.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Types.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/interfaces/ITaskSupport.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Task__epilogue.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Clock.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/IModule.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Event.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Types.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/IInstance.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Event__prologue.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Assert.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Diags.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Log.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Queue.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Clock.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Task.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/IModule.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Event__epilogue.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc13xxware_2_04_03_17272/driverlib/rf_common_cmd.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc13xxware_2_04_03_17272/driverlib/rf_mailbox.h
-CC1350_LAUNCHXL.obj: /Applications/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/string.h
-CC1350_LAUNCHXL.obj: /Applications/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/_ti_config.h
-CC1350_LAUNCHXL.obj: /Applications/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/linkage.h
-CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc13xxware_2_04_03_17272/driverlib/rf_prop_cmd.h
 
 ../CC1350_LAUNCHXL.c: 
 /Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/std.h: 
@@ -385,14 +326,6 @@ CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/c
 /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc13xxware_2_04_03_17272/driverlib/gpio.h: 
 /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc13xxware_2_04_03_17272/inc/hw_gpio.h: 
 /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/family/arm/m3/Hwi.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/tidrivers_cc13xx_cc26xx_2_21_00_04/packages/ti/drivers/PWM.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/tidrivers_cc13xx_cc26xx_2_21_00_04/packages/ti/drivers/pwm/PWMTimerCC26XX.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/tidrivers_cc13xx_cc26xx_2_21_00_04/packages/ti/drivers/timer/GPTimerCC26XX.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/family/arm/m3/Hwi.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc13xxware_2_04_03_17272/driverlib/event.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc13xxware_2_04_03_17272/inc/hw_event.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc13xxware_2_04_03_17272/driverlib/timer.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc13xxware_2_04_03_17272/inc/hw_gpt.h: 
 /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/tidrivers_cc13xx_cc26xx_2_21_00_04/packages/ti/drivers/Power.h: 
 /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/tidrivers_cc13xx_cc26xx_2_21_00_04/packages/ti/drivers/utils/List.h: 
 /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/tidrivers_cc13xx_cc26xx_2_21_00_04/packages/ti/drivers/power/PowerCC26XX.h: 
@@ -430,54 +363,3 @@ CC1350_LAUNCHXL.obj: /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/c
 /Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/package/Clock_TimerProxy.h: 
 /Users/mikael/Code/cc1350-swim-thermo/software/pinInterrupt_CC1350_LAUNCHXL_TI/Board.h: 
 /Users/mikael/Code/cc1350-swim-thermo/software/pinInterrupt_CC1350_LAUNCHXL_TI/CC1350_LAUNCHXL.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/tidrivers_cc13xx_cc26xx_2_21_00_04/packages/ti/drivers/rf/RF.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/BIOS.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/package/BIOS_RtsGateProxy.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Clock.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Semaphore.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Types.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/IInstance.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Diags.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Log.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Assert.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Queue.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Task.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Types.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/IInstance.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Task__prologue.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Error.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Assert.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Diags.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Log.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/IHeap.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Queue.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/IModule.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/interfaces/ITaskSupport.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Types.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Error.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/IModule.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Clock.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/package/Task_SupportProxy.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Types.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/interfaces/ITaskSupport.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Task__epilogue.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Clock.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/IModule.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Event.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Types.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/IInstance.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Event__prologue.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Assert.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Diags.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/Log.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Queue.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Clock.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Task.h: 
-/Users/mikael/ti/xdctools_3_32_00_06_core/packages/xdc/runtime/IModule.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/bios_6_46_01_37/packages/ti/sysbios/knl/Event__epilogue.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc13xxware_2_04_03_17272/driverlib/rf_common_cmd.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc13xxware_2_04_03_17272/driverlib/rf_mailbox.h: 
-/Applications/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/string.h: 
-/Applications/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/_ti_config.h: 
-/Applications/ti/ccsv8/tools/compiler/ti-cgt-arm_18.1.1.LTS/include/linkage.h: 
-/Users/mikael/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc13xxware_2_04_03_17272/driverlib/rf_prop_cmd.h: 

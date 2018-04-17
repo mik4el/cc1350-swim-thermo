@@ -65,98 +65,16 @@ extern const PIN_Config BoardGpioInitTable[];
  *      <board signal alias>        <pin mapping>   <comments>
  */
 
-/* Discrete outputs */
-#define Board_RLED                  IOID_6
-#define Board_GLED                  IOID_7
-#define Board_LED_ON                1
-#define Board_LED_OFF               0
-
 /* Discrete inputs */
 #define Board_BTN1                  IOID_13
-#define Board_BTN2                  IOID_14
-
-/* PWM outputs */
-#define Board_PWMPIN0                       Board_RLED
-#define Board_PWMPIN1                       Board_GLED
-#define Board_PWMPIN2                       PIN_UNASSIGNED
-#define Board_PWMPIN3                       PIN_UNASSIGNED
-#define Board_PWMPIN4                       PIN_UNASSIGNED
-#define Board_PWMPIN5                       PIN_UNASSIGNED
-#define Board_PWMPIN6                       PIN_UNASSIGNED
-#define Board_PWMPIN7                       PIN_UNASSIGNED
 
 /** ============================================================================
  *  Instance identifiers
  *  ==========================================================================*/
-/* Generic GPTimer instance identifiers */
-#define Board_GPTIMER0A             CC1350_LAUNCHXL_GPTIMER0A
-#define Board_GPTIMER0B             CC1350_LAUNCHXL_GPTIMER0B
-#define Board_GPTIMER1A             CC1350_LAUNCHXL_GPTIMER1A
-#define Board_GPTIMER1B             CC1350_LAUNCHXL_GPTIMER1B
-#define Board_GPTIMER2A             CC1350_LAUNCHXL_GPTIMER2A
-#define Board_GPTIMER2B             CC1350_LAUNCHXL_GPTIMER2B
-#define Board_GPTIMER3A             CC1350_LAUNCHXL_GPTIMER3A
-#define Board_GPTIMER3B             CC1350_LAUNCHXL_GPTIMER3B
-/* Generic PWM instance identifiers */
-#define Board_PWM0                  CC1350_LAUNCHXL_PWM0
-#define Board_PWM1                  CC1350_LAUNCHXL_PWM1
-#define Board_PWM2                  CC1350_LAUNCHXL_PWM2
-#define Board_PWM3                  CC1350_LAUNCHXL_PWM3
-#define Board_PWM4                  CC1350_LAUNCHXL_PWM4
-#define Board_PWM5                  CC1350_LAUNCHXL_PWM5
-#define Board_PWM6                  CC1350_LAUNCHXL_PWM6
-#define Board_PWM7                  CC1350_LAUNCHXL_PWM7
 
 /** ============================================================================
  *  Number of peripherals and their names
  *  ==========================================================================*/
-
-/*!
- *  @def    CC1350_LAUNCHXL_GPTimerName
- *  @brief  Enum of GPTimer parts
- */
-typedef enum CC1350_LAUNCHXL_GPTimerName
-{
-    CC1350_LAUNCHXL_GPTIMER0A = 0,
-    CC1350_LAUNCHXL_GPTIMER0B,
-    CC1350_LAUNCHXL_GPTIMER1A,
-    CC1350_LAUNCHXL_GPTIMER1B,
-    CC1350_LAUNCHXL_GPTIMER2A,
-    CC1350_LAUNCHXL_GPTIMER2B,
-    CC1350_LAUNCHXL_GPTIMER3A,
-    CC1350_LAUNCHXL_GPTIMER3B,
-    CC1350_LAUNCHXL_GPTIMERPARTSCOUNT
-} CC1350_LAUNCHXL_GPTimerName;
-
-/*!
- *  @def    CC1350_LAUNCHXL_GPTimers
- *  @brief  Enum of GPTimers
- */
-typedef enum CC1350_LAUNCHXL_GPTimers
-{
-    CC1350_LAUNCHXL_GPTIMER0 = 0,
-    CC1350_LAUNCHXL_GPTIMER1,
-    CC1350_LAUNCHXL_GPTIMER2,
-    CC1350_LAUNCHXL_GPTIMER3,
-    CC1350_LAUNCHXL_GPTIMERCOUNT
-} CC1350_LAUNCHXL_GPTimers;
-
-/*!
- *  @def    CC1350_LAUNCHXL_PWM
- *  @brief  Enum of PWM outputs on the board
- */
-typedef enum CC1350_LAUNCHXL_PWM
-{
-    CC1350_LAUNCHXL_PWM0 = 0,
-    CC1350_LAUNCHXL_PWM1,
-    CC1350_LAUNCHXL_PWM2,
-    CC1350_LAUNCHXL_PWM3,
-    CC1350_LAUNCHXL_PWM4,
-    CC1350_LAUNCHXL_PWM5,
-    CC1350_LAUNCHXL_PWM6,
-    CC1350_LAUNCHXL_PWM7,
-    CC1350_LAUNCHXL_PWMCOUNT
-} CC1350_LAUNCHXL_PWM;
 
 #ifdef __cplusplus
 }
