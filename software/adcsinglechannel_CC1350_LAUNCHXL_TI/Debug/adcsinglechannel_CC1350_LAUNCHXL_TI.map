@@ -1,17 +1,17 @@
 ******************************************************************************
                   TI ARM Linker Unix v18.1.1                   
 ******************************************************************************
->> Linked Tue Apr 17 21:17:00 2018
+>> Linked Tue Apr 17 21:25:25 2018
 
 OUTPUT FILE NAME:   <adcsinglechannel_CC1350_LAUNCHXL_TI.out>
-ENTRY POINT SYMBOL: "ResetISR"  address: 0000411d
+ENTRY POINT SYMBOL: "ResetISR"  address: 00004121
 
 
 MEMORY CONFIGURATION
 
          name            origin    length      used     unused   attr    fill
 ----------------------  --------  ---------  --------  --------  ----  --------
-  FLASH                 00000000   00020000  00004479  0001bb87  R  X
+  FLASH                 00000000   00020000  0000447d  0001bb83  R  X
   SRAM                  20000000   00005000  00001957  000036a9  RW X
 
 
@@ -23,7 +23,7 @@ run origin  load origin   length   init length attrs members
   00000000    00000000    0000003c   0000003c    r-- .resetVecs
   0000003c    0000003c    00000205   00000205    r-- .const
   00000248    00000248    00000240   00000240    r-- .cinit
-00001000    00001000    00003fac   00003fac    r-x
+00001000    00001000    00003fb0   00003fb0    r-x
   00001000    00001000    0000003c   0000003c    r-- .const:ti_sysbios_knl_Task_Object__PARAMS__C
   0000103c    0000103c    00000034   00000034    r-- .const:ti_sysbios_knl_Mailbox_Object__PARAMS__C
   00001070    00001070    00000030   00000030    r-- .const:ti_sysbios_family_arm_m3_Hwi_Object__PARAMS__C
@@ -144,7 +144,7 @@ run origin  load origin   length   init length attrs members
   000014e4    000014e4    00000004   00000004    r-- .const:ti_sysbios_knl_Mailbox_Instance_State_freeSem__O
   000014e8    000014e8    00000004   00000004    r-- .const:ti_sysbios_knl_Semaphore_Instance_State_pendQ__O
   000014ec    000014ec    00000004   00000004    r-- .const:ti_sysbios_knl_Task_Module_State_inactiveQ__O
-  000014f0    000014f0    00003abc   00003abc    r-x .text
+  000014f0    000014f0    00003ac0   00003ac0    r-x .text
 0001ffa8    0001ffa8    00000058   00000058    r--
   0001ffa8    0001ffa8    00000058   00000058    r-- .ccfg
 20000100    20000100    00001598   00000000    rw-
@@ -193,7 +193,7 @@ section   page    origin      length       input sections
                   0000023e    00000002     adcsinglechannel_pem3.oem3 (.const:xdc_runtime_Text_unnamedModsLastId__C)
                   00000240    00000001     adcsinglechannel_pem3.oem3 (.const:xdc_runtime_Text_charTab__A)
 
-.text      0    000014f0    00003abc     
+.text      0    000014f0    00003ac0     
                   000014f0    0000033c     rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_System_doPrint__I)
                   0000182c    00000228     driverlib.lib : sys_ctrl.obj (.text:NOROM_SysCtrlSetRechargeBeforePowerDown)
                   00001a54    00000228     drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:Power_sleep)
@@ -206,223 +206,223 @@ section   page    origin      length       input sections
                   0000254c    0000011c     adcsinglechannel.obj (.text:main)
                   00002668    000000f8     adcsinglechannel_pem3.oem3 (.text:xdc_runtime_System_printfExtend__I)
                   00002760    000000f0     driverlib.lib : setup_rom.obj (.text:NOROM_SetupAfterColdResetWakeupFromShutDownCfg2)
-                  00002850    000000e4     adcsinglechannel.obj (.text:taskFxn0)
-                  00002934    000000e0     drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PINCC26XX_setIoCfg)
-                  00002a14    000000d4     power_cc13xx_tirtos.aem3 : PowerCC26XX_tirtos.oem3 (.text:PowerCC26XX_standbyPolicy)
-                  00002ae8    000000d4     drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:Power_releaseDependency)
-                  00002bbc    000000d0                             : PowerCC26XX.oem3 (.text:Power_setDependency)
-                  00002c8c    000000c0     driverlib.lib : aux_adc.obj (.text:NOROM_AUXADCEnableSync)
-                  00002d4c    000000c0                   : setup.obj (.text:TrimAfterColdResetWakeupFromShutDown)
-                  00002e0c    000000a8                   : setup.obj (.text:NOROM_SetupTrimDevice)
-                  00002eb4    000000a4     drivers_cc13xxware.aem3 : ADCCC26XX.oem3 (.text:ADCCC26XX_open)
-                  00002f58    000000a4     driverlib.lib : setup_rom.obj (.text:NOROM_SetupAfterColdResetWakeupFromShutDownCfg1)
-                  00002ffc    000000a0     auto_init.aem3 : auto_init.oem3 (.text)
-                  0000309c    0000009e     rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_Text_putSite__E)
-                  0000313a    0000009c     rtsv7M3_T_le_eabi.lib : memcpy_t2.asm.obj (.text)
-                  000031d6    00000002                           : _lock.c.obj (.text:_nop)
-                  000031d8    00000098     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_workFuncDynamic__E)
-                  00003270    00000096     rtsv7M3_T_le_eabi.lib : ull_div_t2.asm.obj (.text)
-                  00003306    00000002     drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:emptyClockFunc)
-                  00003308    00000094     driverlib.lib : aux_adc.obj (.text:NOROM_AUXADCDisable)
-                  0000339c    00000094     drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_open)
-                  00003430    00000094     rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_Text_putMod__E)
-                  000034c4    00000090     drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:switchXOSCHFclockFunc)
-                  00003554    0000008c                             : PowerCC26XX.oem3 (.text:disableLFClockQualifiers)
-                  000035e0    00000088                             : PowerCC26XX_calibrateRCOSC.oem3 (.text:calibrateRcoscHf2)
-                  00003668    00000080                             : ADCCC26XX.oem3 (.text:ADCCC26XX_convert)
-                  000036e8    0000007a     rtsv7M3_T_le_eabi.lib : memset_t2.asm.obj (.text)
-                  00003762    00000002                           : div0.asm.obj (.text)
-                  00003764    00000074     driverlib.lib : setup_rom.obj (.text:NOROM_SetupSetVddrLevel)
-                  000037d8    00000074     drivers_cc13xxware.aem3 : PowerCC26XX_calibrateRCOSC.oem3 (.text:PowerCC26XX_auxISR)
-                  0000384c    00000074     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_family_arm_cc26xx_Timer_start__E)
-                  000038c0    00000070     driverlib.lib : chipinfo.obj (.text:NOROM_ChipInfo_GetHwRevision)
-                  00003930    0000006d     rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_System_formatNum__I)
-                  0000399d    00000001     --HOLE-- [fill = 0]
-                  0000399e    00000002                      : rom_sysbios.obj (.text:ti_sysbios_BIOS_linkedWithIncorrectBootLibrary__E)
-                  000039a0    0000006c     driverlib.lib : setup_rom.obj (.text:NOROM_SetupGetTrimForAmpcompCtrl)
-                  00003a0c    0000006c     drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:PowerCC26XX_calibrate)
-                  00003a78    00000068     driverlib.lib : setup_rom.obj (.text:NOROM_SetupGetTrimForAnabypassValue1)
-                  00003ae0    00000068                   : sys_ctrl.obj (.text:NOROM_SysCtrl_DCDC_VoltageConditionalControl)
-                  00003b48    00000068     rtsv7M3_T_le_eabi.lib : copy_decompress_lzss.c.obj (.text:decompress:lzss:__TI_decompress_lzss)
-                  00003bb0    00000064     driverlib.lib : osc.obj (.text:NOROM_OSCHF_AttemptToSwitchToXosc)
-                  00003c14    00000060                   : osc.obj (.text:NOROM_OSCClockSourceSet)
-                  00003c74    00000060     drivers_cc13xxware.aem3 : PowerCC26XX_calibrateRCOSC.oem3 (.text:PowerCC26XX_RCOSC_clockFunc)
-                  00003cd4    00000060                             : PowerCC26XX_calibrateRCOSC.oem3 (.text:updateSubSecInc)
-                  00003d34    0000005c     driverlib.lib : sys_ctrl.obj (.text:NOROM_SysCtrlAdjustRechargeAfterPowerDown)
-                  00003d90    0000005c     drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_remove)
-                  00003dec    0000005c     adcsinglechannel_pem3.oem3 (.text:xdc_runtime_Startup_getState__I)
-                  00003e48    0000005b     rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_Text_putLab__E)
-                  00003ea3    00000001     --HOLE-- [fill = 0]
-                  00003ea4    00000058     rtsv7M3_T_le_eabi.lib : hostwrite.c.obj (.text:HOSTwrite)
-                  00003efc    00000058     drivers_cc13xxware.aem3 : PowerCC26XX_calibrateRCOSC.oem3 (.text:PowerCC26XX_initiateCalibration)
-                  00003f54    00000054                             : PowerCC26XX.oem3 (.text:configureXOSCHF)
-                  00003fa8    00000050     driverlib.lib : setup_rom.obj (.text:NOROM_SetupSetCacheModeAccordingToCcfgSetting)
-                  00003ff8    0000004c     rtsv7M3_T_le_eabi.lib : cpy_tbl.c.obj (.text:copy_in)
-                  00004044    00000048     driverlib.lib : chipinfo.obj (.text:NOROM_ChipInfo_GetChipFamily)
-                  0000408c    00000048     drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_swi)
-                  000040d4    00000048                             : PowerCC26XX.oem3 (.text:notify)
-                  0000411c    00000044     boot.aem3 : boot.oem3 (.text)
-                  00004160    00000044     rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_SysMin_flush__E)
-                  000041a4    00000044                      : rom_sysbios.obj (.text:xdc_runtime_Text_xprintf__I)
-                  000041e8    00000040     rtsv7M3_T_le_eabi.lib : u_divt2.asm.obj (.text)
-                  00004228    0000003c     drivers_cc13xxware.aem3 : ADCCC26XX.oem3 (.text:ADCCC26XX_close)
-                  00004264    0000003c     driverlib.lib : osc.obj (.text:NOROM_OSC_HPOSCRelativeFrequencyOffsetGet)
-                  000042a0    00000038     drivers_cc13xxware.aem3 : ADCCC26XX.oem3 (.text:ADCCC26XX_convertRawToMicroVolts)
-                  000042d8    00000038                             : ADC.oem3 (.text:ADC_init)
-                  00004310    00000038     rtsv7M3_T_le_eabi.lib : trgmsg.c.obj (.text:__TI_writemsg)
-                  00004348    00000038     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_family_arm_cc26xx_Timer_getCurrentTick__E)
-                  00004380    00000038                      : rom_sysbios.obj (.text:xdc_runtime_SysMin_putch__E)
-                  000043b8    00000034     driverlib.lib : aux_adc.obj (.text:NOROM_AUXADCDisableInputScaling)
-                  000043ec    00000034                   : osc.obj (.text:NOROM_OSCHF_SwitchToRcOscTurnOffXosc)
-                  00004420    00000034     drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_setConfig)
-                  00004454    00000034     rtsv7M3_T_le_eabi.lib : trgmsg.c.obj (.text:__TI_readmsg)
-                  00004488    00000034     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_family_arm_cc26xx_Timer_initDevice__I)
-                  000044bc    00000032                      : rom_sysbios.obj (.text:ti_sysbios_family_arm_cc26xx_Timer_setNextTick__E)
-                  000044ee    00000002     adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_nullFunc__I)
-                  000044f0    00000030     driverlib.lib : setup_rom.obj (.text:NOROM_SetupSetAonRtcSubSecInc)
-                  00004520    00000030     drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:Power_releaseConstraint)
-                  00004550    00000030                             : PowerCC26XX.oem3 (.text:Power_setConstraint)
-                  00004580    00000030     driverlib.lib : adi.obj (.text:SafeHapiAuxAdiSelect)
-                  000045b0    00000030     adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_atExitFunc__I)
-                  000045e0    00000030     adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_startFunc__I)
-                  00004610    00000030     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_family_arm_cc26xx_Timer_setThreshold__I)
-                  00004640    00000030                      : rom_sysbios.obj (.text:xdc_runtime_SysMin_abort__E)
-                  00004670    0000002f                      : rom_sysbios.obj (.text:xdc_runtime_Text_printVisFxn__I)
-                  0000469f    00000001     --HOLE-- [fill = 0]
-                  000046a0    0000002c     driverlib.lib : ddi.obj (.text:NOROM_DDI32RegWrite)
-                  000046cc    0000002c                   : osc.obj (.text:NOROM_OSCClockSourceGet)
-                  000046f8    0000002c                   : setup_rom.obj (.text:NOROM_SetupGetTrimForRadcExtCfg)
-                  00004724    0000002c     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_getTicksUntilInterrupt__E)
-                  00004750    0000002a                      : rom_sysbios.obj (.text:xdc_runtime_System_putchar__I)
-                  0000477a    00000002                      : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_triggerFunc__I)
-                  0000477c    00000028     drivers_cc13xxware.aem3 : ADC.oem3 (.text:ADC_open)
-                  000047a4    00000028     driverlib.lib : aon_batmon.obj (.text:NOROM_AONBatMonTemperatureGetDegC)
-                  000047cc    00000028                   : adi.obj (.text:SafeHapiVoid)
-                  000047f4    00000024     drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PINCC26XX_getPinCount)
-                  00004818    00000024                             : PowerCC26XX_calibrateRCOSC.oem3 (.text:getTdcSemaphore)
-                  0000483c    00000024     adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_registerRTSLock__I)
-                  00004860    00000024     adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_removeRTSLock__I)
-                  00004884    00000024     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_family_arm_cc26xx_Timer_getMaxTicks__E)
-                  000048a8    00000024                      : rom_sysbios.obj (.text:xdc_runtime_System_vprintf__E)
-                  000048cc    00000022     driverlib.lib : aux_adc.obj (.text:NOROM_AUXADCAdjustValueForGainAndOffset)
-                  000048ee    00000022     adcsinglechannel_pem3.oem3 (.text:xdc_runtime_SysMin_output__I)
-                  00004910    00000020     driverlib.lib : setup_rom.obj (.text:NOROM_SetupGetTrimForXoscHfCtl)
-                  00004930    00000020     adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_rtsLock__I)
-                  00004950    00000020     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_family_arm_cc26xx_Timer_dynamicStub__E)
-                  00004970    00000020                      : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_stop__E)
-                  00004990    00000020                      : rom_sysbios.obj (.text:xdc_runtime_Registry_findById__E)
-                  000049b0    00000020                      : rom_sysbios.obj (.text:xdc_runtime_SysMin_Module_startup__E)
-                  000049d0    0000001e     drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_close)
-                  000049ee    0000001e                             : PowerCC26XX.oem3 (.text:Power_getTransitionLatency)
-                  00004a0c    0000001c     driverlib.lib : aux_adc.obj (.text:NOROM_AUXADCGetAdjustmentGain)
-                  00004a28    0000001c                   : setup_rom.obj (.text:NOROM_SetupGetTrimForAmpcompTh2)
-                  00004a44    0000001c                   : setup_rom.obj (.text:NOROM_SetupGetTrimForRcOscLfRtuneCtuneTrim)
-                  00004a60    0000001c     drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PINCC26XX_setIoCfgMux)
-                  00004a7c    0000001c                             : PINCC26XX.oem3 (.text:PIN_hwi)
-                  00004a98    0000001c     rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_SysMin_exit__E)
-                  00004ab4    0000001a                      : rom_sysbios_config.obj (.text:xdc_runtime_System_printf__E)
-                  00004ace    00000002     adcsinglechannel_pem3.oem3 (.text:ti_sysbios_rom_cortexm_cc13xx_CC13xx_badRomRevision__E)
-                  00004ad0    00000018     driverlib.lib : aon_rtc.obj (.text:NOROM_AONRTCCurrentCompareValueGet)
-                  00004ae8    00000018                   : aux_adc.obj (.text:NOROM_AUXADCGetAdjustmentOffset)
-                  00004b00    00000018                   : chipinfo.obj (.text:NOROM_ChipInfo_GetPackageType)
-                  00004b18    00000018                   : osc.obj (.text:NOROM_OSCHF_TurnOnXosc)
-                  00004b30    00000018                   : setup_rom.obj (.text:NOROM_SetupGetTrimForAdcShModeEn)
-                  00004b48    00000018                   : setup_rom.obj (.text:NOROM_SetupGetTrimForAdcShVbufEn)
-                  00004b60    00000018                   : setup_rom.obj (.text:NOROM_SetupGetTrimForAmpcompTh1)
-                  00004b78    00000018                   : setup_rom.obj (.text:NOROM_SetupGetTrimForDblrLoopFilterResetVoltage)
-                  00004b90    00000018                   : setup_rom.obj (.text:NOROM_SetupGetTrimForRcOscLfIBiasTrim)
-                  00004ba8    00000018                   : setup_rom.obj (.text:NOROM_SetupGetTrimForXoscLfRegulatorAndCmirrwrRatio)
-                  00004bc0    00000018     drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:Power_idleFunc)
-                  00004bd8    00000018     rtsv7M3_T_le_eabi.lib : args_main.c.obj (.text:_args_main)
-                  00004bf0    00000018     drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:configureRFCoreClocks)
-                  00004c08    00000018     rtsv7M3_T_le_eabi.lib : ll_mul_t2.asm.obj (.text)
-                  00004c20    00000018     adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_rtsUnlock__I)
-                  00004c38    00000018     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Swi_or__E)
-                  00004c50    00000018     adcsinglechannel_pem3.oem3 (.text:ti_sysbios_rom_cortexm_cc13xx_CC13xx_checkRevision__E)
-                  00004c68    00000016     driverlib.lib : chipinfo.obj (.text:NOROM_ThisCodeIsBuiltForCC13xxHwRev20AndLater_HaltIfViolated)
-                  00004c7e    00000016     adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_exitFunc__I)
-                  00004c94    00000016     adcsinglechannel.obj (.text:ti_sysbios_knl_Task_Params_init)
-                  00004caa    00000002     rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_SysCallback_defaultAbort)
-                  00004cac    00000014     driverlib.lib : aon_rtc.obj (.text:NOROM_AONRTCCurrent64BitValueGet)
-                  00004cc0    00000014                   : aux_adc.obj (.text:NOROM_AUXADCValueToMicrovolts)
-                  00004cd4    00000014     rtsv7M3_T_le_eabi.lib : strlen.c.obj (.text:strlen)
-                  00004ce8    00000014     adcsinglechannel_pem3.oem3 (.text:ti_sysbios_knl_Clock_doTick__I)
-                  00004cfc    00000012     adcsinglechannel_pem3.oem3 (.text:xdc_runtime_Startup_exec__I)
-                  00004d0e    00000002     rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_SysCallback_defaultExit)
-                  00004d10    00000010     driverlib.lib : aux_adc.obj (.text:NOROM_AUXADCFlushFifo)
-                  00004d20    00000010                   : aux_adc.obj (.text:NOROM_AUXADCReadFifo)
-                  00004d30    00000010                   : setup_rom.obj (.text:NOROM_SetupGetTrimForXoscHfFastStart)
-                  00004d40    00000010                   : setup_rom.obj (.text:NOROM_SetupGetTrimForXoscHfIbiastherm)
-                  00004d50    00000010     rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_SysMin_ready__E)
-                  00004d60    00000010                      : rom_sysbios.obj (.text:xdc_runtime_System_vsnprintf__E)
-                  00004d70    0000000e     driverlib.lib : vims.obj (.text:NOROM_VIMSModeGet)
-                  00004d7e    0000000e     rtsv7M3_T_le_eabi.lib : copy_decompress_none.c.obj (.text:decompress:none:__TI_decompress_none)
-                  00004d8c    0000000e     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_family_arm_cc26xx_TimestampProvider_get32__E)
-                  00004d9a    0000000c     driverlib.lib : cpu.obj (.text:NOROM_CPUcpsid)
-                  00004da6    0000000c                   : cpu.obj (.text:NOROM_CPUcpsie)
-                  00004db2    00000002     --HOLE-- [fill = 0]
-                  00004db4    0000000c     drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:Power_getConstraintMask)
-                  00004dc0    0000000c                             : PowerCC26XX.oem3 (.text:Power_getDependencyCount)
-                  00004dcc    0000000c     rtsv7M3_T_le_eabi.lib : _lock.c.obj (.text:_register_lock)
-                  00004dd8    0000000c                           : _lock.c.obj (.text:_register_unlock)
-                  00004de4    0000000c                           : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init)
-                  00004df0    0000000c     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Swi_getTrigger__E)
-                  00004dfc    0000000c     adcsinglechannel_pem3.oem3 (.text:xdc_runtime_Startup_reset__I)
-                  00004e08    0000000c     rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_Startup_rtsDone__E)
-                  00004e14    0000000a     drivers_cc13xxware.aem3 : ADC.oem3 (.text:ADC_close)
-                  00004e1e    0000000a                             : ADC.oem3 (.text:ADC_convert)
-                  00004e28    0000000a                             : List.oem3 (.text:List_empty)
-                  00004e32    00000008                             : ADCCC26XX.oem3 (.text:ADCCC26XX_init)
-                  00004e3a    00000008     adcsinglechannel_pem3.oem3 (.text:xdc_runtime_Text_visitRope__I)
-                  00004e42    00000006     drivers_cc13xxware.aem3 : ADCCC26XX.oem3 (.text:ADCCC26XX_control)
-                  00004e48    00000006                             : ADC.oem3 (.text:ADC_Params_init)
-                  00004e4e    00000004                             : List.oem3 (.text:List_head)
-                  00004e52    00000004                             : List.oem3 (.text:List_next)
-                  00004e56    00000004                             : PowerCC26XX.oem3 (.text:nopResourceHandler)
-                  00004e5a    00000004     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_family_arm_cc26xx_Timer_getCount64__E)
-                  00004e5e    00000004                      : rom_sysbios.obj (.text:xdc_runtime_System_printf_va__F)
-                  00004e62    00000002     --HOLE-- [fill = 0]
-                  00004e64    00000008     (.tramp.xdc_runtime_Startup_startMods__I.1)
-                  00004e6c    00000008     (.tramp.ti_sysbios_knl_Clock_logTick__E.1)
-                  00004e74    00000008     (.tramp.ti_sysbios_knl_Task_Params__init__S.1)
-                  00004e7c    00000008     (.tramp.ti_sysbios_knl_Swi_post__E.1)
-                  00004e84    00000008     (.tramp.ti_sysbios_BIOS_RtsGateProxy_leave__E.1)
-                  00004e8c    00000008     (.tramp.ti_sysbios_BIOS_RtsGateProxy_enter__E.1)
-                  00004e94    00000008     (.tramp.ti_sysbios_knl_Task_startup__E.1)
-                  00004e9c    00000008     (.tramp.ti_sysbios_knl_Swi_startup__E.1)
-                  00004ea4    00000008     (.tramp.ti_sysbios_hal_Hwi_startup__E.1)
-                  00004eac    00000008     (.tramp.ti_sysbios_family_arm_cc26xx_Timer_startup__E.1)
-                  00004eb4    00000008     (.tramp.xdc_runtime_System_atexit__E.1)
-                  00004ebc    00000008     (.tramp.ti_sysbios_BIOS_setThreadType__E.1)
-                  00004ec4    00000008     (.tramp.ti_sysbios_knl_Semaphore_destruct.1)
-                  00004ecc    00000008     (.tramp.xdc_runtime_Gate_leaveSystem__E.1)
-                  00004ed4    00000008     (.tramp.xdc_runtime_Gate_enterSystem__E.1)
-                  00004edc    00000008     (.tramp.xdc_runtime_System_exit__E.1)
-                  00004ee4    00000008     (.tramp.ti_sysbios_knl_Semaphore_post__E.1)
-                  00004eec    00000008     (.tramp.ti_sysbios_knl_Semaphore_pend__E.1)
-                  00004ef4    00000008     (.tramp.ti_sysbios_knl_Clock_scheduleNextTick__E.1)
-                  00004efc    00000008     (.tramp.ti_sysbios_knl_Clock_walkQueueDynamic__E.1)
-                  00004f04    00000008     (.tramp.ti_sysbios_knl_Clock_TimerProxy_getCurrentTick__E.1)
-                  00004f0c    00000008     (.tramp.ti_sysbios_family_arm_m3_Hwi_restoreFxn__E.1)
-                  00004f14    00000008     (.tramp.ti_sysbios_family_arm_m3_Hwi_disableFxn__E.1)
-                  00004f1c    00000008     (.tramp.ti_sysbios_BIOS_start__E.1)
-                  00004f24    00000008     (.tramp.ti_sysbios_knl_Task_construct.1)
-                  00004f2c    00000008     (.tramp.xdc_runtime_System_abort__E.1)
-                  00004f34    00000008     (.tramp.ti_sysbios_knl_Clock_setTimeout__E.1)
-                  00004f3c    00000008     (.tramp.ti_sysbios_knl_Clock_construct.1)
-                  00004f44    00000008     (.tramp.ti_sysbios_knl_Clock_Params__init__S.1)
-                  00004f4c    00000008     (.tramp.ti_sysbios_knl_Clock_start__E.1)
-                  00004f54    00000008     (.tramp.xdc_runtime_System_abortSpin__E.1)
-                  00004f5c    00000008     (.tramp.ti_sysbios_knl_Swi_construct.1)
-                  00004f64    00000008     (.tramp.ti_sysbios_knl_Swi_Params__init__S.1)
-                  00004f6c    00000008     (.tramp.ti_sysbios_family_arm_m3_Hwi_construct.1)
-                  00004f74    00000008     (.tramp.ti_sysbios_family_arm_m3_Hwi_Params__init__S.1)
-                  00004f7c    00000008     (.tramp.ti_sysbios_knl_Semaphore_construct.1)
-                  00004f84    00000008     (.tramp.ti_sysbios_knl_Semaphore_Params__init__S.1)
-                  00004f8c    00000008     (.tramp.ti_sysbios_knl_Task_restore__E.1)
-                  00004f94    00000008     (.tramp.ti_sysbios_knl_Swi_restore__E.1)
-                  00004f9c    00000008     (.tramp.ti_sysbios_knl_Swi_disable__E.1)
-                  00004fa4    00000008     (.tramp.ti_sysbios_knl_Task_disable__E.1)
+                  00002850    000000e8     adcsinglechannel.obj (.text:taskFxn0)
+                  00002938    000000e0     drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PINCC26XX_setIoCfg)
+                  00002a18    000000d4     power_cc13xx_tirtos.aem3 : PowerCC26XX_tirtos.oem3 (.text:PowerCC26XX_standbyPolicy)
+                  00002aec    000000d4     drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:Power_releaseDependency)
+                  00002bc0    000000d0                             : PowerCC26XX.oem3 (.text:Power_setDependency)
+                  00002c90    000000c0     driverlib.lib : aux_adc.obj (.text:NOROM_AUXADCEnableSync)
+                  00002d50    000000c0                   : setup.obj (.text:TrimAfterColdResetWakeupFromShutDown)
+                  00002e10    000000a8                   : setup.obj (.text:NOROM_SetupTrimDevice)
+                  00002eb8    000000a4     drivers_cc13xxware.aem3 : ADCCC26XX.oem3 (.text:ADCCC26XX_open)
+                  00002f5c    000000a4     driverlib.lib : setup_rom.obj (.text:NOROM_SetupAfterColdResetWakeupFromShutDownCfg1)
+                  00003000    000000a0     auto_init.aem3 : auto_init.oem3 (.text)
+                  000030a0    0000009e     rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_Text_putSite__E)
+                  0000313e    0000009c     rtsv7M3_T_le_eabi.lib : memcpy_t2.asm.obj (.text)
+                  000031da    00000002                           : _lock.c.obj (.text:_nop)
+                  000031dc    00000098     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_workFuncDynamic__E)
+                  00003274    00000096     rtsv7M3_T_le_eabi.lib : ull_div_t2.asm.obj (.text)
+                  0000330a    00000002     drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:emptyClockFunc)
+                  0000330c    00000094     driverlib.lib : aux_adc.obj (.text:NOROM_AUXADCDisable)
+                  000033a0    00000094     drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_open)
+                  00003434    00000094     rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_Text_putMod__E)
+                  000034c8    00000090     drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:switchXOSCHFclockFunc)
+                  00003558    0000008c                             : PowerCC26XX.oem3 (.text:disableLFClockQualifiers)
+                  000035e4    00000088                             : PowerCC26XX_calibrateRCOSC.oem3 (.text:calibrateRcoscHf2)
+                  0000366c    00000080                             : ADCCC26XX.oem3 (.text:ADCCC26XX_convert)
+                  000036ec    0000007a     rtsv7M3_T_le_eabi.lib : memset_t2.asm.obj (.text)
+                  00003766    00000002                           : div0.asm.obj (.text)
+                  00003768    00000074     driverlib.lib : setup_rom.obj (.text:NOROM_SetupSetVddrLevel)
+                  000037dc    00000074     drivers_cc13xxware.aem3 : PowerCC26XX_calibrateRCOSC.oem3 (.text:PowerCC26XX_auxISR)
+                  00003850    00000074     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_family_arm_cc26xx_Timer_start__E)
+                  000038c4    00000070     driverlib.lib : chipinfo.obj (.text:NOROM_ChipInfo_GetHwRevision)
+                  00003934    0000006d     rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_System_formatNum__I)
+                  000039a1    00000001     --HOLE-- [fill = 0]
+                  000039a2    00000002                      : rom_sysbios.obj (.text:ti_sysbios_BIOS_linkedWithIncorrectBootLibrary__E)
+                  000039a4    0000006c     driverlib.lib : setup_rom.obj (.text:NOROM_SetupGetTrimForAmpcompCtrl)
+                  00003a10    0000006c     drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:PowerCC26XX_calibrate)
+                  00003a7c    00000068     driverlib.lib : setup_rom.obj (.text:NOROM_SetupGetTrimForAnabypassValue1)
+                  00003ae4    00000068                   : sys_ctrl.obj (.text:NOROM_SysCtrl_DCDC_VoltageConditionalControl)
+                  00003b4c    00000068     rtsv7M3_T_le_eabi.lib : copy_decompress_lzss.c.obj (.text:decompress:lzss:__TI_decompress_lzss)
+                  00003bb4    00000064     driverlib.lib : osc.obj (.text:NOROM_OSCHF_AttemptToSwitchToXosc)
+                  00003c18    00000060                   : osc.obj (.text:NOROM_OSCClockSourceSet)
+                  00003c78    00000060     drivers_cc13xxware.aem3 : PowerCC26XX_calibrateRCOSC.oem3 (.text:PowerCC26XX_RCOSC_clockFunc)
+                  00003cd8    00000060                             : PowerCC26XX_calibrateRCOSC.oem3 (.text:updateSubSecInc)
+                  00003d38    0000005c     driverlib.lib : sys_ctrl.obj (.text:NOROM_SysCtrlAdjustRechargeAfterPowerDown)
+                  00003d94    0000005c     drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_remove)
+                  00003df0    0000005c     adcsinglechannel_pem3.oem3 (.text:xdc_runtime_Startup_getState__I)
+                  00003e4c    0000005b     rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_Text_putLab__E)
+                  00003ea7    00000001     --HOLE-- [fill = 0]
+                  00003ea8    00000058     rtsv7M3_T_le_eabi.lib : hostwrite.c.obj (.text:HOSTwrite)
+                  00003f00    00000058     drivers_cc13xxware.aem3 : PowerCC26XX_calibrateRCOSC.oem3 (.text:PowerCC26XX_initiateCalibration)
+                  00003f58    00000054                             : PowerCC26XX.oem3 (.text:configureXOSCHF)
+                  00003fac    00000050     driverlib.lib : setup_rom.obj (.text:NOROM_SetupSetCacheModeAccordingToCcfgSetting)
+                  00003ffc    0000004c     rtsv7M3_T_le_eabi.lib : cpy_tbl.c.obj (.text:copy_in)
+                  00004048    00000048     driverlib.lib : chipinfo.obj (.text:NOROM_ChipInfo_GetChipFamily)
+                  00004090    00000048     drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_swi)
+                  000040d8    00000048                             : PowerCC26XX.oem3 (.text:notify)
+                  00004120    00000044     boot.aem3 : boot.oem3 (.text)
+                  00004164    00000044     rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_SysMin_flush__E)
+                  000041a8    00000044                      : rom_sysbios.obj (.text:xdc_runtime_Text_xprintf__I)
+                  000041ec    00000040     rtsv7M3_T_le_eabi.lib : u_divt2.asm.obj (.text)
+                  0000422c    0000003c     drivers_cc13xxware.aem3 : ADCCC26XX.oem3 (.text:ADCCC26XX_close)
+                  00004268    0000003c     driverlib.lib : osc.obj (.text:NOROM_OSC_HPOSCRelativeFrequencyOffsetGet)
+                  000042a4    00000038     drivers_cc13xxware.aem3 : ADCCC26XX.oem3 (.text:ADCCC26XX_convertRawToMicroVolts)
+                  000042dc    00000038                             : ADC.oem3 (.text:ADC_init)
+                  00004314    00000038     rtsv7M3_T_le_eabi.lib : trgmsg.c.obj (.text:__TI_writemsg)
+                  0000434c    00000038     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_family_arm_cc26xx_Timer_getCurrentTick__E)
+                  00004384    00000038                      : rom_sysbios.obj (.text:xdc_runtime_SysMin_putch__E)
+                  000043bc    00000034     driverlib.lib : aux_adc.obj (.text:NOROM_AUXADCDisableInputScaling)
+                  000043f0    00000034                   : osc.obj (.text:NOROM_OSCHF_SwitchToRcOscTurnOffXosc)
+                  00004424    00000034     drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_setConfig)
+                  00004458    00000034     rtsv7M3_T_le_eabi.lib : trgmsg.c.obj (.text:__TI_readmsg)
+                  0000448c    00000034     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_family_arm_cc26xx_Timer_initDevice__I)
+                  000044c0    00000032                      : rom_sysbios.obj (.text:ti_sysbios_family_arm_cc26xx_Timer_setNextTick__E)
+                  000044f2    00000002     adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_nullFunc__I)
+                  000044f4    00000030     driverlib.lib : setup_rom.obj (.text:NOROM_SetupSetAonRtcSubSecInc)
+                  00004524    00000030     drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:Power_releaseConstraint)
+                  00004554    00000030                             : PowerCC26XX.oem3 (.text:Power_setConstraint)
+                  00004584    00000030     driverlib.lib : adi.obj (.text:SafeHapiAuxAdiSelect)
+                  000045b4    00000030     adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_atExitFunc__I)
+                  000045e4    00000030     adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_startFunc__I)
+                  00004614    00000030     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_family_arm_cc26xx_Timer_setThreshold__I)
+                  00004644    00000030                      : rom_sysbios.obj (.text:xdc_runtime_SysMin_abort__E)
+                  00004674    0000002f                      : rom_sysbios.obj (.text:xdc_runtime_Text_printVisFxn__I)
+                  000046a3    00000001     --HOLE-- [fill = 0]
+                  000046a4    0000002c     driverlib.lib : ddi.obj (.text:NOROM_DDI32RegWrite)
+                  000046d0    0000002c                   : osc.obj (.text:NOROM_OSCClockSourceGet)
+                  000046fc    0000002c                   : setup_rom.obj (.text:NOROM_SetupGetTrimForRadcExtCfg)
+                  00004728    0000002c     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_getTicksUntilInterrupt__E)
+                  00004754    0000002a                      : rom_sysbios.obj (.text:xdc_runtime_System_putchar__I)
+                  0000477e    00000002                      : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_triggerFunc__I)
+                  00004780    00000028     drivers_cc13xxware.aem3 : ADC.oem3 (.text:ADC_open)
+                  000047a8    00000028     driverlib.lib : aon_batmon.obj (.text:NOROM_AONBatMonTemperatureGetDegC)
+                  000047d0    00000028                   : adi.obj (.text:SafeHapiVoid)
+                  000047f8    00000024     drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PINCC26XX_getPinCount)
+                  0000481c    00000024                             : PowerCC26XX_calibrateRCOSC.oem3 (.text:getTdcSemaphore)
+                  00004840    00000024     adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_registerRTSLock__I)
+                  00004864    00000024     adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_removeRTSLock__I)
+                  00004888    00000024     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_family_arm_cc26xx_Timer_getMaxTicks__E)
+                  000048ac    00000024                      : rom_sysbios.obj (.text:xdc_runtime_System_vprintf__E)
+                  000048d0    00000022     driverlib.lib : aux_adc.obj (.text:NOROM_AUXADCAdjustValueForGainAndOffset)
+                  000048f2    00000022     adcsinglechannel_pem3.oem3 (.text:xdc_runtime_SysMin_output__I)
+                  00004914    00000020     driverlib.lib : setup_rom.obj (.text:NOROM_SetupGetTrimForXoscHfCtl)
+                  00004934    00000020     adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_rtsLock__I)
+                  00004954    00000020     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_family_arm_cc26xx_Timer_dynamicStub__E)
+                  00004974    00000020                      : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_stop__E)
+                  00004994    00000020                      : rom_sysbios.obj (.text:xdc_runtime_Registry_findById__E)
+                  000049b4    00000020                      : rom_sysbios.obj (.text:xdc_runtime_SysMin_Module_startup__E)
+                  000049d4    0000001e     drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_close)
+                  000049f2    0000001e                             : PowerCC26XX.oem3 (.text:Power_getTransitionLatency)
+                  00004a10    0000001c     driverlib.lib : aux_adc.obj (.text:NOROM_AUXADCGetAdjustmentGain)
+                  00004a2c    0000001c                   : setup_rom.obj (.text:NOROM_SetupGetTrimForAmpcompTh2)
+                  00004a48    0000001c                   : setup_rom.obj (.text:NOROM_SetupGetTrimForRcOscLfRtuneCtuneTrim)
+                  00004a64    0000001c     drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PINCC26XX_setIoCfgMux)
+                  00004a80    0000001c                             : PINCC26XX.oem3 (.text:PIN_hwi)
+                  00004a9c    0000001c     rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_SysMin_exit__E)
+                  00004ab8    0000001a                      : rom_sysbios_config.obj (.text:xdc_runtime_System_printf__E)
+                  00004ad2    00000002     adcsinglechannel_pem3.oem3 (.text:ti_sysbios_rom_cortexm_cc13xx_CC13xx_badRomRevision__E)
+                  00004ad4    00000018     driverlib.lib : aon_rtc.obj (.text:NOROM_AONRTCCurrentCompareValueGet)
+                  00004aec    00000018                   : aux_adc.obj (.text:NOROM_AUXADCGetAdjustmentOffset)
+                  00004b04    00000018                   : chipinfo.obj (.text:NOROM_ChipInfo_GetPackageType)
+                  00004b1c    00000018                   : osc.obj (.text:NOROM_OSCHF_TurnOnXosc)
+                  00004b34    00000018                   : setup_rom.obj (.text:NOROM_SetupGetTrimForAdcShModeEn)
+                  00004b4c    00000018                   : setup_rom.obj (.text:NOROM_SetupGetTrimForAdcShVbufEn)
+                  00004b64    00000018                   : setup_rom.obj (.text:NOROM_SetupGetTrimForAmpcompTh1)
+                  00004b7c    00000018                   : setup_rom.obj (.text:NOROM_SetupGetTrimForDblrLoopFilterResetVoltage)
+                  00004b94    00000018                   : setup_rom.obj (.text:NOROM_SetupGetTrimForRcOscLfIBiasTrim)
+                  00004bac    00000018                   : setup_rom.obj (.text:NOROM_SetupGetTrimForXoscLfRegulatorAndCmirrwrRatio)
+                  00004bc4    00000018     drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:Power_idleFunc)
+                  00004bdc    00000018     rtsv7M3_T_le_eabi.lib : args_main.c.obj (.text:_args_main)
+                  00004bf4    00000018     drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:configureRFCoreClocks)
+                  00004c0c    00000018     rtsv7M3_T_le_eabi.lib : ll_mul_t2.asm.obj (.text)
+                  00004c24    00000018     adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_rtsUnlock__I)
+                  00004c3c    00000018     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Swi_or__E)
+                  00004c54    00000018     adcsinglechannel_pem3.oem3 (.text:ti_sysbios_rom_cortexm_cc13xx_CC13xx_checkRevision__E)
+                  00004c6c    00000016     driverlib.lib : chipinfo.obj (.text:NOROM_ThisCodeIsBuiltForCC13xxHwRev20AndLater_HaltIfViolated)
+                  00004c82    00000016     adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_exitFunc__I)
+                  00004c98    00000016     adcsinglechannel.obj (.text:ti_sysbios_knl_Task_Params_init)
+                  00004cae    00000002     rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_SysCallback_defaultAbort)
+                  00004cb0    00000014     driverlib.lib : aon_rtc.obj (.text:NOROM_AONRTCCurrent64BitValueGet)
+                  00004cc4    00000014                   : aux_adc.obj (.text:NOROM_AUXADCValueToMicrovolts)
+                  00004cd8    00000014     rtsv7M3_T_le_eabi.lib : strlen.c.obj (.text:strlen)
+                  00004cec    00000014     adcsinglechannel_pem3.oem3 (.text:ti_sysbios_knl_Clock_doTick__I)
+                  00004d00    00000012     adcsinglechannel_pem3.oem3 (.text:xdc_runtime_Startup_exec__I)
+                  00004d12    00000002     rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_SysCallback_defaultExit)
+                  00004d14    00000010     driverlib.lib : aux_adc.obj (.text:NOROM_AUXADCFlushFifo)
+                  00004d24    00000010                   : aux_adc.obj (.text:NOROM_AUXADCReadFifo)
+                  00004d34    00000010                   : setup_rom.obj (.text:NOROM_SetupGetTrimForXoscHfFastStart)
+                  00004d44    00000010                   : setup_rom.obj (.text:NOROM_SetupGetTrimForXoscHfIbiastherm)
+                  00004d54    00000010     rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_SysMin_ready__E)
+                  00004d64    00000010                      : rom_sysbios.obj (.text:xdc_runtime_System_vsnprintf__E)
+                  00004d74    0000000e     driverlib.lib : vims.obj (.text:NOROM_VIMSModeGet)
+                  00004d82    0000000e     rtsv7M3_T_le_eabi.lib : copy_decompress_none.c.obj (.text:decompress:none:__TI_decompress_none)
+                  00004d90    0000000e     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_family_arm_cc26xx_TimestampProvider_get32__E)
+                  00004d9e    0000000c     driverlib.lib : cpu.obj (.text:NOROM_CPUcpsid)
+                  00004daa    0000000c                   : cpu.obj (.text:NOROM_CPUcpsie)
+                  00004db6    00000002     --HOLE-- [fill = 0]
+                  00004db8    0000000c     drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:Power_getConstraintMask)
+                  00004dc4    0000000c                             : PowerCC26XX.oem3 (.text:Power_getDependencyCount)
+                  00004dd0    0000000c     rtsv7M3_T_le_eabi.lib : _lock.c.obj (.text:_register_lock)
+                  00004ddc    0000000c                           : _lock.c.obj (.text:_register_unlock)
+                  00004de8    0000000c                           : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init)
+                  00004df4    0000000c     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Swi_getTrigger__E)
+                  00004e00    0000000c     adcsinglechannel_pem3.oem3 (.text:xdc_runtime_Startup_reset__I)
+                  00004e0c    0000000c     rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_Startup_rtsDone__E)
+                  00004e18    0000000a     drivers_cc13xxware.aem3 : ADC.oem3 (.text:ADC_close)
+                  00004e22    0000000a                             : ADC.oem3 (.text:ADC_convert)
+                  00004e2c    0000000a                             : List.oem3 (.text:List_empty)
+                  00004e36    00000008                             : ADCCC26XX.oem3 (.text:ADCCC26XX_init)
+                  00004e3e    00000008     adcsinglechannel_pem3.oem3 (.text:xdc_runtime_Text_visitRope__I)
+                  00004e46    00000006     drivers_cc13xxware.aem3 : ADCCC26XX.oem3 (.text:ADCCC26XX_control)
+                  00004e4c    00000006                             : ADC.oem3 (.text:ADC_Params_init)
+                  00004e52    00000004                             : List.oem3 (.text:List_head)
+                  00004e56    00000004                             : List.oem3 (.text:List_next)
+                  00004e5a    00000004                             : PowerCC26XX.oem3 (.text:nopResourceHandler)
+                  00004e5e    00000004     rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_family_arm_cc26xx_Timer_getCount64__E)
+                  00004e62    00000004                      : rom_sysbios.obj (.text:xdc_runtime_System_printf_va__F)
+                  00004e66    00000002     --HOLE-- [fill = 0]
+                  00004e68    00000008     (.tramp.xdc_runtime_Startup_startMods__I.1)
+                  00004e70    00000008     (.tramp.ti_sysbios_knl_Clock_logTick__E.1)
+                  00004e78    00000008     (.tramp.ti_sysbios_knl_Task_Params__init__S.1)
+                  00004e80    00000008     (.tramp.ti_sysbios_knl_Swi_post__E.1)
+                  00004e88    00000008     (.tramp.ti_sysbios_BIOS_RtsGateProxy_leave__E.1)
+                  00004e90    00000008     (.tramp.ti_sysbios_BIOS_RtsGateProxy_enter__E.1)
+                  00004e98    00000008     (.tramp.ti_sysbios_knl_Task_startup__E.1)
+                  00004ea0    00000008     (.tramp.ti_sysbios_knl_Swi_startup__E.1)
+                  00004ea8    00000008     (.tramp.ti_sysbios_hal_Hwi_startup__E.1)
+                  00004eb0    00000008     (.tramp.ti_sysbios_family_arm_cc26xx_Timer_startup__E.1)
+                  00004eb8    00000008     (.tramp.xdc_runtime_System_atexit__E.1)
+                  00004ec0    00000008     (.tramp.ti_sysbios_BIOS_setThreadType__E.1)
+                  00004ec8    00000008     (.tramp.ti_sysbios_knl_Semaphore_destruct.1)
+                  00004ed0    00000008     (.tramp.xdc_runtime_Gate_leaveSystem__E.1)
+                  00004ed8    00000008     (.tramp.xdc_runtime_Gate_enterSystem__E.1)
+                  00004ee0    00000008     (.tramp.xdc_runtime_System_exit__E.1)
+                  00004ee8    00000008     (.tramp.ti_sysbios_knl_Semaphore_post__E.1)
+                  00004ef0    00000008     (.tramp.ti_sysbios_knl_Semaphore_pend__E.1)
+                  00004ef8    00000008     (.tramp.ti_sysbios_knl_Clock_scheduleNextTick__E.1)
+                  00004f00    00000008     (.tramp.ti_sysbios_knl_Clock_walkQueueDynamic__E.1)
+                  00004f08    00000008     (.tramp.ti_sysbios_knl_Clock_TimerProxy_getCurrentTick__E.1)
+                  00004f10    00000008     (.tramp.ti_sysbios_family_arm_m3_Hwi_restoreFxn__E.1)
+                  00004f18    00000008     (.tramp.ti_sysbios_family_arm_m3_Hwi_disableFxn__E.1)
+                  00004f20    00000008     (.tramp.ti_sysbios_BIOS_start__E.1)
+                  00004f28    00000008     (.tramp.ti_sysbios_knl_Task_construct.1)
+                  00004f30    00000008     (.tramp.xdc_runtime_System_abort__E.1)
+                  00004f38    00000008     (.tramp.ti_sysbios_knl_Clock_setTimeout__E.1)
+                  00004f40    00000008     (.tramp.ti_sysbios_knl_Clock_construct.1)
+                  00004f48    00000008     (.tramp.ti_sysbios_knl_Clock_Params__init__S.1)
+                  00004f50    00000008     (.tramp.ti_sysbios_knl_Clock_start__E.1)
+                  00004f58    00000008     (.tramp.xdc_runtime_System_abortSpin__E.1)
+                  00004f60    00000008     (.tramp.ti_sysbios_knl_Swi_construct.1)
+                  00004f68    00000008     (.tramp.ti_sysbios_knl_Swi_Params__init__S.1)
+                  00004f70    00000008     (.tramp.ti_sysbios_family_arm_m3_Hwi_construct.1)
+                  00004f78    00000008     (.tramp.ti_sysbios_family_arm_m3_Hwi_Params__init__S.1)
+                  00004f80    00000008     (.tramp.ti_sysbios_knl_Semaphore_construct.1)
+                  00004f88    00000008     (.tramp.ti_sysbios_knl_Semaphore_Params__init__S.1)
+                  00004f90    00000008     (.tramp.ti_sysbios_knl_Task_restore__E.1)
+                  00004f98    00000008     (.tramp.ti_sysbios_knl_Swi_restore__E.1)
+                  00004fa0    00000008     (.tramp.ti_sysbios_knl_Swi_disable__E.1)
+                  00004fa8    00000008     (.tramp.ti_sysbios_knl_Task_disable__E.1)
 
 .cinit     0    00000248    00000240     
                   00000248    00000106     (.cinit..data.load) [load image, compression = lzss]
@@ -1056,11 +1056,11 @@ MODULE SUMMARY
        Module                            code    ro data   rw data
        ------                            ----    -------   -------
     ./
-       adcsinglechannel.obj              826     0         1718   
+       adcsinglechannel.obj              830     0         1718   
        CC1350_LAUNCHXL.obj               0       238       220    
        ccfg.obj                          0       88        0      
     +--+---------------------------------+-------+---------+---------+
-       Total:                            826     326       1938   
+       Total:                            830     326       1938   
                                                                   
     /Users/mikael/Code/cc1350-swim-thermo/software/adcsinglechannel_CC1350_LAUNCHXL_TI/Debug/configPkg/package/cfg/
        adcsinglechannel_pem3.oem3        706     1491      2866   
@@ -1139,7 +1139,7 @@ MODULE SUMMARY
        Stack:                            0       0         768    
        Linker Generated:                 328     571       0      
     +--+---------------------------------+-------+---------+---------+
-       Grand Total:                      15029   2488      6487   
+       Grand Total:                      15033   2488      6487   
 
 
 LINKER GENERATED COPY TABLES
@@ -1173,136 +1173,136 @@ callee name               trampoline name
    callee addr  tramp addr   call addr  call info
 --------------  -----------  ---------  ----------------
 xdc_runtime_Startup_startMods__I  $Tramp$TT$L$PI$$xdc_runtime_Startup_startMods__I
-   1001c309     00004e64     00004d06   adcsinglechannel_pem3.oem3 (.text:xdc_runtime_Startup_exec__I)
+   1001c309     00004e68     00004d0a   adcsinglechannel_pem3.oem3 (.text:xdc_runtime_Startup_exec__I)
 ti_sysbios_knl_Clock_logTick__E  $Tramp$TT$L$PI$$ti_sysbios_knl_Clock_logTick__E
-   1001be63     00004e6c     00004cea   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_knl_Clock_doTick__I)
+   1001be63     00004e70     00004cee   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_knl_Clock_doTick__I)
 ti_sysbios_knl_Task_Params__init__S  $Tramp$TT$L$PI$$ti_sysbios_knl_Task_Params__init__S
-   1001c1d5     00004e74     00004ca4   adcsinglechannel.obj (.text:ti_sysbios_knl_Task_Params_init)
+   1001c1d5     00004e78     00004ca8   adcsinglechannel.obj (.text:ti_sysbios_knl_Task_Params_init)
 ti_sysbios_knl_Swi_post__E  $Tramp$TT$L$PI$$ti_sysbios_knl_Swi_post__E
-   1001b31d     00004e7c     00004c4c   rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Swi_or__E)
-                             00004cf2   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_knl_Clock_doTick__I)
+   1001b31d     00004e80     00004c50   rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Swi_or__E)
+                             00004cf6   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_knl_Clock_doTick__I)
 ti_sysbios_BIOS_RtsGateProxy_leave__E  $Tramp$TT$L$PI$$ti_sysbios_BIOS_RtsGateProxy_leave__E
-   1001c249     00004e84     00004c2e   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_rtsUnlock__I)
+   1001c249     00004e88     00004c32   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_rtsUnlock__I)
 ti_sysbios_BIOS_RtsGateProxy_enter__E  $Tramp$TT$L$PI$$ti_sysbios_BIOS_RtsGateProxy_enter__E
-   1001c245     00004e8c     00004936   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_rtsLock__I)
+   1001c245     00004e90     0000493a   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_rtsLock__I)
 ti_sysbios_knl_Task_startup__E  $Tramp$TT$L$PI$$ti_sysbios_knl_Task_startup__E
-   1001c305     00004e94     00004604   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_startFunc__I)
+   1001c305     00004e98     00004608   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_startFunc__I)
 ti_sysbios_knl_Swi_startup__E  $Tramp$TT$L$PI$$ti_sysbios_knl_Swi_startup__E
-   1001c239     00004e9c     00004600   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_startFunc__I)
+   1001c239     00004ea0     00004604   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_startFunc__I)
 ti_sysbios_hal_Hwi_startup__E  $Tramp$TT$L$PI$$ti_sysbios_hal_Hwi_startup__E
-   1001c289     00004ea4     000045fc   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_startFunc__I)
+   1001c289     00004ea8     00004600   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_startFunc__I)
 ti_sysbios_family_arm_cc26xx_Timer_startup__E  $Tramp$TT$L$PI$$ti_sysbios_family_arm_cc26xx_Timer_startup__E
-   1001b791     00004eac     000045f8   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_startFunc__I)
+   1001b791     00004eb0     000045fc   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_startFunc__I)
 xdc_runtime_System_atexit__E  $Tramp$TT$L$PI$$xdc_runtime_System_atexit__E
-   1001c67d     00004eb4     000045f0   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_startFunc__I)
+   1001c67d     00004eb8     000045f4   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_startFunc__I)
 ti_sysbios_BIOS_setThreadType__E  $Tramp$TT$L$PI$$ti_sysbios_BIOS_setThreadType__E
-   1001c041     00004ebc     000045bc   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_atExitFunc__I)
-                             00004c88   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_exitFunc__I)
+   1001c041     00004ec0     000045c0   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_atExitFunc__I)
+                             00004c8c   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_exitFunc__I)
 ti_sysbios_knl_Semaphore_destruct  $Tramp$TT$L$PI$$ti_sysbios_knl_Semaphore_destruct
-   1001c2dd     00004ec4     00004244   drivers_cc13xxware.aem3 : ADCCC26XX.oem3 (.text:ADCCC26XX_close)
+   1001c2dd     00004ec8     00004248   drivers_cc13xxware.aem3 : ADCCC26XX.oem3 (.text:ADCCC26XX_close)
 xdc_runtime_Gate_leaveSystem__E  $Tramp$TT$L$PI$$xdc_runtime_Gate_leaveSystem__E
-   1001c875     00004ecc     00004190   rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_SysMin_flush__E)
-                             000043a8                    : rom_sysbios.obj (.text:xdc_runtime_SysMin_putch__E)
+   1001c875     00004ed0     00004194   rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_SysMin_flush__E)
+                             000043ac                    : rom_sysbios.obj (.text:xdc_runtime_SysMin_putch__E)
 xdc_runtime_Gate_enterSystem__E  $Tramp$TT$L$PI$$xdc_runtime_Gate_enterSystem__E
-   1001c881     00004ed4     00004162   rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_SysMin_flush__E)
-                             0000438a                    : rom_sysbios.obj (.text:xdc_runtime_SysMin_putch__E)
+   1001c881     00004ed8     00004166   rom_sysbios.aem3 : rom_sysbios.obj (.text:xdc_runtime_SysMin_flush__E)
+                             0000438e                    : rom_sysbios.obj (.text:xdc_runtime_SysMin_putch__E)
 xdc_runtime_System_exit__E  $Tramp$TT$L$PI$$xdc_runtime_System_exit__E
-   1001c7cd     00004edc     00004148   boot.aem3 : boot.oem3 (.text)
-                             00004c8e   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_exitFunc__I)
+   1001c7cd     00004ee0     0000414c   boot.aem3 : boot.oem3 (.text)
+                             00004c92   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_exitFunc__I)
 ti_sysbios_knl_Semaphore_post__E  $Tramp$TT$L$PI$$ti_sysbios_knl_Semaphore_post__E
-   1001ac41     00004ee4     00003416   drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_open)
-                             000036ce                           : ADCCC26XX.oem3 (.text:ADCCC26XX_convert)
+   1001ac41     00004ee8     0000341a   drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_open)
+                             000036d2                           : ADCCC26XX.oem3 (.text:ADCCC26XX_convert)
 ti_sysbios_knl_Semaphore_pend__E  $Tramp$TT$L$PI$$ti_sysbios_knl_Semaphore_pend__E
-   1001a001     00004eec     000033ae   drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_open)
-                             00003676                           : ADCCC26XX.oem3 (.text:ADCCC26XX_convert)
+   1001a001     00004ef0     000033b2   drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_open)
+                             0000367a                           : ADCCC26XX.oem3 (.text:ADCCC26XX_convert)
 ti_sysbios_knl_Clock_scheduleNextTick__E  $Tramp$TT$L$PI$$ti_sysbios_knl_Clock_scheduleNextTick__E
-   1001beb9     00004ef4     00003256   rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_workFuncDynamic__E)
+   1001beb9     00004ef8     0000325a   rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_workFuncDynamic__E)
 ti_sysbios_knl_Clock_walkQueueDynamic__E  $Tramp$TT$L$PI$$ti_sysbios_knl_Clock_walkQueueDynamic__E
-   1001a809     00004efc     0000321e   rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_workFuncDynamic__E)
-                             0000323a                    : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_workFuncDynamic__E)
+   1001a809     00004f00     00003222   rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_workFuncDynamic__E)
+                             0000323e                    : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_workFuncDynamic__E)
 ti_sysbios_knl_Clock_TimerProxy_getCurrentTick__E  $Tramp$TT$L$PI$$ti_sysbios_knl_Clock_TimerProxy_getCurrentTick__E
-   1001c091     00004f04     000031ec   rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_workFuncDynamic__E)
-                             00004736                    : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_getTicksUntilInterrupt__E)
+   1001c091     00004f08     000031f0   rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_workFuncDynamic__E)
+                             0000473a                    : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_getTicksUntilInterrupt__E)
 ti_sysbios_family_arm_m3_Hwi_restoreFxn__E  $Tramp$TT$L$PI$$ti_sysbios_family_arm_m3_Hwi_restoreFxn__E
-   1001c215     00004f0c     000029ea   drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PINCC26XX_setIoCfg)
-                             00002ba2                           : PowerCC26XX.oem3 (.text:Power_releaseDependency)
-                             00002c72                           : PowerCC26XX.oem3 (.text:Power_setDependency)
-                             00002ed2                           : ADCCC26XX.oem3 (.text:ADCCC26XX_open)
-                             00002f20                           : ADCCC26XX.oem3 (.text:ADCCC26XX_open)
-                             0000353e                           : PowerCC26XX.oem3 (.text:switchXOSCHFclockFunc)
-                             00003f22                           : PowerCC26XX_calibrateRCOSC.oem3 (.text:PowerCC26XX_initiateCalibration)
-                             0000424e                           : ADCCC26XX.oem3 (.text:ADCCC26XX_close)
-                             00004544                           : PowerCC26XX.oem3 (.text:Power_releaseConstraint)
-                             00004574                           : PowerCC26XX.oem3 (.text:Power_setConstraint)
+   1001c215     00004f10     000029ee   drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PINCC26XX_setIoCfg)
+                             00002ba6                           : PowerCC26XX.oem3 (.text:Power_releaseDependency)
+                             00002c76                           : PowerCC26XX.oem3 (.text:Power_setDependency)
+                             00002ed6                           : ADCCC26XX.oem3 (.text:ADCCC26XX_open)
+                             00002f24                           : ADCCC26XX.oem3 (.text:ADCCC26XX_open)
+                             00003542                           : PowerCC26XX.oem3 (.text:switchXOSCHFclockFunc)
+                             00003f26                           : PowerCC26XX_calibrateRCOSC.oem3 (.text:PowerCC26XX_initiateCalibration)
+                             00004252                           : ADCCC26XX.oem3 (.text:ADCCC26XX_close)
+                             00004548                           : PowerCC26XX.oem3 (.text:Power_releaseConstraint)
+                             00004578                           : PowerCC26XX.oem3 (.text:Power_setConstraint)
 ti_sysbios_family_arm_m3_Hwi_disableFxn__E  $Tramp$TT$L$PI$$ti_sysbios_family_arm_m3_Hwi_disableFxn__E
-   1001c145     00004f14     000029cc   drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PINCC26XX_setIoCfg)
-                             00002aee                           : PowerCC26XX.oem3 (.text:Power_releaseDependency)
-                             00002bc2                           : PowerCC26XX.oem3 (.text:Power_setDependency)
-                             00002ec4                           : ADCCC26XX.oem3 (.text:ADCCC26XX_open)
-                             000034c8                           : PowerCC26XX.oem3 (.text:switchXOSCHFclockFunc)
-                             00003f0e                           : PowerCC26XX_calibrateRCOSC.oem3 (.text:PowerCC26XX_initiateCalibration)
-                             0000422c                           : ADCCC26XX.oem3 (.text:ADCCC26XX_close)
-                             00004524                           : PowerCC26XX.oem3 (.text:Power_releaseConstraint)
-                             00004554                           : PowerCC26XX.oem3 (.text:Power_setConstraint)
+   1001c145     00004f18     000029d0   drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PINCC26XX_setIoCfg)
+                             00002af2                           : PowerCC26XX.oem3 (.text:Power_releaseDependency)
+                             00002bc6                           : PowerCC26XX.oem3 (.text:Power_setDependency)
+                             00002ec8                           : ADCCC26XX.oem3 (.text:ADCCC26XX_open)
+                             000034cc                           : PowerCC26XX.oem3 (.text:switchXOSCHFclockFunc)
+                             00003f12                           : PowerCC26XX_calibrateRCOSC.oem3 (.text:PowerCC26XX_initiateCalibration)
+                             00004230                           : ADCCC26XX.oem3 (.text:ADCCC26XX_close)
+                             00004528                           : PowerCC26XX.oem3 (.text:Power_releaseConstraint)
+                             00004558                           : PowerCC26XX.oem3 (.text:Power_setConstraint)
 ti_sysbios_BIOS_start__E  $Tramp$TT$L$PI$$ti_sysbios_BIOS_start__E
-   1001c051     00004f1c     000025aa   adcsinglechannel.obj (.text:main)
+   1001c051     00004f20     000025aa   adcsinglechannel.obj (.text:main)
 ti_sysbios_knl_Task_construct  $Tramp$TT$L$PI$$ti_sysbios_knl_Task_construct
-   1001b125     00004f24     00002580   adcsinglechannel.obj (.text:main)
+   1001b125     00004f28     00002580   adcsinglechannel.obj (.text:main)
                              0000259c   adcsinglechannel.obj (.text:main)
 xdc_runtime_System_abort__E  $Tramp$TT$L$PI$$xdc_runtime_System_abort__E
-   1001c745     00004f2c     00002448   adcsinglechannel.obj (.text:taskFxn1)
+   1001c745     00004f30     00002448   adcsinglechannel.obj (.text:taskFxn1)
                              00002560   adcsinglechannel.obj (.text:main)
                              00002870   adcsinglechannel.obj (.text:taskFxn0)
 ti_sysbios_knl_Clock_setTimeout__E  $Tramp$TT$L$PI$$ti_sysbios_knl_Clock_setTimeout__E
-   1001c2bd     00004f34     000023e6   drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:Power_init)
-                             00002a56   power_cc13xx_tirtos.aem3 : PowerCC26XX_tirtos.oem3 (.text:PowerCC26XX_standbyPolicy)
-                             00003510   drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:switchXOSCHFclockFunc)
-                             00003586                           : PowerCC26XX.oem3 (.text:disableLFClockQualifiers)
-                             00003f8c                           : PowerCC26XX.oem3 (.text:configureXOSCHF)
+   1001c2bd     00004f38     000023e6   drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:Power_init)
+                             00002a5a   power_cc13xx_tirtos.aem3 : PowerCC26XX_tirtos.oem3 (.text:PowerCC26XX_standbyPolicy)
+                             00003514   drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:switchXOSCHFclockFunc)
+                             0000358a                           : PowerCC26XX.oem3 (.text:disableLFClockQualifiers)
+                             00003f90                           : PowerCC26XX.oem3 (.text:configureXOSCHF)
 ti_sysbios_knl_Clock_construct  $Tramp$TT$L$PI$$ti_sysbios_knl_Clock_construct
-   1001b575     00004f3c     00002342   drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:Power_init)
+   1001b575     00004f40     00002342   drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:Power_init)
                              00002350                           : PowerCC26XX.oem3 (.text:Power_init)
                              0000235e                           : PowerCC26XX.oem3 (.text:Power_init)
-                             00003a50                           : PowerCC26XX.oem3 (.text:PowerCC26XX_calibrate)
+                             00003a54                           : PowerCC26XX.oem3 (.text:PowerCC26XX_calibrate)
 ti_sysbios_knl_Clock_Params__init__S  $Tramp$TT$L$PI$$ti_sysbios_knl_Clock_Params__init__S
-   1001c181     00004f44     0000232a   drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:Power_init)
-                             00003a38                           : PowerCC26XX.oem3 (.text:PowerCC26XX_calibrate)
+   1001c181     00004f48     0000232a   drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:Power_init)
+                             00003a3c                           : PowerCC26XX.oem3 (.text:PowerCC26XX_calibrate)
 ti_sysbios_knl_Clock_start__E  $Tramp$TT$L$PI$$ti_sysbios_knl_Clock_start__E
-   1001bfdf     00004f4c     000021a2   drivers_cc13xxware.aem3 : PowerCC26XX_calibrateRCOSC.oem3 (.text:PowerCC26XX_doCalibrate)
+   1001bfdf     00004f50     000021a2   drivers_cc13xxware.aem3 : PowerCC26XX_calibrateRCOSC.oem3 (.text:PowerCC26XX_doCalibrate)
                              000023ec                           : PowerCC26XX.oem3 (.text:Power_init)
-                             00002a5c   power_cc13xx_tirtos.aem3 : PowerCC26XX_tirtos.oem3 (.text:PowerCC26XX_standbyPolicy)
-                             00003516   drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:switchXOSCHFclockFunc)
-                             0000358c                           : PowerCC26XX.oem3 (.text:disableLFClockQualifiers)
-                             00003f92                           : PowerCC26XX.oem3 (.text:configureXOSCHF)
-                             00004982   rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_stop__E)
+                             00002a60   power_cc13xx_tirtos.aem3 : PowerCC26XX_tirtos.oem3 (.text:PowerCC26XX_standbyPolicy)
+                             0000351a   drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:switchXOSCHFclockFunc)
+                             00003590                           : PowerCC26XX.oem3 (.text:disableLFClockQualifiers)
+                             00003f96                           : PowerCC26XX.oem3 (.text:configureXOSCHF)
+                             00004986   rom_sysbios.aem3 : rom_sysbios.obj (.text:ti_sysbios_knl_Clock_stop__E)
 xdc_runtime_System_abortSpin__E  $Tramp$TT$L$PI$$xdc_runtime_System_abortSpin__E
-   1001c895     00004f54     00002114   drivers_cc13xxware.aem3 : PowerCC26XX_calibrateRCOSC.oem3 (.text:PowerCC26XX_doCalibrate)
-                             00003c96                           : PowerCC26XX_calibrateRCOSC.oem3 (.text:PowerCC26XX_RCOSC_clockFunc)
+   1001c895     00004f58     00002114   drivers_cc13xxware.aem3 : PowerCC26XX_calibrateRCOSC.oem3 (.text:PowerCC26XX_doCalibrate)
+                             00003c9a                           : PowerCC26XX_calibrateRCOSC.oem3 (.text:PowerCC26XX_RCOSC_clockFunc)
 ti_sysbios_knl_Swi_construct  $Tramp$TT$L$PI$$ti_sysbios_knl_Swi_construct
-   1001b085     00004f5c     00001fc8   drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_init)
+   1001b085     00004f60     00001fc8   drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_init)
 ti_sysbios_knl_Swi_Params__init__S  $Tramp$TT$L$PI$$ti_sysbios_knl_Swi_Params__init__S
-   1001c1c9     00004f64     00001fb6   drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_init)
+   1001c1c9     00004f68     00001fb6   drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_init)
 ti_sysbios_family_arm_m3_Hwi_construct  $Tramp$TT$L$PI$$ti_sysbios_family_arm_m3_Hwi_construct
-   1001af29     00004f6c     00001faa   drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_init)
-                             00003a60                           : PowerCC26XX.oem3 (.text:PowerCC26XX_calibrate)
+   1001af29     00004f70     00001faa   drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_init)
+                             00003a64                           : PowerCC26XX.oem3 (.text:PowerCC26XX_calibrate)
 ti_sysbios_family_arm_m3_Hwi_Params__init__S  $Tramp$TT$L$PI$$ti_sysbios_family_arm_m3_Hwi_Params__init__S
-   1001c139     00004f74     00001f94   drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_init)
+   1001c139     00004f78     00001f94   drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_init)
 ti_sysbios_knl_Semaphore_construct  $Tramp$TT$L$PI$$ti_sysbios_knl_Semaphore_construct
-   1001b705     00004f7c     00001f32   drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_init)
-                             00002ef6                           : ADCCC26XX.oem3 (.text:ADCCC26XX_open)
+   1001b705     00004f80     00001f32   drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_init)
+                             00002efa                           : ADCCC26XX.oem3 (.text:ADCCC26XX_open)
 ti_sysbios_knl_Semaphore_Params__init__S  $Tramp$TT$L$PI$$ti_sysbios_knl_Semaphore_Params__init__S
-   1001c1bd     00004f84     00001f20   drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_init)
-                             00002ee8                           : ADCCC26XX.oem3 (.text:ADCCC26XX_open)
+   1001c1bd     00004f88     00001f20   drivers_cc13xxware.aem3 : PINCC26XX.oem3 (.text:PIN_init)
+                             00002eec                           : ADCCC26XX.oem3 (.text:ADCCC26XX_open)
 ti_sysbios_knl_Task_restore__E  $Tramp$TT$L$PI$$ti_sysbios_knl_Task_restore__E
-   1001ba45     00004f8c     00001c3c   drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:Power_sleep)
+   1001ba45     00004f90     00001c3c   drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:Power_sleep)
 ti_sysbios_knl_Swi_restore__E  $Tramp$TT$L$PI$$ti_sysbios_knl_Swi_restore__E
-   1001b5dd     00004f94     00001c32   drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:Power_sleep)
+   1001b5dd     00004f98     00001c32   drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:Power_sleep)
 ti_sysbios_knl_Swi_disable__E  $Tramp$TT$L$PI$$ti_sysbios_knl_Swi_disable__E
-   1001c0d1     00004f9c     00001a8e   drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:Power_sleep)
-                             000045b2   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_atExitFunc__I)
-ti_sysbios_knl_Task_disable__E  $Tramp$TT$L$PI$$ti_sysbios_knl_Task_disable__E
-   1001c0f1     00004fa4     00001a76   drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:Power_sleep)
+   1001c0d1     00004fa0     00001a8e   drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:Power_sleep)
                              000045b6   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_atExitFunc__I)
+ti_sysbios_knl_Task_disable__E  $Tramp$TT$L$PI$$ti_sysbios_knl_Task_disable__E
+   1001c0f1     00004fa8     00001a76   drivers_cc13xxware.aem3 : PowerCC26XX.oem3 (.text:Power_sleep)
+                             000045ba   adcsinglechannel_pem3.oem3 (.text:ti_sysbios_BIOS_atExitFunc__I)
 
 [41 trampolines]
 [90 trampoline calls]
@@ -1312,108 +1312,108 @@ GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name
 
 address   name                                                                      
 -------   ----                                                                      
-00004229  ADCCC26XX_close                                                           
-00004e43  ADCCC26XX_control                                                         
-00003669  ADCCC26XX_convert                                                         
-000042a1  ADCCC26XX_convertRawToMicroVolts                                          
+0000422d  ADCCC26XX_close                                                           
+00004e47  ADCCC26XX_control                                                         
+0000366d  ADCCC26XX_convert                                                         
+000042a5  ADCCC26XX_convertRawToMicroVolts                                          
 000001cc  ADCCC26XX_fxnTable                                                        
-00004e33  ADCCC26XX_init                                                            
-00002eb5  ADCCC26XX_open                                                            
-00004e49  ADC_Params_init                                                           
-00004e15  ADC_close                                                                 
+00004e37  ADCCC26XX_init                                                            
+00002eb9  ADCCC26XX_open                                                            
+00004e4d  ADC_Params_init                                                           
+00004e19  ADC_close                                                                 
 0000003c  ADC_config                                                                
-00004e1f  ADC_convert                                                               
-000042d9  ADC_init                                                                  
-0000477d  ADC_open                                                                  
+00004e23  ADC_convert                                                               
+000042dd  ADC_init                                                                  
+00004781  ADC_open                                                                  
 0000021c  BoardGpioInitTable                                                        
-0000433f  C$$IO$$                                                                   
-00003ea5  HOSTwrite                                                                 
+00004343  C$$IO$$                                                                   
+00003ea9  HOSTwrite                                                                 
 1001c215  HwiP_restore                                                              
-00004e29  List_empty                                                                
-00004e4f  List_head                                                                 
-00004e53  List_next                                                                 
-000047a5  NOROM_AONBatMonTemperatureGetDegC                                         
-00004cad  NOROM_AONRTCCurrent64BitValueGet                                          
-00004ad1  NOROM_AONRTCCurrentCompareValueGet                                        
-000048cd  NOROM_AUXADCAdjustValueForGainAndOffset                                   
-00003309  NOROM_AUXADCDisable                                                       
-000043b9  NOROM_AUXADCDisableInputScaling                                           
-00002c8d  NOROM_AUXADCEnableSync                                                    
-00004d11  NOROM_AUXADCFlushFifo                                                     
-00004a0d  NOROM_AUXADCGetAdjustmentGain                                             
-00004ae9  NOROM_AUXADCGetAdjustmentOffset                                           
-00004d21  NOROM_AUXADCReadFifo                                                      
-00004cc1  NOROM_AUXADCValueToMicrovolts                                             
-00004d9b  NOROM_CPUcpsid                                                            
-00004da7  NOROM_CPUcpsie                                                            
-00004045  NOROM_ChipInfo_GetChipFamily                                              
-000038c1  NOROM_ChipInfo_GetHwRevision                                              
-00004b01  NOROM_ChipInfo_GetPackageType                                             
-000046a1  NOROM_DDI32RegWrite                                                       
-000046cd  NOROM_OSCClockSourceGet                                                   
-00003c15  NOROM_OSCClockSourceSet                                                   
-00003bb1  NOROM_OSCHF_AttemptToSwitchToXosc                                         
-000043ed  NOROM_OSCHF_SwitchToRcOscTurnOffXosc                                      
-00004b19  NOROM_OSCHF_TurnOnXosc                                                    
-00004265  NOROM_OSC_HPOSCRelativeFrequencyOffsetGet                                 
-00002f59  NOROM_SetupAfterColdResetWakeupFromShutDownCfg1                           
+00004e2d  List_empty                                                                
+00004e53  List_head                                                                 
+00004e57  List_next                                                                 
+000047a9  NOROM_AONBatMonTemperatureGetDegC                                         
+00004cb1  NOROM_AONRTCCurrent64BitValueGet                                          
+00004ad5  NOROM_AONRTCCurrentCompareValueGet                                        
+000048d1  NOROM_AUXADCAdjustValueForGainAndOffset                                   
+0000330d  NOROM_AUXADCDisable                                                       
+000043bd  NOROM_AUXADCDisableInputScaling                                           
+00002c91  NOROM_AUXADCEnableSync                                                    
+00004d15  NOROM_AUXADCFlushFifo                                                     
+00004a11  NOROM_AUXADCGetAdjustmentGain                                             
+00004aed  NOROM_AUXADCGetAdjustmentOffset                                           
+00004d25  NOROM_AUXADCReadFifo                                                      
+00004cc5  NOROM_AUXADCValueToMicrovolts                                             
+00004d9f  NOROM_CPUcpsid                                                            
+00004dab  NOROM_CPUcpsie                                                            
+00004049  NOROM_ChipInfo_GetChipFamily                                              
+000038c5  NOROM_ChipInfo_GetHwRevision                                              
+00004b05  NOROM_ChipInfo_GetPackageType                                             
+000046a5  NOROM_DDI32RegWrite                                                       
+000046d1  NOROM_OSCClockSourceGet                                                   
+00003c19  NOROM_OSCClockSourceSet                                                   
+00003bb5  NOROM_OSCHF_AttemptToSwitchToXosc                                         
+000043f1  NOROM_OSCHF_SwitchToRcOscTurnOffXosc                                      
+00004b1d  NOROM_OSCHF_TurnOnXosc                                                    
+00004269  NOROM_OSC_HPOSCRelativeFrequencyOffsetGet                                 
+00002f5d  NOROM_SetupAfterColdResetWakeupFromShutDownCfg1                           
 00002761  NOROM_SetupAfterColdResetWakeupFromShutDownCfg2                           
 000021cd  NOROM_SetupAfterColdResetWakeupFromShutDownCfg3                           
-00004b31  NOROM_SetupGetTrimForAdcShModeEn                                          
-00004b49  NOROM_SetupGetTrimForAdcShVbufEn                                          
-000039a1  NOROM_SetupGetTrimForAmpcompCtrl                                          
-00004b61  NOROM_SetupGetTrimForAmpcompTh1                                           
-00004a29  NOROM_SetupGetTrimForAmpcompTh2                                           
-00003a79  NOROM_SetupGetTrimForAnabypassValue1                                      
-00004b79  NOROM_SetupGetTrimForDblrLoopFilterResetVoltage                           
-000046f9  NOROM_SetupGetTrimForRadcExtCfg                                           
-00004b91  NOROM_SetupGetTrimForRcOscLfIBiasTrim                                     
-00004a45  NOROM_SetupGetTrimForRcOscLfRtuneCtuneTrim                                
-00004911  NOROM_SetupGetTrimForXoscHfCtl                                            
-00004d31  NOROM_SetupGetTrimForXoscHfFastStart                                      
-00004d41  NOROM_SetupGetTrimForXoscHfIbiastherm                                     
-00004ba9  NOROM_SetupGetTrimForXoscLfRegulatorAndCmirrwrRatio                       
-000044f1  NOROM_SetupSetAonRtcSubSecInc                                             
-00003fa9  NOROM_SetupSetCacheModeAccordingToCcfgSetting                             
-00003765  NOROM_SetupSetVddrLevel                                                   
-00002e0d  NOROM_SetupTrimDevice                                                     
-00003d35  NOROM_SysCtrlAdjustRechargeAfterPowerDown                                 
+00004b35  NOROM_SetupGetTrimForAdcShModeEn                                          
+00004b4d  NOROM_SetupGetTrimForAdcShVbufEn                                          
+000039a5  NOROM_SetupGetTrimForAmpcompCtrl                                          
+00004b65  NOROM_SetupGetTrimForAmpcompTh1                                           
+00004a2d  NOROM_SetupGetTrimForAmpcompTh2                                           
+00003a7d  NOROM_SetupGetTrimForAnabypassValue1                                      
+00004b7d  NOROM_SetupGetTrimForDblrLoopFilterResetVoltage                           
+000046fd  NOROM_SetupGetTrimForRadcExtCfg                                           
+00004b95  NOROM_SetupGetTrimForRcOscLfIBiasTrim                                     
+00004a49  NOROM_SetupGetTrimForRcOscLfRtuneCtuneTrim                                
+00004915  NOROM_SetupGetTrimForXoscHfCtl                                            
+00004d35  NOROM_SetupGetTrimForXoscHfFastStart                                      
+00004d45  NOROM_SetupGetTrimForXoscHfIbiastherm                                     
+00004bad  NOROM_SetupGetTrimForXoscLfRegulatorAndCmirrwrRatio                       
+000044f5  NOROM_SetupSetAonRtcSubSecInc                                             
+00003fad  NOROM_SetupSetCacheModeAccordingToCcfgSetting                             
+00003769  NOROM_SetupSetVddrLevel                                                   
+00002e11  NOROM_SetupTrimDevice                                                     
+00003d39  NOROM_SysCtrlAdjustRechargeAfterPowerDown                                 
 0000182d  NOROM_SysCtrlSetRechargeBeforePowerDown                                   
-00003ae1  NOROM_SysCtrl_DCDC_VoltageConditionalControl                              
-00004c69  NOROM_ThisCodeIsBuiltForCC13xxHwRev20AndLater_HaltIfViolated              
-00004d71  NOROM_VIMSModeGet                                                         
-000047f5  PINCC26XX_getPinCount                                                     
+00003ae5  NOROM_SysCtrl_DCDC_VoltageConditionalControl                              
+00004c6d  NOROM_ThisCodeIsBuiltForCC13xxHwRev20AndLater_HaltIfViolated              
+00004d75  NOROM_VIMSModeGet                                                         
+000047f9  PINCC26XX_getPinCount                                                     
 00000214  PINCC26XX_hwAttrs                                                         
 2000114c  PIN_HandleTable                                                           
 20001348  PIN_NumPins                                                               
-000049d1  PIN_close                                                                 
+000049d5  PIN_close                                                                 
 00001e69  PIN_init                                                                  
-0000339d  PIN_open                                                                  
-00003d91  PIN_remove                                                                
-00004421  PIN_setConfig                                                             
-00003c75  PowerCC26XX_RCOSC_clockFunc                                               
-000037d9  PowerCC26XX_auxISR                                                        
-00003a0d  PowerCC26XX_calibrate                                                     
+000033a1  PIN_open                                                                  
+00003d95  PIN_remove                                                                
+00004425  PIN_setConfig                                                             
+00003c79  PowerCC26XX_RCOSC_clockFunc                                               
+000037dd  PowerCC26XX_auxISR                                                        
+00003a11  PowerCC26XX_calibrate                                                     
 000001f8  PowerCC26XX_config                                                        
 0000202d  PowerCC26XX_doCalibrate                                                   
-00003efd  PowerCC26XX_initiateCalibration                                           
+00003f01  PowerCC26XX_initiateCalibration                                           
 20001358  PowerCC26XX_module                                                        
-00002a15  PowerCC26XX_standbyPolicy                                                 
-00004db5  Power_getConstraintMask                                                   
-00004dc1  Power_getDependencyCount                                                  
-000049ef  Power_getTransitionLatency                                                
-00004bc1  Power_idleFunc                                                            
+00002a19  PowerCC26XX_standbyPolicy                                                 
+00004db9  Power_getConstraintMask                                                   
+00004dc5  Power_getDependencyCount                                                  
+000049f3  Power_getTransitionLatency                                                
+00004bc5  Power_idleFunc                                                            
 000022fd  Power_init                                                                
-00004521  Power_releaseConstraint                                                   
-00002ae9  Power_releaseDependency                                                   
-00004551  Power_setConstraint                                                       
-00002bbd  Power_setDependency                                                       
+00004525  Power_releaseConstraint                                                   
+00002aed  Power_releaseDependency                                                   
+00004555  Power_setConstraint                                                       
+00002bc1  Power_setDependency                                                       
 00001a55  Power_sleep                                                               
-0000411d  ResetISR                                                                  
+00004121  ResetISR                                                                  
 UNDEFED   SHT$$INIT_ARRAY$$Base                                                     
 UNDEFED   SHT$$INIT_ARRAY$$Limit                                                    
-00004581  SafeHapiAuxAdiSelect                                                      
-000047cd  SafeHapiVoid                                                              
+00004585  SafeHapiAuxAdiSelect                                                      
+000047d1  SafeHapiVoid                                                              
 00000000  __ASM__                                                                   
 20000e08  __CIOBUF_                                                                 
 00000093  __ISA__                                                                   
@@ -1425,57 +1425,57 @@ UNDEFED   SHT$$INIT_ARRAY$$Limit
 00000488  __TI_CINIT_Limit                                                          
 000003e4  __TI_Handler_Table_Base                                                   
 000003f0  __TI_Handler_Table_Limit                                                  
-00002ffd  __TI_auto_init                                                            
-00003b49  __TI_decompress_lzss                                                      
-00004d7f  __TI_decompress_none                                                      
+00003001  __TI_auto_init                                                            
+00003b4d  __TI_decompress_lzss                                                      
+00004d83  __TI_decompress_none                                                      
 ffffffff  __TI_pprof_out_hndl                                                       
 ffffffff  __TI_prof_data_size                                                       
 ffffffff  __TI_prof_data_start                                                      
-00004455  __TI_readmsg                                                              
+00004459  __TI_readmsg                                                              
 00000248  __TI_static_base__                                                        
-00004311  __TI_writemsg                                                             
-00004de5  __TI_zero_init                                                            
+00004315  __TI_writemsg                                                             
+00004de9  __TI_zero_init                                                            
 000000f1  __TRDR__                                                                  
-00003763  __aeabi_idiv0                                                             
-00003763  __aeabi_ldiv0                                                             
-00004c09  __aeabi_lmul                                                              
-000036e9  __aeabi_memclr                                                            
-000036e9  __aeabi_memclr4                                                           
-000036e9  __aeabi_memclr8                                                           
-0000313b  __aeabi_memcpy                                                            
-0000313b  __aeabi_memcpy4                                                           
-0000313b  __aeabi_memcpy8                                                           
-000036eb  __aeabi_memset                                                            
-000036eb  __aeabi_memset4                                                           
-000036eb  __aeabi_memset8                                                           
-000041e9  __aeabi_uidiv                                                             
-000041e9  __aeabi_uidivmod                                                          
-00003271  __aeabi_uldivmod                                                          
+00003767  __aeabi_idiv0                                                             
+00003767  __aeabi_ldiv0                                                             
+00004c0d  __aeabi_lmul                                                              
+000036ed  __aeabi_memclr                                                            
+000036ed  __aeabi_memclr4                                                           
+000036ed  __aeabi_memclr8                                                           
+0000313f  __aeabi_memcpy                                                            
+0000313f  __aeabi_memcpy4                                                           
+0000313f  __aeabi_memcpy8                                                           
+000036ef  __aeabi_memset                                                            
+000036ef  __aeabi_memset4                                                           
+000036ef  __aeabi_memset8                                                           
+000041ed  __aeabi_uidiv                                                             
+000041ed  __aeabi_uidivmod                                                          
+00003275  __aeabi_uldivmod                                                          
 ffffffff  __binit__                                                                 
 ffffffff  __c_args__                                                                
 0001ffa8  __ccfg                                                                    
 20004d00  __stack                                                                   
-00004bd9  _args_main                                                                
-0000411d  _c_int00                                                                  
+00004bdd  _args_main                                                                
+00004121  _c_int00                                                                  
 20001614  _lock                                                                     
-000031d7  _nop                                                                      
-00004dcd  _register_lock                                                            
-00004dd9  _register_unlock                                                          
+000031db  _nop                                                                      
+00004dd1  _register_lock                                                            
+00004ddd  _register_unlock                                                          
 20001618  _unlock                                                                   
 00000160  adcCC26xxHWAttrs                                                          
 20000f28  adcCC26xxObjects                                                          
 20001350  adcValue0                                                                 
 20001324  adcValue1                                                                 
 ffffffff  binit                                                                     
-00003ff9  copy_in                                                                   
+00003ffd  copy_in                                                                   
 20001352  driverlib_release_0_47020                                                 
 0000254d  main                                                                      
 20001684  main_func_sp                                                              
-0000313b  memcpy                                                                    
-000036f1  memset                                                                    
+0000313f  memcpy                                                                    
+000036f5  memset                                                                    
 20001340  parmbuf                                                                   
 000000cc  resourceDB                                                                
-00004cd5  strlen                                                                    
+00004cd9  strlen                                                                    
 20000608  task0Stack                                                                
 200011c8  task0Struct                                                               
 20000908  task1Stack                                                                
@@ -1493,43 +1493,43 @@ ffffffff  binit
 1001c249  ti_sysbios_BIOS_RtsGateProxy_leave__E                                     
 1001c271  ti_sysbios_BIOS_RtsGateProxy_query__E                                     
 1001c271  ti_sysbios_BIOS_RtsGateProxy_query__E__mangled__                          
-000045b1  ti_sysbios_BIOS_atExitFunc__I                                             
-00004c7f  ti_sysbios_BIOS_exitFunc__I                                               
+000045b5  ti_sysbios_BIOS_atExitFunc__I                                             
+00004c83  ti_sysbios_BIOS_exitFunc__I                                               
 1001c031  ti_sysbios_BIOS_exit__E                                                   
 1001bff5  ti_sysbios_BIOS_getCpuFreq__E                                             
-0000399f  ti_sysbios_BIOS_linkedWithIncorrectBootLibrary__E                         
-000044ef  ti_sysbios_BIOS_nullFunc__I                                               
-0000483d  ti_sysbios_BIOS_registerRTSLock__I                                        
-00004861  ti_sysbios_BIOS_removeRTSLock__I                                          
-00004931  ti_sysbios_BIOS_rtsLock__I                                                
-00004c21  ti_sysbios_BIOS_rtsUnlock__I                                              
+000039a3  ti_sysbios_BIOS_linkedWithIncorrectBootLibrary__E                         
+000044f3  ti_sysbios_BIOS_nullFunc__I                                               
+00004841  ti_sysbios_BIOS_registerRTSLock__I                                        
+00004865  ti_sysbios_BIOS_removeRTSLock__I                                          
+00004935  ti_sysbios_BIOS_rtsLock__I                                                
+00004c25  ti_sysbios_BIOS_rtsUnlock__I                                              
 1001c041  ti_sysbios_BIOS_setThreadType__E                                          
-000045e1  ti_sysbios_BIOS_startFunc__I                                              
+000045e5  ti_sysbios_BIOS_startFunc__I                                              
 1001c051  ti_sysbios_BIOS_start__E                                                  
-00002e0d  ti_sysbios_family_arm_cc26xx_Boot_trimDevice                              
+00002e11  ti_sysbios_family_arm_cc26xx_Boot_trimDevice                              
 00001406  ti_sysbios_family_arm_cc26xx_Timer_Module__id__C                          
 1001bb45  ti_sysbios_family_arm_cc26xx_Timer_Module__startupDone__S                 
 200001e4  ti_sysbios_family_arm_cc26xx_Timer_Module__state__V                       
 1001ba6d  ti_sysbios_family_arm_cc26xx_Timer_Module_startup__E                      
 200014b8  ti_sysbios_family_arm_cc26xx_Timer_Object__table__V                       
-00004951  ti_sysbios_family_arm_cc26xx_Timer_dynamicStub__E                         
-00004e5b  ti_sysbios_family_arm_cc26xx_Timer_getCount64__E                          
-00004349  ti_sysbios_family_arm_cc26xx_Timer_getCurrentTick__E                      
+00004955  ti_sysbios_family_arm_cc26xx_Timer_dynamicStub__E                         
+00004e5f  ti_sysbios_family_arm_cc26xx_Timer_getCount64__E                          
+0000434d  ti_sysbios_family_arm_cc26xx_Timer_getCurrentTick__E                      
 1001c24d  ti_sysbios_family_arm_cc26xx_Timer_getExpiredTicks__E                     
-00004885  ti_sysbios_family_arm_cc26xx_Timer_getMaxTicks__E                         
+00004889  ti_sysbios_family_arm_cc26xx_Timer_getMaxTicks__E                         
 1001c251  ti_sysbios_family_arm_cc26xx_Timer_getPeriod__E                           
-00004489  ti_sysbios_family_arm_cc26xx_Timer_initDevice__I                          
+0000448d  ti_sysbios_family_arm_cc26xx_Timer_initDevice__I                          
 1001a465  ti_sysbios_family_arm_cc26xx_Timer_periodicStub__E                        
 1001b765  ti_sysbios_family_arm_cc26xx_Timer_postInit__I                            
-000044bd  ti_sysbios_family_arm_cc26xx_Timer_setNextTick__E                         
+000044c1  ti_sysbios_family_arm_cc26xx_Timer_setNextTick__E                         
 1001c255  ti_sysbios_family_arm_cc26xx_Timer_setPeriod__E                           
-00004611  ti_sysbios_family_arm_cc26xx_Timer_setThreshold__I                        
-0000384d  ti_sysbios_family_arm_cc26xx_Timer_start__E                               
+00004615  ti_sysbios_family_arm_cc26xx_Timer_setThreshold__I                        
+00003851  ti_sysbios_family_arm_cc26xx_Timer_start__E                               
 00001384  ti_sysbios_family_arm_cc26xx_Timer_startupNeeded__C                       
 1001b791  ti_sysbios_family_arm_cc26xx_Timer_startup__E                             
 200001ec  ti_sysbios_family_arm_cc26xx_TimestampProvider_Module__state__V           
 1001bb65  ti_sysbios_family_arm_cc26xx_TimestampProvider_Module_startup__E          
-00004d8d  ti_sysbios_family_arm_cc26xx_TimestampProvider_get32__E                   
+00004d91  ti_sysbios_family_arm_cc26xx_TimestampProvider_get32__E                   
 1001b9cd  ti_sysbios_family_arm_cc26xx_TimestampProvider_get64__E                   
 1001c12b  ti_sysbios_family_arm_cc26xx_TimestampProvider_getFreq__E                 
 00001408  ti_sysbios_family_arm_cc26xx_TimestampProvider_useClockTimer__C           
@@ -1729,8 +1729,8 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 1001b3e9  ti_sysbios_knl_Clock_create                                               
 1001c2b1  ti_sysbios_knl_Clock_delete                                               
 1001c2b5  ti_sysbios_knl_Clock_destruct                                             
-00004ce9  ti_sysbios_knl_Clock_doTick__I                                            
-00004725  ti_sysbios_knl_Clock_getTicksUntilInterrupt__E                            
+00004ced  ti_sysbios_knl_Clock_doTick__I                                            
+00004729  ti_sysbios_knl_Clock_getTicksUntilInterrupt__E                            
 1001b6d5  ti_sysbios_knl_Clock_getTicks__E                                          
 1001c18d  ti_sysbios_knl_Clock_getTimerHandle__E                                    
 1001be63  ti_sysbios_knl_Clock_logTick__E                                           
@@ -1740,13 +1740,13 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 1001c2bd  ti_sysbios_knl_Clock_setTimeout__E                                        
 1001a715  ti_sysbios_knl_Clock_startI__E                                            
 1001bfdf  ti_sysbios_knl_Clock_start__E                                             
-00004971  ti_sysbios_knl_Clock_stop__E                                              
+00004975  ti_sysbios_knl_Clock_stop__E                                              
 00001414  ti_sysbios_knl_Clock_tickMode__C                                          
 00000220  ti_sysbios_knl_Clock_tickPeriod__C                                        
 00000224  ti_sysbios_knl_Clock_triggerClock__C                                      
-0000477b  ti_sysbios_knl_Clock_triggerFunc__I                                       
+0000477f  ti_sysbios_knl_Clock_triggerFunc__I                                       
 1001a809  ti_sysbios_knl_Clock_walkQueueDynamic__E                                  
-000031d9  ti_sysbios_knl_Clock_workFuncDynamic__E                                   
+000031dd  ti_sysbios_knl_Clock_workFuncDynamic__E                                   
 1001a881  ti_sysbios_knl_Clock_workFunc__E                                          
 00000228  ti_sysbios_knl_Idle_funcList__A                                           
 00001378  ti_sysbios_knl_Idle_funcList__C                                           
@@ -1835,9 +1835,9 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 1001c2e5  ti_sysbios_knl_Swi_destruct                                               
 1001c0d1  ti_sysbios_knl_Swi_disable__E                                             
 1001c0e1  ti_sysbios_knl_Swi_enabled__E                                             
-00004df1  ti_sysbios_knl_Swi_getTrigger__E                                          
+00004df5  ti_sysbios_knl_Swi_getTrigger__E                                          
 000013e8  ti_sysbios_knl_Swi_numPriorities__C                                       
-00004c39  ti_sysbios_knl_Swi_or__E                                                  
+00004c3d  ti_sysbios_knl_Swi_or__E                                                  
 1001c2e9  ti_sysbios_knl_Swi_postInit__I                                            
 1001b31d  ti_sysbios_knl_Swi_post__E                                                
 1001ad61  ti_sysbios_knl_Swi_restoreHwi__E                                          
@@ -1916,8 +1916,8 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 000014c4  ti_sysbios_rom_ROM_xdc_runtime_Startup_getState__I                        
 000014c8  ti_sysbios_rom_ROM_xdc_runtime_System_SupportProxy_abort__E               
 000014cc  ti_sysbios_rom_ROM_xdc_runtime_System_SupportProxy_exit__E                
-00004acf  ti_sysbios_rom_cortexm_cc13xx_CC13xx_badRomRevision__E                    
-00004c51  ti_sysbios_rom_cortexm_cc13xx_CC13xx_checkRevision__E                     
+00004ad3  ti_sysbios_rom_cortexm_cc13xx_CC13xx_badRomRevision__E                    
+00004c55  ti_sysbios_rom_cortexm_cc13xx_CC13xx_checkRevision__E                     
 1001ca97  ti_sysbios_rom_cortexm_cc13xx_CC13xx_getRevision__E                       
 00001428  xdc_runtime_Assert_E_assertFailed__C                                      
 1001c5a5  xdc_runtime_Assert_raise__I                                               
@@ -1961,20 +1961,20 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 1001c855  xdc_runtime_Memory_getMaxDefaultTypeAlign__E                              
 1001c781  xdc_runtime_Memory_valloc__E                                              
 20001674  xdc_runtime_Registry_Module__state__V                                     
-00004991  xdc_runtime_Registry_findById__E                                          
+00004995  xdc_runtime_Registry_findById__E                                          
 200001f0  xdc_runtime_Startup_Module__state__V                                      
 00000001  xdc_runtime_Startup__EXECFXN__C                                           
 00000001  xdc_runtime_Startup__RESETFXN__C                                          
 00001450  xdc_runtime_Startup_execImpl__C                                           
 1001c555  xdc_runtime_Startup_exec__E                                               
-00004cfd  xdc_runtime_Startup_exec__I                                               
+00004d01  xdc_runtime_Startup_exec__I                                               
 00000208  xdc_runtime_Startup_firstFxns__A                                          
 00001418  xdc_runtime_Startup_firstFxns__C                                          
-00003ded  xdc_runtime_Startup_getState__I                                           
+00003df1  xdc_runtime_Startup_getState__I                                           
 00001420  xdc_runtime_Startup_lastFxns__C                                           
 00001454  xdc_runtime_Startup_maxPasses__C                                          
-00004dfd  xdc_runtime_Startup_reset__I                                              
-00004e09  xdc_runtime_Startup_rtsDone__E                                            
+00004e01  xdc_runtime_Startup_reset__I                                              
+00004e0d  xdc_runtime_Startup_rtsDone__E                                            
 000001e4  xdc_runtime_Startup_sfxnRts__A                                            
 00001458  xdc_runtime_Startup_sfxnRts__C                                            
 000001a4  xdc_runtime_Startup_sfxnTab__A                                            
@@ -1983,22 +1983,22 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 1001c309  xdc_runtime_Startup_startMods__I                                          
 00001464  xdc_runtime_SysCallback_abortFxn__C                                       
 1001c80d  xdc_runtime_SysCallback_abort__E                                          
-00004cab  xdc_runtime_SysCallback_defaultAbort                                      
-00004d0f  xdc_runtime_SysCallback_defaultExit                                       
+00004caf  xdc_runtime_SysCallback_defaultAbort                                      
+00004d13  xdc_runtime_SysCallback_defaultExit                                       
 00001468  xdc_runtime_SysCallback_exitFxn__C                                        
 1001c81d  xdc_runtime_SysCallback_exit__E                                           
 200010cc  xdc_runtime_SysMin_Module_State_0_outbuf__A                               
 20001608  xdc_runtime_SysMin_Module__state__V                                       
-000049b1  xdc_runtime_SysMin_Module_startup__E                                      
-00004641  xdc_runtime_SysMin_abort__E                                               
+000049b5  xdc_runtime_SysMin_Module_startup__E                                      
+00004645  xdc_runtime_SysMin_abort__E                                               
 0000022c  xdc_runtime_SysMin_bufSize__C                                             
-00004a99  xdc_runtime_SysMin_exit__E                                                
+00004a9d  xdc_runtime_SysMin_exit__E                                                
 000001a2  xdc_runtime_SysMin_flushAtExit__C                                         
-00004161  xdc_runtime_SysMin_flush__E                                               
+00004165  xdc_runtime_SysMin_flush__E                                               
 00000230  xdc_runtime_SysMin_outputFunc__C                                          
-000048ef  xdc_runtime_SysMin_output__I                                              
-00004381  xdc_runtime_SysMin_putch__E                                               
-00004d51  xdc_runtime_SysMin_ready__E                                               
+000048f3  xdc_runtime_SysMin_output__I                                              
+00004385  xdc_runtime_SysMin_putch__E                                               
+00004d55  xdc_runtime_SysMin_ready__E                                               
 1001bbe5  xdc_runtime_System_Module_GateProxy_Handle__label__S                      
 1001bbe5  xdc_runtime_System_Module_GateProxy_Handle__label__S__mangled__           
 1001bc05  xdc_runtime_System_Module_GateProxy_Object__delete__S                     
@@ -2010,11 +2010,11 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 2000167c  xdc_runtime_System_Module_State_0_atexitHandlers__A                       
 200001f8  xdc_runtime_System_Module__state__V                                       
 1001c87b  xdc_runtime_System_Module_startup__E                                      
-00004641  xdc_runtime_System_SupportProxy_abort__E                                  
-00004a99  xdc_runtime_System_SupportProxy_exit__E                                   
-00004161  xdc_runtime_System_SupportProxy_flush__E                                  
-00004381  xdc_runtime_System_SupportProxy_putch__E                                  
-00004d51  xdc_runtime_System_SupportProxy_ready__E                                  
+00004645  xdc_runtime_System_SupportProxy_abort__E                                  
+00004a9d  xdc_runtime_System_SupportProxy_exit__E                                   
+00004165  xdc_runtime_System_SupportProxy_flush__E                                  
+00004385  xdc_runtime_System_SupportProxy_putch__E                                  
+00004d55  xdc_runtime_System_SupportProxy_ready__E                                  
 0000146c  xdc_runtime_System_abortFxn__C                                            
 1001c895  xdc_runtime_System_abortSpin__E                                           
 1001c745  xdc_runtime_System_abort__E                                               
@@ -2024,16 +2024,16 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 1001c897  xdc_runtime_System_exitSpin__E                                            
 1001c7cd  xdc_runtime_System_exit__E                                                
 00000234  xdc_runtime_System_extendFxn__C                                           
-00004161  xdc_runtime_System_flush__E                                               
-00003931  xdc_runtime_System_formatNum__I                                           
+00004165  xdc_runtime_System_flush__E                                               
+00003935  xdc_runtime_System_formatNum__I                                           
 00001474  xdc_runtime_System_maxAtexitHandlers__C                                   
 00002669  xdc_runtime_System_printfExtend__I                                        
-00004ab5  xdc_runtime_System_printf__E                                              
-00004e5f  xdc_runtime_System_printf_va__F                                           
+00004ab9  xdc_runtime_System_printf__E                                              
+00004e63  xdc_runtime_System_printf_va__F                                           
 1001c6b5  xdc_runtime_System_processAtExit__E                                       
-00004751  xdc_runtime_System_putchar__I                                             
-000048a9  xdc_runtime_System_vprintf__E                                             
-00004d61  xdc_runtime_System_vsnprintf__E                                           
+00004755  xdc_runtime_System_putchar__I                                             
+000048ad  xdc_runtime_System_vprintf__E                                             
+00004d65  xdc_runtime_System_vsnprintf__E                                           
 0000148c  xdc_runtime_Text_charCnt__C                                               
 00000240  xdc_runtime_Text_charTab__A                                               
 00001478  xdc_runtime_Text_charTab__C                                               
@@ -2042,18 +2042,18 @@ e000e000  ti_sysbios_family_arm_m3_Hwi_nvic
 0000147c  xdc_runtime_Text_nameEmpty__C                                             
 00001480  xdc_runtime_Text_nameStatic__C                                            
 00001484  xdc_runtime_Text_nameUnknown__C                                           
-00004671  xdc_runtime_Text_printVisFxn__I                                           
-00003e49  xdc_runtime_Text_putLab__E                                                
-00003431  xdc_runtime_Text_putMod__E                                                
-0000309d  xdc_runtime_Text_putSite__E                                               
+00004675  xdc_runtime_Text_printVisFxn__I                                           
+00003e4d  xdc_runtime_Text_putLab__E                                                
+00003435  xdc_runtime_Text_putMod__E                                                
+000030a1  xdc_runtime_Text_putSite__E                                               
 0000023c  xdc_runtime_Text_registryModsLastId__C                                    
 1001c7e5  xdc_runtime_Text_ropeText__E                                              
 0000023e  xdc_runtime_Text_unnamedModsLastId__C                                     
 00000238  xdc_runtime_Text_visitRopeFxn__C                                          
-00004e3b  xdc_runtime_Text_visitRope__I                                             
-000041a5  xdc_runtime_Text_xprintf__I                                               
+00004e3f  xdc_runtime_Text_visitRope__I                                             
+000041a9  xdc_runtime_Text_xprintf__I                                               
 1001c82d  xdc_runtime_Timestamp_SupportProxy_get32__E                               
-00004d8d  xdc_runtime_Timestamp_SupportProxy_get32__E__mangled__                    
+00004d91  xdc_runtime_Timestamp_SupportProxy_get32__E__mangled__                    
 1001b9cd  xdc_runtime_Timestamp_SupportProxy_get64__E                               
 1001b9cd  xdc_runtime_Timestamp_SupportProxy_get64__E__mangled__                    
 1001c12b  xdc_runtime_Timestamp_SupportProxy_getFreq__E                             
@@ -2237,181 +2237,181 @@ address   name
 00002669  xdc_runtime_System_printfExtend__I                                        
 00002761  NOROM_SetupAfterColdResetWakeupFromShutDownCfg2                           
 00002851  taskFxn0                                                                  
-00002a15  PowerCC26XX_standbyPolicy                                                 
-00002ae9  Power_releaseDependency                                                   
-00002bbd  Power_setDependency                                                       
-00002c8d  NOROM_AUXADCEnableSync                                                    
-00002e0d  NOROM_SetupTrimDevice                                                     
-00002e0d  ti_sysbios_family_arm_cc26xx_Boot_trimDevice                              
-00002eb5  ADCCC26XX_open                                                            
-00002f59  NOROM_SetupAfterColdResetWakeupFromShutDownCfg1                           
-00002ffd  __TI_auto_init                                                            
-0000309d  xdc_runtime_Text_putSite__E                                               
-0000313b  __aeabi_memcpy                                                            
-0000313b  __aeabi_memcpy4                                                           
-0000313b  __aeabi_memcpy8                                                           
-0000313b  memcpy                                                                    
-000031d7  _nop                                                                      
-000031d9  ti_sysbios_knl_Clock_workFuncDynamic__E                                   
-00003271  __aeabi_uldivmod                                                          
-00003309  NOROM_AUXADCDisable                                                       
-0000339d  PIN_open                                                                  
-00003431  xdc_runtime_Text_putMod__E                                                
-00003669  ADCCC26XX_convert                                                         
-000036e9  __aeabi_memclr                                                            
-000036e9  __aeabi_memclr4                                                           
-000036e9  __aeabi_memclr8                                                           
-000036eb  __aeabi_memset                                                            
-000036eb  __aeabi_memset4                                                           
-000036eb  __aeabi_memset8                                                           
-000036f1  memset                                                                    
-00003763  __aeabi_idiv0                                                             
-00003763  __aeabi_ldiv0                                                             
-00003765  NOROM_SetupSetVddrLevel                                                   
-000037d9  PowerCC26XX_auxISR                                                        
-0000384d  ti_sysbios_family_arm_cc26xx_Timer_start__E                               
-000038c1  NOROM_ChipInfo_GetHwRevision                                              
-00003931  xdc_runtime_System_formatNum__I                                           
-0000399f  ti_sysbios_BIOS_linkedWithIncorrectBootLibrary__E                         
-000039a1  NOROM_SetupGetTrimForAmpcompCtrl                                          
-00003a0d  PowerCC26XX_calibrate                                                     
-00003a79  NOROM_SetupGetTrimForAnabypassValue1                                      
-00003ae1  NOROM_SysCtrl_DCDC_VoltageConditionalControl                              
-00003b49  __TI_decompress_lzss                                                      
-00003bb1  NOROM_OSCHF_AttemptToSwitchToXosc                                         
-00003c15  NOROM_OSCClockSourceSet                                                   
-00003c75  PowerCC26XX_RCOSC_clockFunc                                               
-00003d35  NOROM_SysCtrlAdjustRechargeAfterPowerDown                                 
-00003d91  PIN_remove                                                                
-00003ded  xdc_runtime_Startup_getState__I                                           
-00003e49  xdc_runtime_Text_putLab__E                                                
-00003ea5  HOSTwrite                                                                 
-00003efd  PowerCC26XX_initiateCalibration                                           
-00003fa9  NOROM_SetupSetCacheModeAccordingToCcfgSetting                             
-00003ff9  copy_in                                                                   
-00004045  NOROM_ChipInfo_GetChipFamily                                              
-0000411d  ResetISR                                                                  
-0000411d  _c_int00                                                                  
-00004161  xdc_runtime_SysMin_flush__E                                               
-00004161  xdc_runtime_System_SupportProxy_flush__E                                  
-00004161  xdc_runtime_System_flush__E                                               
-000041a5  xdc_runtime_Text_xprintf__I                                               
-000041e9  __aeabi_uidiv                                                             
-000041e9  __aeabi_uidivmod                                                          
-00004229  ADCCC26XX_close                                                           
-00004265  NOROM_OSC_HPOSCRelativeFrequencyOffsetGet                                 
-000042a1  ADCCC26XX_convertRawToMicroVolts                                          
-000042d9  ADC_init                                                                  
-00004311  __TI_writemsg                                                             
-0000433f  C$$IO$$                                                                   
-00004349  ti_sysbios_family_arm_cc26xx_Timer_getCurrentTick__E                      
-00004381  xdc_runtime_SysMin_putch__E                                               
-00004381  xdc_runtime_System_SupportProxy_putch__E                                  
-000043b9  NOROM_AUXADCDisableInputScaling                                           
-000043ed  NOROM_OSCHF_SwitchToRcOscTurnOffXosc                                      
-00004421  PIN_setConfig                                                             
-00004455  __TI_readmsg                                                              
-00004489  ti_sysbios_family_arm_cc26xx_Timer_initDevice__I                          
-000044bd  ti_sysbios_family_arm_cc26xx_Timer_setNextTick__E                         
-000044ef  ti_sysbios_BIOS_nullFunc__I                                               
-000044f1  NOROM_SetupSetAonRtcSubSecInc                                             
-00004521  Power_releaseConstraint                                                   
-00004551  Power_setConstraint                                                       
-00004581  SafeHapiAuxAdiSelect                                                      
-000045b1  ti_sysbios_BIOS_atExitFunc__I                                             
-000045e1  ti_sysbios_BIOS_startFunc__I                                              
-00004611  ti_sysbios_family_arm_cc26xx_Timer_setThreshold__I                        
-00004641  xdc_runtime_SysMin_abort__E                                               
-00004641  xdc_runtime_System_SupportProxy_abort__E                                  
-00004671  xdc_runtime_Text_printVisFxn__I                                           
-000046a1  NOROM_DDI32RegWrite                                                       
-000046cd  NOROM_OSCClockSourceGet                                                   
-000046f9  NOROM_SetupGetTrimForRadcExtCfg                                           
-00004725  ti_sysbios_knl_Clock_getTicksUntilInterrupt__E                            
-00004751  xdc_runtime_System_putchar__I                                             
-0000477b  ti_sysbios_knl_Clock_triggerFunc__I                                       
-0000477d  ADC_open                                                                  
-000047a5  NOROM_AONBatMonTemperatureGetDegC                                         
-000047cd  SafeHapiVoid                                                              
-000047f5  PINCC26XX_getPinCount                                                     
-0000483d  ti_sysbios_BIOS_registerRTSLock__I                                        
-00004861  ti_sysbios_BIOS_removeRTSLock__I                                          
-00004885  ti_sysbios_family_arm_cc26xx_Timer_getMaxTicks__E                         
-000048a9  xdc_runtime_System_vprintf__E                                             
-000048cd  NOROM_AUXADCAdjustValueForGainAndOffset                                   
-000048ef  xdc_runtime_SysMin_output__I                                              
-00004911  NOROM_SetupGetTrimForXoscHfCtl                                            
-00004931  ti_sysbios_BIOS_rtsLock__I                                                
-00004951  ti_sysbios_family_arm_cc26xx_Timer_dynamicStub__E                         
-00004971  ti_sysbios_knl_Clock_stop__E                                              
-00004991  xdc_runtime_Registry_findById__E                                          
-000049b1  xdc_runtime_SysMin_Module_startup__E                                      
-000049d1  PIN_close                                                                 
-000049ef  Power_getTransitionLatency                                                
-00004a0d  NOROM_AUXADCGetAdjustmentGain                                             
-00004a29  NOROM_SetupGetTrimForAmpcompTh2                                           
-00004a45  NOROM_SetupGetTrimForRcOscLfRtuneCtuneTrim                                
-00004a99  xdc_runtime_SysMin_exit__E                                                
-00004a99  xdc_runtime_System_SupportProxy_exit__E                                   
-00004ab5  xdc_runtime_System_printf__E                                              
-00004acf  ti_sysbios_rom_cortexm_cc13xx_CC13xx_badRomRevision__E                    
-00004ad1  NOROM_AONRTCCurrentCompareValueGet                                        
-00004ae9  NOROM_AUXADCGetAdjustmentOffset                                           
-00004b01  NOROM_ChipInfo_GetPackageType                                             
-00004b19  NOROM_OSCHF_TurnOnXosc                                                    
-00004b31  NOROM_SetupGetTrimForAdcShModeEn                                          
-00004b49  NOROM_SetupGetTrimForAdcShVbufEn                                          
-00004b61  NOROM_SetupGetTrimForAmpcompTh1                                           
-00004b79  NOROM_SetupGetTrimForDblrLoopFilterResetVoltage                           
-00004b91  NOROM_SetupGetTrimForRcOscLfIBiasTrim                                     
-00004ba9  NOROM_SetupGetTrimForXoscLfRegulatorAndCmirrwrRatio                       
-00004bc1  Power_idleFunc                                                            
-00004bd9  _args_main                                                                
-00004c09  __aeabi_lmul                                                              
-00004c21  ti_sysbios_BIOS_rtsUnlock__I                                              
-00004c39  ti_sysbios_knl_Swi_or__E                                                  
-00004c51  ti_sysbios_rom_cortexm_cc13xx_CC13xx_checkRevision__E                     
-00004c69  NOROM_ThisCodeIsBuiltForCC13xxHwRev20AndLater_HaltIfViolated              
-00004c7f  ti_sysbios_BIOS_exitFunc__I                                               
-00004cab  xdc_runtime_SysCallback_defaultAbort                                      
-00004cad  NOROM_AONRTCCurrent64BitValueGet                                          
-00004cc1  NOROM_AUXADCValueToMicrovolts                                             
-00004cd5  strlen                                                                    
-00004ce9  ti_sysbios_knl_Clock_doTick__I                                            
-00004cfd  xdc_runtime_Startup_exec__I                                               
-00004d0f  xdc_runtime_SysCallback_defaultExit                                       
-00004d11  NOROM_AUXADCFlushFifo                                                     
-00004d21  NOROM_AUXADCReadFifo                                                      
-00004d31  NOROM_SetupGetTrimForXoscHfFastStart                                      
-00004d41  NOROM_SetupGetTrimForXoscHfIbiastherm                                     
-00004d51  xdc_runtime_SysMin_ready__E                                               
-00004d51  xdc_runtime_System_SupportProxy_ready__E                                  
-00004d61  xdc_runtime_System_vsnprintf__E                                           
-00004d71  NOROM_VIMSModeGet                                                         
-00004d7f  __TI_decompress_none                                                      
-00004d8d  ti_sysbios_family_arm_cc26xx_TimestampProvider_get32__E                   
-00004d8d  xdc_runtime_Timestamp_SupportProxy_get32__E__mangled__                    
-00004d9b  NOROM_CPUcpsid                                                            
-00004da7  NOROM_CPUcpsie                                                            
-00004db5  Power_getConstraintMask                                                   
-00004dc1  Power_getDependencyCount                                                  
-00004dcd  _register_lock                                                            
-00004dd9  _register_unlock                                                          
-00004de5  __TI_zero_init                                                            
-00004df1  ti_sysbios_knl_Swi_getTrigger__E                                          
-00004dfd  xdc_runtime_Startup_reset__I                                              
-00004e09  xdc_runtime_Startup_rtsDone__E                                            
-00004e15  ADC_close                                                                 
-00004e1f  ADC_convert                                                               
-00004e29  List_empty                                                                
-00004e33  ADCCC26XX_init                                                            
-00004e3b  xdc_runtime_Text_visitRope__I                                             
-00004e43  ADCCC26XX_control                                                         
-00004e49  ADC_Params_init                                                           
-00004e4f  List_head                                                                 
-00004e53  List_next                                                                 
-00004e5b  ti_sysbios_family_arm_cc26xx_Timer_getCount64__E                          
-00004e5f  xdc_runtime_System_printf_va__F                                           
+00002a19  PowerCC26XX_standbyPolicy                                                 
+00002aed  Power_releaseDependency                                                   
+00002bc1  Power_setDependency                                                       
+00002c91  NOROM_AUXADCEnableSync                                                    
+00002e11  NOROM_SetupTrimDevice                                                     
+00002e11  ti_sysbios_family_arm_cc26xx_Boot_trimDevice                              
+00002eb9  ADCCC26XX_open                                                            
+00002f5d  NOROM_SetupAfterColdResetWakeupFromShutDownCfg1                           
+00003001  __TI_auto_init                                                            
+000030a1  xdc_runtime_Text_putSite__E                                               
+0000313f  __aeabi_memcpy                                                            
+0000313f  __aeabi_memcpy4                                                           
+0000313f  __aeabi_memcpy8                                                           
+0000313f  memcpy                                                                    
+000031db  _nop                                                                      
+000031dd  ti_sysbios_knl_Clock_workFuncDynamic__E                                   
+00003275  __aeabi_uldivmod                                                          
+0000330d  NOROM_AUXADCDisable                                                       
+000033a1  PIN_open                                                                  
+00003435  xdc_runtime_Text_putMod__E                                                
+0000366d  ADCCC26XX_convert                                                         
+000036ed  __aeabi_memclr                                                            
+000036ed  __aeabi_memclr4                                                           
+000036ed  __aeabi_memclr8                                                           
+000036ef  __aeabi_memset                                                            
+000036ef  __aeabi_memset4                                                           
+000036ef  __aeabi_memset8                                                           
+000036f5  memset                                                                    
+00003767  __aeabi_idiv0                                                             
+00003767  __aeabi_ldiv0                                                             
+00003769  NOROM_SetupSetVddrLevel                                                   
+000037dd  PowerCC26XX_auxISR                                                        
+00003851  ti_sysbios_family_arm_cc26xx_Timer_start__E                               
+000038c5  NOROM_ChipInfo_GetHwRevision                                              
+00003935  xdc_runtime_System_formatNum__I                                           
+000039a3  ti_sysbios_BIOS_linkedWithIncorrectBootLibrary__E                         
+000039a5  NOROM_SetupGetTrimForAmpcompCtrl                                          
+00003a11  PowerCC26XX_calibrate                                                     
+00003a7d  NOROM_SetupGetTrimForAnabypassValue1                                      
+00003ae5  NOROM_SysCtrl_DCDC_VoltageConditionalControl                              
+00003b4d  __TI_decompress_lzss                                                      
+00003bb5  NOROM_OSCHF_AttemptToSwitchToXosc                                         
+00003c19  NOROM_OSCClockSourceSet                                                   
+00003c79  PowerCC26XX_RCOSC_clockFunc                                               
+00003d39  NOROM_SysCtrlAdjustRechargeAfterPowerDown                                 
+00003d95  PIN_remove                                                                
+00003df1  xdc_runtime_Startup_getState__I                                           
+00003e4d  xdc_runtime_Text_putLab__E                                                
+00003ea9  HOSTwrite                                                                 
+00003f01  PowerCC26XX_initiateCalibration                                           
+00003fad  NOROM_SetupSetCacheModeAccordingToCcfgSetting                             
+00003ffd  copy_in                                                                   
+00004049  NOROM_ChipInfo_GetChipFamily                                              
+00004121  ResetISR                                                                  
+00004121  _c_int00                                                                  
+00004165  xdc_runtime_SysMin_flush__E                                               
+00004165  xdc_runtime_System_SupportProxy_flush__E                                  
+00004165  xdc_runtime_System_flush__E                                               
+000041a9  xdc_runtime_Text_xprintf__I                                               
+000041ed  __aeabi_uidiv                                                             
+000041ed  __aeabi_uidivmod                                                          
+0000422d  ADCCC26XX_close                                                           
+00004269  NOROM_OSC_HPOSCRelativeFrequencyOffsetGet                                 
+000042a5  ADCCC26XX_convertRawToMicroVolts                                          
+000042dd  ADC_init                                                                  
+00004315  __TI_writemsg                                                             
+00004343  C$$IO$$                                                                   
+0000434d  ti_sysbios_family_arm_cc26xx_Timer_getCurrentTick__E                      
+00004385  xdc_runtime_SysMin_putch__E                                               
+00004385  xdc_runtime_System_SupportProxy_putch__E                                  
+000043bd  NOROM_AUXADCDisableInputScaling                                           
+000043f1  NOROM_OSCHF_SwitchToRcOscTurnOffXosc                                      
+00004425  PIN_setConfig                                                             
+00004459  __TI_readmsg                                                              
+0000448d  ti_sysbios_family_arm_cc26xx_Timer_initDevice__I                          
+000044c1  ti_sysbios_family_arm_cc26xx_Timer_setNextTick__E                         
+000044f3  ti_sysbios_BIOS_nullFunc__I                                               
+000044f5  NOROM_SetupSetAonRtcSubSecInc                                             
+00004525  Power_releaseConstraint                                                   
+00004555  Power_setConstraint                                                       
+00004585  SafeHapiAuxAdiSelect                                                      
+000045b5  ti_sysbios_BIOS_atExitFunc__I                                             
+000045e5  ti_sysbios_BIOS_startFunc__I                                              
+00004615  ti_sysbios_family_arm_cc26xx_Timer_setThreshold__I                        
+00004645  xdc_runtime_SysMin_abort__E                                               
+00004645  xdc_runtime_System_SupportProxy_abort__E                                  
+00004675  xdc_runtime_Text_printVisFxn__I                                           
+000046a5  NOROM_DDI32RegWrite                                                       
+000046d1  NOROM_OSCClockSourceGet                                                   
+000046fd  NOROM_SetupGetTrimForRadcExtCfg                                           
+00004729  ti_sysbios_knl_Clock_getTicksUntilInterrupt__E                            
+00004755  xdc_runtime_System_putchar__I                                             
+0000477f  ti_sysbios_knl_Clock_triggerFunc__I                                       
+00004781  ADC_open                                                                  
+000047a9  NOROM_AONBatMonTemperatureGetDegC                                         
+000047d1  SafeHapiVoid                                                              
+000047f9  PINCC26XX_getPinCount                                                     
+00004841  ti_sysbios_BIOS_registerRTSLock__I                                        
+00004865  ti_sysbios_BIOS_removeRTSLock__I                                          
+00004889  ti_sysbios_family_arm_cc26xx_Timer_getMaxTicks__E                         
+000048ad  xdc_runtime_System_vprintf__E                                             
+000048d1  NOROM_AUXADCAdjustValueForGainAndOffset                                   
+000048f3  xdc_runtime_SysMin_output__I                                              
+00004915  NOROM_SetupGetTrimForXoscHfCtl                                            
+00004935  ti_sysbios_BIOS_rtsLock__I                                                
+00004955  ti_sysbios_family_arm_cc26xx_Timer_dynamicStub__E                         
+00004975  ti_sysbios_knl_Clock_stop__E                                              
+00004995  xdc_runtime_Registry_findById__E                                          
+000049b5  xdc_runtime_SysMin_Module_startup__E                                      
+000049d5  PIN_close                                                                 
+000049f3  Power_getTransitionLatency                                                
+00004a11  NOROM_AUXADCGetAdjustmentGain                                             
+00004a2d  NOROM_SetupGetTrimForAmpcompTh2                                           
+00004a49  NOROM_SetupGetTrimForRcOscLfRtuneCtuneTrim                                
+00004a9d  xdc_runtime_SysMin_exit__E                                                
+00004a9d  xdc_runtime_System_SupportProxy_exit__E                                   
+00004ab9  xdc_runtime_System_printf__E                                              
+00004ad3  ti_sysbios_rom_cortexm_cc13xx_CC13xx_badRomRevision__E                    
+00004ad5  NOROM_AONRTCCurrentCompareValueGet                                        
+00004aed  NOROM_AUXADCGetAdjustmentOffset                                           
+00004b05  NOROM_ChipInfo_GetPackageType                                             
+00004b1d  NOROM_OSCHF_TurnOnXosc                                                    
+00004b35  NOROM_SetupGetTrimForAdcShModeEn                                          
+00004b4d  NOROM_SetupGetTrimForAdcShVbufEn                                          
+00004b65  NOROM_SetupGetTrimForAmpcompTh1                                           
+00004b7d  NOROM_SetupGetTrimForDblrLoopFilterResetVoltage                           
+00004b95  NOROM_SetupGetTrimForRcOscLfIBiasTrim                                     
+00004bad  NOROM_SetupGetTrimForXoscLfRegulatorAndCmirrwrRatio                       
+00004bc5  Power_idleFunc                                                            
+00004bdd  _args_main                                                                
+00004c0d  __aeabi_lmul                                                              
+00004c25  ti_sysbios_BIOS_rtsUnlock__I                                              
+00004c3d  ti_sysbios_knl_Swi_or__E                                                  
+00004c55  ti_sysbios_rom_cortexm_cc13xx_CC13xx_checkRevision__E                     
+00004c6d  NOROM_ThisCodeIsBuiltForCC13xxHwRev20AndLater_HaltIfViolated              
+00004c83  ti_sysbios_BIOS_exitFunc__I                                               
+00004caf  xdc_runtime_SysCallback_defaultAbort                                      
+00004cb1  NOROM_AONRTCCurrent64BitValueGet                                          
+00004cc5  NOROM_AUXADCValueToMicrovolts                                             
+00004cd9  strlen                                                                    
+00004ced  ti_sysbios_knl_Clock_doTick__I                                            
+00004d01  xdc_runtime_Startup_exec__I                                               
+00004d13  xdc_runtime_SysCallback_defaultExit                                       
+00004d15  NOROM_AUXADCFlushFifo                                                     
+00004d25  NOROM_AUXADCReadFifo                                                      
+00004d35  NOROM_SetupGetTrimForXoscHfFastStart                                      
+00004d45  NOROM_SetupGetTrimForXoscHfIbiastherm                                     
+00004d55  xdc_runtime_SysMin_ready__E                                               
+00004d55  xdc_runtime_System_SupportProxy_ready__E                                  
+00004d65  xdc_runtime_System_vsnprintf__E                                           
+00004d75  NOROM_VIMSModeGet                                                         
+00004d83  __TI_decompress_none                                                      
+00004d91  ti_sysbios_family_arm_cc26xx_TimestampProvider_get32__E                   
+00004d91  xdc_runtime_Timestamp_SupportProxy_get32__E__mangled__                    
+00004d9f  NOROM_CPUcpsid                                                            
+00004dab  NOROM_CPUcpsie                                                            
+00004db9  Power_getConstraintMask                                                   
+00004dc5  Power_getDependencyCount                                                  
+00004dd1  _register_lock                                                            
+00004ddd  _register_unlock                                                          
+00004de9  __TI_zero_init                                                            
+00004df5  ti_sysbios_knl_Swi_getTrigger__E                                          
+00004e01  xdc_runtime_Startup_reset__I                                              
+00004e0d  xdc_runtime_Startup_rtsDone__E                                            
+00004e19  ADC_close                                                                 
+00004e23  ADC_convert                                                               
+00004e2d  List_empty                                                                
+00004e37  ADCCC26XX_init                                                            
+00004e3f  xdc_runtime_Text_visitRope__I                                             
+00004e47  ADCCC26XX_control                                                         
+00004e4d  ADC_Params_init                                                           
+00004e53  List_head                                                                 
+00004e57  List_next                                                                 
+00004e5f  ti_sysbios_family_arm_cc26xx_Timer_getCount64__E                          
+00004e63  xdc_runtime_System_printf_va__F                                           
 0001ffa8  __ccfg                                                                    
 1001a001  ti_sysbios_knl_Semaphore_pend__E                                          
 1001a0cd  ti_sysbios_knl_Mailbox_Instance_init__E                                   

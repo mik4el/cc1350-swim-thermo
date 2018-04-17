@@ -43,9 +43,6 @@
 
 /* Driver Header files */
 #include <ti/drivers/ADC.h>
-#if defined(CC2650DK_7ID) || defined(CC1310DK_7XD)
-#include <ti/drivers/PIN.h>
-#endif
 
 /* Example/Board Header files */
 #include "Board.h"
@@ -90,7 +87,7 @@ Void taskFxn0(UArg arg0, UArg arg1)
     res = ADC_convert(adc, &adcValue0);
 
     if (res == ADC_STATUS_SUCCESS) {
-        System_printf("ADC channel 0 convert result: 0x%x\n", adcValue0);
+        System_printf("ADC channel 0 convert result: %i mV\n", adcValue0);
     }
     else {
         System_printf("ADC channel 0 convert failed\n");
@@ -127,7 +124,7 @@ Void taskFxn1(UArg arg0, UArg arg1)
         res = ADC_convert(adc, &adcValue1[i]);
 
         if (res == ADC_STATUS_SUCCESS) {
-            System_printf("ADC channel 1 convert result (%d): 0x%x\n", i,
+            System_printf("ADC channel 1 convert result (%d): %i mV\n", i,
                 adcValue1[i]);
         }
         else {
@@ -161,24 +158,6 @@ int main(void)
     taskParams.stackSize = TASKSTACKSIZE;
     taskParams.stack = &task1Stack;
     Task_construct(&task1Struct, (Task_FuncPtr)taskFxn1, &taskParams, NULL);
-
-/*
- * The CC2650DK_7ID and CC1310DK_7XD measure an ambient light sensor in this example.
- * It is not powered by default to avoid high current consumption in other examples.
- * The code below turns on the power to the sensor.
- */
-#if defined(CC2650DK_7ID) || defined(CC1310DK_7XD)
-    PIN_State pinState;
-
-    PIN_Config AlsPinTable[] =
-    {
-        Board_ALS_PWR    | PIN_GPIO_OUTPUT_EN | PIN_GPIO_HIGH    | PIN_PUSHPULL, /* Turn on ALS power */
-        PIN_TERMINATE                                                            /* Terminate list */
-    };
-
-    /* Turn on the power to the ambient light sensor */
-    PIN_open(&pinState, AlsPinTable);
-#endif
 
     System_printf("Starting the ADC Single Channel example\nSystem provider is "
         "set to SysMin.  Halt the target to view any SysMin contents in ROV.\n");
