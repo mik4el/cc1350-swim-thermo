@@ -49,17 +49,6 @@ extern "C" {
 #define     Board_BUTTON0           Board_BTN1
 #define     Board_BUTTON1           Board_BTN2
 
-#define     Board_UART0             Board_UART
-#define     Board_AES0              Board_AES
-#define     Board_WATCHDOG0         CC1350_LAUNCHXL_WATCHDOG0
-
-#define     Board_ADC0              CC1350_LAUNCHXL_ADCVSS
-#define     Board_ADC1              CC1350_LAUNCHXL_ADCVDDS
-
-#define     Board_ADCBuf0           CC1350_LAUNCHXL_ADCBuf0
-#define     Board_ADCBufChannel0    (0)
-#define     Board_ADCBufChannel1    (1)
-
 #define     Board_initGeneral() { \
     Power_init(); \
     if (PIN_init(BoardGpioInitTable) != PIN_SUCCESS) \
@@ -69,11 +58,6 @@ extern "C" {
 
 #define     Board_initGPIO()
 #define     Board_initPWM()        PWM_init()
-#define     Board_initSPI()         SPI_init()
-#define     Board_initUART()        UART_init()
-#define     Board_initWatchdog()    Watchdog_init()
-#define     Board_initADCBuf()      ADCBuf_init()
-#define     Board_initADC()         ADC_init()
 #define     GPIO_toggle(n)
 #define     GPIO_write(n,m)
 
