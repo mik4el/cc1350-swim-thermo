@@ -30,3 +30,10 @@ A few debugging hints (without applying power):
 - Check capacitance values from VDDR->GND (10uF) and DCOUPL->GND(1uF).
 - Check current draw (when applying power). An empty device should go into boot loader mode and draw 6-7mA.
 ```
+
+## Software projects include:
+1. `hello_CC1350_SWIMTHERMO_tirtos_ccs` - sanity check and validate that programming the board works.
+1. `pinInterrupt_CC1350_SWIMTHERMO` - validate that the switch on the custom board can be read.
+1. `adcsinglechannel_CC1350_SWIMTHERMO_TI` - sanity check the ADC.
+1. `lmt70_CC1350_SWIMTHERMO_TI2` - validate that accurate temperature reading can be taken from the LMT70 on P1 on the board and set T_ON1 to high.
+
