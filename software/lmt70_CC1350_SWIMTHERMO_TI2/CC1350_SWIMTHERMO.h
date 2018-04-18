@@ -66,6 +66,7 @@ extern const PIN_Config BoardGpioInitTable[];
  */
 
 #define CC1350_SWIMTHERMO_DIO7_ANALOG   IOID_7
+#define CC1350_SWIMTHERMO_DIO5          IOID_5 //T_ON1 If set high, enables lmt70 on p1
 
 
 /** ============================================================================

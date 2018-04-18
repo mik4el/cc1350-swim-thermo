@@ -70,6 +70,7 @@
 #endif
 
 const PIN_Config BoardGpioInitTable[] = {
+    CC1350_SWIMTHERMO_DIO5 | PIN_GPIO_OUTPUT_EN | PIN_GPIO_HIGH | PIN_PUSHPULL,  /* T_ON1 should be default high */
 
     PIN_TERMINATE
 };
