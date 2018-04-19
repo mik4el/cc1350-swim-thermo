@@ -46,25 +46,41 @@
 /* TI-RTOS Header files */
 #include <ti/drivers/PIN.h>
 #include <ti/drivers/pin/PINCC26XX.h>
+#include <ti/sysbios/knl/Task.h>
+#include <ti/sysbios/knl/Clock.h>
 
 /* Example/Board Header files */
 #include "Board.h"
 
-/* Pin driver handles */
 static PIN_Handle ledPinHandle;
-
-/* Global memory storage for a PIN_Config table */
 static PIN_State ledPinState;
-
-/*
- * Initial LED pin configuration table
- *   - LEDs Board_LED0 is on.
- *   - LEDs Board_LED1 is off.
- */
 PIN_Config ledPinTable[] = {
     PIN_LED_EASYSET | PIN_GPIO_OUTPUT_EN | PIN_GPIO_HIGH | PIN_PUSHPULL,
     PIN_TERMINATE
 };
+
+void led_easyset_high() {
+    PIN_setOutputValue(ledPinHandle, PIN_LED_EASYSET, 0);
+}
+
+void led_easyset_low() {
+    PIN_setOutputValue(ledPinHandle, PIN_LED_EASYSET, 1);
+}
+
+void handleClockTimeout()
+{
+    led_easyset_low();
+}
+
+void mainTaskFunction()
+{
+    for (;;)
+    {
+        led_easyset_high();
+        Task_sleep(1);
+    }
+}
+
 
 /*
  *  ======== main ========
@@ -78,9 +94,8 @@ int main(void)
     /* Open LED pins */
     ledPinHandle = PIN_open(&ledPinState, ledPinTable);
     if(!ledPinHandle) {
-        System_abort("Error initializing board LED pins\n");
+        System_abort("Error initializing board LED pin\n");
     }
-    PIN_setOutputValue(ledPinHandle, PIN_LED_EASYSET, 0);
 
     System_printf("TLC5973 test!\n");
 
@@ -89,3 +104,4 @@ int main(void)
 
     return (0);
 }
+
