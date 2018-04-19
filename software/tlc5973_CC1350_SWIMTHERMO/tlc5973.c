@@ -50,6 +50,22 @@
 /* Example/Board Header files */
 #include "Board.h"
 
+/* Pin driver handles */
+static PIN_Handle ledPinHandle;
+
+/* Global memory storage for a PIN_Config table */
+static PIN_State ledPinState;
+
+/*
+ * Initial LED pin configuration table
+ *   - LEDs Board_LED0 is on.
+ *   - LEDs Board_LED1 is off.
+ */
+PIN_Config ledPinTable[] = {
+    PIN_LED_EASYSET | PIN_GPIO_OUTPUT_EN | PIN_GPIO_HIGH | PIN_PUSHPULL,
+    PIN_TERMINATE
+};
+
 /*
  *  ======== main ========
  */
@@ -59,6 +75,13 @@ int main(void)
     Board_initGeneral();
 
     /* Setup */
+    /* Open LED pins */
+    ledPinHandle = PIN_open(&ledPinState, ledPinTable);
+    if(!ledPinHandle) {
+        System_abort("Error initializing board LED pins\n");
+    }
+    PIN_setOutputValue(ledPinHandle, PIN_LED_EASYSET, 0);
+
     System_printf("TLC5973 test!\n");
 
     /* Start kernel. */
