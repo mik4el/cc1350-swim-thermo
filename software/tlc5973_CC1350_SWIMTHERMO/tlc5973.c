@@ -52,8 +52,17 @@
 /* Example/Board Header files */
 #include "Board.h"
 
+/* Pin driver handles */
 static PIN_Handle ledPinHandle;
+
+/* Global memory storage for a PIN_Config table */
 static PIN_State ledPinState;
+
+/*
+ * Initial LED pin configuration table
+ *   - LEDs Board_LED0 is on.
+ *   - LEDs Board_LED1 is off.
+ */
 PIN_Config ledPinTable[] = {
     PIN_LED_EASYSET | PIN_GPIO_OUTPUT_EN | PIN_GPIO_HIGH | PIN_PUSHPULL,
     PIN_TERMINATE
@@ -67,20 +76,77 @@ void led_easyset_low() {
     PIN_setOutputValue(ledPinHandle, PIN_LED_EASYSET, 1);
 }
 
-void handleClockTimeout()
-{
+
+void output_high() {
+    led_easyset_high();
+}
+
+void output_low() {
     led_easyset_low();
 }
 
-void mainTaskFunction()
-{
-    for (;;)
-    {
-        led_easyset_high();
-        Task_sleep(1);
+void delay() {
+    asm(" NOP");
+}
+
+uint16_t *pixels;        // Holds LED color values (3 or 4 bytes each)
+
+void pulse() {
+    led_easyset_high();
+    led_easyset_low();
+}
+
+void writeZero() {
+    pulse();
+    led_easyset_low();
+    led_easyset_low();
+}
+
+void writeNone() {
+    delay();
+    delay();
+}
+
+void writeOne() {
+    pulse();
+    pulse();
+}
+
+void waitGSLAT(uint8_t num) {
+    uint8_t i;
+    for (i = 0; i < num; i++) {
+        writeNone();
     }
 }
 
+void writeWord(uint16_t word) {
+    uint8_t i;
+    for (i = 0; i < 12; i++){
+        if (word & 0x800) {
+            writeOne();
+        } else {
+            writeZero();
+        }
+        word <<= 1;
+    }
+}
+
+void setPixelColor(uint16_t r, uint16_t g, uint16_t b) {
+    //numWords = numLEDs * 3;
+    if((pixels = (uint16_t *)malloc(3))) {
+        memset(pixels, 0, 3);
+    }
+    uint16_t *p;
+    p = &pixels[1 * 3];    // 3 bytes per pixel
+    p[2] = r;          // R,G,B always stored
+    p[1] = g;
+    p[0] = b;
+    writeWord( 0x03AA );
+    writeWord( pixels[0] );
+    writeWord( pixels[1] );
+    writeWord( pixels[2] );
+    waitGSLAT(4);
+}
 
 /*
  *  ======== main ========
@@ -99,9 +165,10 @@ int main(void)
 
     System_printf("TLC5973 test!\n");
 
+    setPixelColor(1234, 1234, 1234); // timings are off, this will not work t_cycle for 1 is 2.8uS*2 and t_cycle for 0 is 6.2uS
+
     /* Start kernel. */
     BIOS_start();
 
     return (0);
 }
-
