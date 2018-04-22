@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?ccsproject version="1.0"?>
+<projectOptions>
+	<ccsVersion value="8.0.0"/>
+	<deviceVariant value="Cortex M.CC1350F128"/>
+	<deviceFamily value="TMS470"/>
+	<deviceEndianness value="little"/>
+	<codegenToolVersion value="18.1.1.LTS"/>
+	<isElfFormat value="true"/>
+	<connection value="common/targetdb/connections/TIXDS110_Connection.xml"/>
+	<rts value=""/>
+	<createSlaveProjects value=""/>
+	<ignoreDefaultDeviceSettings value="true"/>
+	<ignoreDefaultCCSSettings value="true"/>
+	<templateProperties value="id=spimaster_CC1350_LAUNCHXL_tirtos_ccs.projectspec.spimaster_CC1350_LAUNCHXL_tirtos_ccs,buildProfile=release,isHybrid=true,"/>
+	<origin value="/Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/examples/rtos/CC1350_LAUNCHXL/drivers/spimaster/tirtos/ccs/spimaster_CC1350_LAUNCHXL_tirtos_ccs.projectspec"/>
+	<filesToOpen value=""/>
+</projectOptions>
