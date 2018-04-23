@@ -40,24 +40,19 @@
 
 /* POSIX Header files */
 #include <pthread.h>
-#include <semaphore.h>
 #include <unistd.h>
 
 /* Driver Header files */
-#include <ti/drivers/GPIO.h>
 #include <ti/drivers/SPI.h>
-#include <ti/display/Display.h>
 
 /* Example/Board Header files */
 #include "Board.h"
 
 #define THREADSTACKSIZE (1024)
 
-#define SPI_MSG_LENGTH  (6)
+#define SPI_MSG_LENGTH  (72)
 
 #define MAX_LOOP        (10)
-
-static Display_Handle display;
 
 unsigned char masterRxBuffer[SPI_MSG_LENGTH];
 //unsigned char masterTxBuffer[] = { 0b11001100, 0b11001100, 0b11001100, 0b11001100, 0b11001100, 0b11001100 };
@@ -68,20 +63,51 @@ unsigned char masterRxBuffer[SPI_MSG_LENGTH];
 
 #define ONE     0b00110011
 #define ZERO    0b00111111
+#define NONE    0b11111111
 //unsigned char masterTxBuffer[] = { 0b00111111, 0b00110011, 0b00111111, 0b00110011, 0b00111111, 0b00110011 };
-unsigned char masterTxBuffer[] = { ZERO, ONE, ZERO, ONE, ZERO, ONE }; // Appears to recreate expected waveform to steer TLC5973
+//unsigned char masterTxBuffer[] = { ZERO, ONE, ZERO, ONE, ZERO, ONE };
 
-/* Semaphore to block master until slave is ready for transfer */
-sem_t masterSem;
+// TLC5973 message: GSLAT, 0x3AA, 0xFFF, 0xFFF, 0xFFF, GSLAT (white)
+unsigned char masterTxBuffer[] = { NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
+                                   ZERO, ZERO, ONE, ONE, ONE, ZERO, ONE, ZERO, ONE, ZERO, ONE, ZERO, //0x3AA  0b001110101010
+                                   ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, //0xFFF OUT0
+                                   ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, //0xFFF OUT1
+                                   ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, //0xFFF OUT2
+                                   NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
+                                 };
 
 /*
- *  ======== slaveReadyFxn ========
- *  Callback function for the GPIO interrupt on Board_SPI_SLAVE_READY.
- */
-void slaveReadyFxn(uint_least8_t index)
-{
-    sem_post(&masterSem);
-}
+// TLC5973 message: low, 0x3AA, 0xFFF, 0x000, 0x000, low (blue)
+unsigned char masterTxBuffer[] = { NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
+                                   ZERO, ZERO, ONE, ONE, ONE, ZERO, ONE, ZERO, ONE, ZERO, ONE, ZERO, //0x3AA  0b001110101010
+                                   ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, //0xFFF OUT0
+                                   ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, //0x000 OUT1
+                                   ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, //0x000 OUT2
+                                   NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
+                                 };
+*/
+
+/*
+// TLC5973 message: low, 0x3AA, 0x000, 0xFFF, 0x000, low (green)
+unsigned char masterTxBuffer[] = { NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
+                                   ZERO, ZERO, ONE, ONE, ONE, ZERO, ONE, ZERO, ONE, ZERO, ONE, ZERO, //0x3AA  0b001110101010
+                                   ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, //0x000 OUT0
+                                   ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, //0xFFF OUT1
+                                   ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, //0x000 OUT1
+                                   NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
+                                 };
+*/
+
+/*
+// TLC5973 message: low, 0x3AA, 0x000, 0x000, 0xFFF, low (red)
+unsigned char masterTxBuffer[] = { NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
+                                   ZERO, ZERO, ONE, ONE, ONE, ZERO, ONE, ZERO, ONE, ZERO, ONE, ZERO, //0x3AA  0b001110101010
+                                   ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, //0x000 OUT0
+                                   ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, //0x000 OUT1
+                                   ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, //0xFFF OUT2
+                                   NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
+                                 };
+*/
 
 /*
  *  ======== masterThread ========
@@ -95,11 +121,11 @@ void *masterThread(void *arg0)
     SPI_Transaction transaction;
     uint32_t        i;
     bool            transferOK;
-    int32_t         status;
 
     /* Open SPI as master (default) */
     SPI_Params_init(&spiParams);
     spiParams.frameFormat = SPI_TI;
+    spiParams.bitRate = 1000000;
     masterSpi = SPI_open(Board_SPI_MASTER, &spiParams);
     if (masterSpi == NULL) {
         printf("Error initializing master SPI\n");
@@ -108,12 +134,6 @@ void *masterThread(void *arg0)
     else {
         printf("Master SPI initialized\n");
     }
-
-    /*
-     * Master has opened Board_SPI_MASTER; set Board_SPI_MASTER_READY high to
-     * inform the slave.
-     */
-    GPIO_write(Board_SPI_MASTER_READY, 0);
 
     for (i = 0; i < MAX_LOOP; i++) {
         /*
@@ -127,9 +147,6 @@ void *masterThread(void *arg0)
         transaction.txBuf = (void *) masterTxBuffer;
         transaction.rxBuf = (void *) masterRxBuffer;
 
-        /* Toggle user LED, indicating a SPI transfer is in progress */
-        GPIO_toggle(Board_GPIO_LED1);
-
         /* Perform SPI transfer */
         transferOK = SPI_transfer(masterSpi, &transaction);
         if (!transferOK) {
@@ -141,11 +158,6 @@ void *masterThread(void *arg0)
     }
 
     SPI_close(masterSpi);
-
-    /* Example complete - set pins to a known state */
-    GPIO_disableInt(Board_SPI_SLAVE_READY);
-    GPIO_setConfig(Board_SPI_SLAVE_READY, GPIO_CFG_OUTPUT | GPIO_CFG_OUT_LOW);
-    GPIO_write(Board_SPI_MASTER_READY, 0);
 
     printf("\nDone");
 
@@ -164,23 +176,7 @@ void *mainThread(void *arg0)
     int                 detachState;
 
     /* Call driver init functions. */
-    Display_init();
-    GPIO_init();
     SPI_init();
-
-    /* Configure the LED pins */
-    GPIO_setConfig(Board_GPIO_LED0, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW);
-    GPIO_setConfig(Board_GPIO_LED1, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW);
-
-    /* Open the display for output */
-    display = Display_open(Display_Type_UART, NULL);
-    if (display == NULL) {
-        /* Failed to open display driver */
-        while (1);
-    }
-
-    /* Turn on user LED */
-    GPIO_write(Board_GPIO_LED0, Board_GPIO_LED_ON);
 
     printf("Starting the SPI master example");
     printf("This example requires external wires to be "
