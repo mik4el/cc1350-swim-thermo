@@ -50,64 +50,60 @@
 
 #define THREADSTACKSIZE (1024)
 
-#define SPI_MSG_LENGTH  (72)
+#define SPI_MSG_LENGTH  (64)
 
 #define MAX_LOOP        (10)
 
-unsigned char masterRxBuffer[SPI_MSG_LENGTH];
-//unsigned char masterTxBuffer[] = { 0b11001100, 0b11001100, 0b11001100, 0b11001100, 0b11001100, 0b11001100 };
-//unsigned char masterTxBuffer[] = { 0b11000000, 0b11000000, 0b11000000, 0b11000000, 0b11000000, 0b11000000 };
-//unsigned char masterTxBuffer[] = { 0b00111111, 0b00111111, 0b00111111, 0b00111111, 0b00111111, 0b00111111 };
-//unsigned char masterTxBuffer[] = { 0b11000000, 0b11001100, 0b11000000, 0b11001100, 0b11000000, 0b11001100 };
-//unsigned char masterTxBuffer[] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+// TLC5973 SDI pin is connected with a mosfet to SPI port, high on SPI port is low on TLC5973
+#define ONE     0b0101
+#define ZERO    0b0111
+#define NONE    0b1111
 
-#define ONE     0b00110011
-#define ZERO    0b00111111
-#define NONE    0b11111111
-//unsigned char masterTxBuffer[] = { 0b00111111, 0b00110011, 0b00111111, 0b00110011, 0b00111111, 0b00110011 };
-//unsigned char masterTxBuffer[] = { ZERO, ONE, ZERO, ONE, ZERO, ONE };
-
+/*
 // TLC5973 message: GSLAT, 0x3AA, 0xFFF, 0xFFF, 0xFFF, GSLAT (white)
-unsigned char masterTxBuffer[] = { NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
+unsigned char masterTxBuffer[] = { NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
                                    ZERO, ZERO, ONE, ONE, ONE, ZERO, ONE, ZERO, ONE, ZERO, ONE, ZERO, //0x3AA  0b001110101010
                                    ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, //0xFFF OUT0
                                    ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, //0xFFF OUT1
                                    ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, //0xFFF OUT2
-                                   NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
+                                   NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
                                  };
+*/
 
 /*
-// TLC5973 message: low, 0x3AA, 0xFFF, 0x000, 0x000, low (blue)
-unsigned char masterTxBuffer[] = { NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
+// TLC5973 message: GSLAT, 0x3AA, 0xFFF, 0x000, 0x000, GSLAT (blue)
+unsigned char masterTxBuffer[] = { NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
                                    ZERO, ZERO, ONE, ONE, ONE, ZERO, ONE, ZERO, ONE, ZERO, ONE, ZERO, //0x3AA  0b001110101010
                                    ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, //0xFFF OUT0
                                    ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, //0x000 OUT1
                                    ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, //0x000 OUT2
-                                   NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
+                                   NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
                                  };
 */
 
 /*
-// TLC5973 message: low, 0x3AA, 0x000, 0xFFF, 0x000, low (green)
-unsigned char masterTxBuffer[] = { NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
+// TLC5973 message: GSLAT, 0x3AA, 0x000, 0xFFF, 0x000, GSLAT (green)
+unsigned char masterTxBuffer[] = { NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
                                    ZERO, ZERO, ONE, ONE, ONE, ZERO, ONE, ZERO, ONE, ZERO, ONE, ZERO, //0x3AA  0b001110101010
                                    ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, //0x000 OUT0
                                    ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, //0xFFF OUT1
                                    ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, //0x000 OUT1
-                                   NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
+                                   NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
                                  };
 */
 
-/*
-// TLC5973 message: low, 0x3AA, 0x000, 0x000, 0xFFF, low (red)
-unsigned char masterTxBuffer[] = { NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
+
+// TLC5973 message: GSLAT, 0x3AA, 0x000, 0x000, 0xFFF, GSLAT (red)
+unsigned char masterTxBuffer[] = { NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
                                    ZERO, ZERO, ONE, ONE, ONE, ZERO, ONE, ZERO, ONE, ZERO, ONE, ZERO, //0x3AA  0b001110101010
                                    ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, //0x000 OUT0
                                    ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, //0x000 OUT1
                                    ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, //0xFFF OUT2
-                                   NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
+                                   NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
                                  };
-*/
+
+unsigned char masterRxBuffer[SPI_MSG_LENGTH];
+
 
 /*
  *  ======== masterThread ========
@@ -119,13 +115,13 @@ void *masterThread(void *arg0)
     SPI_Handle      masterSpi;
     SPI_Params      spiParams;
     SPI_Transaction transaction;
-    uint32_t        i;
     bool            transferOK;
 
     /* Open SPI as master (default) */
     SPI_Params_init(&spiParams);
     spiParams.frameFormat = SPI_TI;
-    spiParams.bitRate = 1000000;
+    spiParams.bitRate = 1000000; // fails around 3 Mbps
+    spiParams.dataSize = 4;
     masterSpi = SPI_open(Board_SPI_MASTER, &spiParams);
     if (masterSpi == NULL) {
         printf("Error initializing master SPI\n");
@@ -135,31 +131,21 @@ void *masterThread(void *arg0)
         printf("Master SPI initialized\n");
     }
 
-    for (i = 0; i < MAX_LOOP; i++) {
-        /*
-         * Wait until slave is ready for transfer; slave will pull
-         * Board_SPI_SLAVE_READY low.
-         */
+    /* Initialize master SPI transaction structure */
+    memset((void *) masterRxBuffer, 0, SPI_MSG_LENGTH);
+    transaction.count = SPI_MSG_LENGTH;
+    transaction.txBuf = (void *) masterTxBuffer;
+    transaction.rxBuf = (void *) masterRxBuffer;
 
-        /* Initialize master SPI transaction structure */
-        memset((void *) masterRxBuffer, 0, SPI_MSG_LENGTH);
-        transaction.count = SPI_MSG_LENGTH;
-        transaction.txBuf = (void *) masterTxBuffer;
-        transaction.rxBuf = (void *) masterRxBuffer;
-
-        /* Perform SPI transfer */
-        transferOK = SPI_transfer(masterSpi, &transaction);
-        if (!transferOK) {
-           printf("Unsuccessful master SPI transfer");
-        }
-
-        /* Sleep for a bit before starting the next SPI transfer  */
-        sleep(3);
+    /* Perform SPI transfer */
+    transferOK = SPI_transfer(masterSpi, &transaction);
+    if (!transferOK) {
+       printf("Unsuccessful master SPI transfer");
     }
 
     SPI_close(masterSpi);
 
-    printf("\nDone");
+    printf("Done\n");
 
     return (NULL);
 }

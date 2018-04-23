@@ -48,7 +48,7 @@
 #include <ti/drivers/PIN.h>
 #include <ti/drivers/pin/PINCC26XX.h>
 
-#include "CC1350_LAUNCHXL.h"
+#include "CC1350_SWIMTHERMO.h"
 
 /*
  *  =============================== GPIO ===============================
@@ -64,9 +64,10 @@
  *       array.  Callback entries can be omitted from callbacks array to
  *       reduce memory usage.
  */
+
 GPIO_PinConfig gpioPinConfigs[] = {
     /* Output pins */
-    GPIOCC26XX_DIO_06 | GPIO_DO_NOT_CONFIG,  /* PIN_PSU_ENABLE */
+    GPIOCC26XX_DIO_02 | GPIO_DO_NOT_CONFIG,  /* PIN_PSU_ENABLE */
 };
 
 /*

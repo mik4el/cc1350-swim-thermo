@@ -37,22 +37,15 @@
 extern "C" {
 #endif
 
-#include "CC1350_LAUNCHXL.h"
+#include "CC1350_SWIMTHERMO.h"
 
 #define Board_initGeneral()      CC1350_LAUNCHXL_initGeneral()
 
-#define Board_SD0               CC1350_LAUNCHXL_SDSPI0
-
 #define Board_SPI0              CC1350_LAUNCHXL_SPI0
 #define Board_SPI1              CC1350_LAUNCHXL_SPI1
-#define Board_SPI_FLASH_CS      CC1350_LAUNCHXL_SPI_FLASH_CS
-#define Board_FLASH_CS_ON       (0)
-#define Board_FLASH_CS_OFF      (1)
 
 #define Board_SPI_MASTER        CC1350_LAUNCHXL_SPI0
 #define Board_SPI_SLAVE         CC1350_LAUNCHXL_SPI0
-#define Board_SPI_MASTER_READY  CC1350_LAUNCHXL_SPI_MASTER_READY
-#define Board_SPI_SLAVE_READY   CC1350_LAUNCHXL_SPI_SLAVE_READY
 
 #ifdef __cplusplus
 }
