@@ -92,17 +92,57 @@ unsigned char masterTxBuffer[] = { NONE, NONE, NONE, NONE, NONE, NONE, NONE, NON
                                  };
 */
 
-
+/*
 // TLC5973 message: GSLAT, 0x3AA, 0x000, 0x000, 0xFFF, GSLAT (red)
 unsigned char masterTxBuffer[] = { NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
                                    ZERO, ZERO, ONE, ONE, ONE, ZERO, ONE, ZERO, ONE, ZERO, ONE, ZERO, //0x3AA  0b001110101010
                                    ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, //0x000 OUT0
                                    ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, //0x000 OUT1
-                                   ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, //0xFFF OUT2
+                                   ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ONE, ON, //0xFFF OUT2
+                                   NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
+                                 };
+*/
+
+// TLC5973 message: GSLAT, 0x3AA, 0x000, 0x000, 0x000, GSLAT (all off)
+unsigned char masterTxBuffer[] = { NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
+                                   ZERO, ZERO, ONE, ONE, ONE, ZERO, ONE, ZERO, ONE, ZERO, ONE, ZERO, //0x3AA  0b001110101010
+                                   ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, //0x000 OUT0
+                                   ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, //0x000 OUT1
+                                   ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, //0x000 OUT2
                                    NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
                                  };
 
 unsigned char masterRxBuffer[SPI_MSG_LENGTH];
+
+// Animate TLC5973 by cycling all channels from 0-4096 to create a breathing effect.
+unsigned short grayscale = 0;
+int operand = 1;
+void updateTxBuffer () {
+    grayscale = grayscale + operand;
+    if (grayscale >= 4096) {
+        grayscale = 4096;
+        operand = -1;
+    }
+    if (grayscale <= 0) {
+        grayscale = 0;
+        operand = 1;
+    }
+    int i;
+    unsigned short word = grayscale;
+    for(i = 0; i < 12; i++) {
+        if (word & 0x0800) {
+            masterTxBuffer[20+i] = ONE; // Blue
+            masterTxBuffer[32+i] = ONE; // Green
+            masterTxBuffer[44+i] = ONE; // Red
+        } else {
+            masterTxBuffer[20+i] = ZERO; // Blue
+            masterTxBuffer[32+i] = ZERO; // Green
+            masterTxBuffer[44+i] = ZERO; // Red
+        }
+        word <<= 1;
+    }
+    return;
+}
 
 
 /*
@@ -131,16 +171,20 @@ void *masterThread(void *arg0)
         printf("Master SPI initialized\n");
     }
 
-    /* Initialize master SPI transaction structure */
-    memset((void *) masterRxBuffer, 0, SPI_MSG_LENGTH);
-    transaction.count = SPI_MSG_LENGTH;
-    transaction.txBuf = (void *) masterTxBuffer;
-    transaction.rxBuf = (void *) masterRxBuffer;
+    while (1) {
+        updateTxBuffer();
+        usleep(500);
 
-    /* Perform SPI transfer */
-    transferOK = SPI_transfer(masterSpi, &transaction);
-    if (!transferOK) {
-       printf("Unsuccessful master SPI transfer");
+        /* Initialize master SPI transaction structure */
+        transaction.count = SPI_MSG_LENGTH;
+        transaction.txBuf = (void *) masterTxBuffer;
+        transaction.rxBuf = (void *) masterRxBuffer;
+
+        /* Perform SPI transfer */
+        transferOK = SPI_transfer(masterSpi, &transaction);
+        if (!transferOK) {
+           printf("Unsuccessful master SPI transfer");
+        }
     }
 
     SPI_close(masterSpi);
