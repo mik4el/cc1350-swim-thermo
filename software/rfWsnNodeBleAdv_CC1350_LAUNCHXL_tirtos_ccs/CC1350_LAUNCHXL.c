@@ -155,8 +155,8 @@ const GPTimerCC26XX_Config GPTimerCC26XX_config[CC1350_LAUNCHXL_GPTIMERPARTSCOUN
 #include <ti/drivers/pin/PINCC26XX.h>
 
 const PIN_Config BoardGpioInitTable[] = {
-    CC1350_LAUNCHXL_DIO1_RF_SUB1GHZ   | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX, /* RF SW Switch defaults to 2.4 GHz path*/
-    CC1350_LAUNCHXL_DIO30_RF_POWER | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,    /* External RF Switch is powered off by default */
+    CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ   | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX, /* RF SW Switch defaults to 2.4 GHz path*/
+    CC1350_SWIMTHERMO_DIO0_RF_POWER | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,    /* External RF Switch is powered off by default */
     PIN_TERMINATE
 };
 
@@ -227,16 +227,16 @@ void CC1350_LAUNCHXL_rfDriverCallback(RF_Handle client, RF_GlobalEvent events, v
 
     if (events & RF_GlobalEventRadioSetup) {
         /* Power up the antenna switch */
-        PINCC26XX_setOutputValue(CC1350_LAUNCHXL_DIO30_RF_POWER, 1);
+        PINCC26XX_setOutputValue(CC1350_SWIMTHERMO_DIO0_RF_POWER, 1);
 
         if (setupCommand->common.commandNo == CMD_PROP_RADIO_DIV_SETUP) {
             /* Sub-1 GHz, requires antenna switch high */
-            PINCC26XX_setOutputValue(CC1350_LAUNCHXL_DIO1_RF_SUB1GHZ, 1);
+            PINCC26XX_setOutputValue(CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ, 1);
         }
 
     } else if (events & RF_GlobalEventRadioPowerDown) {
         /* Disable antenna switch to save current */
-        PINCC26XX_setOutputValue(CC1350_LAUNCHXL_DIO30_RF_POWER, 0);
-        PINCC26XX_setOutputValue(CC1350_LAUNCHXL_DIO1_RF_SUB1GHZ, 0);
+        PINCC26XX_setOutputValue(CC1350_SWIMTHERMO_DIO0_RF_POWER, 0);
+        PINCC26XX_setOutputValue(CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ, 0);
     }
 }

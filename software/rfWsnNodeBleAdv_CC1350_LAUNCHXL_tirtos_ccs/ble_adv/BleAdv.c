@@ -175,12 +175,8 @@ typedef struct
 static bool configured = false;
 
 PIN_Config blePinTable[] = {
-#if defined RF_SWITCH_PIN
-    RF_SWITCH_PIN | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,
-#endif
-#if defined RF_SW_PWR_PIN
-    RF_SW_PWR_PIN | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,
-#endif
+    CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,
+    CC1350_SWIMTHERMO_DIO0_RF_POWER | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,
     PIN_TERMINATE
 };
 
@@ -401,9 +397,7 @@ BleAdv_Status BleAdv_init(BleAdv_Params_t *params)
     }
 
     /* Power antenna switch */
-#if defined RF_SW_PWR_PIN
-    PIN_setOutputValue(blePinHandle, RF_SW_PWR_PIN, 1);
-#endif
+    PIN_setOutputValue(blePinHandle, CC1350_SWIMTHERMO_DIO0_RF_POWER, 1);
 
     /* initialize the Manufacturer Specific Beacon frame
      */
@@ -796,9 +790,7 @@ static void advPrepareCB(void)
 static void advDoneCB(bStatus_t status)
 {
     //Turn off RF switch
-#if defined RF_SW_PWR_PIN
-    PIN_setOutputValue(blePinHandle, RF_SW_PWR_PIN, 0);
-#endif
+    PIN_setOutputValue(blePinHandle, CC1350_SWIMTHERMO_DIO0_RF_POWER, 0);
 
     if(status == SUCCESS)
     {
@@ -827,13 +819,9 @@ static void advDoneCB(bStatus_t status)
 static void bleAntSettingHandler(void)
 {
     //Turn on RF switch
-#if defined RF_SW_PWR_PIN
-    PIN_setOutputValue(blePinHandle, RF_SW_PWR_PIN, 1);
-#endif
+    PIN_setOutputValue(blePinHandle, CC1350_SWIMTHERMO_DIO0_RF_POWER, 1);
     //Swtich RF switch to 2.4G antenna
-#if defined RF_SWITCH_PIN
-    PIN_setOutputValue(blePinHandle, RF_SWITCH_PIN, 0);
-#endif
+    PIN_setOutputValue(blePinHandle, CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ, 0);
 }
 
 /*********************************************************************

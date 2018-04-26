@@ -67,8 +67,8 @@ extern const PIN_Config BoardGpioInitTable[];
 #define CC1350_SWIMTHERMO_DIO7_ANALOG         IOID_7
 
 /* Digital IOs */
-#define CC1350_LAUNCHXL_DIO1_RF_SUB1GHZ       IOID_1
-#define CC1350_LAUNCHXL_DIO30_RF_POWER        IOID_30
+#define CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ      IOID_1
+#define CC1350_SWIMTHERMO_DIO0_RF_POWER        IOID_0
 
 /*!
  *  @brief  Initialize the general board specific settings

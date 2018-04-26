@@ -365,10 +365,8 @@ static void sendDmPacket(struct DualModeSensorPacket sensorPacket, uint8_t maxNu
     {
         System_abort("EasyLink_transmit failed");
     }
-#if defined(Board_DIO30_SWPWR)
     /* this was a blocking call, so Tx is now complete. Turn off the RF switch power */
-    PIN_setOutputValue(blePinHandle, Board_DIO30_SWPWR, 0);
-#endif
+    PIN_setOutputValue(blePinHandle, CC1350_SWIMTHERMO_DIO0_RF_POWER, 0);
 
     /* Enter RX */
     if (EasyLink_receiveAsync(rxDoneCallback, 0) != EasyLink_Status_Success)
@@ -384,10 +382,8 @@ static void resendPacket(void)
     {
         System_abort("EasyLink_transmit failed");
     }
-#if defined(Board_DIO30_SWPWR)
     /* this was a blocking call, so Tx is now complete. Turn off the RF switch power */
-    PIN_setOutputValue(blePinHandle, Board_DIO30_SWPWR, 0);
-#endif
+    PIN_setOutputValue(blePinHandle, CC1350_SWIMTHERMO_DIO0_RF_POWER, 0);
 
     /* Enter RX and wait for ACK with timeout */
     if (EasyLink_receiveAsync(rxDoneCallback, 0) != EasyLink_Status_Success)
@@ -457,10 +453,8 @@ static void rxDoneCallback(EasyLink_RxPacket * rxPacket, EasyLink_Status status)
 {
     struct PacketHeader* packetHeader;
 
-#if defined(Board_DIO30_SWPWR)
     /* Rx is now complete. Turn off the RF switch power */
-    PIN_setOutputValue(blePinHandle, Board_DIO30_SWPWR, 0);
-#endif
+    PIN_setOutputValue(blePinHandle, CC1350_SWIMTHERMO_DIO0_RF_POWER, 0);
 
     /* If this callback is called because of a packet received */
     if (status == EasyLink_Status_Success)

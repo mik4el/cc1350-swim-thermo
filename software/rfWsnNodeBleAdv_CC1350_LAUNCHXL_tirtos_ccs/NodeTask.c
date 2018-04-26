@@ -191,10 +191,8 @@ static void fastReportTimeoutCallback(UArg arg0)
 
 #ifdef FEATURE_BLE_ADV
 void rfSwitchCallback(RF_Handle h, RF_ClientEvent event, void* arg){
-#if defined(RF_SW_PWR_PIN)
     //Turn on switch
-    PIN_setOutputValue(blePinHandle, RF_SW_PWR_PIN, 1);
-#endif
-    PIN_setOutputValue(blePinHandle, RF_SWITCH_PIN, 1);
+    PIN_setOutputValue(blePinHandle, CC1350_SWIMTHERMO_DIO0_RF_POWER, 1);
+    PIN_setOutputValue(blePinHandle, CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ, 1);
 }
 #endif
