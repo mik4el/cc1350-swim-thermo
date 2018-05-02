@@ -37,3 +37,10 @@ A few debugging hints (without applying power):
 1. `adcsinglechannel_CC1350_SWIMTHERMO_TI` - sanity check the ADC.
 1. `lmt70_CC1350_SWIMTHERMO_TI2` - validate that accurate temperature reading can be taken from the LMT70 on P1 on the board and set T_ON1 to high.
 1. `tlc5973_spimaster_CC1350_SWIMTHERMO_tirtos_ccs` - turn on the onboard TLC5973 and its PSU and set a color on the LED using SPI.
+1. `rfEchoRx_CC1350_SWIMTHERMO_tirtos_ccs` and `rfEchoTx_CC1350_LAUNCHXL_tirtos_ccs` tests the long range 868MHz radio between a swimthermo device and a launchpad device.
+1. `rfWsnNodeBleAdv_CC1350_LAUNCHXL_tirtos_ccs` sanity checks the BLE advertising.
+
+## Todos
+1. Investigate and redo 868MHz antenna matching. Currently seeing -70dBm receive instead of -27dBm receive compared to Launchpad in similar testing conditions.
+1. Write up on how to test CC1350 radio
+1. Create a full test project that uses all features.

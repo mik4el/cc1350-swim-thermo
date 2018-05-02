@@ -274,6 +274,8 @@ void *mainThread(void *arg0)
     }
 }
 
+int rxCount = 0;
+
 static void echoCallback(RF_Handle h, RF_CmdHandle ch, RF_EventMask e)
 {
 #ifdef LOG_RADIO_EVENTS
@@ -283,7 +285,9 @@ static void echoCallback(RF_Handle h, RF_CmdHandle ch, RF_EventMask e)
     if (e & RF_EventRxEntryDone)
     {
         /* Successful RX */
-        printf("Successful RX\n");
+        rxCount++;
+
+        printf("Successful RX %i\n", rxCount);
 
         /* Get current unhandled data entry */
         currentDataEntry = RFQueue_getDataEntry();
