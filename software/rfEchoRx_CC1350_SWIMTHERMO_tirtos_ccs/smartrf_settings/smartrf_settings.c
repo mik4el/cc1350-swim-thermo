@@ -21,8 +21,8 @@
 // Max Packet Length: 128 
 // Packet Length: 20 
 // Packet Data: 255 
-// RX Filter BW: 49 kHz
-// Symbol Rate: 19.99969 kBaud
+// RX Filter BW: 39 kHz
+// Symbol Rate: 10.00061 kBaud
 // Sync Word Length: 32 Bits 
 // TX Power: 14 dBm (requires define CCFG_FORCE_VDDR_HH = 0 in ccfg.c, see CC13xx/CC26xx Technical Reference Manual)
 // Whitening: No whitening 
@@ -32,9 +32,8 @@
 #include DeviceFamily_constructPath(driverlib/rf_common_cmd.h)
 #include DeviceFamily_constructPath(driverlib/rf_prop_cmd.h)
 #include <ti/drivers/rf/RF.h>
-#include DeviceFamily_constructPath(rf_patches/rf_patch_cpe_sl_longrange.h)
-#include DeviceFamily_constructPath(rf_patches/rf_patch_rfe_sl_longrange.h)
-#include DeviceFamily_constructPath(rf_patches/rf_patch_mce_sl_longrange.h)
+#include DeviceFamily_constructPath(rf_patches/rf_patch_cpe_lrm.h)
+#include DeviceFamily_constructPath(rf_patches/rf_patch_rfe_lrm.h)
 #include "smartrf_settings.h"
 
 
@@ -42,9 +41,9 @@
 RF_Mode RF_prop =
 {
     .rfMode = RF_MODE_PROPRIETARY_SUB_1,
-    .cpePatchFxn = &rf_patch_cpe_sl_longrange,
-    .mcePatchFxn = &rf_patch_mce_sl_longrange,
-    .rfePatchFxn = &rf_patch_rfe_sl_longrange,
+    .cpePatchFxn = &rf_patch_cpe_lrm,
+    .mcePatchFxn = 0,
+    .rfePatchFxn = &rf_patch_rfe_lrm,
 };
 
 // TX Power table
@@ -63,10 +62,10 @@ RF_TxPowerTable_Entry txPowerTable[] =
 // Overrides for CMD_PROP_RADIO_DIV_SETUP
 uint32_t pOverrides[] =
 {
-    // override_use_patch_simplelink_long_range.xml
-    // PHY: Use MCE RAM patch, RFE RAM patch
-    MCE_RFE_OVERRIDE(1,0,0,1,0,0),
-    // override_synth_prop_863_930_div5_lbw60k.xml
+    // override_use_patch_prop_lrm.xml
+    // PHY: Use MCE ROM bank 3, RFE RAM patch
+    MCE_RFE_OVERRIDE(0,3,0,1,0,0),
+    // override_synth_prop_863_930_div5.xml
     // Synth: Set recommended RTRIM to 7
     HW_REG_OVERRIDE(0x4038,0x0037),
     // Synth: Set Fref to 4 MHz
@@ -79,12 +78,10 @@ uint32_t pOverrides[] =
     (uint32_t)0xB1070503,
     // Synth: Configure fine calibration setting
     (uint32_t)0x05330523,
-    // Synth: Set loop bandwidth after lock to 60 kHz
-    (uint32_t)0x40410583,
-    // Synth: Set loop bandwidth after lock to 60 kHz
-    (uint32_t)0x32CC0603,
-    // Synth: Set loop bandwidth after lock to 60 kHz
-    (uint32_t)0x00010623,
+    // Synth: Set loop bandwidth after lock to 20 kHz
+    (uint32_t)0x0A480583,
+    // Synth: Set loop bandwidth after lock to 20 kHz
+    (uint32_t)0x7AB80603,
     // Synth: Configure VCO LDO (in ADI1, set VCOLDOCFG=0x9F to use voltage input reference)
     ADI_REG_OVERRIDE(1,4,0x9F),
     // Synth: Configure synth LDO (in ADI1, set SLDOCTL0.COMP_CAP=1)
@@ -95,11 +92,6 @@ uint32_t pOverrides[] =
     (uint32_t)0x00108463,
     // Synth: Increase synth programming timeout (0x04B0 RAT ticks = 300 us)
     (uint32_t)0x04B00243,
-    // override_synth_disable_bias_div5.xml
-    // Synth: Set divider bias to disabled
-    HW32_ARRAY_OVERRIDE(0x405C,1),
-    // Synth: Set divider bias to disabled (specific for loDivider=5)
-    (uint32_t)0x18000200,
     // override_phy_rx_aaf_bw_0xd.xml
     // Rx: Set anti-aliasing filter bandwidth to 0xD (in ADI0, set IFAMPCTL3[7:4]=0xD)
     ADI_HALFREG_OVERRIDE(0,61,0xF,0xD),
@@ -108,14 +100,14 @@ uint32_t pOverrides[] =
     (uint32_t)0x00038883,
     // Rx: Freeze RSSI on sync found event
     HW_REG_OVERRIDE(0x6084,0x35F1),
-    // override_phy_gfsk_pa_ramp_agc_reflevel_0x14.xml
-    // Tx: Configure PA ramping setting (0x41). Rx: Set AGC reference level to 0x14.
-    HW_REG_OVERRIDE(0x6088,0x4114),
+    // override_phy_gfsk_pa_ramp_agc_reflevel_0x1a.xml
+    // Tx: Configure PA ramping setting (0x41). Rx: Set AGC reference level to 0x1A.
+    HW_REG_OVERRIDE(0x6088,0x411A),
     // Tx: Configure PA ramping setting
     HW_REG_OVERRIDE(0x608C,0x8213),
-    // override_phy_long_range_dsss4.xml
-    // PHY: Configure DSSS SF=4
-    HW_REG_OVERRIDE(0x505C,0x0303),
+    // override_phy_lrm_rom_dsss8.xml
+    // PHY: Configure DSSS=8
+    HW_REG_OVERRIDE(0x505C,0x073C),
     // override_phy_rx_rssi_offset_5db.xml
     // Rx: Set RSSI offset to adjust reported RSSI by +5 dB
     (uint32_t)0x00FB88A3,
@@ -137,12 +129,12 @@ rfc_CMD_PROP_RADIO_DIV_SETUP_t RF_cmdPropRadioDivSetup =
     .startTrigger.pastTrig = 0x0,
     .condition.rule = 0x1,
     .condition.nSkip = 0x0,
-    .modulation.modType = 0x1,
+    .modulation.modType = 0x0,
     .modulation.deviation = 0x14,
     .symbolRate.preScale = 0xF,
-    .symbolRate.rateWord = 0x3333,
-    .rxBw = 0x21,
-    .preamConf.nPreamBytes = 0x2,
+    .symbolRate.rateWord = 0x199A,
+    .rxBw = 0x20,
+    .preamConf.nPreamBytes = 0x5,
     .preamConf.preamMode = 0x0,
     .formatConf.nSwBits = 0x20,
     .formatConf.bBitReversal = 0x0,
