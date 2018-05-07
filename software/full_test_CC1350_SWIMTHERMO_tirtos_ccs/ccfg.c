@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2018, Texas Instruments Incorporated
+ * Copyright (c) 2015-2017, Texas Instruments Incorporated
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,52 +29,23 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-/** ============================================================================
- *  @file       CC1350_LAUNCHXL.h
+
+/*
+ *  ======== ccfg.c ========
+ *  Customer Configuration for CC26xx and CC13xx devices.  This file is used to
+ *  configure Boot ROM, start-up code, and SW radio behaviour.
  *
- *  @brief      CC1350 LaunchPad Board Specific header file.
+ *  By default, driverlib startup_files/ccfg.c settings are used.  However, if
+ *  changes are required there are two means to do so:
  *
- *  The CC1350_LAUNCHXL header file should be included in an application as
- *  follows:
- *  @code
- *  #include "CC1350_LAUNCHXL.h"
- *  @endcode
+ *    1.  Remove this file and copy driverlib's startup_files/ccfg.c file in
+ *        its place.  Make all changes to the file.  Changes made are local to
+ *        the project and will not affect other projects.
  *
- *  ============================================================================
- */
-#ifndef __CC1350_LAUNCHXL_BOARD_H__
-#define __CC1350_LAUNCHXL_BOARD_H__
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/* Includes */
-#include <ti/drivers/PIN.h>
-#include <ti/devices/cc13x0/driverlib/ioc.h>
-
-/* Externs */
-extern const PIN_Config BoardGpioInitTable[];
-
-/* Defines */
-#define CC1350_LAUNCHXL
-
-/* Mapping of pins to board signals using general board aliases
- *      <board signal alias>        <pin mapping>   <comments>
+ *    2.  Perform changes to driverlib startup_files/ccfg.c file.  Changes
+ *        made to this file will be applied to all projects.  This file must
+ *        remain unmodified.
  */
 
-#define CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ      IOID_1
-#define CC1350_SWIMTHERMO_DIO0_RF_POWER        IOID_0
-
-/*!
- *  @brief  Initialize the general board specific settings
- *
- *  This function initializes the general board specific settings.
- */
-void CC1350_LAUNCHXL_initGeneral(void);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* __CC1350_LAUNCHXL_BOARD_H__ */
+#include <ti/devices/DeviceFamily.h>
+#include DeviceFamily_constructPath(startup_files/ccfg.c)

@@ -63,8 +63,20 @@ extern const PIN_Config BoardGpioInitTable[];
  *      <board signal alias>        <pin mapping>   <comments>
  */
 
-#define CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ      IOID_1
-#define CC1350_SWIMTHERMO_DIO0_RF_POWER        IOID_0
+#define CC1350_SWIMTHERMO_DIO0_RF_POWER      IOID_0
+#define CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ    IOID_1
+#define CC1350_SWIMTHERMO_DIO2_PSU_ENABLE    IOID_2
+
+
+/* SPI Board */
+#define CC1350_LAUNCHXL_SPI0_MISO             PIN_UNASSIGNED    /* RF1.20 */
+#define CC1350_LAUNCHXL_SPI0_MOSI             IOID_9            /* RF1.18 */
+#define CC1350_LAUNCHXL_SPI0_CLK              PIN_UNASSIGNED    /* RF1.16 */
+#define CC1350_LAUNCHXL_SPI0_CSN              PIN_UNASSIGNED
+#define CC1350_LAUNCHXL_SPI1_MISO             PIN_UNASSIGNED
+#define CC1350_LAUNCHXL_SPI1_MOSI             PIN_UNASSIGNED
+#define CC1350_LAUNCHXL_SPI1_CLK              PIN_UNASSIGNED
+#define CC1350_LAUNCHXL_SPI1_CSN              PIN_UNASSIGNED
 
 /*!
  *  @brief  Initialize the general board specific settings
@@ -72,6 +84,27 @@ extern const PIN_Config BoardGpioInitTable[];
  *  This function initializes the general board specific settings.
  */
 void CC1350_LAUNCHXL_initGeneral(void);
+
+/*!
+ *  @def    CC1350_LAUNCHXL_SPIName
+ *  @brief  Enum of SPI names
+ */
+typedef enum CC1350_LAUNCHXL_SPIName {
+    CC1350_LAUNCHXL_SPI0 = 0,
+    CC1350_LAUNCHXL_SPI1,
+
+    CC1350_LAUNCHXL_SPICOUNT
+} CC1350_LAUNCHXL_SPIName;
+
+/*!
+ *  @def    CC1350_LAUNCHXL_UDMAName
+ *  @brief  Enum of DMA buffers
+ */
+typedef enum CC1350_LAUNCHXL_UDMAName {
+    CC1350_LAUNCHXL_UDMA0 = 0,
+
+    CC1350_LAUNCHXL_UDMACOUNT
+} CC1350_LAUNCHXL_UDMAName;
 
 #ifdef __cplusplus
 }

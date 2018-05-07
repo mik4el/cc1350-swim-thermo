@@ -29,52 +29,27 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-/** ============================================================================
- *  @file       CC1350_LAUNCHXL.h
- *
- *  @brief      CC1350 LaunchPad Board Specific header file.
- *
- *  The CC1350_LAUNCHXL header file should be included in an application as
- *  follows:
- *  @code
- *  #include "CC1350_LAUNCHXL.h"
- *  @endcode
- *
- *  ============================================================================
- */
-#ifndef __CC1350_LAUNCHXL_BOARD_H__
-#define __CC1350_LAUNCHXL_BOARD_H__
+
+#ifndef __BOARD_H
+#define __BOARD_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/* Includes */
-#include <ti/drivers/PIN.h>
-#include <ti/devices/cc13x0/driverlib/ioc.h>
+#include "CC1350_SWIMTHERMO.h"
 
-/* Externs */
-extern const PIN_Config BoardGpioInitTable[];
+#define Board_initGeneral()      CC1350_LAUNCHXL_initGeneral()
 
-/* Defines */
-#define CC1350_LAUNCHXL
+// Todo refactor names below
+#define Board_SPI0              CC1350_LAUNCHXL_SPI0
+#define Board_SPI1              CC1350_LAUNCHXL_SPI1
 
-/* Mapping of pins to board signals using general board aliases
- *      <board signal alias>        <pin mapping>   <comments>
- */
-
-#define CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ      IOID_1
-#define CC1350_SWIMTHERMO_DIO0_RF_POWER        IOID_0
-
-/*!
- *  @brief  Initialize the general board specific settings
- *
- *  This function initializes the general board specific settings.
- */
-void CC1350_LAUNCHXL_initGeneral(void);
+#define Board_SPI_MASTER        CC1350_LAUNCHXL_SPI0
+#define Board_SPI_SLAVE         CC1350_LAUNCHXL_SPI0
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __CC1350_LAUNCHXL_BOARD_H__ */
+#endif /* __BOARD_H */
