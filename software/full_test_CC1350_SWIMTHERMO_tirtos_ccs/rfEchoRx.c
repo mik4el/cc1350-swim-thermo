@@ -33,10 +33,19 @@
 /***** Includes *****/
 /* Standard C Libraries */
 #include <stdlib.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
 
 /* TI Drivers */
 #include <ti/drivers/rf/RF.h>
 #include <ti/drivers/PIN.h>
+#include <ti/drivers/SPI.h>
+
+/* POSIX Header files */
+#include <pthread.h>
+#include <unistd.h>
 
 /* Driverlib Header files */
 #include DeviceFamily_constructPath(driverlib/rf_prop_mailbox.h)
@@ -49,6 +58,8 @@
 #include "smartrf_settings/smartrf_settings.h"
 
 /***** Defines *****/
+#define THREADSTACKSIZE (1024)
+
 /* Packet RX/TX Configuration */
 /* Max length byte the radio will accept */
 #define PAYLOAD_LENGTH         30
@@ -116,20 +127,178 @@ static volatile RF_EventMask eventLog[32];
 static volatile uint8_t evIndex = 0;
 #endif // LOG_RADIO_EVENTS
 
-/*
- * Application LED pin configuration table:
- *   - All LEDs board LEDs are off.
- */
-PIN_Config pinTable[] =
-{
- CC1350_SWIMTHERMO_DIO0_RF_POWER | PIN_GPIO_OUTPUT_EN | PIN_GPIO_HIGH | PIN_PUSHPULL | PIN_DRVSTR_MAX,
- PIN_TERMINATE
-};
-
 /***** Function definitions *****/
+#define SPI_MSG_LENGTH  (64)
+
+#define MAX_LOOP        (10)
+
+// TLC5973 SDI pin is connected with a mosfet to SPI port, high on SPI port is low on TLC5973
+#define ONE     0b0101
+#define ZERO    0b0111
+#define NONE    0b1111
+
+int rxCount = 0;
+unsigned char masterTxBuffer[] = { NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
+                                   ZERO, ZERO, ONE, ONE, ONE, ZERO, ONE, ZERO, ONE, ZERO, ONE, ZERO, //0x3AA  0b001110101010
+                                   ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, //0x000 OUT0
+                                   ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, //0x000 OUT1
+                                   ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, //0x000 OUT2
+                                   NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
+                                 };
+
+unsigned char masterRxBuffer[SPI_MSG_LENGTH];
+
+// Go through colors for LED using the TLC5973.
+unsigned short grayscale = 0;
+int operand = 1;
+int next_channel = 0;
+void updateLEDTxBufferCycleColor() {
+    grayscale = grayscale + operand;
+    if (grayscale >= 4096) {
+        grayscale = 4096;
+        operand = -1;
+    }
+    if (grayscale <= 0) {
+        grayscale = 0;
+        operand = 1;
+    }
+    if (next_channel > 2) {
+        next_channel = 0;
+    }
+    int i;
+    unsigned short word = grayscale;
+    for(i = 0; i < 12; i++) {
+        if (word & 0x0800) {
+            if (next_channel == 0) {
+                masterTxBuffer[20+i] = ONE; // Blue
+            }
+            if (next_channel == 1) {
+                masterTxBuffer[32+i] = ONE; // Green
+            }
+            if (next_channel == 2) {
+                masterTxBuffer[44+i] = ONE; // Red
+            }
+        } else {
+            if (next_channel == 0) {
+                masterTxBuffer[20+i] = ZERO; // Blue
+            }
+            if (next_channel == 1) {
+                masterTxBuffer[32+i] = ZERO; // Green
+            }
+            if (next_channel == 2) {
+                masterTxBuffer[44+i] = ZERO; // Red
+            }
+        }
+        // Zero out non-active channels
+        if (next_channel == 0) {
+            masterTxBuffer[44+i] = ZERO; // Red
+            masterTxBuffer[32+i] = ZERO; // Green
+        }
+        if (next_channel == 1) {
+            masterTxBuffer[20+i] = ZERO; // Blue
+            masterTxBuffer[44+i] = ZERO; // Red
+        }
+        if (next_channel == 2) {
+            masterTxBuffer[32+i] = ZERO; // Green
+            masterTxBuffer[20+i] = ZERO; // Blue
+        }
+        word <<= 1;
+    }
+    return;
+}
+
+void led_breathe() {
+    SPI_Handle      masterSpi;
+    SPI_Params      spiParams;
+    SPI_Transaction transaction;
+    bool            transferOK;
+
+    /* Open SPI as master (default) */
+    SPI_Params_init(&spiParams);
+    spiParams.frameFormat = SPI_TI;
+    spiParams.bitRate = 1000000; // fails around 3 Mbps
+    spiParams.dataSize = 4;
+    masterSpi = SPI_open(Board_SPI_MASTER, &spiParams);
+    if (masterSpi == NULL) {
+        printf("Error initializing master SPI\n");
+        while (1);
+    }
+    else {
+        printf("Master SPI initialized\n");
+    }
+
+    while (1) {
+        updateLEDTxBufferCycleColor();
+
+        /* Initialize master SPI transaction structure */
+        transaction.count = SPI_MSG_LENGTH;
+        transaction.txBuf = (void *) masterTxBuffer;
+        transaction.rxBuf = (void *) masterRxBuffer;
+
+        /* Perform SPI transfer */
+        transferOK = SPI_transfer(masterSpi, &transaction);
+        if (!transferOK) {
+           printf("Unsuccessful master SPI transfer");
+        }
+        usleep(50);
+    }
+
+    SPI_close(masterSpi);
+
+    return;
+}
+
+/*
+ *  ======== LEDThread ========
+ *  Animates LED
+ */
+void *LEDThread(void *arg0)
+{
+    led_breathe();
+
+    printf("Done\n");
+
+    return (NULL);
+}
 
 void *mainThread(void *arg0)
 {
+    pthread_t           thread0;
+    pthread_attr_t      attrs;
+    struct sched_param  priParam;
+    int                 retc;
+    int                 detachState;
+
+    /* Call driver init functions. */
+    SPI_init();
+
+    /* Create application threads */
+    pthread_attr_init(&attrs);
+
+    detachState = PTHREAD_CREATE_DETACHED;
+    /* Set priority and stack size attributes */
+    retc = pthread_attr_setdetachstate(&attrs, detachState);
+    if (retc != 0) {
+        /* pthread_attr_setdetachstate() failed */
+        while (1);
+    }
+
+    retc |= pthread_attr_setstacksize(&attrs, THREADSTACKSIZE);
+    if (retc != 0) {
+        /* pthread_attr_setstacksize() failed */
+        while (1);
+    }
+
+    /* Create master thread */
+    priParam.sched_priority = 1;
+    pthread_attr_setschedparam(&attrs, &priParam);
+
+    retc = pthread_create(&thread0, &attrs, LEDThread, NULL);
+    if (retc != 0) {
+        /* pthread_create() failed */
+        while (1);
+    }
+
     RF_Params rfParams;
     RF_Params_init(&rfParams);
 
@@ -274,8 +443,6 @@ void *mainThread(void *arg0)
     }
 }
 
-int rxCount = 0;
-
 static void echoCallback(RF_Handle h, RF_CmdHandle ch, RF_EventMask e)
 {
 #ifdef LOG_RADIO_EVENTS
@@ -310,10 +477,15 @@ static void echoCallback(RF_Handle h, RF_CmdHandle ch, RF_EventMask e)
         /* Successful Echo (TX)*/
         printf("Successful Echo\n");
 
+        /* Change LED color to indicate successful Echo */
+        next_channel++;
     }
     else // any uncaught event
     {
         /* Error Condition: set LED1, clear LED2 */
         printf("Error\n");
+
+        /* Animate LED color to indicate error state */
+        led_breathe();
     }
 }
