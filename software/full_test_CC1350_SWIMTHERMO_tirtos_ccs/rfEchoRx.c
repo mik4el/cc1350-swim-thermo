@@ -41,6 +41,7 @@
 /* TI Drivers */
 #include <ti/drivers/rf/RF.h>
 #include <ti/drivers/PIN.h>
+#include <ti/drivers/pin/PINCC26XX.h>
 #include <ti/drivers/SPI.h>
 
 /* POSIX Header files */
@@ -57,29 +58,25 @@
 #include "RFQueue.h"
 #include "smartrf_settings/smartrf_settings.h"
 
-/***** Defines *****/
+/***** Prototypes *****/
+static void echoCallback(RF_Handle h, RF_CmdHandle ch, RF_EventMask e);
+
+/***** Variables and defines *****/
+
+/* RF section */
 #define THREADSTACKSIZE (1024)
 
-/* Packet RX/TX Configuration */
-/* Max length byte the radio will accept */
-#define PAYLOAD_LENGTH         30
-/* Set Transmit (echo) delay to 100ms */
-#define TX_DELAY             (uint32_t)(4000000*0.1f)
-/* NOTE: Only two data entries supported at the moment */
-#define NUM_DATA_ENTRIES       2
+// Packet RX/TX Configuration
+#define PAYLOAD_LENGTH         30 /* Max length byte the radio will accept */
+#define TX_DELAY             (uint32_t)(4000000*0.1f) /* Set Transmit (echo) delay to 100ms */
+#define NUM_DATA_ENTRIES       2 /* NOTE: Only two data entries supported at the moment */
+
 /* The Data Entries data field will contain:
  * 1 Header byte (RF_cmdPropRx.rxConf.bIncludeHdr = 0x1)
  * Max 30 payload bytes
  * 1 status byte (RF_cmdPropRx.rxConf.bAppendStatus = 0x1) */
 #define NUM_APPENDED_BYTES     2
 
-/* Log radio events in the callback */
-//#define LOG_RADIO_EVENTS
-
-/***** Prototypes *****/
-static void echoCallback(RF_Handle h, RF_CmdHandle ch, RF_EventMask e);
-
-/***** Variable declarations *****/
 static RF_Object rfObject;
 static RF_Handle rfHandle;
 
@@ -109,35 +106,26 @@ rxDataEntryBuffer[RF_QUEUE_DATA_ENTRY_BUFFER_SIZE(NUM_DATA_ENTRIES,
 #error This compiler is not supported
 #endif //defined(__TI_COMPILER_VERSION__)
 
-
-/* Receive Statistics */
-static rfc_propRxOutput_t rxStatistics;
+static rfc_propRxOutput_t rxStatistics; /* Receive Statistics */
 
 /* Receive dataQueue for RF Core to fill in data */
 static dataQueue_t dataQueue;
 static rfc_dataEntryGeneral_t* currentDataEntry;
 static uint8_t packetLength;
 static uint8_t* packetDataPointer;
-
-
 static uint8_t txPacket[PAYLOAD_LENGTH];
 
-#ifdef LOG_RADIO_EVENTS
-static volatile RF_EventMask eventLog[32];
-static volatile uint8_t evIndex = 0;
-#endif // LOG_RADIO_EVENTS
+/* End of RF section */
 
-/***** Function definitions *****/
+/* SPI section */
 #define SPI_MSG_LENGTH  (64)
-
 #define MAX_LOOP        (10)
 
-// TLC5973 SDI pin is connected with a mosfet to SPI port, high on SPI port is low on TLC5973
+// Bits for SPI to send to, NB: TLC5973 SDI pin is connected with a mosfet to SPI port, high on SPI port is low on TLC5973
 #define ONE     0b0101
 #define ZERO    0b0111
 #define NONE    0b1111
 
-int rxCount = 0;
 unsigned char masterTxBuffer[] = { NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, // GSLAT
                                    ZERO, ZERO, ONE, ONE, ONE, ZERO, ONE, ZERO, ONE, ZERO, ONE, ZERO, //0x3AA  0b001110101010
                                    ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, ZERO, //0x000 OUT0
@@ -148,10 +136,71 @@ unsigned char masterTxBuffer[] = { NONE, NONE, NONE, NONE, NONE, NONE, NONE, NON
 
 unsigned char masterRxBuffer[SPI_MSG_LENGTH];
 
-// Go through colors for LED using the TLC5973.
+// Controlling variables to animate through colors for LED using the TLC5973.
 unsigned short grayscale = 0;
 int operand = 1;
-int next_channel = 0;
+int active_rgb_channel = 0;
+int prev_rgb_channel = 0;
+
+/* End of SPI section */
+
+
+
+/* Button section */
+
+//Pin driver handles
+static PIN_Handle buttonPinHandle;
+
+// Global memory storage for a PIN_Config table
+static PIN_State buttonPinState;
+
+/*
+ * Application button pin configuration table:
+ *   - Buttons interrupts are configured to trigger on falling edge.
+ */
+PIN_Config buttonPinTable[] = {
+    CC1350_SWIMTHERMO_DIO8_BUTTON  | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_NEGEDGE,
+    PIN_TERMINATE
+};
+
+/* End of button section */
+
+
+
+/* Other section */
+int rxCount = 0;
+
+/* End of Other section */
+
+
+
+
+/*
+ *  ======== buttonCallbackFxn ========
+ *  Pin interrupt Callback function board buttons configured in the pinTable.
+ *  If Board_LED3 and Board_LED4 are defined, then we'll add them to the PIN
+ *  callback function.
+ */
+void buttonCallbackFxn(PIN_Handle handle, PIN_Id pinId) {
+    if (!PIN_getInputValue(pinId)) {
+        switch (pinId) {
+            case CC1350_SWIMTHERMO_DIO8_BUTTON:
+                if (active_rgb_channel == -1) {
+                    active_rgb_channel = prev_rgb_channel; // Make led animation previous led channel
+                } else {
+                    prev_rgb_channel = active_rgb_channel;
+                    active_rgb_channel = -1; // Make led animation white
+                }
+                printf("Button press\n");
+                break;
+
+            default:
+                /* Do nothing */
+                break;
+        }
+    }
+}
+
 void updateLEDTxBufferCycleColor() {
     grayscale = grayscale + operand;
     if (grayscale >= 4096) {
@@ -162,43 +211,43 @@ void updateLEDTxBufferCycleColor() {
         grayscale = 0;
         operand = 1;
     }
-    if (next_channel > 2) {
-        next_channel = 0;
+    if (active_rgb_channel > 2) {
+        active_rgb_channel = 0;
     }
     int i;
     unsigned short word = grayscale;
     for(i = 0; i < 12; i++) {
         if (word & 0x0800) {
-            if (next_channel == 0) {
+            if (active_rgb_channel == 0 || active_rgb_channel < 0 ) {
                 masterTxBuffer[20+i] = ONE; // Blue
             }
-            if (next_channel == 1) {
+            if (active_rgb_channel == 1 || active_rgb_channel < 0) {
                 masterTxBuffer[32+i] = ONE; // Green
             }
-            if (next_channel == 2) {
+            if (active_rgb_channel == 2 || active_rgb_channel < 0) {
                 masterTxBuffer[44+i] = ONE; // Red
             }
         } else {
-            if (next_channel == 0) {
+            if (active_rgb_channel == 0 || active_rgb_channel < 0 ) {
                 masterTxBuffer[20+i] = ZERO; // Blue
             }
-            if (next_channel == 1) {
+            if (active_rgb_channel == 1 || active_rgb_channel < 0 ) {
                 masterTxBuffer[32+i] = ZERO; // Green
             }
-            if (next_channel == 2) {
+            if (active_rgb_channel == 2 || active_rgb_channel < 0 ) {
                 masterTxBuffer[44+i] = ZERO; // Red
             }
         }
         // Zero out non-active channels
-        if (next_channel == 0) {
+        if (active_rgb_channel == 0) {
             masterTxBuffer[44+i] = ZERO; // Red
             masterTxBuffer[32+i] = ZERO; // Green
         }
-        if (next_channel == 1) {
+        if (active_rgb_channel == 1) {
             masterTxBuffer[20+i] = ZERO; // Blue
             masterTxBuffer[44+i] = ZERO; // Red
         }
-        if (next_channel == 2) {
+        if (active_rgb_channel == 2) {
             masterTxBuffer[32+i] = ZERO; // Green
             masterTxBuffer[20+i] = ZERO; // Blue
         }
@@ -218,7 +267,7 @@ void led_breathe() {
     spiParams.frameFormat = SPI_TI;
     spiParams.bitRate = 1000000; // fails around 3 Mbps
     spiParams.dataSize = 4;
-    masterSpi = SPI_open(CC1350_SWIMTHERMO_SPI0_MOSI, &spiParams);
+    masterSpi = SPI_open(CC1350_SWIMTHERMO_SPI0, &spiParams);
     if (masterSpi == NULL) {
         printf("Error initializing master SPI\n");
         while (1);
@@ -271,6 +320,16 @@ void *mainThread(void *arg0)
 
     /* Call driver init functions. */
     SPI_init();
+
+    buttonPinHandle = PIN_open(&buttonPinState, buttonPinTable);
+    if(!buttonPinHandle) {
+        printf("Error initializing button pins\n");
+    }
+
+    //Setup callback for button pins
+    if (PIN_registerIntCb(buttonPinHandle, &buttonCallbackFxn) != 0) {
+        printf("Error registering button callback function");
+    }
 
     /* Create application threads */
     pthread_attr_init(&attrs);
@@ -478,7 +537,7 @@ static void echoCallback(RF_Handle h, RF_CmdHandle ch, RF_EventMask e)
         printf("Successful Echo\n");
 
         /* Change LED color to indicate successful Echo */
-        next_channel++;
+        active_rgb_channel++;
     }
     else // any uncaught event
     {

@@ -59,31 +59,28 @@ extern const PIN_Config BoardGpioInitTable[];
 /* Defines */
 #define CC1350_LAUNCHXL
 
-/* Mapping of pins to board signals using general board aliases
- *      <board signal alias>        <pin mapping>   <comments>
- */
-
-#define CC1350_SWIMTHERMO_DIO0_RF_POWER      IOID_0
-#define CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ    IOID_1
-#define CC1350_SWIMTHERMO_DIO2_PSU_ENABLE    IOID_2
-
+/* Mapping of pins to board signals */
+#define CC1350_SWIMTHERMO_DIO0_RF_POWER         IOID_0
+#define CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ       IOID_1
+#define CC1350_SWIMTHERMO_DIO2_PSU_ENABLE       IOID_2
+#define CC1350_SWIMTHERMO_DIO8_BUTTON           IOID_8
 
 /* SPI Board */
-#define CC1350_SWIMTHERMO_SPI0_MISO          PIN_UNASSIGNED
-#define CC1350_SWIMTHERMO_SPI0_MOSI          IOID_9
-#define CC1350_SWIMTHERMO_SPI0_CLK           PIN_UNASSIGNED
-#define CC1350_SWIMTHERMO_SPI0_CSN           PIN_UNASSIGNED
-#define CC1350_SWIMTHERMO_SPI1_MISO          PIN_UNASSIGNED
-#define CC1350_SWIMTHERMO_SPI1_MOSI          PIN_UNASSIGNED
-#define CC1350_SWIMTHERMO_SPI1_CLK           PIN_UNASSIGNED
-#define CC1350_SWIMTHERMO_SPI1_CSN           PIN_UNASSIGNED
+#define CC1350_SWIMTHERMO_SPI0_MISO             PIN_UNASSIGNED
+#define CC1350_SWIMTHERMO_SPI0_MOSI             IOID_9
+#define CC1350_SWIMTHERMO_SPI0_CLK              PIN_UNASSIGNED
+#define CC1350_SWIMTHERMO_SPI0_CSN              PIN_UNASSIGNED
+#define CC1350_SWIMTHERMO_SPI1_MISO             PIN_UNASSIGNED
+#define CC1350_SWIMTHERMO_SPI1_MOSI             PIN_UNASSIGNED
+#define CC1350_SWIMTHERMO_SPI1_CLK              PIN_UNASSIGNED
+#define CC1350_SWIMTHERMO_SPI1_CSN              PIN_UNASSIGNED
 
 /*!
  *  @brief  Initialize the general board specific settings
  *
  *  This function initializes the general board specific settings.
  */
-void CC1350_SWIMTHERMOL_initGeneral(void);
+void CC1350_SWIMTHERMO_initGeneral(void);
 
 /*!
  *  @def    CC1350_SWIMTHERMO_SPIName
