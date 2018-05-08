@@ -218,7 +218,7 @@ void led_breathe() {
     spiParams.frameFormat = SPI_TI;
     spiParams.bitRate = 1000000; // fails around 3 Mbps
     spiParams.dataSize = 4;
-    masterSpi = SPI_open(Board_SPI_MASTER, &spiParams);
+    masterSpi = SPI_open(CC1350_SWIMTHERMO_SPI0_MOSI, &spiParams);
     if (masterSpi == NULL) {
         printf("Error initializing master SPI\n");
         while (1);

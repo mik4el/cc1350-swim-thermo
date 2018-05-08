@@ -42,8 +42,8 @@
  *
  *  ============================================================================
  */
-#ifndef __CC1350_LAUNCHXL_BOARD_H__
-#define __CC1350_LAUNCHXL_BOARD_H__
+#ifndef __CC1350_SWIMTHERMO_BOARD_H__
+#define __CC1350_SWIMTHERMO_BOARD_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -69,45 +69,45 @@ extern const PIN_Config BoardGpioInitTable[];
 
 
 /* SPI Board */
-#define CC1350_LAUNCHXL_SPI0_MISO             PIN_UNASSIGNED    /* RF1.20 */
-#define CC1350_LAUNCHXL_SPI0_MOSI             IOID_9            /* RF1.18 */
-#define CC1350_LAUNCHXL_SPI0_CLK              PIN_UNASSIGNED    /* RF1.16 */
-#define CC1350_LAUNCHXL_SPI0_CSN              PIN_UNASSIGNED
-#define CC1350_LAUNCHXL_SPI1_MISO             PIN_UNASSIGNED
-#define CC1350_LAUNCHXL_SPI1_MOSI             PIN_UNASSIGNED
-#define CC1350_LAUNCHXL_SPI1_CLK              PIN_UNASSIGNED
-#define CC1350_LAUNCHXL_SPI1_CSN              PIN_UNASSIGNED
+#define CC1350_SWIMTHERMO_SPI0_MISO          PIN_UNASSIGNED
+#define CC1350_SWIMTHERMO_SPI0_MOSI          IOID_9
+#define CC1350_SWIMTHERMO_SPI0_CLK           PIN_UNASSIGNED
+#define CC1350_SWIMTHERMO_SPI0_CSN           PIN_UNASSIGNED
+#define CC1350_SWIMTHERMO_SPI1_MISO          PIN_UNASSIGNED
+#define CC1350_SWIMTHERMO_SPI1_MOSI          PIN_UNASSIGNED
+#define CC1350_SWIMTHERMO_SPI1_CLK           PIN_UNASSIGNED
+#define CC1350_SWIMTHERMO_SPI1_CSN           PIN_UNASSIGNED
 
 /*!
  *  @brief  Initialize the general board specific settings
  *
  *  This function initializes the general board specific settings.
  */
-void CC1350_LAUNCHXL_initGeneral(void);
+void CC1350_SWIMTHERMOL_initGeneral(void);
 
 /*!
- *  @def    CC1350_LAUNCHXL_SPIName
+ *  @def    CC1350_SWIMTHERMO_SPIName
  *  @brief  Enum of SPI names
  */
-typedef enum CC1350_LAUNCHXL_SPIName {
-    CC1350_LAUNCHXL_SPI0 = 0,
-    CC1350_LAUNCHXL_SPI1,
+typedef enum CC1350_SWIMTHERMO_SPIName {
+    CC1350_SWIMTHERMO_SPI0 = 0,
+    CC1350_SWIMTHERMO_SPI1,
 
-    CC1350_LAUNCHXL_SPICOUNT
-} CC1350_LAUNCHXL_SPIName;
+    CC1350_SWIMTHERMO_SPICOUNT
+} CC1350_SWIMTHERMO_SPIName;
 
 /*!
- *  @def    CC1350_LAUNCHXL_UDMAName
+ *  @def    CC1350_SWIMTHERMO_UDMAName
  *  @brief  Enum of DMA buffers
  */
-typedef enum CC1350_LAUNCHXL_UDMAName {
-    CC1350_LAUNCHXL_UDMA0 = 0,
+typedef enum CC1350_SWIMTHERMO_UDMAName {
+    CC1350_SWIMTHERMO_UDMA0 = 0,
 
-    CC1350_LAUNCHXL_UDMACOUNT
-} CC1350_LAUNCHXL_UDMAName;
+    CC1350_SWIMTHERMO_UDMACOUNT
+} CC1350_SWIMTHERMO_UDMAName;
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __CC1350_LAUNCHXL_BOARD_H__ */
+#endif /* __CC1350_SWIMTHERMO_BOARD_H__ */

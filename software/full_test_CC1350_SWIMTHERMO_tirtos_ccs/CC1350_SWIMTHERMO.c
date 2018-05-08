@@ -126,9 +126,9 @@ const PowerCC26XX_Config PowerCC26XX_config = {
  */
 #include <ti/drivers/dma/UDMACC26XX.h>
 
-UDMACC26XX_Object udmaObjects[CC1350_LAUNCHXL_UDMACOUNT];
+UDMACC26XX_Object udmaObjects[CC1350_SWIMTHERMO_UDMACOUNT];
 
-const UDMACC26XX_HWAttrs udmaHWAttrs[CC1350_LAUNCHXL_UDMACOUNT] = {
+const UDMACC26XX_HWAttrs udmaHWAttrs[CC1350_SWIMTHERMO_UDMACOUNT] = {
     {
         .baseAddr    = UDMA0_BASE,
         .powerMngrId = PowerCC26XX_PERIPH_UDMA,
@@ -137,10 +137,10 @@ const UDMACC26XX_HWAttrs udmaHWAttrs[CC1350_LAUNCHXL_UDMACOUNT] = {
     }
 };
 
-const UDMACC26XX_Config UDMACC26XX_config[CC1350_LAUNCHXL_UDMACOUNT] = {
+const UDMACC26XX_Config UDMACC26XX_config[CC1350_SWIMTHERMO_UDMACOUNT] = {
     {
-         .object  = &udmaObjects[CC1350_LAUNCHXL_UDMA0],
-         .hwAttrs = &udmaHWAttrs[CC1350_LAUNCHXL_UDMA0]
+         .object  = &udmaObjects[CC1350_SWIMTHERMO_UDMA0],
+         .hwAttrs = &udmaHWAttrs[CC1350_SWIMTHERMO_UDMA0]
     },
 };
 
@@ -150,14 +150,14 @@ const UDMACC26XX_Config UDMACC26XX_config[CC1350_LAUNCHXL_UDMACOUNT] = {
 #include <ti/drivers/SPI.h>
 #include <ti/drivers/spi/SPICC26XXDMA.h>
 
-SPICC26XXDMA_Object spiCC26XXDMAObjects[CC1350_LAUNCHXL_SPICOUNT];
+SPICC26XXDMA_Object spiCC26XXDMAObjects[CC1350_SWIMTHERMO_SPICOUNT];
 
 /*
  * NOTE: The SPI instances below can be used by the SD driver to communicate
  * with a SD card via SPI.  The 'defaultTxBufValue' fields below are set to 0xFF
  * to satisfy the SDSPI driver requirement.
  */
-const SPICC26XXDMA_HWAttrsV1 spiCC26XXDMAHWAttrs[CC1350_LAUNCHXL_SPICOUNT] = {
+const SPICC26XXDMA_HWAttrsV1 spiCC26XXDMAHWAttrs[CC1350_SWIMTHERMO_SPICOUNT] = {
     {
         .baseAddr           = SSI0_BASE,
         .intNum             = INT_SSI0_COMB,
@@ -167,10 +167,10 @@ const SPICC26XXDMA_HWAttrsV1 spiCC26XXDMAHWAttrs[CC1350_LAUNCHXL_SPICOUNT] = {
         .defaultTxBufValue  = 0xFF,
         .rxChannelBitMask   = 1<<UDMA_CHAN_SSI0_RX,
         .txChannelBitMask   = 1<<UDMA_CHAN_SSI0_TX,
-        .mosiPin            = CC1350_LAUNCHXL_SPI0_MOSI,
-        .misoPin            = CC1350_LAUNCHXL_SPI0_MISO,
-        .clkPin             = CC1350_LAUNCHXL_SPI0_CLK,
-        .csnPin             = CC1350_LAUNCHXL_SPI0_CSN,
+        .mosiPin            = CC1350_SWIMTHERMO_SPI0_MOSI,
+        .misoPin            = CC1350_SWIMTHERMO_SPI0_MISO,
+        .clkPin             = CC1350_SWIMTHERMO_SPI0_CLK,
+        .csnPin             = CC1350_SWIMTHERMO_SPI0_CSN,
         .minDmaTransferSize = 10
     },
     {
@@ -182,28 +182,28 @@ const SPICC26XXDMA_HWAttrsV1 spiCC26XXDMAHWAttrs[CC1350_LAUNCHXL_SPICOUNT] = {
         .defaultTxBufValue  = 0xFF,
         .rxChannelBitMask   = 1<<UDMA_CHAN_SSI1_RX,
         .txChannelBitMask   = 1<<UDMA_CHAN_SSI1_TX,
-        .mosiPin            = CC1350_LAUNCHXL_SPI1_MOSI,
-        .misoPin            = CC1350_LAUNCHXL_SPI1_MISO,
-        .clkPin             = CC1350_LAUNCHXL_SPI1_CLK,
-        .csnPin             = CC1350_LAUNCHXL_SPI1_CSN,
+        .mosiPin            = CC1350_SWIMTHERMO_SPI1_MOSI,
+        .misoPin            = CC1350_SWIMTHERMO_SPI1_MISO,
+        .clkPin             = CC1350_SWIMTHERMO_SPI1_CLK,
+        .csnPin             = CC1350_SWIMTHERMO_SPI1_CSN,
         .minDmaTransferSize = 10
     }
 };
 
-const SPI_Config SPI_config[CC1350_LAUNCHXL_SPICOUNT] = {
+const SPI_Config SPI_config[CC1350_SWIMTHERMO_SPICOUNT] = {
     {
          .fxnTablePtr = &SPICC26XXDMA_fxnTable,
-         .object      = &spiCC26XXDMAObjects[CC1350_LAUNCHXL_SPI0],
-         .hwAttrs     = &spiCC26XXDMAHWAttrs[CC1350_LAUNCHXL_SPI0]
+         .object      = &spiCC26XXDMAObjects[CC1350_SWIMTHERMO_SPI0],
+         .hwAttrs     = &spiCC26XXDMAHWAttrs[CC1350_SWIMTHERMO_SPI0]
     },
     {
          .fxnTablePtr = &SPICC26XXDMA_fxnTable,
-         .object      = &spiCC26XXDMAObjects[CC1350_LAUNCHXL_SPI1],
-         .hwAttrs     = &spiCC26XXDMAHWAttrs[CC1350_LAUNCHXL_SPI1]
+         .object      = &spiCC26XXDMAObjects[CC1350_SWIMTHERMO_SPI1],
+         .hwAttrs     = &spiCC26XXDMAHWAttrs[CC1350_SWIMTHERMO_SPI1]
     },
 };
 
-const uint_least8_t SPI_count = CC1350_LAUNCHXL_SPICOUNT;
+const uint_least8_t SPI_count = CC1350_SWIMTHERMO_SPICOUNT;
 
 /*
  *  =============================== RF Driver ===============================
@@ -216,20 +216,20 @@ const uint_least8_t SPI_count = CC1350_LAUNCHXL_SPICOUNT;
  * This function is called by the RF driver on global driver events. It contains
  * a default implementation to set the correct antenna path.
  */
-static void CC1350_LAUNCHXL_rfDriverCallback(RF_Handle client, RF_GlobalEvent events, void *arg);
+static void CC1350_SWIMTHERMO_rfDriverCallback(RF_Handle client, RF_GlobalEvent events, void *arg);
 
 const RFCC26XX_HWAttrsV2 RFCC26XX_hwAttrs = {
     .hwiPriority        = ~0,                                                       /* Lowest HWI priority */
     .swiPriority        = 0,                                                        /* Lowest SWI priority */
     .xoscHfAlwaysNeeded = true,                                                     /* Keep XOSC dependency while in stanby */
-    .globalCallback     = &CC1350_LAUNCHXL_rfDriverCallback,                        /* Register the board specific callback */
+    .globalCallback     = &CC1350_SWIMTHERMO_rfDriverCallback,                        /* Register the board specific callback */
     .globalEventMask    = RF_GlobalEventRadioSetup | RF_GlobalEventRadioPowerDown   /* Subscribe the callback to both events */
 };
 
 /*
- *  ======== CC1350_LAUNCHXL_initGeneral ========
+ *  ======== CC1350_SWIMTHERMO_SPI0_MOSI_initGeneral ========
  */
-void CC1350_LAUNCHXL_initGeneral(void)
+void CC1350_SWIMTHERMO_initGeneral(void)
 {
     Power_init();
 
@@ -241,11 +241,11 @@ void CC1350_LAUNCHXL_initGeneral(void)
 }
 
 /*
- * ======== CC1350_LAUNCHXL_rfDriverCallback ========
+ * ======== CC1350_SWIMTHERMO_SPI0_MOSI_rfDriverCallback ========
  * This is an implementation for the CC1350 launchpad which uses a
  * single signal for antenna switching.
  */
-void CC1350_LAUNCHXL_rfDriverCallback(RF_Handle client, RF_GlobalEvent events, void *arg)
+void CC1350_SWIMTHERMO_rfDriverCallback(RF_Handle client, RF_GlobalEvent events, void *arg)
 {
     (void)client;
     RF_RadioSetup* setupCommand = (RF_RadioSetup*)arg;

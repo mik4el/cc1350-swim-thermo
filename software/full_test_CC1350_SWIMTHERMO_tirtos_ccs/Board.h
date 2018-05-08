@@ -39,14 +39,7 @@ extern "C" {
 
 #include "CC1350_SWIMTHERMO.h"
 
-#define Board_initGeneral()      CC1350_LAUNCHXL_initGeneral()
-
-// Todo refactor names below
-#define Board_SPI0              CC1350_LAUNCHXL_SPI0
-#define Board_SPI1              CC1350_LAUNCHXL_SPI1
-
-#define Board_SPI_MASTER        CC1350_LAUNCHXL_SPI0
-#define Board_SPI_SLAVE         CC1350_LAUNCHXL_SPI0
+#define Board_initGeneral()      CC1350_SWIMTHERMO_initGeneral()
 
 #ifdef __cplusplus
 }
