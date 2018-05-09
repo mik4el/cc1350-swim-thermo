@@ -48,44 +48,15 @@
 #include <ti/drivers/PIN.h>
 #include <ti/drivers/pin/PINCC26XX.h>
 
+#include <ti/drivers/timer/GPTimerCC26XX.h>
+#include <ti/drivers/Power.h>
+#include <ti/drivers/power/PowerCC26XX.h>
+
 #include "CC1350_SWIMTHERMO.h"
 
-/*
- *  =============================== GPIO ===============================
- */
-#include <ti/drivers/GPIO.h>
-#include <ti/drivers/gpio/GPIOCC26XX.h>
+#include <Board.h>
 
-/*
- * Array of Pin configurations
- * NOTE: The order of the pin configurations must coincide with what was
- *       defined in CC1350_LAUNCHXL.h
- * NOTE: Pins not used for interrupts should be placed at the end of the
- *       array.  Callback entries can be omitted from callbacks array to
- *       reduce memory usage.
- */
 
-GPIO_PinConfig gpioPinConfigs[] = {
-    /* Output pins */
-    GPIOCC26XX_DIO_02 | GPIO_DO_NOT_CONFIG,  /* PIN_PSU_ENABLE */
-};
-
-/*
- * Array of callback function pointers
- * NOTE: The order of the pin configurations must coincide with what was
- *       defined in CC1350_LAUNCHXL.h
- * NOTE: Pins not used for interrupts can be omitted from callbacks array to
- *       reduce memory usage (if placed at end of gpioPinConfigs array).
- */
-GPIO_CallbackFxn gpioCallbackFunctions[] = {};
-
-const GPIOCC26XX_Config GPIOCC26XX_config = {
-    .pinConfigs = (GPIO_PinConfig *)gpioPinConfigs,
-    .callbacks = (GPIO_CallbackFxn *)gpioCallbackFunctions,
-    .numberOfPinConfigs = sizeof(gpioPinConfigs)/sizeof(GPIO_PinConfig),
-    .numberOfCallbacks = sizeof(gpioCallbackFunctions)/sizeof(GPIO_CallbackFxn),
-    .intPriority = (~0)
-};
 
 /*
  *  =============================== PIN ===============================
@@ -98,6 +69,8 @@ const PIN_Config BoardGpioInitTable[] = {
     CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX, /* RF SW Switch defaults to 2.4 GHz path */
     CC1350_SWIMTHERMO_DIO0_RF_POWER | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX, /* External RF Switch is powered off by default */
     CC1350_SWIMTHERMO_DIO2_PSU_ENABLE | PIN_GPIO_OUTPUT_EN | PIN_GPIO_HIGH | PIN_PUSHPULL | PIN_DRVSTR_MAX, /* LED PSU initially off */
+    CC1350_SWIMTHERMO_DIO5_T_ON1 | PIN_GPIO_OUTPUT_EN | PIN_GPIO_HIGH | PIN_PUSHPULL, /* T_ON1 should be default high */
+    CC1350_SWIMTHERMO_DIO6_T_ON2 | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL, /* T_ON2 should be default low */
     CC1350_SWIMTHERMO_DIO8_BUTTON | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_BOTHEDGES | PIN_HYSTERESIS, /* Button is active low */
     PIN_TERMINATE
 };
@@ -205,6 +178,168 @@ const SPI_Config SPI_config[CC1350_SWIMTHERMO_SPICOUNT] = {
 };
 
 const uint_least8_t SPI_count = CC1350_SWIMTHERMO_SPICOUNT;
+
+/*
+ *  ============================ GPTimer begin =================================
+ *  Remove unused entries to reduce flash usage both in Board.c and Board.h
+ */
+/* Place into subsections to allow the TI linker to remove items properly */
+#if defined(__TI_COMPILER_VERSION__)
+#pragma DATA_SECTION(GPTimerCC26XX_config, ".const:GPTimerCC26XX_config")
+#pragma DATA_SECTION(gptimerCC26xxHWAttrs, ".const:gptimerCC26xxHWAttrs")
+#endif
+
+/* GPTimer hardware attributes, one per timer part (Timer 0A, 0B, 1A, 1B..) */
+const GPTimerCC26XX_HWAttrs gptimerCC26xxHWAttrs[CC1350_LAUNCHXL_GPTIMERPARTSCOUNT] = {
+    { .baseAddr = GPT0_BASE, .intNum = INT_GPT0A, .intPriority = (~0), .powerMngrId = PowerCC26XX_PERIPH_GPT0, .pinMux = GPT_PIN_0A, },
+    { .baseAddr = GPT0_BASE, .intNum = INT_GPT0B, .intPriority = (~0), .powerMngrId = PowerCC26XX_PERIPH_GPT0, .pinMux = GPT_PIN_0B, },
+    { .baseAddr = GPT1_BASE, .intNum = INT_GPT1A, .intPriority = (~0), .powerMngrId = PowerCC26XX_PERIPH_GPT1, .pinMux = GPT_PIN_1A, },
+    { .baseAddr = GPT1_BASE, .intNum = INT_GPT1B, .intPriority = (~0), .powerMngrId = PowerCC26XX_PERIPH_GPT1, .pinMux = GPT_PIN_1B, },
+    { .baseAddr = GPT2_BASE, .intNum = INT_GPT2A, .intPriority = (~0), .powerMngrId = PowerCC26XX_PERIPH_GPT2, .pinMux = GPT_PIN_2A, },
+    { .baseAddr = GPT2_BASE, .intNum = INT_GPT2B, .intPriority = (~0), .powerMngrId = PowerCC26XX_PERIPH_GPT2, .pinMux = GPT_PIN_2B, },
+    { .baseAddr = GPT3_BASE, .intNum = INT_GPT3A, .intPriority = (~0), .powerMngrId = PowerCC26XX_PERIPH_GPT3, .pinMux = GPT_PIN_3A, },
+    { .baseAddr = GPT3_BASE, .intNum = INT_GPT3B, .intPriority = (~0), .powerMngrId = PowerCC26XX_PERIPH_GPT3, .pinMux = GPT_PIN_3B, },
+};
+
+/*  GPTimer objects, one per full-width timer (A+B) (Timer 0, Timer 1..) */
+GPTimerCC26XX_Object gptimerCC26XXObjects[CC1350_LAUNCHXL_GPTIMERCOUNT];
+
+/* GPTimer configuration (used as GPTimer_Handle by driver and application) */
+const GPTimerCC26XX_Config GPTimerCC26XX_config[CC1350_LAUNCHXL_GPTIMERPARTSCOUNT] = {
+    { &gptimerCC26XXObjects[0], &gptimerCC26xxHWAttrs[0], GPT_A },
+    { &gptimerCC26XXObjects[0], &gptimerCC26xxHWAttrs[1], GPT_B },
+    { &gptimerCC26XXObjects[1], &gptimerCC26xxHWAttrs[2], GPT_A },
+    { &gptimerCC26XXObjects[1], &gptimerCC26xxHWAttrs[3], GPT_B },
+    { &gptimerCC26XXObjects[2], &gptimerCC26xxHWAttrs[4], GPT_A },
+    { &gptimerCC26XXObjects[2], &gptimerCC26xxHWAttrs[5], GPT_B },
+    { &gptimerCC26XXObjects[3], &gptimerCC26xxHWAttrs[6], GPT_A },
+    { &gptimerCC26XXObjects[3], &gptimerCC26xxHWAttrs[7], GPT_B },
+};
+
+/*
+ *  ============================ GPTimer end ===================================
+ */
+
+
+/*
+ *  ========================== ADCBuf begin =========================================
+ */
+/* Place into subsections to allow the TI linker to remove items properly */
+#if defined(__TI_COMPILER_VERSION__)
+#pragma DATA_SECTION(ADCBuf_config, ".const:ADCBuf_config")
+#pragma DATA_SECTION(adcBufCC26XXHWAttrs, ".const:adcBufCC26XXHWAttrs")
+#pragma DATA_SECTION(ADCBufCC26XX_adcChannelLut, ".const:ADCBufCC26XX_adcChannelLut")
+#endif
+
+/* Include drivers */
+#include <ti/drivers/ADCBuf.h>
+#include <ti/drivers/adcbuf/ADCBufCC26XX.h>
+
+/* ADCBuf objects */
+ADCBufCC26XX_Object adcBufCC26XXobjects[CC1350_SWIMTHERMO_ADCBufCOUNT];
+
+/*
+ *  This table converts a virtual adc channel into a dio and internal analogue input signal.
+ *  This table is necessary for the functioning of the adcBuf driver.
+ *  Comment out unused entries to save flash.
+ *  Dio and internal signal pairs are hardwired. Do not remap them in the table. You may reorder entire entries though.
+ *  The mapping of dio and internal signals is package dependent.
+ */
+const ADCBufCC26XX_AdcChannelLutEntry ADCBufCC26XX_adcChannelLut[] = {
+    {PIN_UNASSIGNED, ADC_COMPB_IN_VDDS},
+    {PIN_UNASSIGNED, ADC_COMPB_IN_DCOUPL},
+    {PIN_UNASSIGNED, ADC_COMPB_IN_VSS},
+    {CC1350_SWIMTHERMO_DIO7_ANALOG, ADC_COMPB_IN_AUXIO5},
+};
+
+
+const ADCBufCC26XX_HWAttrs adcBufCC26XXHWAttrs[CC1350_SWIMTHERMO_ADCBufCOUNT] = {
+    {
+        .intPriority = ~0,
+        .swiPriority = 0,
+        .adcChannelLut = ADCBufCC26XX_adcChannelLut,
+        .gpTimerUnit = Board_GPTIMER0A,
+        .gptDMAChannelMask = 1 << UDMA_CHAN_TIMER0_A,
+    }
+};
+
+const ADCBuf_Config ADCBuf_config[] = {
+    {&ADCBufCC26XX_fxnTable, &adcBufCC26XXobjects[0], &adcBufCC26XXHWAttrs[0]},
+    {NULL, NULL, NULL},
+};
+/*
+ *  ========================== ADCBuf end =========================================
+ */
+
+
+/*
+ *  ========================== ADC begin =========================================
+ */
+/* Place into subsections to allow the TI linker to remove items properly */
+#if defined(__TI_COMPILER_VERSION__)
+#pragma DATA_SECTION(ADC_config, ".const:ADC_config")
+#pragma DATA_SECTION(adcCC26xxHWAttrs, ".const:adcCC26xxHWAttrs")
+#endif
+
+/* Include drivers */
+#include <ti/drivers/ADC.h>
+#include <ti/drivers/adc/ADCCC26XX.h>
+
+
+/* ADC objects */
+ADCCC26XX_Object adcCC26xxObjects[CC1350_SWIMTHERMO_ADCCOUNT];
+
+
+const ADCCC26XX_HWAttrs adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADCCOUNT] = {
+    {
+        .adcDIO              = CC1350_SWIMTHERMO_DIO7_ANALOG,
+        .adcCompBInput       = ADC_COMPB_IN_AUXIO5,
+        .refSource           = ADCCC26XX_FIXED_REFERENCE,
+        .samplingDuration    = ADCCC26XX_SAMPLING_DURATION_2P7_US,
+        .inputScalingEnabled = true,
+        .triggerSource       = ADCCC26XX_TRIGGER_MANUAL,
+    },
+    {
+        .adcDIO = PIN_UNASSIGNED,
+        .adcCompBInput = ADC_COMPB_IN_DCOUPL,
+        .refSource = ADCCC26XX_FIXED_REFERENCE,
+        .samplingDuration = ADCCC26XX_SAMPLING_DURATION_2P7_US,
+        .inputScalingEnabled = true,
+        .triggerSource = ADCCC26XX_TRIGGER_MANUAL
+    },
+    {
+        .adcDIO = PIN_UNASSIGNED,
+        .adcCompBInput = ADC_COMPB_IN_VSS,
+        .refSource = ADCCC26XX_FIXED_REFERENCE,
+        .samplingDuration = ADCCC26XX_SAMPLING_DURATION_2P7_US,
+        .inputScalingEnabled = true,
+        .triggerSource = ADCCC26XX_TRIGGER_MANUAL
+    },
+    {
+        .adcDIO = PIN_UNASSIGNED,
+        .adcCompBInput = ADC_COMPB_IN_VDDS,
+        .refSource = ADCCC26XX_FIXED_REFERENCE,
+        .samplingDuration = ADCCC26XX_SAMPLING_DURATION_2P7_US,
+        .inputScalingEnabled = true,
+        .triggerSource = ADCCC26XX_TRIGGER_MANUAL
+    }
+};
+
+const ADC_Config ADC_config[] = {
+    {&ADCCC26XX_fxnTable, &adcCC26xxObjects[0], &adcCC26xxHWAttrs[0]},
+    {&ADCCC26XX_fxnTable, &adcCC26xxObjects[1], &adcCC26xxHWAttrs[1]},
+    {&ADCCC26XX_fxnTable, &adcCC26xxObjects[2], &adcCC26xxHWAttrs[2]},
+    {&ADCCC26XX_fxnTable, &adcCC26xxObjects[3], &adcCC26xxHWAttrs[3]},
+    {&ADCCC26XX_fxnTable, &adcCC26xxObjects[4], &adcCC26xxHWAttrs[4]},
+    {NULL, NULL, NULL},
+};
+
+const uint_least8_t ADC_count = CC1350_SWIMTHERMO_ADCCOUNT;
+
+/*
+ *  ========================== ADC end =========================================
+ */
+
 
 /*
  *  =============================== RF Driver ===============================

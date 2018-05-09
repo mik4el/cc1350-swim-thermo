@@ -53,9 +53,6 @@ extern "C" {
 #include <ti/drivers/PIN.h>
 #include <ti/devices/cc13x0/driverlib/ioc.h>
 
-/* Externs */
-extern const PIN_Config BoardGpioInitTable[];
-
 /* Defines */
 #define CC1350_LAUNCHXL
 
@@ -63,6 +60,9 @@ extern const PIN_Config BoardGpioInitTable[];
 #define CC1350_SWIMTHERMO_DIO0_RF_POWER         IOID_0
 #define CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ       IOID_1
 #define CC1350_SWIMTHERMO_DIO2_PSU_ENABLE       IOID_2
+#define CC1350_SWIMTHERMO_DIO5_T_ON1            IOID_5  //T_ON1 If set high, enables LMT70 on p1
+#define CC1350_SWIMTHERMO_DIO6_T_ON2            IOID_6  //T_ON2 If set high, enables LMT70 on p2
+#define CC1350_SWIMTHERMO_DIO7_ANALOG           IOID_7  //TAO on active LMT70
 #define CC1350_SWIMTHERMO_DIO8_BUTTON           IOID_8
 
 /* SPI Board */
@@ -75,12 +75,82 @@ extern const PIN_Config BoardGpioInitTable[];
 #define CC1350_SWIMTHERMO_SPI1_CLK              PIN_UNASSIGNED
 #define CC1350_SWIMTHERMO_SPI1_CSN              PIN_UNASSIGNED
 
+
+
+/** ============================================================================
+ *  Instance identifiers
+ *  ==========================================================================*/
+
+/* Generic GPTimer instance identifiers */
+#define Board_GPTIMER0A             CC1350_LAUNCHXL_GPTIMER0A
+#define Board_GPTIMER0B             CC1350_LAUNCHXL_GPTIMER0B
+#define Board_GPTIMER1A             CC1350_LAUNCHXL_GPTIMER1A
+#define Board_GPTIMER1B             CC1350_LAUNCHXL_GPTIMER1B
+#define Board_GPTIMER2A             CC1350_LAUNCHXL_GPTIMER2A
+#define Board_GPTIMER2B             CC1350_LAUNCHXL_GPTIMER2B
+#define Board_GPTIMER3A             CC1350_LAUNCHXL_GPTIMER3A
+#define Board_GPTIMER3B             CC1350_LAUNCHXL_GPTIMER3B
+
+
+
+/** ============================================================================
+ *  Number of peripherals and their names
+ *  ==========================================================================*/
+
 /*!
- *  @brief  Initialize the general board specific settings
- *
- *  This function initializes the general board specific settings.
+ *  @def    CC1350_LAUNCHXL_GPTimerName
+ *  @brief  Enum of GPTimer parts
  */
-void CC1350_SWIMTHERMO_initGeneral(void);
+typedef enum CC1350_LAUNCHXL_GPTimerName
+{
+    CC1350_LAUNCHXL_GPTIMER0A = 0,
+    CC1350_LAUNCHXL_GPTIMER0B,
+    CC1350_LAUNCHXL_GPTIMER1A,
+    CC1350_LAUNCHXL_GPTIMER1B,
+    CC1350_LAUNCHXL_GPTIMER2A,
+    CC1350_LAUNCHXL_GPTIMER2B,
+    CC1350_LAUNCHXL_GPTIMER3A,
+    CC1350_LAUNCHXL_GPTIMER3B,
+
+    CC1350_LAUNCHXL_GPTIMERPARTSCOUNT
+} CC1350_LAUNCHXL_GPTimerName;
+
+/*!
+ *  @def    CC1350_LAUNCHXL_GPTimers
+ *  @brief  Enum of GPTimers
+ */
+typedef enum CC1350_LAUNCHXL_GPTimers
+{
+    CC1350_LAUNCHXL_GPTIMER0 = 0,
+    CC1350_LAUNCHXL_GPTIMER1,
+    CC1350_LAUNCHXL_GPTIMER2,
+    CC1350_LAUNCHXL_GPTIMER3,
+
+    CC1350_LAUNCHXL_GPTIMERCOUNT
+} CC1350_LAUNCHXL_GPTimers;
+
+/*!
+ *  @def    CC1350_SWIMTHERMO_ADCBufName
+ *  @brief  Enum of ADCBufs
+ */
+typedef enum CC1350_SWIMTHERMO_ADCBufName {
+    CC1350_SWIMTHERMO_ADCBuf0 = 0,
+
+    CC1350_SWIMTHERMO_ADCBufCOUNT
+} CC1350_SWIMTHERMO_ADCBufName;
+
+/*!
+ *  @def    CC1350_SWIMTHERMO_ADCName
+ *  @brief  Enum of ADCs
+ */
+typedef enum CC1350_SWIMTHERMO_ADCName {
+    CC1350_SWIMTHERMO_ADC0 = 0,
+    CC1350_SWIMTHERMO_ADCDCOUPL,
+    CC1350_SWIMTHERMO_ADCVSS,
+    CC1350_SWIMTHERMO_ADCVDDS,
+
+    CC1350_SWIMTHERMO_ADCCOUNT
+} CC1350_SWIMTHERMO_ADCName;
 
 /*!
  *  @def    CC1350_SWIMTHERMO_SPIName
@@ -102,6 +172,15 @@ typedef enum CC1350_SWIMTHERMO_UDMAName {
 
     CC1350_SWIMTHERMO_UDMACOUNT
 } CC1350_SWIMTHERMO_UDMAName;
+
+
+
+/** ============================================================================
+ *  Function definitions
+ *  ==========================================================================*/
+
+extern const PIN_Config BoardGpioInitTable[];
+void CC1350_SWIMTHERMO_initGeneral(void);
 
 #ifdef __cplusplus
 }

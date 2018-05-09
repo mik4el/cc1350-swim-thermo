@@ -39,7 +39,16 @@ extern "C" {
 
 #include "CC1350_SWIMTHERMO.h"
 
-#define Board_initGeneral()      CC1350_SWIMTHERMO_initGeneral()
+//Todo: remove unnecessary renames below
+#define     Board_ADC0              CC1350_SWIMTHERMO_ADCVSS
+#define     Board_ADC1              CC1350_SWIMTHERMO_ADC0
+
+#define     Board_ADCBuf0           CC1350_SWIMTHERMO_ADCBuf0
+#define     Board_ADCBufChannel0    (0)
+#define     Board_ADCBufChannel1    (1)
+
+#define     Board_initGeneral()     CC1350_SWIMTHERMO_initGeneral()
+#define     Board_initADCBuf()      ADCBuf_init()
 
 #ifdef __cplusplus
 }

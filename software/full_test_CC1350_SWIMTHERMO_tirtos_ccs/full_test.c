@@ -43,6 +43,7 @@
 #include <ti/drivers/PIN.h>
 #include <ti/drivers/pin/PINCC26XX.h>
 #include <ti/drivers/SPI.h>
+#include <ti/drivers/ADC.h>
 
 /* POSIX Header files */
 #include <pthread.h>
@@ -58,8 +59,12 @@
 #include "RFQueue.h"
 #include "smartrf_settings/smartrf_settings.h"
 
+
+
 /***** Prototypes *****/
 static void echoCallback(RF_Handle h, RF_CmdHandle ch, RF_EventMask e);
+
+
 
 /***** Variables and defines *****/
 
@@ -146,34 +151,83 @@ int prev_rgb_channel = 0;
 
 
 
-/* Button section */
+/* PIN section */
 
 //Pin driver handles
-static PIN_Handle buttonPinHandle;
+static PIN_Handle pinHandle;
 
 // Global memory storage for a PIN_Config table
-static PIN_State buttonPinState;
+static PIN_State pinState;
 
 /*
  * Application button pin configuration table:
  *   - Buttons interrupts are configured to trigger on falling edge.
  */
-PIN_Config buttonPinTable[] = {
-    CC1350_SWIMTHERMO_DIO8_BUTTON  | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_NEGEDGE,
-    PIN_TERMINATE
-};
+PIN_Config pinTable[] = {
+                         CC1350_SWIMTHERMO_DIO5_T_ON1 | PIN_GPIO_OUTPUT_EN | PIN_GPIO_HIGH | PIN_PUSHPULL, /* T_ON1 should be default high */
+                         CC1350_SWIMTHERMO_DIO6_T_ON2 | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL, /* T_ON2 should be default low */
+                         CC1350_SWIMTHERMO_DIO8_BUTTON  | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_NEGEDGE,
+                         PIN_TERMINATE
+                        };
 
-/* End of button section */
+/* End of PIN section */
 
 
 
 /* Other section */
 int rxCount = 0;
+uint16_t adcValue0;
 
 /* End of Other section */
 
 
 
+/***** Function definitions *****/
+
+// Convert uV reading from LMT70 to degrees celcius
+double convertLMT70uVToDegC(uint32_t adcValue) {
+    return (-0.193 * (adcValue / 1000)) + 212.009; // constants from LMT70 datasheet p13 http://www.ti.com/lit/ds/symlink/lmt70.pdf
+}
+
+// Reads LMT70 on ADC and prints temperature
+void readLMT70()
+{
+    ADC_Handle   adc;
+    ADC_Params   params;
+    int_fast16_t res;
+    uint32_t     high_res;
+    CPUdelay(1000); // Let reading from LMT70 stabilize
+
+    ADC_Params_init(&params);
+    adc = ADC_open(CC1350_SWIMTHERMO_ADC0, &params);
+
+    if (adc == NULL) {
+        printf("Error initializing ADC channel 0\n");
+    }
+    else {
+        printf("ADC channel 0 initialized\n");
+    }
+
+    /* Blocking mode conversion */
+    res = ADC_convert(adc, &adcValue0);
+    high_res = ADC_convertRawToMicroVolts(adc, adcValue0); //microvolts, not millivolts
+
+    if (res == ADC_STATUS_SUCCESS) {
+        printf("LMT70 reading: %i uV %f deg C\n", high_res, convertLMT70uVToDegC(high_res));
+    }
+    else {
+        printf("ADC channel 0 convert failed\n");
+    }
+
+    ADC_close(adc);
+}
+
+void toggleLMT70() {
+    uint32_t currVal = 0;
+    currVal = PIN_getOutputValue(CC1350_SWIMTHERMO_DIO5_T_ON1);
+    PIN_setOutputValue(pinHandle, CC1350_SWIMTHERMO_DIO5_T_ON1, !currVal);
+    PIN_setOutputValue(pinHandle, CC1350_SWIMTHERMO_DIO6_T_ON2, currVal);
+}
 
 /*
  *  ======== buttonCallbackFxn ========
@@ -190,6 +244,8 @@ void buttonCallbackFxn(PIN_Handle handle, PIN_Id pinId) {
                 } else {
                     prev_rgb_channel = active_rgb_channel;
                     active_rgb_channel = -1; // Make led animation white
+                    toggleLMT70();
+                    readLMT70();
                 }
                 printf("Button press\n");
                 break;
@@ -201,6 +257,10 @@ void buttonCallbackFxn(PIN_Handle handle, PIN_Id pinId) {
     }
 }
 
+/*
+ *  ======== LEDThread ========
+ *  Animates LED
+ */
 void updateLEDTxBufferCycleColor() {
     grayscale = grayscale + operand;
     if (grayscale >= 4096) {
@@ -297,10 +357,6 @@ void led_breathe() {
     return;
 }
 
-/*
- *  ======== LEDThread ========
- *  Animates LED
- */
 void *LEDThread(void *arg0)
 {
     led_breathe();
@@ -320,14 +376,15 @@ void *mainThread(void *arg0)
 
     /* Call driver init functions. */
     SPI_init();
+    ADC_init();
 
-    buttonPinHandle = PIN_open(&buttonPinState, buttonPinTable);
-    if(!buttonPinHandle) {
-        printf("Error initializing button pins\n");
+    pinHandle = PIN_open(&pinState, pinTable);
+    if(!pinHandle) {
+        printf("Error initializing pins\n");
     }
 
     //Setup callback for button pins
-    if (PIN_registerIntCb(buttonPinHandle, &buttonCallbackFxn) != 0) {
+    if (PIN_registerIntCb(pinHandle, &buttonCallbackFxn) != 0) {
         printf("Error registering button callback function");
     }
 
@@ -504,10 +561,6 @@ void *mainThread(void *arg0)
 
 static void echoCallback(RF_Handle h, RF_CmdHandle ch, RF_EventMask e)
 {
-#ifdef LOG_RADIO_EVENTS
-    eventLog[evIndex++ & 0x1F] = e;
-#endif// LOG_RADIO_EVENTS
-
     if (e & RF_EventRxEntryDone)
     {
         /* Successful RX */
@@ -543,8 +596,5 @@ static void echoCallback(RF_Handle h, RF_CmdHandle ch, RF_EventMask e)
     {
         /* Error Condition: set LED1, clear LED2 */
         printf("Error\n");
-
-        /* Animate LED color to indicate error state */
-        led_breathe();
     }
 }
