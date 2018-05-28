@@ -31,6 +31,9 @@ A few debugging hints (without applying power):
 - Check current draw (when applying power). An empty device should go into boot loader mode and draw 6-7mA.
 ```
 
+## Test radio on CC1350
+Download and install smart rf studio http://www.ti.com/tool/SMARTRFTM-STUDIO, it includes a simple RSSI measurement and can sanity check that the radios are working as expected. It is unfortunately only available on windows. Also a good idea to have SDR or similar to validate that you are seeing radio emissions on the desired wavelengths and that they look similar to the launchpads. I recommend HackRF since it is capable of receiving both 1-6000MHz, with a normal tv-dongle SDR you will not be able to see the 2.4GHz spectrum from the CC1350.
+
 ## Software projects include:
 1. `hello_CC1350_SWIMTHERMO_tirtos_ccs` - sanity check and validate that programming the board works.
 1. `pinInterrupt_CC1350_SWIMTHERMO` - validate that the switch on the custom board can be read.
@@ -39,8 +42,12 @@ A few debugging hints (without applying power):
 1. `tlc5973_spimaster_CC1350_SWIMTHERMO_tirtos_ccs` - turn on the onboard TLC5973 and its PSU and set a color on the LED using SPI.
 1. `rfEchoRx_CC1350_SWIMTHERMO_tirtos_ccs` and `rfEchoTx_CC1350_LAUNCHXL_tirtos_ccs` tests the long range 868MHz radio between a swimthermo device and a launchpad device.
 1. `rfWsnNodeBleAdv_CC1350_LAUNCHXL_tirtos_ccs` sanity checks the BLE advertising.
+1. `full_test_CC1350_SWIMTHERMO_tirtos_ccs` combines the above projects into one (except for BLE) and more exhaustively tests all features at the same time, this .
+
+## Known issues
+- Low effect on simple monopole antenna for 868MHz in rev 1 of PCB, about -70dBm to -60dBm close range measured with smartRF (comparable measurement with stock cc1350 launchpads is around -24dBm).
 
 ## Todos
-1. Investigate and redo 868MHz antenna matching. Currently seeing -70dBm receive instead of -27dBm receive compared to Launchpad in similar testing conditions.
-1. Write up on how to test CC1350 radio
-1. Create a full test project that uses all features.
+1. Evaluate new rev of PCB for improved radio effect.
+1. MVP swim thermo software and deploy.
+1. New rev of PCB with potentially input protection on gpios, external low current sleep timer using e.g. http://www.ti.com/product/TPL5111, improved contacts for termometers.
