@@ -295,7 +295,7 @@ const ADCCC26XX_HWAttrs adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADCCOUNT] = {
         .adcDIO              = CC1350_SWIMTHERMO_DIO7_ANALOG,
         .adcCompBInput       = ADC_COMPB_IN_AUXIO5,
         .refSource           = ADCCC26XX_FIXED_REFERENCE,
-        .samplingDuration    = ADCCC26XX_SAMPLING_DURATION_2P7_US,
+        .samplingDuration    = ADCCC26XX_SAMPLING_DURATION_10P9_MS,
         .inputScalingEnabled = true,
         .triggerSource       = ADCCC26XX_TRIGGER_MANUAL,
     },
@@ -303,7 +303,7 @@ const ADCCC26XX_HWAttrs adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADCCOUNT] = {
         .adcDIO = PIN_UNASSIGNED,
         .adcCompBInput = ADC_COMPB_IN_DCOUPL,
         .refSource = ADCCC26XX_FIXED_REFERENCE,
-        .samplingDuration = ADCCC26XX_SAMPLING_DURATION_2P7_US,
+        .samplingDuration = ADCCC26XX_SAMPLING_DURATION_10P9_MS,
         .inputScalingEnabled = true,
         .triggerSource = ADCCC26XX_TRIGGER_MANUAL
     },
@@ -311,7 +311,7 @@ const ADCCC26XX_HWAttrs adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADCCOUNT] = {
         .adcDIO = PIN_UNASSIGNED,
         .adcCompBInput = ADC_COMPB_IN_VSS,
         .refSource = ADCCC26XX_FIXED_REFERENCE,
-        .samplingDuration = ADCCC26XX_SAMPLING_DURATION_2P7_US,
+        .samplingDuration = ADCCC26XX_SAMPLING_DURATION_10P9_MS,
         .inputScalingEnabled = true,
         .triggerSource = ADCCC26XX_TRIGGER_MANUAL
     },
@@ -319,7 +319,7 @@ const ADCCC26XX_HWAttrs adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADCCOUNT] = {
         .adcDIO = PIN_UNASSIGNED,
         .adcCompBInput = ADC_COMPB_IN_VDDS,
         .refSource = ADCCC26XX_FIXED_REFERENCE,
-        .samplingDuration = ADCCC26XX_SAMPLING_DURATION_2P7_US,
+        .samplingDuration = ADCCC26XX_SAMPLING_DURATION_10P9_MS,
         .inputScalingEnabled = true,
         .triggerSource = ADCCC26XX_TRIGGER_MANUAL
     }

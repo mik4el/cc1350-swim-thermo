@@ -196,16 +196,12 @@ void readLMT70()
     ADC_Params   params;
     int_fast16_t res;
     uint32_t     high_res;
-    CPUdelay(1000); // Let reading from LMT70 stabilize
 
     ADC_Params_init(&params);
     adc = ADC_open(CC1350_SWIMTHERMO_ADC0, &params);
 
     if (adc == NULL) {
         printf("Error initializing ADC channel 0\n");
-    }
-    else {
-        printf("ADC channel 0 initialized\n");
     }
 
     /* Blocking mode conversion */
@@ -225,6 +221,11 @@ void readLMT70()
 void toggleLMT70() {
     uint32_t currVal = 0;
     currVal = PIN_getOutputValue(CC1350_SWIMTHERMO_DIO5_T_ON1);
+    if (currVal) {
+        printf("T_ON1 on\n");
+    } else {
+        printf("T_ON2 on\n");
+    }
     PIN_setOutputValue(pinHandle, CC1350_SWIMTHERMO_DIO5_T_ON1, !currVal);
     PIN_setOutputValue(pinHandle, CC1350_SWIMTHERMO_DIO6_T_ON2, currVal);
 }
@@ -245,7 +246,10 @@ void buttonCallbackFxn(PIN_Handle handle, PIN_Id pinId) {
                     prev_rgb_channel = active_rgb_channel;
                     active_rgb_channel = -1; // Make led animation white
                     toggleLMT70();
-                    readLMT70();
+                    int i;
+                    for (i = 0; i < 10; i++) {
+                        readLMT70();
+                    }
                 }
                 printf("Button press\n");
                 break;
