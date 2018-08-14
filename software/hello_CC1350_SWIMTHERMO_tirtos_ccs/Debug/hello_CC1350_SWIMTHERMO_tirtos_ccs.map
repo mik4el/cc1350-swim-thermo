@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker Unix v18.1.1                   
 ******************************************************************************
->> Linked Tue Apr 17 09:41:12 2018
+>> Linked Fri Aug  3 10:38:35 2018
 
 OUTPUT FILE NAME:   <hello_CC1350_SWIMTHERMO_tirtos_ccs.out>
 ENTRY POINT SYMBOL: "ResetISR"  address: 000029ad
