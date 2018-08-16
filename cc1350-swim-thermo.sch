@@ -1440,15 +1440,15 @@ VDDS
 Text Label 1950 1300 2    60   ~ 0
 VDDS
 Text Label 3750 4500 3    60   ~ 0
-RF_P_BIAS
+BIAS_RF_P
 Text Label 4050 4500 3    60   ~ 0
-RF_N_BIAS
+BIAS_RF_N
 Wire Wire Line
 	4050 4400 4050 4500
 Wire Wire Line
 	3750 4400 3750 4500
-Text Label 950  5900 2    60   ~ 0
-RF_N_BIAS
+Text Label 950  6100 2    60   ~ 0
+BIAS_RF_N
 $Comp
 L cc1350:SKY13421-486LF U1
 U 1 1 5B72A673
@@ -1464,20 +1464,12 @@ Wire Wire Line
 	1100 5950 950  5950
 Wire Wire Line
 	950  5950 950  5900
-Text Label 950  6100 2    60   ~ 0
-RF_P_BIAS
+Text Label 950  5900 2    60   ~ 0
+BIAS_RF_P
 Wire Wire Line
 	1100 6050 950  6050
 Wire Wire Line
 	950  6050 950  6100
-Wire Wire Line
-	1100 6250 1100 6350
-Connection ~ 1100 6350
-Connection ~ 1100 6450
-Connection ~ 1100 6550
-Connection ~ 1100 6650
-Connection ~ 1100 6750
-Connection ~ 1100 6850
 $Comp
 L power:GND #PWR051
 U 1 1 5B72B90C
@@ -1815,7 +1807,7 @@ U 1 1 5B733E4C
 P 5400 6250
 F 0 "C34" H 5425 6350 50  0000 L CNN
 F 1 "DNM" H 5425 6150 50  0000 L CNN
-F 2 "" H 5438 6100 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 5438 6100 50  0001 C CNN
 F 3 "" H 5400 6250 50  0000 C CNN
 	1    5400 6250
 	0    1    1    0   
@@ -1892,7 +1884,7 @@ U 1 1 5B73690C
 P 5850 7250
 F 0 "L16" V 5800 7250 50  0000 C CNN
 F 1 "DNM" V 5925 7250 50  0000 C CNN
-F 2 "" H 5850 7250 50  0001 C CNN
+F 2 "Inductor_SMD:L_0402_1005Metric" H 5850 7250 50  0001 C CNN
 F 3 "" H 5850 7250 50  0000 C CNN
 	1    5850 7250
 	1    0    0    -1  
@@ -1905,18 +1897,6 @@ Text Notes 5150 6900 0    60   ~ 0
 Antenna matching
 Wire Wire Line
 	2100 5900 2200 5900
-Wire Wire Line
-	2200 5900 2200 5500
-Wire Wire Line
-	2200 5500 2600 5500
-Wire Wire Line
-	2600 5300 2600 5400
-Wire Wire Line
-	2600 5400 2100 5400
-Wire Wire Line
-	2100 5400 2100 5800
-Wire Wire Line
-	2600 5500 2600 5650
 Wire Wire Line
 	2600 5300 2900 5300
 Connection ~ 2900 5300
@@ -1954,11 +1934,7 @@ Wire Wire Line
 	5550 5500 5800 5500
 Wire Wire Line
 	6000 5700 6000 5750
-Wire Wire Line
-	2250 6950 2400 6950
 Connection ~ 2600 6950
-Wire Wire Line
-	2150 7250 2400 7250
 Wire Wire Line
 	2600 7550 2600 7600
 Connection ~ 2600 7250
@@ -1966,14 +1942,6 @@ Wire Wire Line
 	3100 6950 3100 7100
 Wire Wire Line
 	2600 6600 2600 6650
-Wire Wire Line
-	2250 6950 2250 6450
-Wire Wire Line
-	2250 6450 2100 6450
-Wire Wire Line
-	2100 6550 2150 6550
-Wire Wire Line
-	2150 6550 2150 7250
 Wire Wire Line
 	3950 7100 4150 7100
 Wire Wire Line
@@ -2041,20 +2009,19 @@ U 1 1 5B733639
 P 3450 7250
 F 0 "C27" H 3475 7350 50  0000 L CNN
 F 1 "DNM" H 3475 7150 50  0000 L CNN
-F 2 "" H 3488 7100 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 3488 7100 50  0001 C CNN
 F 3 "" H 3450 7250 50  0000 C CNN
 	1    3450 7250
 	1    0    0    -1  
 $EndComp
 Connection ~ 2400 7250
-Connection ~ 2400 6950
 $Comp
 L Device:L L3
 U 1 1 5B733371
 P 2400 7100
 F 0 "L3" V 2350 7100 50  0000 C CNN
 F 1 "DNM" V 2475 7100 50  0000 C CNN
-F 2 "" H 2400 7100 50  0001 C CNN
+F 2 "Inductor_SMD:L_0402_1005Metric" H 2400 7100 50  0001 C CNN
 F 3 "" H 2400 7100 50  0000 C CNN
 	1    2400 7100
 	1    0    0    -1  
@@ -2130,18 +2097,6 @@ Wire Wire Line
 	3200 2650 3250 2650
 Wire Wire Line
 	1550 2950 1700 2950
-Wire Wire Line
-	1100 6350 1100 6450
-Wire Wire Line
-	1100 6450 1100 6550
-Wire Wire Line
-	1100 6550 1100 6650
-Wire Wire Line
-	1100 6650 1100 6750
-Wire Wire Line
-	1100 6750 1100 6850
-Wire Wire Line
-	1100 6850 1100 6950
 Wire Wire Line
 	2900 5300 3000 5300
 Wire Wire Line
@@ -2312,4 +2267,55 @@ Wire Wire Line
 Connection ~ 6700 2450
 Wire Wire Line
 	6700 2450 6600 2450
+Wire Wire Line
+	2600 5650 2100 5650
+Wire Wire Line
+	2100 5650 2100 5800
+Connection ~ 2600 5650
+Wire Wire Line
+	2200 5300 2600 5300
+Wire Wire Line
+	2200 5300 2200 5900
+Connection ~ 2600 5300
+Wire Wire Line
+	2100 6550 2300 6550
+Wire Wire Line
+	2100 6450 2200 6450
+Wire Wire Line
+	2200 6450 2200 7250
+Wire Wire Line
+	2200 7250 2400 7250
+Wire Wire Line
+	2300 6550 2300 6950
+Wire Wire Line
+	2300 6950 2400 6950
+Connection ~ 2400 6950
+Text Label 2100 5800 1    60   ~ 0
+868_RF_P
+Wire Wire Line
+	1100 6850 1100 6950
+Wire Wire Line
+	1100 6750 1100 6850
+Wire Wire Line
+	1100 6650 1100 6750
+Wire Wire Line
+	1100 6550 1100 6650
+Wire Wire Line
+	1100 6450 1100 6550
+Connection ~ 1100 6850
+Connection ~ 1100 6750
+Connection ~ 1100 6650
+Connection ~ 1100 6550
+Connection ~ 1100 6450
+Connection ~ 1100 6350
+Wire Wire Line
+	1100 6350 1100 6450
+Wire Wire Line
+	1100 6250 1100 6350
+Text Label 2100 5900 3    60   ~ 0
+868_RF_N
+Text Label 2100 6450 0    60   ~ 0
+2_4_RF_P
+Text Label 2150 6550 3    60   ~ 0
+2_4_RF_N
 $EndSCHEMATC
