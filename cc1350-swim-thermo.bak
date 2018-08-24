@@ -1440,15 +1440,15 @@ VDDS
 Text Label 1950 1300 2    60   ~ 0
 VDDS
 Text Label 3750 4500 3    60   ~ 0
-RF_P_BIAS
+BIAS_RF_P
 Text Label 4050 4500 3    60   ~ 0
-RF_N_BIAS
+BIAS_RF_N
 Wire Wire Line
 	4050 4400 4050 4500
 Wire Wire Line
 	3750 4400 3750 4500
 Text Label 950  6100 2    60   ~ 0
-RF_N_BIAS
+BIAS_RF_N
 $Comp
 L cc1350:SKY13421-486LF U1
 U 1 1 5B72A673
@@ -1465,19 +1465,11 @@ Wire Wire Line
 Wire Wire Line
 	950  5950 950  5900
 Text Label 950  5900 2    60   ~ 0
-RF_P_BIAS
+BIAS_RF_P
 Wire Wire Line
 	1100 6050 950  6050
 Wire Wire Line
 	950  6050 950  6100
-Wire Wire Line
-	1100 6250 1100 6350
-Connection ~ 1100 6350
-Connection ~ 1100 6450
-Connection ~ 1100 6550
-Connection ~ 1100 6650
-Connection ~ 1100 6750
-Connection ~ 1100 6850
 $Comp
 L power:GND #PWR051
 U 1 1 5B72B90C
@@ -2106,18 +2098,6 @@ Wire Wire Line
 Wire Wire Line
 	1550 2950 1700 2950
 Wire Wire Line
-	1100 6350 1100 6450
-Wire Wire Line
-	1100 6450 1100 6550
-Wire Wire Line
-	1100 6550 1100 6650
-Wire Wire Line
-	1100 6650 1100 6750
-Wire Wire Line
-	1100 6750 1100 6850
-Wire Wire Line
-	1100 6850 1100 6950
-Wire Wire Line
 	2900 5300 3000 5300
 Wire Wire Line
 	2900 5650 3000 5650
@@ -2310,4 +2290,32 @@ Wire Wire Line
 Wire Wire Line
 	2300 6950 2400 6950
 Connection ~ 2400 6950
+Text Label 2100 5800 1    60   ~ 0
+868_RF_P
+Wire Wire Line
+	1100 6850 1100 6950
+Wire Wire Line
+	1100 6750 1100 6850
+Wire Wire Line
+	1100 6650 1100 6750
+Wire Wire Line
+	1100 6550 1100 6650
+Wire Wire Line
+	1100 6450 1100 6550
+Connection ~ 1100 6850
+Connection ~ 1100 6750
+Connection ~ 1100 6650
+Connection ~ 1100 6550
+Connection ~ 1100 6450
+Connection ~ 1100 6350
+Wire Wire Line
+	1100 6350 1100 6450
+Wire Wire Line
+	1100 6250 1100 6350
+Text Label 2100 5900 3    60   ~ 0
+868_RF_N
+Text Label 2100 6450 0    60   ~ 0
+2_4_RF_P
+Text Label 2150 6550 3    60   ~ 0
+2_4_RF_N
 $EndSCHEMATC
