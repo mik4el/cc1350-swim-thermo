@@ -10,12 +10,11 @@ Requires Code Composer Studio (CCS) v8 for software and Kicad for hardware. Soft
 1. Follow the steps in initial board bring up (http://processors.wiki.ti.com/index.php/CC26xx_HW_Troubleshooting) and make sure VDDR is at 1.68v, VDDS is at power supply voltage and DCOUPL is at 1.28V. It wasn't working for me initially and my VDDR was at a few mV. I got the error message (`Error connecting to the target:
 (Error -242 @ 0x0)`). I found that it was due to a bad solder so adding more solder made it work. 
 1. Setup the launchpad to program the board by removing all jumpers from the launchpad. Connect the 2x5-pin JTAG connector 1.27mm, I used https://www.mouser.se/ProductDetail/485-1675. Make sure the orientation is correct on the CC1350-swim-thermo (cable pointing in to the board). 
-1. Power the board with 3.3v from your supply (since the Launchpad uses 3.3v).
 1. Open Code Composer Studio and test the connection to the board from the target config. It should just work.
 1. Program the cc1350 with the hello world project that includes a modified board file in this repo and make sure the program runs as expected.
 1. Success!
 
-![Working hello world](https://github.com/mik4el/cc1350-swim-thermo/blob/master/working_hello_world.JPG)
+![Hardware version 1.3 working as expected!](https://github.com/mik4el/cc1350-swim-thermo/raw/master/cc1350-swim-thermo-v1_3.jpg)
 
 If you have problems, follow these debugging steps to make sure the CC1350 and board is setup as expected:
 
@@ -44,10 +43,6 @@ Download and install smart rf studio http://www.ti.com/tool/SMARTRFTM-STUDIO, it
 1. `rfWsnNodeBleAdv_CC1350_LAUNCHXL_tirtos_ccs` sanity checks the BLE advertising.
 1. `full_test_CC1350_SWIMTHERMO_tirtos_ccs` combines the above projects into one (except for BLE) and more exhaustively tests all features at the same time, this .
 
-## Known issues
-- Low effect on simple monopole antenna for 868MHz in rev 1 of PCB, about -70dBm to -60dBm close range measured with smartRF (comparable measurement with stock cc1350 launchpads is around -24dBm).
-
 ## Todos
-1. Evaluate new rev of PCB for improved radio effect.
 1. MVP swim thermo software and deploy.
 1. New rev of PCB with potentially input protection on gpios, external low current sleep timer using e.g. http://www.ti.com/product/TPL5111, improved contacts for termometers.
