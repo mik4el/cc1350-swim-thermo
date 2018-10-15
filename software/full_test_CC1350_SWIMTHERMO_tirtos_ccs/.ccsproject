@@ -15,4 +15,5 @@
 	<templateProperties value="id=rfEchoRx_CC1350_LAUNCHXL_tirtos_ccs.projectspec.rfEchoRx_CC1350_LAUNCHXL_tirtos_ccs,buildProfile=release,isHybrid=true,"/>
 	<origin value="/Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/examples/rtos/CC1350_LAUNCHXL/drivers/rfEchoRx/tirtos/ccs/rfEchoRx_CC1350_LAUNCHXL_tirtos_ccs.projectspec"/>
 	<filesToOpen value=""/>
+	<isTargetManual value="false"/>
 </projectOptions>
