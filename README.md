@@ -3,6 +3,8 @@ This project tries to create a swim thermometer broadcasting sensor data and han
 
 Requires Code Composer Studio (CCS) v8 for software and Kicad for hardware. Software is programmed using the CC1350 Launchpad.
 
+Hardware version 1.3 tested to 500m+ range with long range settings and 14dBm and simple dipole antenna to launchpad.
+
 ## How to get a cc1350 custom board "working"
 1. Follow the launchpad design carefully. I sort of did that.
 1. Start with soldering only the critical components for the CC1350 on the board, i.e. decoupling caps, crystals, power rail, jtag connector etc. I didn't do that but it worked anyway but I wish I did if I would have ran in to more problems.
