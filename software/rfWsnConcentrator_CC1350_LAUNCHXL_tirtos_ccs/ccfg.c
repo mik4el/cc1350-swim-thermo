@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2016, Texas Instruments Incorporated
+ * Copyright (c) 2015-2017, Texas Instruments Incorporated
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,42 +30,22 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef RADIOPROTOCOL_H_
-#define RADIOPROTOCOL_H_
+/*
+ *  ======== ccfg.c ========
+ *  Customer Configuration for CC26xx and CC13xx devices.  This file is used to
+ *  configure Boot ROM, start-up code, and SW radio behaviour.
+ *
+ *  By default, driverlib startup_files/ccfg.c settings are used.  However, if
+ *  changes are required there are two means to do so:
+ *
+ *    1.  Remove this file and copy driverlib's startup_files/ccfg.c file in
+ *        its place.  Make all changes to the file.  Changes made are local to
+ *        the project and will not affect other projects.
+ *
+ *    2.  Perform changes to driverlib startup_files/ccfg.c file.  Changes
+ *        made to this file will be applied to all projects.  This file must
+ *        remain unmodified.
+ */
 
-#include "stdint.h"
-#include "easylink/EasyLink.h"
-
-#define RADIO_CONCENTRATOR_ADDRESS     0x00
-#define RADIO_EASYLINK_MODULATION     EasyLink_Phy_Custom
-
-#define RADIO_PACKET_TYPE_ACK_PACKET             0
-#define RADIO_PACKET_TYPE_ADC_SENSOR_PACKET      1
-#define RADIO_PACKET_TYPE_DM_SENSOR_PACKET       2
-
-struct PacketHeader {
-    uint8_t sourceAddress;
-    uint8_t packetType;
-};
-
-struct DualModeSensorPacket {
-    struct PacketHeader header;
-    uint16_t adcValue;
-    uint16_t batt;
-    uint32_t time100MiliSec;
-    uint8_t button;
-};
-
-struct DualModeInternalTempSensorPacket {
-    struct PacketHeader header;
-    uint16_t temp; //Fixed 8.8 notation
-    uint16_t batt;
-    uint16_t internalTemp; //Fixed 8.8 notation
-    uint32_t time100MiliSec;
-};
-
-struct AckPacket {
-    struct PacketHeader header;
-};
-
-#endif /* RADIOPROTOCOL_H_ */
+#include <ti/devices/DeviceFamily.h>
+#include DeviceFamily_constructPath(startup_files/ccfg.c)

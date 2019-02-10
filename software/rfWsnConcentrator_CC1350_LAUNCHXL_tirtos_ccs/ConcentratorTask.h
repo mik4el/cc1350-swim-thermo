@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2016, Texas Instruments Incorporated
+ * Copyright (c) 2015-2017, Texas Instruments Incorporated
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,42 +30,10 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef RADIOPROTOCOL_H_
-#define RADIOPROTOCOL_H_
+#ifndef TASKS_CONCENTRATORTASK_H_
+#define TASKS_CONCENTRATORTASK_H_
 
-#include "stdint.h"
-#include "easylink/EasyLink.h"
+/* Create the ConcentratorRadioTask and creates all TI-RTOS objects */
+void ConcentratorTask_init(void);
 
-#define RADIO_CONCENTRATOR_ADDRESS     0x00
-#define RADIO_EASYLINK_MODULATION     EasyLink_Phy_Custom
-
-#define RADIO_PACKET_TYPE_ACK_PACKET             0
-#define RADIO_PACKET_TYPE_ADC_SENSOR_PACKET      1
-#define RADIO_PACKET_TYPE_DM_SENSOR_PACKET       2
-
-struct PacketHeader {
-    uint8_t sourceAddress;
-    uint8_t packetType;
-};
-
-struct DualModeSensorPacket {
-    struct PacketHeader header;
-    uint16_t adcValue;
-    uint16_t batt;
-    uint32_t time100MiliSec;
-    uint8_t button;
-};
-
-struct DualModeInternalTempSensorPacket {
-    struct PacketHeader header;
-    uint16_t temp; //Fixed 8.8 notation
-    uint16_t batt;
-    uint16_t internalTemp; //Fixed 8.8 notation
-    uint32_t time100MiliSec;
-};
-
-struct AckPacket {
-    struct PacketHeader header;
-};
-
-#endif /* RADIOPROTOCOL_H_ */
+#endif /* TASKS_CONCENTRATORTASK_H_ */

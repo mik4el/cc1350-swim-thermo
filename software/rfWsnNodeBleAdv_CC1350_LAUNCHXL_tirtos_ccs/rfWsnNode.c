@@ -36,6 +36,7 @@
 
 /* BIOS Header files */
 #include <ti/sysbios/BIOS.h>
+#include <ti/display/Display.h>
 #include <ti/drivers/Power.h>
 #include <ti/drivers/power/PowerCC26XX.h>
 
@@ -54,6 +55,7 @@ int main(void)
 {
     /* Call driver init functions. */
     Board_initGeneral();
+    Display_init();
 
     /* Initialize sensor node tasks */
     NodeRadioTask_init();

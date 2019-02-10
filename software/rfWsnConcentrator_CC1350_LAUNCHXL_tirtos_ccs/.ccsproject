@@ -12,7 +12,7 @@
 	<createSlaveProjects value=""/>
 	<ignoreDefaultDeviceSettings value="true"/>
 	<ignoreDefaultCCSSettings value="true"/>
-	<templateProperties value="id=rfWsnNodeBleAdv_CC1350_LAUNCHXL_tirtos_ccs.projectspec.rfWsnNodeBleAdv_CC1350_LAUNCHXL_tirtos_ccs,buildProfile=release,isHybrid=true"/>
-	<origin value="/Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/examples/rtos/CC1350_LAUNCHXL/easylink/rfWsnNodeBleAdv/tirtos/ccs/rfWsnNodeBleAdv_CC1350_LAUNCHXL_tirtos_ccs.projectspec"/>
+	<templateProperties value="id=rfWsnConcentrator_CC1350_LAUNCHXL_tirtos_ccs.projectspec.rfWsnConcentrator_CC1350_LAUNCHXL_tirtos_ccs,buildProfile=release,isHybrid=true"/>
+	<origin value="/Users/mikael/ti/simplelink_cc13x0_sdk_2_10_00_36/examples/rtos/CC1350_LAUNCHXL/easylink/rfWsnConcentrator/tirtos/ccs/rfWsnConcentrator_CC1350_LAUNCHXL_tirtos_ccs.projectspec"/>
 	<filesToOpen value=""/>
 </projectOptions>

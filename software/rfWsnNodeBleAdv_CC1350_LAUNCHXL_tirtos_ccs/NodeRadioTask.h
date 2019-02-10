@@ -34,6 +34,9 @@
 #define TASKS_NODERADIOTASKTASK_H_
 
 #include "stdint.h"
+#include "stdbool.h"
+
+#define NODE_ACTIVITY_LED Board_PIN_LED0
 
 enum NodeRadioOperationStatus {
     NodeRadioStatus_Success,
@@ -49,5 +52,13 @@ enum NodeRadioOperationStatus NodeRadioTask_sendAdcData(uint16_t data);
 
 /* Get node address, return 0 if node address has not been set */
 uint8_t nodeRadioTask_getNodeAddr(void);
+
+/* Convert adc value to double */
+double convertADCToTempDouble(uint16_t adcValue);
+
+#define FRACT_BITS 8
+#define FIXED2DOUBLE(x) (((double)(x)) / (1 << FRACT_BITS))
+#define FLOAT2FIXED(x) ((int)((x) * (1 << FRACT_BITS)))
+#define INT2FIXED(x) ((x) << FRACT_BITS)
 
 #endif /* TASKS_NODERADIOTASKTASK_H_ */
