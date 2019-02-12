@@ -59,14 +59,9 @@
 #include "ble_adv/BleAdv.h"
 #endif
 
-#ifdef DEVICE_FAMILY
-    #undef DEVICE_FAMILY_PATH
-    #define DEVICE_FAMILY_PATH(x) <ti/devices/DEVICE_FAMILY/x>
-    #include DEVICE_FAMILY_PATH(driverlib/aon_batmon.h)
-    #include DEVICE_FAMILY_PATH(driverlib/aux_adc.h) //for ADC calibration operations
-#else
-    #error "You must define DEVICE_FAMILY at the project level as one of cc26x0, cc26x0r2, cc13x0, etc."
-#endif
+#include <ti/devices/DeviceFamily.h>
+#include DeviceFamily_constructPath(driverlib/aon_batmon.h)
+#include DeviceFamily_constructPath(driverlib/aux_adc.h) //for ADC operations
 
 /***** Defines *****/
 #define NODE_TASK_STACK_SIZE 1024
@@ -96,6 +91,7 @@ Event_Struct nodeEvent;  /* Not static so you can see in ROV */
 static Event_Handle nodeEventHandle;
 static uint16_t latestAdcValue;
 static int32_t latestInternalTempValue;
+static uint16_t latestBatt;
 
 /* Clock for the fast report timeout */
 Clock_Struct fastReportTimeoutClock;     /* not static so you can see in ROV */
@@ -289,17 +285,23 @@ static void updateLcd(void)
         nodeAddress = nodeRadioTask_getNodeAddr();
     }
 
+    double tempFormatted = FIXED2DOUBLE(FLOAT2FIXED(convertADCToTempDouble(latestAdcValue)));
+    if (tempFormatted > 128.0) {
+        tempFormatted = tempFormatted - 256.0; //display negative temperature correct
+    }
+    double internalTempFormatted = latestInternalTempValue;
+    if (internalTempFormatted > 128.0) {
+        internalTempFormatted = internalTempFormatted - 256.0; //display negative temperature correct
+    }
+
     /* print to LCD */
     Display_clear(hDisplayLcd);
     Display_printf(hDisplayLcd, 0, 0, "NodeID: 0x%02x", nodeAddress);
     Display_printf(hDisplayLcd, 1, 0, "ADC: %04d", latestAdcValue);
 
-    Display_printf(hDisplayLcd, 2, 0, "TempA: %3.3f", FIXED2DOUBLE(FLOAT2FIXED(convertADCToTempDouble(latestAdcValue))));  // Convert to match concentrator fixed 8.8 resolution    286
-    Display_printf(hDisplayLcd, 3, 0, "TempI: %d", latestInternalTempValue);
-
-    /* Print to UART clear screen, put cuser to beggining of terminal and print the header */
-    Display_printf(hDisplaySerial, 0, 0, "\033[2J \033[0;0HNode ID: 0x%02x", nodeAddress);
-    Display_printf(hDisplaySerial, 0, 0, "Node ADC Reading: %04d", latestAdcValue);
+    Display_printf(hDisplayLcd, 2, 0, "TempA: %3.3f", tempFormatted);
+    Display_printf(hDisplayLcd, 3, 0, "TempI: %3.3f", internalTempFormatted);
+    Display_printf(hDisplayLcd, 4, 0, "Batt: %i", latestBatt);
 
 #ifdef FEATURE_BLE_ADV
     if (advertisementType == BleAdv_AdertiserMs)
@@ -320,16 +322,10 @@ static void updateLcd(void)
     }
 
     /* print to LCD */
-    Display_printf(hDisplayLcd, 2, 0, "Adv Mode:");
-    Display_printf(hDisplayLcd, 3, 0, "%s", advMode);
-    Display_printf(hDisplayLcd, 4, 0, "Adv successful | failed");
-    Display_printf(hDisplayLcd, 5, 0, "%04d | %04d",
-                   bleAdvStats.successCnt + bleAdvStats.failCnt);
-
-    /* print to UART */
-    Display_printf(hDisplaySerial, 0, 0, "Advertiser Mode: %s", advMode);
-    Display_printf(hDisplaySerial, 0, 0, "Advertisement success: %d out of %d",
-                   bleAdvStats.successCnt,
+    Display_printf(hDisplayLcd, 6, 0, "Adv Mode:");
+    Display_printf(hDisplayLcd, 7, 0, "%s", advMode);
+    Display_printf(hDisplayLcd, 8, 0, "Adv successful | failed");
+    Display_printf(hDisplayLcd, 9, 0, "%04d | %04d",
                    bleAdvStats.successCnt + bleAdvStats.failCnt);
 #endif
 }
@@ -340,7 +336,7 @@ static void adcCallback(uint16_t adcValue)
     int8_t calADC12_offset = AUXADCGetAdjustmentOffset(AUXADC_REF_FIXED);
     latestAdcValue = AUXADCAdjustValueForGainAndOffset(adcValue, calADC12_gain, calADC12_offset);
     latestInternalTempValue = AONBatMonTemperatureGetDegC();
-
+    latestBatt = (AONBatMonBatteryVoltageGet() * 125) >> 5;
     /* Post event */
     Event_post(nodeEventHandle, NODE_EVENT_NEW_ADC_VALUE);
 }

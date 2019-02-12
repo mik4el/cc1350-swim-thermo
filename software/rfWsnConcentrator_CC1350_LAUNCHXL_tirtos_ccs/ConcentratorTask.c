@@ -77,11 +77,11 @@
 struct AdcSensorNode {
     uint8_t address;
     uint16_t latestTempValue; //fixed 8.8 notation
-    int32_t latestInternalTempValue;
-    uint8_t button;
+    uint16_t latestBatt;
+    uint16_t latestInternalTempValue; //Fixed 8.8 notation
+    uint32_t latestTime100MiliSec;
     int8_t latestRssi;
 };
-
 
 /***** Variable declarations *****/
 static Task_Params concentratorTaskParams;
@@ -92,7 +92,6 @@ static Event_Handle concentratorEventHandle;
 static struct AdcSensorNode latestActiveAdcSensorNode;
 struct AdcSensorNode knownSensorNodes[CONCENTRATOR_MAX_NODES];
 static struct AdcSensorNode* lastAddedSensorNode = knownSensorNodes;
-static uint8_t selectedNode = 0;
 static Display_Handle hDisplayLcd;
 static Display_Handle hDisplaySerial;
 
@@ -102,7 +101,7 @@ static PIN_State identifyLedPinState;
 
 /* Configure LED Pin */
 PIN_Config identifyLedPinTable[] = {
-        CONCENTRATOR_IDENTIFY_LED | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,
+    CONCENTRATOR_IDENTIFY_LED | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,
     PIN_TERMINATE
 };
 
@@ -213,25 +212,15 @@ static void concentratorTaskFunction(UArg arg0, UArg arg1)
 
 static void packetReceivedCallback(union ConcentratorPacket* packet, int8_t rssi)
 {
-    /* If we recived an ADC sensor packet, for backward compatibility */
-    if (packet->header.packetType == RADIO_PACKET_TYPE_ADC_SENSOR_PACKET)
-    {
-        /* Save the values */
-        latestActiveAdcSensorNode.address = packet->header.sourceAddress;
-        latestActiveAdcSensorNode.latestTempValue = packet->dmSensorPacket.temp;
-        latestActiveAdcSensorNode.latestInternalTempValue = packet->dmSensorPacket.internalTemp;
-        latestActiveAdcSensorNode.latestRssi = rssi;
-
-        Event_post(concentratorEventHandle, CONCENTRATOR_EVENT_NEW_ADC_SENSOR_VALUE);
-    }
     /* If we recived an DualMode ADC sensor packet*/
-    else if(packet->header.packetType == RADIO_PACKET_TYPE_DM_SENSOR_PACKET)
+    if(packet->header.packetType == RADIO_PACKET_TYPE_DM_SENSOR_PACKET)
     {
 
         /* Save the values */
         latestActiveAdcSensorNode.address = packet->header.sourceAddress;
         latestActiveAdcSensorNode.latestTempValue = packet->dmSensorPacket.temp;
         latestActiveAdcSensorNode.latestInternalTempValue = packet->dmSensorPacket.internalTemp;
+        latestActiveAdcSensorNode.latestBatt = packet->dmSensorPacket.batt;
         latestActiveAdcSensorNode.latestRssi = rssi;
 
         Event_post(concentratorEventHandle, CONCENTRATOR_EVENT_NEW_ADC_SENSOR_VALUE);
@@ -273,8 +262,8 @@ static void updateNode(struct AdcSensorNode* node) {
         {
             knownSensorNodes[i].latestTempValue = node->latestTempValue;
             knownSensorNodes[i].latestInternalTempValue = node->latestInternalTempValue;
+            knownSensorNodes[i].latestBatt = node->latestBatt;
             knownSensorNodes[i].latestRssi = node->latestRssi;
-            knownSensorNodes[i].button = node->button;
             break;
         }
     }
@@ -294,51 +283,39 @@ static void addNewNode(struct AdcSensorNode* node) {
 static void updateLcd(void) {
     struct AdcSensorNode* nodePointer = knownSensorNodes;
     uint8_t currentLcdLine;
-    char selectedChar;
 
     Display_clear(hDisplayLcd);
-    Display_printf(hDisplayLcd, 0, 0, "Mik4el");
-    Display_printf(hDisplayLcd, 2, 0, "Nodes TempA");
-
-    //clear screen, put cursor to beginning of terminal and print the header
-    Display_printf(hDisplaySerial, 0, 0, "\033[2J \033[0;0HNodes    Value    RSSI");
+    Display_printf(hDisplayLcd, 0, 0, "Nodes:");
 
     /* Start on the fourth line */
-    currentLcdLine = 3;
+    currentLcdLine = 2;
 
     /* Write one line per node */
     while ((nodePointer < &knownSensorNodes[CONCENTRATOR_MAX_NODES]) &&
           (nodePointer->address != 0) &&
           (currentLcdLine < CONCENTRATOR_DISPLAY_LINES))
     {
-        if ( currentLcdLine == (selectedNode + 3))
-        {
-            selectedChar = '*';
-        }
-        else
-        {
-            selectedChar = ' ';
-        }
-
         double tempFormatted = FIXED2DOUBLE(nodePointer->latestTempValue);
         if (tempFormatted > 128.0) {
             tempFormatted = tempFormatted - 256.0; //display negative temperature correct
         }
+        double internalTempFormatted = FIXED2DOUBLE(nodePointer->latestInternalTempValue);
+        if (internalTempFormatted > 128.0) {
+            internalTempFormatted = internalTempFormatted - 256.0; //display negative temperature correct
+        }
 
         /* print to LCD */
-        Display_printf(hDisplayLcd, currentLcdLine, 0, "%c0x%02x %2f", selectedChar,
-                nodePointer->address, tempFormatted);
-
+        Display_printf(hDisplayLcd, currentLcdLine, 0, "NodeID: 0x%02x", nodePointer->address);
         currentLcdLine++;
-
+        Display_printf(hDisplayLcd, currentLcdLine, 0, "TempA: %3.3f", tempFormatted);
+        currentLcdLine++;
+        Display_printf(hDisplayLcd, currentLcdLine, 0, "TempI: %3.3f", internalTempFormatted);
+        currentLcdLine++;
+        Display_printf(hDisplayLcd, currentLcdLine, 0, "Batt: %i", nodePointer->latestBatt);
+        currentLcdLine++;
         Display_printf(hDisplayLcd, currentLcdLine, 0, "RSSI: %04d", nodePointer->latestRssi);
 
-        /* print to UART */
-        Display_printf(hDisplaySerial, currentLcdLine, 0, "%c0x%02x %02f %04d", selectedChar,
-                nodePointer->address, tempFormatted, nodePointer->latestRssi);
-
         nodePointer++;
-        currentLcdLine++;
     }
 }
 

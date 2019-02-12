@@ -117,7 +117,7 @@ static PIN_State ledPinState;
 
 /* Configure LED Pin */
 PIN_Config ledPinTable[] = {
-        CONCENTRATOR_ACTIVITY_LED | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,
+    CONCENTRATOR_ACTIVITY_LED | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,
     PIN_TERMINATE
 };
 
@@ -260,11 +260,11 @@ static void addNewNodeRX(struct SensorNodeRX* node) {
 
 static void sendAck(uint8_t latestSourceAddress) {
 
-    /* Set destinationAdress, but use EasyLink layers destination adress capability */
+    /* Set destinationAdress, but use EasyLink layers destination address capability */
     txPacket.dstAddr[0] = latestSourceAddress;
 
-    /* Copy ACK packet to payload, skipping the destination adress byte.
-     * Note that the EasyLink API will implcitily both add the length byte and the destination address byte. */
+    /* Copy ACK packet to payload, skipping the destination address byte.
+     * Note that the EasyLink API will implicitly both add the length byte and the destination address byte. */
     memcpy(txPacket.payload, &ackPacket.header, sizeof(ackPacket));
     txPacket.len = sizeof(ackPacket);
 
@@ -304,11 +304,11 @@ static void rxDoneCallback(EasyLink_RxPacket * rxPacket, EasyLink_Status status)
         {
             /* Save packet */
             latestRxPacket.header.sourceAddress = rxPacket->payload[0];
-            latestRxPacket.header.packetType = rxPacket->payload[1];
+            latestRxPacket.header.packetType =  rxPacket->payload[1];
             latestRxPacket.dmSensorPacket.temp = (rxPacket->payload[2] << 8) |
                                                   rxPacket->payload[3];
-            latestRxPacket.dmSensorPacket.batt = (rxPacket->payload[4] << 8) |
-                                                  rxPacket->payload[5];
+            latestRxPacket.dmSensorPacket.batt =    (rxPacket->payload[4] << 8) |
+                                                     rxPacket->payload[5];
             latestRxPacket.dmSensorPacket.internalTemp = (rxPacket->payload[6] << 8) |
                                                           rxPacket->payload[7];
             latestRxPacket.dmSensorPacket.time100MiliSec = (rxPacket->payload[8] << 24) |

@@ -192,7 +192,7 @@ static void nodeRadioTaskFunction(UArg arg0, UArg arg1)
         System_abort("EasyLink_init failed");
     }
 
-    /* If you wich to use a frequency other than the default use
+    /* If you wish to use a frequency other than the default use
      * the below API
      * EasyLink_setFrequency(868000000);
      */
@@ -263,7 +263,7 @@ static void nodeRadioTaskFunction(UArg arg0, UArg arg1)
             }
             prevTicks = currentTicks;
 
-            dmInternalTempSensorPacket.batt = AONBatMonBatteryVoltageGet();
+            dmInternalTempSensorPacket.batt = (AONBatMonBatteryVoltageGet() * 125) >> 5;
             dmInternalTempSensorPacket.internalTemp = INT2FIXED((int16_t)AONBatMonTemperatureGetDegC());
             dmInternalTempSensorPacket.temp = FLOAT2FIXED(convertADCToTempDouble(adcData));
 
