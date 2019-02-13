@@ -40,7 +40,6 @@
 #include <ti/sysbios/knl/Task.h>
 #include <ti/sysbios/knl/Semaphore.h>
 #include <ti/sysbios/knl/Event.h>
-#include <ti/sysbios/knl/Clock.h>
 
 /* TI-RTOS Header files */ 
 #include <ti/drivers/PIN.h>
@@ -71,16 +70,6 @@
 #define NODE_EVENT_NEW_ADC_VALUE    (uint32_t)(1 << 0)
 #define NODE_EVENT_UPDATE_LCD       (uint32_t)(1 << 1)
 
-/* A change mask of 0xFF0 means that changes in the lower 4 bits does not trigger a wakeup. */
-#define NODE_ADCTASK_CHANGE_MASK                    0xFF0
-
-/* Minimum slow Report interval is 50s (in units of samplingTime)*/
-#define NODE_ADCTASK_REPORTINTERVAL_SLOW                50
-/* Minimum fast Report interval is 1s (in units of samplingTime) for 30s*/
-#define NODE_ADCTASK_REPORTINTERVAL_FAST                5
-#define NODE_ADCTASK_REPORTINTERVAL_FAST_DURIATION_MS   30000
-
-
 #define NUM_EDDYSTONE_URLS      5
 
 /***** Variable declarations *****/
@@ -93,10 +82,6 @@ static uint16_t latestAdcValue;
 static int32_t latestInternalTempValue;
 static uint16_t latestBatt;
 
-/* Clock for the fast report timeout */
-Clock_Struct fastReportTimeoutClock;     /* not static so you can see in ROV */
-static Clock_Handle fastReportTimeoutClockHandle;
-
 /* Pin driver handle */
 static PIN_Handle buttonPinHandle;
 static PIN_Handle ledPinHandle;
@@ -105,7 +90,6 @@ static PIN_State ledPinState;
 
 /* Display driver handles */
 static Display_Handle hDisplayLcd;
-static Display_Handle hDisplaySerial;
 
 #ifdef FEATURE_BLE_ADV
 static BleAdv_AdertiserType advertisementType = BleAdv_AdertiserMs;
@@ -142,7 +126,6 @@ static BleAdv_Stats bleAdvStats = {0};
 /***** Prototypes *****/
 static void nodeTaskFunction(UArg arg0, UArg arg1);
 static void updateLcd(void);
-static void fastReportTimeoutCallback(UArg arg0);
 static void adcCallback(uint16_t adcValue);
 static void buttonCallback(PIN_Handle handle, PIN_Id pinId);
 
@@ -156,15 +139,6 @@ void NodeTask_init(void)
     Event_Params_init(&eventParam);
     Event_construct(&nodeEvent, &eventParam);
     nodeEventHandle = Event_handle(&nodeEvent);
-
-    /* Create clock object which is used for fast report timeout */
-    Clock_Params clkParams;
-    Clock_Params_init(&clkParams);
-
-    clkParams.period = 0;
-    clkParams.startFlag = FALSE;
-    Clock_construct(&fastReportTimeoutClock, fastReportTimeoutCallback, 1, &clkParams);
-    fastReportTimeoutClockHandle = Clock_handle(&fastReportTimeoutClock);
 
     /* Create the node task */
     Task_Params_init(&nodeTaskParams);
@@ -201,13 +175,6 @@ static void nodeTaskFunction(UArg arg0, UArg arg1)
      * DevPack, add the precompiler define BOARD_DISPLAY_EXCLUDE_UART.
      */
     hDisplayLcd = Display_open(Display_Type_LCD, &params);
-    hDisplaySerial = Display_open(Display_Type_UART, &params);
-
-    /* Check if the selected Display type was found and successfully opened */
-    if (hDisplaySerial)
-    {
-        Display_printf(hDisplaySerial, 0, 0, "Waiting for SCE ADC reading...");
-    }
 
     /* Check if the selected Display type was found and successfully opened */
     if (hDisplayLcd)
@@ -222,18 +189,10 @@ static void nodeTaskFunction(UArg arg0, UArg arg1)
         System_abort("Error initializing board 3.3V domain pins\n");
     }
 
-    /* Start the SCE ADC task with 1s sample period and reacting to change in ADC value. */
-    SceAdc_init(0x00010000, NODE_ADCTASK_REPORTINTERVAL_FAST, NODE_ADCTASK_CHANGE_MASK);
+    /* Start the SCE ADC task */
+    SceAdc_init();
     SceAdc_registerAdcCallback(adcCallback);
     SceAdc_start();
-
-    /* setup timeout for fast report timeout */
-    Clock_setTimeout(fastReportTimeoutClockHandle,
-            NODE_ADCTASK_REPORTINTERVAL_FAST_DURIATION_MS * 1000 / Clock_tickPeriod);
-
-    /* Start fast report and timeout */
-    Clock_start(fastReportTimeoutClockHandle);
-
 
     buttonPinHandle = PIN_open(&buttonPinState, buttonPinTable);
     if (!buttonPinHandle)
@@ -351,14 +310,8 @@ static void buttonCallback(PIN_Handle handle, PIN_Id pinId)
     CPUdelay(8000*50);
 
 
-    if (PIN_getInputValue(Board_PIN_BUTTON0) == 0)
-    {
-        //start fast report and timeout
-        SceAdc_setReportInterval(NODE_ADCTASK_REPORTINTERVAL_FAST, NODE_ADCTASK_CHANGE_MASK);
-        Clock_start(fastReportTimeoutClockHandle);
-    }
 #ifdef FEATURE_BLE_ADV
-    else if (PIN_getInputValue(Board_PIN_BUTTON1) == 0)
+    if (PIN_getInputValue(Board_PIN_BUTTON1) == 0)
     {
         if (advertisementType != BleAdv_AdertiserUrl)
         {
@@ -391,18 +344,8 @@ static void buttonCallback(PIN_Handle handle, PIN_Id pinId)
 
         /* update display */
         Event_post(nodeEventHandle, NODE_EVENT_UPDATE_LCD);
-
-        //start fast report and timeout
-        SceAdc_setReportInterval(NODE_ADCTASK_REPORTINTERVAL_FAST, NODE_ADCTASK_CHANGE_MASK);
-        Clock_start(fastReportTimeoutClockHandle);
     }
 #endif
-}
-
-static void fastReportTimeoutCallback(UArg arg0)
-{
-    //stop fast report
-    SceAdc_setReportInterval(NODE_ADCTASK_REPORTINTERVAL_SLOW, NODE_ADCTASK_CHANGE_MASK);
 }
 
 #ifdef FEATURE_BLE_ADV

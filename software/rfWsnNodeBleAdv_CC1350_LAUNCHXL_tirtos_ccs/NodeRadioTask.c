@@ -349,19 +349,19 @@ static void sendDmPacket(struct DualModeInternalTempSensorPacket sensorPacket, u
     /* Copy ADC packet to payload
      * Note that the EasyLink API will implcitily both add the length byte and the destination address byte. */
     currentRadioOperation.easyLinkTxPacket.payload[0] = dmInternalTempSensorPacket.header.sourceAddress;
-        currentRadioOperation.easyLinkTxPacket.payload[1] = dmInternalTempSensorPacket.header.packetType;
-        currentRadioOperation.easyLinkTxPacket.payload[2] = (dmInternalTempSensorPacket.temp & 0xFF00) >> 8;
-        currentRadioOperation.easyLinkTxPacket.payload[3] = (dmInternalTempSensorPacket.temp & 0xFF);
-        currentRadioOperation.easyLinkTxPacket.payload[4] = (dmInternalTempSensorPacket.batt & 0xFF00) >> 8;
-        currentRadioOperation.easyLinkTxPacket.payload[5] = (dmInternalTempSensorPacket.batt & 0xFF);
-        currentRadioOperation.easyLinkTxPacket.payload[6] = (dmInternalTempSensorPacket.internalTemp & 0xFF00) >> 8;
-        currentRadioOperation.easyLinkTxPacket.payload[7] = (dmInternalTempSensorPacket.internalTemp & 0xFF);
-        currentRadioOperation.easyLinkTxPacket.payload[8] = (dmInternalTempSensorPacket.time100MiliSec & 0xFF000000) >> 24;
-        currentRadioOperation.easyLinkTxPacket.payload[9] = (dmInternalTempSensorPacket.time100MiliSec & 0x00FF0000) >> 16;
-        currentRadioOperation.easyLinkTxPacket.payload[10] = (dmInternalTempSensorPacket.time100MiliSec & 0xFF00) >> 8;
-        currentRadioOperation.easyLinkTxPacket.payload[11] = (dmInternalTempSensorPacket.time100MiliSec & 0xFF);
+    currentRadioOperation.easyLinkTxPacket.payload[1] = dmInternalTempSensorPacket.header.packetType;
+    currentRadioOperation.easyLinkTxPacket.payload[2] = (dmInternalTempSensorPacket.temp & 0xFF00) >> 8;
+    currentRadioOperation.easyLinkTxPacket.payload[3] = (dmInternalTempSensorPacket.temp & 0xFF);
+    currentRadioOperation.easyLinkTxPacket.payload[4] = (dmInternalTempSensorPacket.batt & 0xFF00) >> 8;
+    currentRadioOperation.easyLinkTxPacket.payload[5] = (dmInternalTempSensorPacket.batt & 0xFF);
+    currentRadioOperation.easyLinkTxPacket.payload[6] = (dmInternalTempSensorPacket.internalTemp & 0xFF00) >> 8;
+    currentRadioOperation.easyLinkTxPacket.payload[7] = (dmInternalTempSensorPacket.internalTemp & 0xFF);
+    currentRadioOperation.easyLinkTxPacket.payload[8] = (dmInternalTempSensorPacket.time100MiliSec & 0xFF000000) >> 24;
+    currentRadioOperation.easyLinkTxPacket.payload[9] = (dmInternalTempSensorPacket.time100MiliSec & 0x00FF0000) >> 16;
+    currentRadioOperation.easyLinkTxPacket.payload[10] = (dmInternalTempSensorPacket.time100MiliSec & 0xFF00) >> 8;
+    currentRadioOperation.easyLinkTxPacket.payload[11] = (dmInternalTempSensorPacket.time100MiliSec & 0xFF);
 
-        currentRadioOperation.easyLinkTxPacket.len = sizeof(struct DualModeInternalTempSensorPacket);
+    currentRadioOperation.easyLinkTxPacket.len = sizeof(struct DualModeInternalTempSensorPacket);
 
     /* Setup retries */
     currentRadioOperation.maxNumberOfRetries = maxNumberOfRetries;
