@@ -159,6 +159,7 @@ typedef enum
     BleAdv_AdertiserTypeEnd =  4, //End of advertisement type enum's
 }BleAdv_AdertiserType;
 
+
 /*********************************************************************
  * FUNCTIONS
  */
@@ -250,6 +251,7 @@ inline BleAdv_Status BleAdv_stopAdvertising(void)
 
 /*********************************************************************
 *********************************************************************/
+
 
 #ifdef __cplusplus
 }

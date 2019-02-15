@@ -92,9 +92,7 @@ static PIN_State ledPinState;
 static Display_Handle hDisplayLcd;
 
 #ifdef FEATURE_BLE_ADV
-static BleAdv_AdertiserType advertisementType = BleAdv_AdertiserMs;
-static const char* urls[NUM_EDDYSTONE_URLS] = {"http://www.ti.com/","http://tinyurl.com/z7ofjy7","http://tinyurl.com/jt6j7ya","http://tinyurl.com/h53v6fe","http://www.ti.com/TI154Stack"};
-static uint8_t eddystoneUrlIdx = 0;
+static BleAdv_AdertiserType advertisementType = BleAdv_AdertiserNone;
 #endif
 
 /* Enable the 3.3V power domain used by the LCD */
@@ -152,9 +150,6 @@ void NodeTask_init(void)
 void NodeTask_advStatsCB(BleAdv_Stats stats)
 {
     memcpy(&bleAdvStats, &stats, sizeof(BleAdv_Stats));
-
-    /* Post LCD update event */
-    Event_post(nodeEventHandle, NODE_EVENT_UPDATE_LCD);
 }
 #endif
 
@@ -313,30 +308,11 @@ static void buttonCallback(PIN_Handle handle, PIN_Id pinId)
 #ifdef FEATURE_BLE_ADV
     if (PIN_getInputValue(Board_PIN_BUTTON1) == 0)
     {
-        if (advertisementType != BleAdv_AdertiserUrl)
-        {
-            advertisementType++;
-        }
-
-        //If URL then cycle between url[0 - num urls]
         if (advertisementType == BleAdv_AdertiserUrl)
         {
-            if (eddystoneUrlIdx < NUM_EDDYSTONE_URLS)
-            {
-                //update URL
-                BleAdv_updateUrl(urls[eddystoneUrlIdx++]);
-            }
-            else
-            {
-                //last URL, reset index and increase advertiserType
-                advertisementType++;
-                eddystoneUrlIdx = 0;
-            }
-        }
-
-        if (advertisementType == BleAdv_AdertiserTypeEnd)
-        {
             advertisementType = BleAdv_AdertiserNone;
+        } else {
+            advertisementType = BleAdv_AdertiserUrl;
         }
 
         //Set advertisement type
