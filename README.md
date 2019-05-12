@@ -42,8 +42,10 @@ Download and install smart rf studio http://www.ti.com/tool/SMARTRFTM-STUDIO, it
 1. `lmt70_CC1350_SWIMTHERMO_TI2` - validate that accurate temperature reading can be taken from the LMT70 on P1 on the board and set T_ON1 to high.
 1. `tlc5973_spimaster_CC1350_SWIMTHERMO_tirtos_ccs` - turn on the onboard TLC5973 and its PSU and set a color on the LED using SPI.
 1. `rfEchoRx_CC1350_SWIMTHERMO_tirtos_ccs` and `rfEchoTx_CC1350_LAUNCHXL_tirtos_ccs` tests the long range 868MHz radio between a swimthermo device and a launchpad device.
-1. `rfWsnNodeBleAdv_CC1350_LAUNCHXL_tirtos_ccs` sanity checks the BLE advertising.
 1. `full_test_CC1350_SWIMTHERMO_tirtos_ccs` combines the above projects into one (except for BLE) and more exhaustively tests all features at the same time, this .
+1. `rfWsnNodeBleAdv_CC1350_LAUNCHXL_tirtos_ccs` similar to `full_test` minus TLC5973, it reads LMT70 and broadcast long range packet to `rfWsnConcentrator_CC1350_LAUNCHXL_tirtos_ccs`.
+1. `rfWsnNodeBleAdv_CC1350_SWIMTHERMO_tirtos_ccs` similar to above `rfWsnNodeBleAdv_CC1350_LAUNCHXL_tirtos_ccs` but for `SWIMTHERMO`.
+1. `rfWsnConcentrator_CC1350_LAUNCHXL_tirtos_ccs` concentrator for nodes built on `rfWsnNodeBleAdv_CC1350_LAUNCHXL_tirtos_ccs`.
 
 ## Todos
 1. MVP swim thermo software and deploy.
