@@ -2,8 +2,14 @@
 //@{
 #include "scif_framework.h"
 #undef DEVICE_FAMILY_PATH
-#ifdef DEVICE_FAMILY
+#if defined(DEVICE_FAMILY)
     #define DEVICE_FAMILY_PATH(x) <ti/devices/DEVICE_FAMILY/x>
+#elif defined(DeviceFamily_CC26X0)
+    #define DEVICE_FAMILY_PATH(x) <ti/devices/cc26x0/x>
+#elif defined(DeviceFamily_CC26X0R2)
+    #define DEVICE_FAMILY_PATH(x) <ti/devices/cc26x0r2/x>
+#elif defined(DeviceFamily_CC13X0)
+    #define DEVICE_FAMILY_PATH(x) <ti/devices/cc13x0/x>
 #else
     #define DEVICE_FAMILY_PATH(x) <x>
 #endif
@@ -67,14 +73,20 @@ static SCIF_DATA_T scifData;
   * \param[in]      auxIoIndex
   *     Index of the I/O pin, 0-15, using AUX mapping
   * \param[in]      ioMode
-  *     Pin I/O mode, one of the following:
-  *     - \ref AUXIOMODE_OUTPUT
-  *     - \ref AUXIOMODE_INPUT
-  *     - \ref AUXIOMODE_OPEN_DRAIN
-  *     - \ref AUXIOMODE_OPEN_DRAIN_WITH_INPUT
-  *     - \ref AUXIOMODE_OPEN_SOURCE
-  *     - \ref AUXIOMODE_OPEN_SOURCE_WITH_INPUT
-  *     - \ref AUXIOMODE_ANALOG
+  *     Pin I/O mode, consisting of:
+  *     - Bits [31:28]
+  *         - Output drive strength
+  *             - 0 = Low (2 mA for all I/O pins)
+  *             - 1 = Medium (4 mA for all I/O pins)
+  *             - 2 = High (4 mA for normal I/O pins / 8 mA for high-drive capability I/O pins)
+  *     - Bits [27:0]
+  *         - \ref AUXIOMODE_OUTPUT
+  *         - \ref AUXIOMODE_INPUT
+  *         - \ref AUXIOMODE_OPEN_DRAIN
+  *         - \ref AUXIOMODE_OPEN_DRAIN_WITH_INPUT
+  *         - \ref AUXIOMODE_OPEN_SOURCE
+  *         - \ref AUXIOMODE_OPEN_SOURCE_WITH_INPUT
+  *         - \ref AUXIOMODE_ANALOG
   * \param[in]      pullLevel
   *     Pull level to be used when the pin is configured as input, open-drain or open-source
   *     - No pull: -1
@@ -93,15 +105,20 @@ void scifInitIo(uint32_t auxIoIndex, uint32_t ioMode, int pullLevel, uint32_t ou
         auxAiodioPin -= 8;
     }
 
-    // Setup the AUX I/O controller
-    HWREG(auxAiodioBase + AUX_AIODIO_O_IOMODE)   = (HWREG(auxAiodioBase + AUX_AIODIO_O_IOMODE)   & ~(0x03 << (2 * auxAiodioPin))) | (ioMode << (2 * auxAiodioPin));
+    // Setup the AUX I/O controller. The ioMode parameter is packed as follows:
+    // - ioMode[31:28] = Output drive strength
+    // - ioMode[27:24] = Unused for this device family
+    // - ioMode[23:16] = GPIODIE value shifted down to bit 0
+    // - ioMode[15:8] = Unused for this device family
+    // - ioMode[7:0] = IOMODE value shifted down to bit 0
+    HWREG(auxAiodioBase + AUX_AIODIO_O_IOMODE)   = (HWREG(auxAiodioBase + AUX_AIODIO_O_IOMODE)   & ~(0x03 << (2 * auxAiodioPin))) | ((ioMode & 0xFF) << (2 * auxAiodioPin));
     HWREG(auxAiodioBase + AUX_AIODIO_O_GPIODOUT) = (HWREG(auxAiodioBase + AUX_AIODIO_O_GPIODOUT) & ~(0x01 << (auxAiodioPin)))     | (outputValue << auxAiodioPin);
-    HWREG(auxAiodioBase + AUX_AIODIO_O_GPIODIE)  = (HWREG(auxAiodioBase + AUX_AIODIO_O_GPIODIE)  & ~(0x01 << (auxAiodioPin)))     | ((ioMode >> 16) << auxAiodioPin);
+    HWREG(auxAiodioBase + AUX_AIODIO_O_GPIODIE)  = (HWREG(auxAiodioBase + AUX_AIODIO_O_GPIODIE)  & ~(0x01 << (auxAiodioPin)))     | (((ioMode >> 16) & 0xFF) << auxAiodioPin);
     // Ensure that the settings have taken effect
     HWREG(auxAiodioBase + AUX_AIODIO_O_GPIODIE);
 
     // Configure pull level and transfer control of the I/O pin to AUX
-    scifReinitIo(auxIoIndex, pullLevel);
+    scifReinitIo(auxIoIndex, pullLevel, ioMode >> BI_AUXIOMODE_OUTPUT_DRIVE_STRENGTH);
 
 } // scifInitIo
 
@@ -122,14 +139,19 @@ void scifInitIo(uint32_t auxIoIndex, uint32_t ioMode, int pullLevel, uint32_t ou
   *     - No pull: -1
   *     - Pull-down: 0
   *     - Pull-up: 1
+  * \param[in]      driveStrength
+  *     Output drive strength
+  *     - 0 = Low (2 mA for all I/O pins)
+  *     - 1 = Medium (4 mA for all I/O pins)
+  *     - 2 = High (4 mA for normal I/O pins / 8 mA for high-drive capability I/O pins)
   */
-void scifReinitIo(uint32_t auxIoIndex, int pullLevel) {
+void scifReinitIo(uint32_t auxIoIndex, int pullLevel, int driveStrength) {
 
     // Calculate access parameters from the AUX I/O index
     uint32_t mcuIocfgOffset = scifData.pAuxIoIndexToMcuIocfgOffsetLut[auxIoIndex];
 
     // Setup the MCU I/O controller, making the AUX I/O setup effective
-    uint32_t iocfg = IOC_IOCFG0_PORT_ID_AUX_IO;
+    uint32_t iocfg = IOC_IOCFG0_PORT_ID_AUX_IO | (driveStrength << IOC_IOCFG0_IOCURR_S);
     switch (pullLevel) {
     case -1: iocfg |= IOC_IOCFG0_PULL_CTL_DIS; break;
     case 0:  iocfg |= IOC_IOCFG0_PULL_CTL_DWN; break;
@@ -359,11 +381,12 @@ uint32_t scifGetAlertEvents(void) {
   */
 void scifClearAlertIntSource(void) {
 
-    // Clear the source
-    HWREG(AUX_EVCTL_BASE + AUX_EVCTL_O_EVTOAONFLAGSCLR) = AUX_EVCTL_EVTOAONFLAGS_SWEV1_M;
-
-    // Ensure that the source clearing has taken effect
-    while (HWREG(AUX_EVCTL_BASE + AUX_EVCTL_O_EVTOAONFLAGS) & AUX_EVCTL_EVTOAONFLAGS_SWEV1_M);
+    // Clear the source, and wait for it to take effect. The source must be cleared repeatedly in case
+    // task code calls fwGenQuickAlertInterrupt() frequently (the flag can be set again, immediately
+    // after it has been cleared here).
+    do {
+        HWREG(AUX_EVCTL_BASE + AUX_EVCTL_O_EVTOAONFLAGSCLR) = AUX_EVCTL_EVTOAONFLAGS_SWEV1_M;
+    } while (HWREG(AUX_EVCTL_BASE + AUX_EVCTL_O_EVTOAONFLAGS) & AUX_EVCTL_EVTOAONFLAGS_SWEV1_M);
 
 } // scifClearAlertIntSource
 
@@ -463,8 +486,9 @@ void scifSetTaskStartupDelay(uint32_t taskId, uint16_t ticks) {
 
 /** \brief Resets the task data structures for the specified tasks
   *
-  * This function must be called before tasks are restarted. The function resets the state data
-  * structure, and optionally the \c input, \c output and \c state data structures.
+  * This function must be called before tasks are restarted. The function resets the following:
+  * - The \c state data structure, and optionally the \c cfg, \c input and \c output data structures
+  * - The execution schedule table entry, to cancel any last call to \c fwScheduleTask() in task code
   *
   * \param[in]      bvTaskIds
   *     Bit-vector indicating which tasks to reset (where bit N corresponds to task ID N)
@@ -486,10 +510,14 @@ void scifResetTaskStructs(uint32_t bvTaskIds, uint32_t bvTaskStructs) {
         uint32_t taskId = scifFindLeastSignificant1(bvTaskIds);
         bvTaskIds &= ~(1 << taskId);
 
+        // Reset the execution schedule entry
+        scifData.pTaskExecuteSchedule[taskId] = 0;
+
         // For each data structure to be reset ...
+        uint32_t bvStructs = bvTaskStructs;
         do {
-            int n = scifFindLeastSignificant1(bvTaskStructs);
-            bvTaskStructs &= ~(1 << n);
+            int n = scifFindLeastSignificant1(bvStructs);
+            bvStructs &= ~(1 << n);
             uint32_t taskStructInfo = scifData.pTaskDataStructInfoLut[(taskId * 4) + n];
 
             // If it exists ...
@@ -511,7 +539,7 @@ void scifResetTaskStructs(uint32_t bvTaskIds, uint32_t bvTaskStructs) {
                 memcpy((void*) (AUX_RAM_BASE + addr), ((const uint8_t*) scifData.pAuxRamImage) + addr, length);
             }
 
-        } while (bvTaskStructs);
+        } while (bvStructs);
     }
 
 } // scifResetTaskStructs
@@ -933,4 +961,4 @@ uint16_t scifGetActiveTaskIds(void) {
 //@}
 
 
-// Generated by DESKTOP-1CPIAJB at 2017-01-22 12:07:14.587
+// Generated by DESKTOP-SB0S8NL at 2019-05-13 11:41:55.099
