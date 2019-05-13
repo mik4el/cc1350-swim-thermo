@@ -58,7 +58,7 @@ ADCBufCC26XX_Object adcBufCC26XXobjects[CC1350_SWIMTHERMO_ADCBUFCOUNT];
  *  entries. The mapping of dio and internal signals is package dependent.
  */
 const ADCBufCC26XX_AdcChannelLutEntry ADCBufCC26XX_adcChannelLut[CC1350_SWIMTHERMO_ADCBUF0CHANNELCOUNT] = {
-    {CC1350_SWIMTHERMO_DIO25_ANALOG, ADC_COMPB_IN_AUXIO5},
+    {CC1350_SWIMTHERMO_DIO7_ANALOG, ADC_COMPB_IN_AUXIO5},
     {PIN_UNASSIGNED, ADC_COMPB_IN_VDDS},
     {PIN_UNASSIGNED, ADC_COMPB_IN_DCOUPL},
     {PIN_UNASSIGNED, ADC_COMPB_IN_VSS},
@@ -94,10 +94,10 @@ ADCCC26XX_Object adcCC26xxObjects[CC1350_SWIMTHERMO_ADCCOUNT];
 
 const ADCCC26XX_HWAttrs adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADCCOUNT] = {
     {
-        .adcDIO              = CC1350_SWIMTHERMO_DIO25_ANALOG,
+        .adcDIO              = CC1350_SWIMTHERMO_DIO7_ANALOG,
         .adcCompBInput       = ADC_COMPB_IN_AUXIO5,
         .refSource           = ADCCC26XX_FIXED_REFERENCE,
-        .samplingDuration    = ADCCC26XX_SAMPLING_DURATION_2P7_US,
+        .samplingDuration    = ADCCC26XX_SAMPLING_DURATION_10P9_MS,
         .inputScalingEnabled = true,
         .triggerSource       = ADCCC26XX_TRIGGER_MANUAL,
         .returnAdjustedVal   = false
@@ -201,11 +201,15 @@ const GPTimerCC26XX_Config GPTimerCC26XX_config[CC1350_SWIMTHERMO_GPTIMERPARTSCO
 
 const PIN_Config BoardGpioInitTable[] = {
 
-    CC1350_SWIMTHERMO_PIN_BTN2 | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_BOTHEDGES | PIN_HYSTERESIS,             /* Button is active low          */
-    CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ   | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX, /* RF SW Switch defaults to 2.4 GHz path*/
-    CC1350_SWIMTHERMO_DIO30_RF_POWER | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,    /* External RF Switch is powered off by default */
+    CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX, /* RF SW Switch defaults to 2.4 GHz path */
+    CC1350_SWIMTHERMO_DIO0_RF_POWER | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX, /* External RF Switch is powered off by default */
+    CC1350_SWIMTHERMO_DIO2_PSU_ENABLE | PIN_GPIO_OUTPUT_EN | PIN_GPIO_HIGH | PIN_PUSHPULL | PIN_DRVSTR_MAX, /* LED PSU initially off */
+    CC1350_SWIMTHERMO_DIO5_T_ON1 | PIN_GPIO_OUTPUT_EN | PIN_GPIO_HIGH | PIN_PUSHPULL, /* T_ON1 should be default high */
+    CC1350_SWIMTHERMO_DIO6_T_ON2 | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL, /* T_ON2 should be default low */
+    CC1350_SWIMTHERMO_DIO8_BUTTON | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_BOTHEDGES | PIN_HYSTERESIS, /* Button is active low */
     PIN_TERMINATE
 };
+
 
 const PINCC26XX_HWAttrs PINCC26XX_hwAttrs = {
     .intPriority = ~0,
@@ -273,7 +277,7 @@ void CC1350_SWIMTHERMO_rfDriverCallback(RF_Handle client, RF_GlobalEvent events,
 
     if (events & RF_GlobalEventRadioSetup) {
         /* Power up the antenna switch */
-        PINCC26XX_setOutputValue(CC1350_SWIMTHERMO_DIO30_RF_POWER, 1);
+        PINCC26XX_setOutputValue(CC1350_SWIMTHERMO_DIO0_RF_POWER, 1);
 
         if (setupCommand->common.commandNo == CMD_PROP_RADIO_DIV_SETUP) {
             /* Sub-1 GHz, requires antenna switch high */
@@ -282,7 +286,7 @@ void CC1350_SWIMTHERMO_rfDriverCallback(RF_Handle client, RF_GlobalEvent events,
 
     } else if (events & RF_GlobalEventRadioPowerDown) {
         /* Disable antenna switch to save current */
-        PINCC26XX_setOutputValue(CC1350_SWIMTHERMO_DIO30_RF_POWER, 0);
+        PINCC26XX_setOutputValue(CC1350_SWIMTHERMO_DIO0_RF_POWER, 0);
         PINCC26XX_setOutputValue(CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ, 0);
     }
 }

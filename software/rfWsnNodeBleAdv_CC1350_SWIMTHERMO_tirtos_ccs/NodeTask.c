@@ -91,8 +91,10 @@ static BleAdv_AdertiserType advertisementType = BleAdv_AdertiserNone;
 
 /* Enable the 3.3V power domain used by the LCD */
 PIN_Config pinTable[] = {
-    PIN_TERMINATE
-};
+                         CC1350_SWIMTHERMO_DIO5_T_ON1 | PIN_GPIO_OUTPUT_EN | PIN_GPIO_HIGH | PIN_PUSHPULL, /* T_ON1 should be default high */
+                         CC1350_SWIMTHERMO_DIO6_T_ON2 | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL, /* T_ON2 should be default low */
+                         PIN_TERMINATE
+                        };
 
 /*
  * Application button pin configuration table:
@@ -100,7 +102,7 @@ PIN_Config pinTable[] = {
  */
 PIN_Config buttonPinTable[] = {
 #ifdef FEATURE_BLE_ADV
-    Board_PIN_BUTTON1  | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_NEGEDGE,
+    CC1350_SWIMTHERMO_DIO8_BUTTON | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_NEGEDGE,
 #endif
     PIN_TERMINATE
 };
@@ -200,7 +202,7 @@ static void buttonCallback(PIN_Handle handle, PIN_Id pinId)
 
 
 #ifdef FEATURE_BLE_ADV
-    if (PIN_getInputValue(Board_PIN_BUTTON1) == 0)
+    if (PIN_getInputValue(CC1350_SWIMTHERMO_DIO8_BUTTON) == 0)
     {
         if (advertisementType == BleAdv_AdertiserUrl)
         {

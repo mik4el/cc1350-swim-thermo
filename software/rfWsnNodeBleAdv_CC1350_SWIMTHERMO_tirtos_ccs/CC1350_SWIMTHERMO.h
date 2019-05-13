@@ -60,18 +60,15 @@ extern const PIN_Config BoardGpioInitTable[];
 #define CC1350_SWIMTHERMO
 
 /* Mapping of pins to board signals using general board aliases
- *      <board signal alias>        <pin mapping>   <comments>
+ *      <board signal alias>                    <pin mapping>   <comments>
  */
-
-/* Analog Capable DIOs */
-#define CC1350_SWIMTHERMO_DIO25_ANALOG          IOID_25
-
-/* Digital IOs */
+#define CC1350_SWIMTHERMO_DIO0_RF_POWER         IOID_0
 #define CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ       IOID_1
-#define CC1350_SWIMTHERMO_DIO30_RF_POWER        IOID_30
-
-/* Discrete Inputs */
-#define CC1350_SWIMTHERMO_PIN_BTN2              IOID_14
+#define CC1350_SWIMTHERMO_DIO2_PSU_ENABLE       IOID_2
+#define CC1350_SWIMTHERMO_DIO5_T_ON1            IOID_5  //T_ON1 If set high, enables LMT70 on p1
+#define CC1350_SWIMTHERMO_DIO6_T_ON2            IOID_6  //T_ON2 If set high, enables LMT70 on p2
+#define CC1350_SWIMTHERMO_DIO7_ANALOG           IOID_7  //TAO on active LMT70
+#define CC1350_SWIMTHERMO_DIO8_BUTTON           IOID_8
 
 /*!
  *  @brief  Initialize the general board specific settings

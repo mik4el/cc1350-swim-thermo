@@ -377,7 +377,7 @@ static void sendDmPacket(struct DualModeInternalTempSensorPacket sensorPacket, u
     }
 #if defined(Board_DIO30_SWPWR)
     /* this was a blocking call, so Tx is now complete. Turn off the RF switch power */
-    PIN_setOutputValue(blePinHandle, Board_DIO30_SWPWR, 0);
+    PIN_setOutputValue(blePinHandle, Board_SWPWR, 0);
 #endif
 
     /* Enter RX */
@@ -396,7 +396,7 @@ static void resendPacket(void)
     }
 #if defined(Board_DIO30_SWPWR)
     /* this was a blocking call, so Tx is now complete. Turn off the RF switch power */
-    PIN_setOutputValue(blePinHandle, Board_DIO30_SWPWR, 0);
+    PIN_setOutputValue(blePinHandle, Board_SWPWR, 0);
 #endif
 
     /* Enter RX and wait for ACK with timeout */
@@ -452,7 +452,7 @@ static void rxDoneCallback(EasyLink_RxPacket * rxPacket, EasyLink_Status status)
 
 #if defined(Board_DIO30_SWPWR)
     /* Rx is now complete. Turn off the RF switch power */
-    PIN_setOutputValue(blePinHandle, Board_DIO30_SWPWR, 0);
+    PIN_setOutputValue(blePinHandle, Board_SWPWR, 0);
 #endif
 
     /* If this callback is called because of a packet received */

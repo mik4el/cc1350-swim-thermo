@@ -57,13 +57,13 @@ extern "C"
 #elif defined __CC1350STK_BOARD_H__
     #define RF_SWITCH_PIN IOID_1
 #else
-    #define RF_SWITCH_PIN Board_DIO1_RFSW
+    #define RF_SWITCH_PIN Board_RFSW
 #endif
 
 #if defined __CC1350STK_BOARD_H__
     #define RF_SW_PWR_PIN IOID_30
 #elif defined __CC1350_SWIMTHERMO_BOARD_H__
-    #define RF_SW_PWR_PIN Board_DIO30_SWPWR
+    #define RF_SW_PWR_PIN Board_SWPWR
 #endif
 
 /*********************************************************************
