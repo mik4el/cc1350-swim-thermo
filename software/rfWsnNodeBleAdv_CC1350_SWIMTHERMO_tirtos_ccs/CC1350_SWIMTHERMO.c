@@ -31,21 +31,16 @@
  */
 
 /*
- *  ============================ CC1350_LAUNCHXL.c ============================
+ *  ============================ CC1350_SWIMTHERMO.c ============================
  *  This file is responsible for setting up the board specific items for the
- *  CC1350_LAUNCHXL board.
+ *  CC1350_SWIMTHERMO board.
  */
 
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 
-#include <ti/devices/cc13x0/driverlib/ioc.h>
-#include <ti/devices/cc13x0/driverlib/udma.h>
-#include <ti/devices/cc13x0/inc/hw_ints.h>
-#include <ti/devices/cc13x0/inc/hw_memmap.h>
-
-#include "CC1350_LAUNCHXL.h"
+#include "CC1350_SWIMTHERMO.h"
 
 /*
  *  =============================== ADCBuf ===============================
@@ -53,7 +48,7 @@
 #include <ti/drivers/ADCBuf.h>
 #include <ti/drivers/adcbuf/ADCBufCC26XX.h>
 
-ADCBufCC26XX_Object adcBufCC26XXobjects[CC1350_LAUNCHXL_ADCBUFCOUNT];
+ADCBufCC26XX_Object adcBufCC26XXobjects[CC1350_SWIMTHERMO_ADCBUFCOUNT];
 
 /*
  *  This table converts a virtual adc channel into a dio and internal analogue
@@ -62,32 +57,32 @@ ADCBufCC26XX_Object adcBufCC26XXobjects[CC1350_LAUNCHXL_ADCBUFCOUNT];
  *  pairs are hardwired. Do not remap them in the table. You may reorder entire
  *  entries. The mapping of dio and internal signals is package dependent.
  */
-const ADCBufCC26XX_AdcChannelLutEntry ADCBufCC26XX_adcChannelLut[CC1350_LAUNCHXL_ADCBUF0CHANNELCOUNT] = {
-    {CC1350_LAUNCHXL_DIO25_ANALOG, ADC_COMPB_IN_AUXIO5},
+const ADCBufCC26XX_AdcChannelLutEntry ADCBufCC26XX_adcChannelLut[CC1350_SWIMTHERMO_ADCBUF0CHANNELCOUNT] = {
+    {CC1350_SWIMTHERMO_DIO25_ANALOG, ADC_COMPB_IN_AUXIO5},
     {PIN_UNASSIGNED, ADC_COMPB_IN_VDDS},
     {PIN_UNASSIGNED, ADC_COMPB_IN_DCOUPL},
     {PIN_UNASSIGNED, ADC_COMPB_IN_VSS},
 };
 
-const ADCBufCC26XX_HWAttrs adcBufCC26XXHWAttrs[CC1350_LAUNCHXL_ADCBUFCOUNT] = {
+const ADCBufCC26XX_HWAttrs adcBufCC26XXHWAttrs[CC1350_SWIMTHERMO_ADCBUFCOUNT] = {
     {
         .intPriority       = ~0,
         .swiPriority       = 0,
         .adcChannelLut     = ADCBufCC26XX_adcChannelLut,
-        .gpTimerUnit       = CC1350_LAUNCHXL_GPTIMER0A,
+        .gpTimerUnit       = CC1350_SWIMTHERMO_GPTIMER0A,
         .gptDMAChannelMask = 1 << UDMA_CHAN_TIMER0_A,
     }
 };
 
-const ADCBuf_Config ADCBuf_config[CC1350_LAUNCHXL_ADCBUFCOUNT] = {
+const ADCBuf_Config ADCBuf_config[CC1350_SWIMTHERMO_ADCBUFCOUNT] = {
     {
         &ADCBufCC26XX_fxnTable,
-        &adcBufCC26XXobjects[CC1350_LAUNCHXL_ADCBUF0],
-        &adcBufCC26XXHWAttrs[CC1350_LAUNCHXL_ADCBUF0]
+        &adcBufCC26XXobjects[CC1350_SWIMTHERMO_ADCBUF0],
+        &adcBufCC26XXHWAttrs[CC1350_SWIMTHERMO_ADCBUF0]
     },
 };
 
-const uint_least8_t ADCBuf_count = CC1350_LAUNCHXL_ADCBUFCOUNT;
+const uint_least8_t ADCBuf_count = CC1350_SWIMTHERMO_ADCBUFCOUNT;
 
 /*
  *  =============================== ADC ===============================
@@ -95,11 +90,11 @@ const uint_least8_t ADCBuf_count = CC1350_LAUNCHXL_ADCBUFCOUNT;
 #include <ti/drivers/ADC.h>
 #include <ti/drivers/adc/ADCCC26XX.h>
 
-ADCCC26XX_Object adcCC26xxObjects[CC1350_LAUNCHXL_ADCCOUNT];
+ADCCC26XX_Object adcCC26xxObjects[CC1350_SWIMTHERMO_ADCCOUNT];
 
-const ADCCC26XX_HWAttrs adcCC26xxHWAttrs[CC1350_LAUNCHXL_ADCCOUNT] = {
+const ADCCC26XX_HWAttrs adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADCCOUNT] = {
     {
-        .adcDIO              = CC1350_LAUNCHXL_DIO25_ANALOG,
+        .adcDIO              = CC1350_SWIMTHERMO_DIO25_ANALOG,
         .adcCompBInput       = ADC_COMPB_IN_AUXIO5,
         .refSource           = ADCCC26XX_FIXED_REFERENCE,
         .samplingDuration    = ADCCC26XX_SAMPLING_DURATION_2P7_US,
@@ -136,23 +131,23 @@ const ADCCC26XX_HWAttrs adcCC26xxHWAttrs[CC1350_LAUNCHXL_ADCCOUNT] = {
     }
 };
 
-const ADC_Config ADC_config[CC1350_LAUNCHXL_ADCCOUNT] = {
-    {&ADCCC26XX_fxnTable, &adcCC26xxObjects[CC1350_LAUNCHXL_ADC0], &adcCC26xxHWAttrs[CC1350_LAUNCHXL_ADC0]},
-    {&ADCCC26XX_fxnTable, &adcCC26xxObjects[CC1350_LAUNCHXL_ADCDCOUPL], &adcCC26xxHWAttrs[CC1350_LAUNCHXL_ADCDCOUPL]},
-    {&ADCCC26XX_fxnTable, &adcCC26xxObjects[CC1350_LAUNCHXL_ADCVSS], &adcCC26xxHWAttrs[CC1350_LAUNCHXL_ADCVSS]},
-    {&ADCCC26XX_fxnTable, &adcCC26xxObjects[CC1350_LAUNCHXL_ADCVDDS], &adcCC26xxHWAttrs[CC1350_LAUNCHXL_ADCVDDS]},
+const ADC_Config ADC_config[CC1350_SWIMTHERMO_ADCCOUNT] = {
+    {&ADCCC26XX_fxnTable, &adcCC26xxObjects[CC1350_SWIMTHERMO_ADC0], &adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADC0]},
+    {&ADCCC26XX_fxnTable, &adcCC26xxObjects[CC1350_SWIMTHERMO_ADCDCOUPL], &adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADCDCOUPL]},
+    {&ADCCC26XX_fxnTable, &adcCC26xxObjects[CC1350_SWIMTHERMO_ADCVSS], &adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADCVSS]},
+    {&ADCCC26XX_fxnTable, &adcCC26xxObjects[CC1350_SWIMTHERMO_ADCVDDS], &adcCC26xxHWAttrs[CC1350_SWIMTHERMO_ADCVDDS]},
 };
 
-const uint_least8_t ADC_count = CC1350_LAUNCHXL_ADCCOUNT;
+const uint_least8_t ADC_count = CC1350_SWIMTHERMO_ADCCOUNT;
 
 /*
  *  =============================== Crypto ===============================
  */
 #include <ti/drivers/crypto/CryptoCC26XX.h>
 
-CryptoCC26XX_Object cryptoCC26XXObjects[CC1350_LAUNCHXL_CRYPTOCOUNT];
+CryptoCC26XX_Object cryptoCC26XXObjects[CC1350_SWIMTHERMO_CRYPTOCOUNT];
 
-const CryptoCC26XX_HWAttrs cryptoCC26XXHWAttrs[CC1350_LAUNCHXL_CRYPTOCOUNT] = {
+const CryptoCC26XX_HWAttrs cryptoCC26XXHWAttrs[CC1350_SWIMTHERMO_CRYPTOCOUNT] = {
     {
         .baseAddr       = CRYPTO_BASE,
         .powerMngrId    = PowerCC26XX_PERIPH_CRYPTO,
@@ -161,10 +156,10 @@ const CryptoCC26XX_HWAttrs cryptoCC26XXHWAttrs[CC1350_LAUNCHXL_CRYPTOCOUNT] = {
     }
 };
 
-const CryptoCC26XX_Config CryptoCC26XX_config[CC1350_LAUNCHXL_CRYPTOCOUNT] = {
+const CryptoCC26XX_Config CryptoCC26XX_config[CC1350_SWIMTHERMO_CRYPTOCOUNT] = {
     {
-         .object  = &cryptoCC26XXObjects[CC1350_LAUNCHXL_CRYPTO0],
-         .hwAttrs = &cryptoCC26XXHWAttrs[CC1350_LAUNCHXL_CRYPTO0]
+         .object  = &cryptoCC26XXObjects[CC1350_SWIMTHERMO_CRYPTO0],
+         .hwAttrs = &cryptoCC26XXHWAttrs[CC1350_SWIMTHERMO_CRYPTO0]
     },
 };
 
@@ -174,9 +169,9 @@ const CryptoCC26XX_Config CryptoCC26XX_config[CC1350_LAUNCHXL_CRYPTOCOUNT] = {
  */
 #include <ti/drivers/timer/GPTimerCC26XX.h>
 
-GPTimerCC26XX_Object gptimerCC26XXObjects[CC1350_LAUNCHXL_GPTIMERCOUNT];
+GPTimerCC26XX_Object gptimerCC26XXObjects[CC1350_SWIMTHERMO_GPTIMERCOUNT];
 
-const GPTimerCC26XX_HWAttrs gptimerCC26xxHWAttrs[CC1350_LAUNCHXL_GPTIMERPARTSCOUNT] = {
+const GPTimerCC26XX_HWAttrs gptimerCC26xxHWAttrs[CC1350_SWIMTHERMO_GPTIMERPARTSCOUNT] = {
     { .baseAddr = GPT0_BASE, .intNum = INT_GPT0A, .intPriority = (~0), .powerMngrId = PowerCC26XX_PERIPH_GPT0, .pinMux = GPT_PIN_0A, },
     { .baseAddr = GPT0_BASE, .intNum = INT_GPT0B, .intPriority = (~0), .powerMngrId = PowerCC26XX_PERIPH_GPT0, .pinMux = GPT_PIN_0B, },
     { .baseAddr = GPT1_BASE, .intNum = INT_GPT1A, .intPriority = (~0), .powerMngrId = PowerCC26XX_PERIPH_GPT1, .pinMux = GPT_PIN_1A, },
@@ -187,15 +182,15 @@ const GPTimerCC26XX_HWAttrs gptimerCC26xxHWAttrs[CC1350_LAUNCHXL_GPTIMERPARTSCOU
     { .baseAddr = GPT3_BASE, .intNum = INT_GPT3B, .intPriority = (~0), .powerMngrId = PowerCC26XX_PERIPH_GPT3, .pinMux = GPT_PIN_3B, },
 };
 
-const GPTimerCC26XX_Config GPTimerCC26XX_config[CC1350_LAUNCHXL_GPTIMERPARTSCOUNT] = {
-    { &gptimerCC26XXObjects[CC1350_LAUNCHXL_GPTIMER0], &gptimerCC26xxHWAttrs[CC1350_LAUNCHXL_GPTIMER0A], GPT_A },
-    { &gptimerCC26XXObjects[CC1350_LAUNCHXL_GPTIMER0], &gptimerCC26xxHWAttrs[CC1350_LAUNCHXL_GPTIMER0B], GPT_B },
-    { &gptimerCC26XXObjects[CC1350_LAUNCHXL_GPTIMER1], &gptimerCC26xxHWAttrs[CC1350_LAUNCHXL_GPTIMER1A], GPT_A },
-    { &gptimerCC26XXObjects[CC1350_LAUNCHXL_GPTIMER1], &gptimerCC26xxHWAttrs[CC1350_LAUNCHXL_GPTIMER1B], GPT_B },
-    { &gptimerCC26XXObjects[CC1350_LAUNCHXL_GPTIMER2], &gptimerCC26xxHWAttrs[CC1350_LAUNCHXL_GPTIMER2A], GPT_A },
-    { &gptimerCC26XXObjects[CC1350_LAUNCHXL_GPTIMER2], &gptimerCC26xxHWAttrs[CC1350_LAUNCHXL_GPTIMER2B], GPT_B },
-    { &gptimerCC26XXObjects[CC1350_LAUNCHXL_GPTIMER3], &gptimerCC26xxHWAttrs[CC1350_LAUNCHXL_GPTIMER3A], GPT_A },
-    { &gptimerCC26XXObjects[CC1350_LAUNCHXL_GPTIMER3], &gptimerCC26xxHWAttrs[CC1350_LAUNCHXL_GPTIMER3B], GPT_B },
+const GPTimerCC26XX_Config GPTimerCC26XX_config[CC1350_SWIMTHERMO_GPTIMERPARTSCOUNT] = {
+    { &gptimerCC26XXObjects[CC1350_SWIMTHERMO_GPTIMER0], &gptimerCC26xxHWAttrs[CC1350_SWIMTHERMO_GPTIMER0A], GPT_A },
+    { &gptimerCC26XXObjects[CC1350_SWIMTHERMO_GPTIMER0], &gptimerCC26xxHWAttrs[CC1350_SWIMTHERMO_GPTIMER0B], GPT_B },
+    { &gptimerCC26XXObjects[CC1350_SWIMTHERMO_GPTIMER1], &gptimerCC26xxHWAttrs[CC1350_SWIMTHERMO_GPTIMER1A], GPT_A },
+    { &gptimerCC26XXObjects[CC1350_SWIMTHERMO_GPTIMER1], &gptimerCC26xxHWAttrs[CC1350_SWIMTHERMO_GPTIMER1B], GPT_B },
+    { &gptimerCC26XXObjects[CC1350_SWIMTHERMO_GPTIMER2], &gptimerCC26xxHWAttrs[CC1350_SWIMTHERMO_GPTIMER2A], GPT_A },
+    { &gptimerCC26XXObjects[CC1350_SWIMTHERMO_GPTIMER2], &gptimerCC26xxHWAttrs[CC1350_SWIMTHERMO_GPTIMER2B], GPT_B },
+    { &gptimerCC26XXObjects[CC1350_SWIMTHERMO_GPTIMER3], &gptimerCC26xxHWAttrs[CC1350_SWIMTHERMO_GPTIMER3A], GPT_A },
+    { &gptimerCC26XXObjects[CC1350_SWIMTHERMO_GPTIMER3], &gptimerCC26xxHWAttrs[CC1350_SWIMTHERMO_GPTIMER3B], GPT_B },
 };
 
 /*
@@ -206,9 +201,9 @@ const GPTimerCC26XX_Config GPTimerCC26XX_config[CC1350_LAUNCHXL_GPTIMERPARTSCOUN
 
 const PIN_Config BoardGpioInitTable[] = {
 
-    CC1350_LAUNCHXL_PIN_BTN2 | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_BOTHEDGES | PIN_HYSTERESIS,             /* Button is active low          */
-    CC1350_LAUNCHXL_DIO1_RF_SUB1GHZ   | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX, /* RF SW Switch defaults to 2.4 GHz path*/
-    CC1350_LAUNCHXL_DIO30_RF_POWER | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,    /* External RF Switch is powered off by default */
+    CC1350_SWIMTHERMO_PIN_BTN2 | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_BOTHEDGES | PIN_HYSTERESIS,             /* Button is active low          */
+    CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ   | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX, /* RF SW Switch defaults to 2.4 GHz path*/
+    CC1350_SWIMTHERMO_DIO30_RF_POWER | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,    /* External RF Switch is powered off by default */
     PIN_TERMINATE
 };
 
@@ -243,20 +238,20 @@ const PowerCC26XX_Config PowerCC26XX_config = {
  * This function is called by the RF driver on global driver events. It contains
  * a default implementation to set the correct antenna path.
  */
-static void CC1350_LAUNCHXL_rfDriverCallback(RF_Handle client, RF_GlobalEvent events, void *arg);
+static void CC1350_SWIMTHERMO_rfDriverCallback(RF_Handle client, RF_GlobalEvent events, void *arg);
 
 const RFCC26XX_HWAttrsV2 RFCC26XX_hwAttrs = {
     .hwiPriority        = ~0,                                                       /* Lowest HWI priority */
     .swiPriority        = 0,                                                        /* Lowest SWI priority */
     .xoscHfAlwaysNeeded = true,                                                     /* Keep XOSC dependency while in stanby */
-    .globalCallback     = &CC1350_LAUNCHXL_rfDriverCallback,                        /* Register the board specific callback */
+    .globalCallback     = &CC1350_SWIMTHERMO_rfDriverCallback,                        /* Register the board specific callback */
     .globalEventMask    = RF_GlobalEventRadioSetup | RF_GlobalEventRadioPowerDown   /* Subscribe the callback to both events */
 };
 
 /*
- *  ======== CC1350_LAUNCHXL_initGeneral ========
+ *  ======== CC1350_SWIMTHERMO_initGeneral ========
  */
-void CC1350_LAUNCHXL_initGeneral(void)
+void CC1350_SWIMTHERMO_initGeneral(void)
 {
     Power_init();
 
@@ -267,27 +262,27 @@ void CC1350_LAUNCHXL_initGeneral(void)
 }
 
 /*
- * ======== CC1350_LAUNCHXL_rfDriverCallback ========
+ * ======== CC1350_SWIMTHERMO_rfDriverCallback ========
  * This is an implementation for the CC1350 launchpad which uses a
  * single signal for antenna switching.
  */
-void CC1350_LAUNCHXL_rfDriverCallback(RF_Handle client, RF_GlobalEvent events, void *arg)
+void CC1350_SWIMTHERMO_rfDriverCallback(RF_Handle client, RF_GlobalEvent events, void *arg)
 {
     (void)client;
     RF_RadioSetup* setupCommand = (RF_RadioSetup*)arg;
 
     if (events & RF_GlobalEventRadioSetup) {
         /* Power up the antenna switch */
-        PINCC26XX_setOutputValue(CC1350_LAUNCHXL_DIO30_RF_POWER, 1);
+        PINCC26XX_setOutputValue(CC1350_SWIMTHERMO_DIO30_RF_POWER, 1);
 
         if (setupCommand->common.commandNo == CMD_PROP_RADIO_DIV_SETUP) {
             /* Sub-1 GHz, requires antenna switch high */
-            PINCC26XX_setOutputValue(CC1350_LAUNCHXL_DIO1_RF_SUB1GHZ, 1);
+            PINCC26XX_setOutputValue(CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ, 1);
         }
 
     } else if (events & RF_GlobalEventRadioPowerDown) {
         /* Disable antenna switch to save current */
-        PINCC26XX_setOutputValue(CC1350_LAUNCHXL_DIO30_RF_POWER, 0);
-        PINCC26XX_setOutputValue(CC1350_LAUNCHXL_DIO1_RF_SUB1GHZ, 0);
+        PINCC26XX_setOutputValue(CC1350_SWIMTHERMO_DIO30_RF_POWER, 0);
+        PINCC26XX_setOutputValue(CC1350_SWIMTHERMO_DIO1_RF_SUB1GHZ, 0);
     }
 }

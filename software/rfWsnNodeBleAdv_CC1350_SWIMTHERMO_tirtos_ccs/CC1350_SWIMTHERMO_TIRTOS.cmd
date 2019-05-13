@@ -31,7 +31,7 @@
  */
 
 /*
- *  ======== CC1350_LAUNCHXL.cmd ========
+ *  ======== CC1350_SWIMTHERMO.cmd ========
  */
 
 --stack_size=1024   /* C stack is also used for ISR stack */

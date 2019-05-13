@@ -765,7 +765,7 @@ EasyLink_Status EasyLink_setRfPower(int8_t i8TxPowerdBm)
         return EasyLink_Status_Busy_Error;
     }
 
-#if (defined __CC1310_LAUNCHXL_BOARD_H__)   || (defined __CC1350_LAUNCHXL_BOARD_H__)     || \
+#if (defined __CC1310_LAUNCHXL_BOARD_H__)   || (defined __CC1350_SWIMTHERMO_BOARD_H__)     || \
     (defined __CC1350STK_BOARD_H__)         || (defined __CC1350_LAUNCHXL_433_BOARD_H__) || \
     (defined __CC1312R1_LAUNCHXL_BOARD_H__) || (defined __CC1352R1_LAUNCHXL_BOARD_H__)   || \
     (defined __CC1352P1_LAUNCHXL_BOARD_H__)
@@ -902,7 +902,7 @@ EasyLink_Status EasyLink_getRfPower(int8_t *pi8TxPowerdBm)
         return EasyLink_Status_Config_Error;
     }
 
-#if (defined __CC1310_LAUNCHXL_BOARD_H__)   || (defined __CC1350_LAUNCHXL_BOARD_H__)     || \
+#if (defined __CC1310_LAUNCHXL_BOARD_H__)   || (defined __CC1350_SWIMTHERMO_BOARD_H__)     || \
     (defined __CC1350STK_BOARD_H__)         || (defined __CC1350_LAUNCHXL_433_BOARD_H__) || \
     (defined __CC1312R1_LAUNCHXL_BOARD_H__) || (defined __CC1352R1_LAUNCHXL_BOARD_H__)   || \
     (defined __CC1352P1_LAUNCHXL_BOARD_H__)

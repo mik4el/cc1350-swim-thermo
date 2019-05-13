@@ -62,7 +62,7 @@ extern "C"
 
 #if defined __CC1350STK_BOARD_H__
     #define RF_SW_PWR_PIN IOID_30
-#elif defined __CC1350_LAUNCHXL_BOARD_H__
+#elif defined __CC1350_SWIMTHERMO_BOARD_H__
     #define RF_SW_PWR_PIN Board_DIO30_SWPWR
 #endif
 
