@@ -175,7 +175,6 @@ typedef struct
 static bool configured = false;
 
 PIN_Config blePinTable[] = {
-    NODE_BLE_ACTIVITY_LED | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,
 #if defined RF_SWITCH_PIN
     RF_SWITCH_PIN | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,
 #endif
@@ -781,8 +780,6 @@ static void advPrepareCB(void)
         updateAdvFrame(&propAdvFrame);
 
     }
-
-    PIN_setOutputValue(blePinHandle, NODE_BLE_ACTIVITY_LED,1);
 }
 
 /*********************************************************************
@@ -819,10 +816,6 @@ static void advDoneCB(bStatus_t status)
     {
         bleAdv_params.pfnAdvStatsCB(advStats);
     }
-
-    /* Toggle activity LED */
-    PIN_setOutputValue(blePinHandle, NODE_BLE_ACTIVITY_LED,0);
-
 }
 
 /*!

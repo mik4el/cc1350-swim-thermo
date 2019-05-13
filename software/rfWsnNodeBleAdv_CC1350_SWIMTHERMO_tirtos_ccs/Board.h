@@ -40,12 +40,9 @@ extern "C" {
 #include "CC1350_LAUNCHXL.h"
 
 #define Board_initGeneral()      CC1350_LAUNCHXL_initGeneral()
-#define Board_shutDownExtFlash() CC1350_LAUNCHXL_shutDownExtFlash()
-#define Board_wakeUpExtFlash()   CC1350_LAUNCHXL_wakeUpExtFlash()
 
 /* These #defines allow us to reuse TI-RTOS across other device families */
 #define Board_ADC0              CC1350_LAUNCHXL_ADC0
-#define Board_ADC1              CC1350_LAUNCHXL_ADC1
 
 #define Board_ADCBUF0           CC1350_LAUNCHXL_ADCBUF0
 #define Board_ADCBUF0CHANNEL0   CC1350_LAUNCHXL_ADCBUF0CHANNEL0
@@ -55,33 +52,10 @@ extern "C" {
 
 #define Board_DIO0              CC1350_LAUNCHXL_DIO0
 #define Board_DIO1_RFSW         CC1350_LAUNCHXL_DIO1_RF_SUB1GHZ
-#define Board_DIO12             CC1350_LAUNCHXL_DIO12
-#define Board_DIO15             CC1350_LAUNCHXL_DIO15
-#define Board_DIO16_TDO         CC1350_LAUNCHXL_DIO16_TDO
-#define Board_DIO17_TDI         CC1350_LAUNCHXL_DIO17_TDI
-#define Board_DIO21             CC1350_LAUNCHXL_DIO21
-#define Board_DIO22             CC1350_LAUNCHXL_DIO22
 #define Board_DIO30_SWPWR       CC1350_LAUNCHXL_DIO30_RF_POWER
 
-#define Board_DIO23_ANALOG      CC1350_LAUNCHXL_DIO23_ANALOG
-#define Board_DIO24_ANALOG      CC1350_LAUNCHXL_DIO24_ANALOG
 #define Board_DIO25_ANALOG      CC1350_LAUNCHXL_DIO25_ANALOG
-#define Board_DIO26_ANALOG      CC1350_LAUNCHXL_DIO26_ANALOG
-#define Board_DIO27_ANALOG      CC1350_LAUNCHXL_DIO27_ANALOG
-#define Board_DIO28_ANALOG      CC1350_LAUNCHXL_DIO28_ANALOG
-#define Board_DIO29_ANALOG      CC1350_LAUNCHXL_DIO29_ANALOG
-#define Board_DIO30_ANALOG      CC1350_LAUNCHXL_DIO30_ANALOG
 
-#define Board_GPIO_BUTTON0      CC1350_LAUNCHXL_GPIO_S1
-#define Board_GPIO_BUTTON1      CC1350_LAUNCHXL_GPIO_S2
-#define Board_GPIO_BTN1         CC1350_LAUNCHXL_GPIO_S1
-#define Board_GPIO_BTN2         CC1350_LAUNCHXL_GPIO_S2
-#define Board_GPIO_LED0         CC1350_LAUNCHXL_GPIO_LED_RED
-#define Board_GPIO_LED1         CC1350_LAUNCHXL_GPIO_LED_GREEN
-#define Board_GPIO_RLED         CC1350_LAUNCHXL_GPIO_LED_RED
-#define Board_GPIO_GLED         CC1350_LAUNCHXL_GPIO_LED_GREEN
-#define Board_GPIO_LED_ON       CC1350_LAUNCHXL_GPIO_LED_ON
-#define Board_GPIO_LED_OFF      CC1350_LAUNCHXL_GPIO_LED_OFF
 
 #define Board_GPTIMER0A         CC1350_LAUNCHXL_GPTIMER0A
 #define Board_GPTIMER0B         CC1350_LAUNCHXL_GPTIMER0B
@@ -92,51 +66,8 @@ extern "C" {
 #define Board_GPTIMER3A         CC1350_LAUNCHXL_GPTIMER3A
 #define Board_GPTIMER3B         CC1350_LAUNCHXL_GPTIMER3B
 
-#define Board_NVSINTERNAL       CC1350_LAUNCHXL_NVSCC26XX0
-#define Board_NVSEXTERNAL       CC1350_LAUNCHXL_NVSSPI25X0
-
-#define Board_I2C0              CC1350_LAUNCHXL_I2C0
-#define Board_I2C_TMP           CC1350_LAUNCHXL_I2C0
-
-#define Board_PIN_BUTTON0       CC1350_LAUNCHXL_PIN_BTN1
 #define Board_PIN_BUTTON1       CC1350_LAUNCHXL_PIN_BTN2
-#define Board_PIN_BTN1          CC1350_LAUNCHXL_PIN_BTN1
 #define Board_PIN_BTN2          CC1350_LAUNCHXL_PIN_BTN2
-#define Board_PIN_LED0          CC1350_LAUNCHXL_PIN_RLED
-#define Board_PIN_LED1          CC1350_LAUNCHXL_PIN_GLED
-#define Board_PIN_LED2          CC1350_LAUNCHXL_PIN_RLED
-#define Board_PIN_RLED          CC1350_LAUNCHXL_PIN_RLED
-#define Board_PIN_GLED          CC1350_LAUNCHXL_PIN_GLED
-
-#define Board_PWM0              CC1350_LAUNCHXL_PWM0
-#define Board_PWM1              CC1350_LAUNCHXL_PWM1
-#define Board_PWM2              CC1350_LAUNCHXL_PWM2
-#define Board_PWM3              CC1350_LAUNCHXL_PWM3
-#define Board_PWM4              CC1350_LAUNCHXL_PWM4
-#define Board_PWM5              CC1350_LAUNCHXL_PWM5
-#define Board_PWM6              CC1350_LAUNCHXL_PWM6
-#define Board_PWM7              CC1350_LAUNCHXL_PWM7
-
-#define Board_SD0               CC1350_LAUNCHXL_SDSPI0
-
-#define Board_SPI0              CC1350_LAUNCHXL_SPI0
-#define Board_SPI1              CC1350_LAUNCHXL_SPI1
-#define Board_SPI_FLASH_CS      CC1350_LAUNCHXL_SPI_FLASH_CS
-#define Board_FLASH_CS_ON       (0)
-#define Board_FLASH_CS_OFF      (1)
-
-#define Board_SPI_MASTER        CC1350_LAUNCHXL_SPI0
-#define Board_SPI_SLAVE         CC1350_LAUNCHXL_SPI0
-#define Board_SPI_MASTER_READY  CC1350_LAUNCHXL_SPI_MASTER_READY
-#define Board_SPI_SLAVE_READY   CC1350_LAUNCHXL_SPI_SLAVE_READY
-
-#define Board_UART0             CC1350_LAUNCHXL_UART0
-
-#define Board_WATCHDOG0         CC1350_LAUNCHXL_WATCHDOG0
-
-/* Board specific I2C addresses */
-#define Board_TMP_ADDR          (0x40)
-#define Board_SENSORS_BP_TMP_ADDR Board_TMP_ADDR
 
 #ifdef __cplusplus
 }
