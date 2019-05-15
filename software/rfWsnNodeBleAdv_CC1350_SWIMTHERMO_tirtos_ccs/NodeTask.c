@@ -184,8 +184,8 @@ static void nodeTaskFunction(UArg arg0, UArg arg1)
 static void adcCallback(uint16_t adcValue)
 {
     /* Calibrate and save latest values */
-    uint32_t calADC12_gain = AUXADCGetAdjustmentGain(AUXADC_REF_FIXED);
-    int8_t calADC12_offset = AUXADCGetAdjustmentOffset(AUXADC_REF_FIXED);
+    int32_t calADC12_gain = AUXADCGetAdjustmentGain(AUXADC_REF_FIXED);
+    int32_t calADC12_offset = AUXADCGetAdjustmentOffset(AUXADC_REF_FIXED);
     latestAdcValue = AUXADCAdjustValueForGainAndOffset(adcValue, calADC12_gain, calADC12_offset);
     /* Post event */
     Event_post(nodeEventHandle, NODE_EVENT_NEW_ADC_VALUE);
