@@ -200,11 +200,40 @@ adcEnableSync(ADC_REF_FIXED, ADC_SAMPLE_TIME_10P9_MS, ADC_TRIGGER_MANUAL);
 adcSelectGpioInput(AUXIO_A_LMT70_IN); //DIO_7
 
 // Sample the ADC
-S16 adcValue;
+S16 adcValue_n1;
+S16 adcValue_n2;
+S16 adcValue_n3;
+S16 median;
 
 adcGenManualTrigger();
-adcReadFifo(adcValue);
-output.adcValue1 = adcValue;
+adcReadFifo(adcValue_n1);
+adcGenManualTrigger();
+adcReadFifo(adcValue_n2);
+adcGenManualTrigger();
+adcReadFifo(adcValue_n3);
+
+if (adcValue_n1>adcValue_n2) {
+    if (adcValue_n2>adcValue_n3) {
+        median = adcValue_n2;
+    } else {
+        if (adcValue_n3>adcValue_n1) {
+            median = adcValue_n1;
+        } else {
+            median = adcValue_n3;
+        }
+    }
+} else {
+    if (adcValue_n2<adcValue_n3) {
+        median = adcValue_n2;
+    } else {
+        if (adcValue_n3<adcValue_n1) {
+            median = adcValue_n1;
+        } else {
+            median = adcValue_n3;
+        }
+    }
+}
+output.adcValue1 = median;
 
 // Switch to T_ON2
 gpioClearOutput(AUXIO_O_T_ON1);
@@ -214,8 +243,34 @@ gpioSetOutput(AUXIO_O_T_ON2);
 fwDelayUs(1000, FW_DELAY_RANGE_1_MS);
 
 adcGenManualTrigger();
-adcReadFifo(adcValue);
-output.adcValue2 = adcValue;
+adcReadFifo(adcValue_n1);
+adcGenManualTrigger();
+adcReadFifo(adcValue_n2);
+adcGenManualTrigger();
+adcReadFifo(adcValue_n3);
+
+if (adcValue_n1>adcValue_n2) {
+    if (adcValue_n2>adcValue_n3) {
+        median = adcValue_n2;
+    } else {
+        if (adcValue_n3>adcValue_n1) {
+            median = adcValue_n1;
+        } else {
+            median = adcValue_n3;
+        }
+    }
+} else {
+    if (adcValue_n2<adcValue_n3) {
+        median = adcValue_n2;
+    } else {
+        if (adcValue_n3<adcValue_n1) {
+            median = adcValue_n1;
+        } else {
+            median = adcValue_n3;
+        }
+    }
+}
+output.adcValue2 = median;
 
 gpioClearOutput(AUXIO_O_T_ON2);
 
