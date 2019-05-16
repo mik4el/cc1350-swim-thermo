@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project name="LMT70 simple ADC" version="2.4.0.793">
-    <desc><![CDATA[Sampling the LMT70 on DIO25 on the CC1350 SWIMTHERMO according to TI application note.]]></desc>
+    <desc><![CDATA[Sampling the LMT70s on DIO7 and toggle between T_ON1 and T_ON2 on the CC1350 SWIMTHERMO according to TI application note.]]></desc>
     <pattr name="Apply default power mode">0</pattr>
     <pattr name="Board">CC1350 LaunchPad</pattr>
     <pattr name="Chip name">CC1350</pattr>
@@ -15,8 +15,9 @@
     <pattr name="Run-time logging UART RX pin"></pattr>
     <pattr name="Run-time logging UART TX pin"></pattr>
     <task name="Simple LMT70 ADC">
-        <desc><![CDATA[Sampling the LMT70 on DIO7 on the CC1350 according to TI application note.]]></desc>
-        <tattr name="output.adcValue" type="dec" content="struct" scope="task" min="0" max="65535">0</tattr>
+        <desc><![CDATA[Sampling the LMT70s on DIO7 and toggle between T_ON1 and T_ON2 on the CC1350 SWIMTHERMO according to TI application note.]]></desc>
+        <tattr name="output.adcValue1" type="expr" content="struct" scope="task" min="0" max="65535">0</tattr>
+        <tattr name="output.adcValue2" type="expr" content="struct" scope="task" min="0" max="65535">0</tattr>
         <resource_ref name="ADC" enabled="1"/>
         <resource_ref name="AON Domain Functionality" enabled="0"/>
         <resource_ref name="Accumulator-Based Math" enabled="0"/>
@@ -44,13 +45,51 @@
         <resource_ref name="Digital Input Pins" enabled="0"/>
         <resource_ref name="Digital Open-Drain Pins" enabled="0"/>
         <resource_ref name="Digital Open-Source Pins" enabled="0"/>
-        <resource_ref name="Digital Output Pins" enabled="0">
-            <io_usage name="ALS_POWER" label="Light sensor power">
-                <uattr name="Configuration on uninitialization">0</uattr>
+        <resource_ref name="Digital Output Pins" enabled="1">
+            <io_usage name="T_ON2" label="Toggle LMT70 2">
+                <uattr name="Configuration on uninitialization">1</uattr>
                 <uattr name="Output drive strength">0</uattr>
                 <uattr name="Output value on initialization">0</uattr>
                 <uattr name="Pin count">0</uattr>
-                <uattr name="Pin/0000">DIO26</uattr>
+                <uattr name="Pin/0000">DIO6</uattr>
+                <uattr name="Pin/0001"></uattr>
+                <uattr name="Pin/0002"></uattr>
+                <uattr name="Pin/0003"></uattr>
+                <uattr name="Pin/0004"></uattr>
+                <uattr name="Pin/0005"></uattr>
+                <uattr name="Pin/0006"></uattr>
+                <uattr name="Pin/0007"></uattr>
+                <uattr name="Pin/0008"></uattr>
+                <uattr name="Pin/0009"></uattr>
+                <uattr name="Pin/0010"></uattr>
+                <uattr name="Pin/0011"></uattr>
+                <uattr name="Pin/0012"></uattr>
+                <uattr name="Pin/0013"></uattr>
+                <uattr name="Pin/0014"></uattr>
+                <uattr name="Pin/0015"></uattr>
+                <uattr name="Pin/0016"></uattr>
+                <uattr name="Pin/0017"></uattr>
+                <uattr name="Pin/0018"></uattr>
+                <uattr name="Pin/0019"></uattr>
+                <uattr name="Pin/0020"></uattr>
+                <uattr name="Pin/0021"></uattr>
+                <uattr name="Pin/0022"></uattr>
+                <uattr name="Pin/0023"></uattr>
+                <uattr name="Pin/0024"></uattr>
+                <uattr name="Pin/0025"></uattr>
+                <uattr name="Pin/0026"></uattr>
+                <uattr name="Pin/0027"></uattr>
+                <uattr name="Pin/0028"></uattr>
+                <uattr name="Pin/0029"></uattr>
+                <uattr name="Pin/0030"></uattr>
+                <uattr name="Pin/0031"></uattr>
+            </io_usage>
+            <io_usage name="T_ON1" label="Toggle LMT70 1">
+                <uattr name="Configuration on uninitialization">1</uattr>
+                <uattr name="Output drive strength">0</uattr>
+                <uattr name="Output value on initialization">0</uattr>
+                <uattr name="Pin count">0</uattr>
+                <uattr name="Pin/0000">DIO5</uattr>
                 <uattr name="Pin/0001"></uattr>
                 <uattr name="Pin/0002"></uattr>
                 <uattr name="Pin/0003"></uattr>
@@ -145,23 +184,40 @@
         <sccode name="event1" init_power_mode="0"><![CDATA[]]></sccode>
         <sccode name="event2" init_power_mode="0"><![CDATA[]]></sccode>
         <sccode name="event3" init_power_mode="0"><![CDATA[]]></sccode>
-        <sccode name="execute" init_power_mode="0"><![CDATA[// Wait for 1ms till LMT70 settles
+        <sccode name="execute" init_power_mode="0"><![CDATA[// Turn on T_ON1
+gpioSetOutput(AUXIO_O_T_ON1);
+
+// Wait for 1ms till LMT70 1 settles
 fwDelayUs(1000, FW_DELAY_RANGE_1_MS);
 
 //Disable scaling to use internal reference of 1.4785V
 adcDisableInputScaling();
 
 // Enable the ADC
-adcEnableSync(ADC_REF_FIXED, ADC_SAMPLE_TIME_42P6_US, ADC_TRIGGER_MANUAL);
+adcEnableSync(ADC_REF_FIXED, ADC_SAMPLE_TIME_10P9_MS, ADC_TRIGGER_MANUAL);
 
 // Sample the LMT70 temp sensor 1
 adcSelectGpioInput(AUXIO_A_LMT70_IN); //DIO_7
 
 // Sample the ADC
 S16 adcValue;
+
 adcGenManualTrigger();
 adcReadFifo(adcValue);
-output.adcValue = adcValue;
+output.adcValue1 = adcValue;
+
+// Switch to T_ON2
+gpioClearOutput(AUXIO_O_T_ON1);
+gpioSetOutput(AUXIO_O_T_ON2);
+
+// Wait for 1ms till LMT70 2 settles
+fwDelayUs(1000, FW_DELAY_RANGE_1_MS);
+
+adcGenManualTrigger();
+adcReadFifo(adcValue);
+output.adcValue2 = adcValue;
+
+gpioClearOutput(AUXIO_O_T_ON2);
 
 // Disable the ADC
 adcDisable();
@@ -175,7 +231,7 @@ fwScheduleTask(1);]]></sccode>
         <sccode name="terminate" init_power_mode="0"><![CDATA[]]></sccode>
         <event_trigger active_count="1">0,1,2,3</event_trigger>
         <tt_iter>run_execute</tt_iter>
-        <tt_struct>output.adcValue</tt_struct>
+        <tt_struct>output.adcValue1,output.adcValue2</tt_struct>
         <rtl_struct></rtl_struct>
         <rtl_task_sel en="1" struct_log_list="output"/>
     </task>
