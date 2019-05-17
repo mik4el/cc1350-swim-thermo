@@ -76,9 +76,9 @@
 /***** Type declarations *****/
 struct AdcSensorNode {
     uint8_t address;
-    uint16_t latestTempValue; //fixed 8.8 notation
+    uint16_t latestTemp2Value; //fixed 8.8 notation
     uint16_t latestBatt;
-    uint16_t latestInternalTempValue; //Fixed 8.8 notation
+    uint16_t latestTemp1Value; //Fixed 8.8 notation
     uint32_t latestTime100MiliSec;
     int8_t latestRssi;
 };
@@ -218,8 +218,8 @@ static void packetReceivedCallback(union ConcentratorPacket* packet, int8_t rssi
 
         /* Save the values */
         latestActiveAdcSensorNode.address = packet->header.sourceAddress;
-        latestActiveAdcSensorNode.latestTempValue = packet->dmSensorPacket.temp;
-        latestActiveAdcSensorNode.latestInternalTempValue = packet->dmSensorPacket.internalTemp;
+        latestActiveAdcSensorNode.latestTemp2Value = packet->dmSensorPacket.temp2;
+        latestActiveAdcSensorNode.latestTemp1Value = packet->dmSensorPacket.temp1;
         latestActiveAdcSensorNode.latestBatt = packet->dmSensorPacket.batt;
         latestActiveAdcSensorNode.latestRssi = rssi;
 
@@ -260,8 +260,8 @@ static void updateNode(struct AdcSensorNode* node) {
     for (i = 0; i < CONCENTRATOR_MAX_NODES; i++) {
         if (knownSensorNodes[i].address == node->address)
         {
-            knownSensorNodes[i].latestTempValue = node->latestTempValue;
-            knownSensorNodes[i].latestInternalTempValue = node->latestInternalTempValue;
+            knownSensorNodes[i].latestTemp2Value = node->latestTemp2Value;
+            knownSensorNodes[i].latestTemp1Value = node->latestTemp1Value;
             knownSensorNodes[i].latestBatt = node->latestBatt;
             knownSensorNodes[i].latestRssi = node->latestRssi;
             break;
@@ -295,21 +295,21 @@ static void updateLcd(void) {
           (nodePointer->address != 0) &&
           (currentLcdLine < CONCENTRATOR_DISPLAY_LINES))
     {
-        double tempFormatted = FIXED2DOUBLE(nodePointer->latestTempValue);
-        if (tempFormatted > 128.0) {
-            tempFormatted = tempFormatted - 256.0; //display negative temperature correct
+        double temp2Formatted = FIXED2DOUBLE(nodePointer->latestTemp2Value);
+        if (temp2Formatted > 128.0) {
+            temp2Formatted = temp2Formatted - 256.0; //display negative temperature correct
         }
-        double internalTempFormatted = FIXED2DOUBLE(nodePointer->latestInternalTempValue);
-        if (internalTempFormatted > 128.0) {
-            internalTempFormatted = internalTempFormatted - 256.0; //display negative temperature correct
+        double temp1Formatted = FIXED2DOUBLE(nodePointer->latestTemp1Value);
+        if (temp1Formatted > 128.0) {
+            temp1Formatted = temp1Formatted - 256.0; //display negative temperature correct
         }
 
         /* print to LCD */
         Display_printf(hDisplayLcd, currentLcdLine, 0, "NodeID: 0x%02x", nodePointer->address);
         currentLcdLine++;
-        Display_printf(hDisplayLcd, currentLcdLine, 0, "TempA: %3.3f", tempFormatted);
+        Display_printf(hDisplayLcd, currentLcdLine, 0, "Temp1: %3.3f", temp1Formatted);
         currentLcdLine++;
-        Display_printf(hDisplayLcd, currentLcdLine, 0, "TempI: %3.3f", internalTempFormatted);
+        Display_printf(hDisplayLcd, currentLcdLine, 0, "Temp2: %3.3f", temp2Formatted);
         currentLcdLine++;
         Display_printf(hDisplayLcd, currentLcdLine, 0, "Batt: %i", nodePointer->latestBatt);
         currentLcdLine++;

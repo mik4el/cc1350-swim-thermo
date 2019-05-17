@@ -48,7 +48,7 @@ enum NodeRadioOperationStatus {
 void NodeRadioTask_init(void);
 
 /* Sends an ADC value to the concentrator */
-enum NodeRadioOperationStatus NodeRadioTask_sendAdcData(uint16_t data);
+enum NodeRadioOperationStatus NodeRadioTask_sendAdcData(uint16_t data1, uint16_t data2);
 
 /* Get node address, return 0 if node address has not been set */
 uint8_t nodeRadioTask_getNodeAddr(void);

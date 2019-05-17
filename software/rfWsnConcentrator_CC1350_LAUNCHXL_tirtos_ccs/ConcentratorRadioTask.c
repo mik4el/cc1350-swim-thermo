@@ -305,11 +305,11 @@ static void rxDoneCallback(EasyLink_RxPacket * rxPacket, EasyLink_Status status)
             /* Save packet */
             latestRxPacket.header.sourceAddress = rxPacket->payload[0];
             latestRxPacket.header.packetType =  rxPacket->payload[1];
-            latestRxPacket.dmSensorPacket.temp = (rxPacket->payload[2] << 8) |
+            latestRxPacket.dmSensorPacket.temp2 = (rxPacket->payload[2] << 8) |
                                                   rxPacket->payload[3];
             latestRxPacket.dmSensorPacket.batt =    (rxPacket->payload[4] << 8) |
                                                      rxPacket->payload[5];
-            latestRxPacket.dmSensorPacket.internalTemp = (rxPacket->payload[6] << 8) |
+            latestRxPacket.dmSensorPacket.temp1 = (rxPacket->payload[6] << 8) |
                                                           rxPacket->payload[7];
             latestRxPacket.dmSensorPacket.time100MiliSec = (rxPacket->payload[8] << 24) |
                                                            (rxPacket->payload[9] << 16) |

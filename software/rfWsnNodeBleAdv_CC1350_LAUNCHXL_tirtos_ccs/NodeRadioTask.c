@@ -265,8 +265,8 @@ static void nodeRadioTaskFunction(UArg arg0, UArg arg1)
             prevTicks = currentTicks;
 
             dmInternalTempSensorPacket.batt = (AONBatMonBatteryVoltageGet() * 125) >> 5;
-            dmInternalTempSensorPacket.internalTemp = INT2FIXED((int16_t)AONBatMonTemperatureGetDegC());
-            dmInternalTempSensorPacket.temp = FLOAT2FIXED(convertADCToTempDouble(adcData));
+            dmInternalTempSensorPacket.temp1 = INT2FIXED((int16_t)AONBatMonTemperatureGetDegC());
+            dmInternalTempSensorPacket.temp2 = FLOAT2FIXED(convertADCToTempDouble(adcData));
 
             sendDmPacket(dmInternalTempSensorPacket, NODERADIO_MAX_RETRIES, NORERADIO_ACK_TIMEOUT_TIME_MS);
         }
@@ -351,12 +351,12 @@ static void sendDmPacket(struct DualModeInternalTempSensorPacket sensorPacket, u
      * Note that the EasyLink API will implcitily both add the length byte and the destination address byte. */
     currentRadioOperation.easyLinkTxPacket.payload[0] = dmInternalTempSensorPacket.header.sourceAddress;
     currentRadioOperation.easyLinkTxPacket.payload[1] = dmInternalTempSensorPacket.header.packetType;
-    currentRadioOperation.easyLinkTxPacket.payload[2] = (dmInternalTempSensorPacket.temp & 0xFF00) >> 8;
-    currentRadioOperation.easyLinkTxPacket.payload[3] = (dmInternalTempSensorPacket.temp & 0xFF);
+    currentRadioOperation.easyLinkTxPacket.payload[2] = (dmInternalTempSensorPacket.temp2 & 0xFF00) >> 8;
+    currentRadioOperation.easyLinkTxPacket.payload[3] = (dmInternalTempSensorPacket.temp2 & 0xFF);
     currentRadioOperation.easyLinkTxPacket.payload[4] = (dmInternalTempSensorPacket.batt & 0xFF00) >> 8;
     currentRadioOperation.easyLinkTxPacket.payload[5] = (dmInternalTempSensorPacket.batt & 0xFF);
-    currentRadioOperation.easyLinkTxPacket.payload[6] = (dmInternalTempSensorPacket.internalTemp & 0xFF00) >> 8;
-    currentRadioOperation.easyLinkTxPacket.payload[7] = (dmInternalTempSensorPacket.internalTemp & 0xFF);
+    currentRadioOperation.easyLinkTxPacket.payload[6] = (dmInternalTempSensorPacket.temp1 & 0xFF00) >> 8;
+    currentRadioOperation.easyLinkTxPacket.payload[7] = (dmInternalTempSensorPacket.temp1 & 0xFF);
     currentRadioOperation.easyLinkTxPacket.payload[8] = (dmInternalTempSensorPacket.time100MiliSec & 0xFF000000) >> 24;
     currentRadioOperation.easyLinkTxPacket.payload[9] = (dmInternalTempSensorPacket.time100MiliSec & 0x00FF0000) >> 16;
     currentRadioOperation.easyLinkTxPacket.payload[10] = (dmInternalTempSensorPacket.time100MiliSec & 0xFF00) >> 8;
@@ -377,7 +377,7 @@ static void sendDmPacket(struct DualModeInternalTempSensorPacket sensorPacket, u
     }
 #if defined(Board_DIO30_SWPWR)
     /* this was a blocking call, so Tx is now complete. Turn off the RF switch power */
-    PIN_setOutputValue(blePinHandle, Board_SWPWR, 0);
+    PIN_setOutputValue(blePinHandle, Board_DIO30_SWPWR, 0);
 #endif
 
     /* Enter RX */
@@ -396,7 +396,7 @@ static void resendPacket(void)
     }
 #if defined(Board_DIO30_SWPWR)
     /* this was a blocking call, so Tx is now complete. Turn off the RF switch power */
-    PIN_setOutputValue(blePinHandle, Board_SWPWR, 0);
+    PIN_setOutputValue(blePinHandle, Board_DIO30_SWPWR, 0);
 #endif
 
     /* Enter RX and wait for ACK with timeout */
@@ -441,7 +441,7 @@ static void bleAdv_eventProxyCB(void)
 static void bleAdv_updateTlmCB(uint16_t *pvBatt, uint16_t *pTemp, uint32_t *pTime100MiliSec)
 {
     *pvBatt = dmInternalTempSensorPacket.batt;
-    *pTemp = dmInternalTempSensorPacket.temp;
+    *pTemp = dmInternalTempSensorPacket.temp2;
     *pTime100MiliSec = dmInternalTempSensorPacket.time100MiliSec/10;
 }
 #endif
@@ -452,7 +452,7 @@ static void rxDoneCallback(EasyLink_RxPacket * rxPacket, EasyLink_Status status)
 
 #if defined(Board_DIO30_SWPWR)
     /* Rx is now complete. Turn off the RF switch power */
-    PIN_setOutputValue(blePinHandle, Board_SWPWR, 0);
+    PIN_setOutputValue(blePinHandle, Board_DIO30_SWPWR, 0);
 #endif
 
     /* If this callback is called because of a packet received */

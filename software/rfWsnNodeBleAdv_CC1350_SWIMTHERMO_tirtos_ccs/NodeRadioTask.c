@@ -110,7 +110,8 @@ static Event_Handle radioOperationEventHandle;
 Semaphore_Struct radioResultSem;  /* not static so you can see in ROV */
 static Semaphore_Handle radioResultSemHandle;
 static struct RadioOperation currentRadioOperation;
-static uint16_t adcData;
+static uint16_t adcData1;
+static uint16_t adcData2;
 static uint8_t nodeAddress = 0;
 static struct DualModeInternalTempSensorPacket dmInternalTempSensorPacket;
 
@@ -265,8 +266,8 @@ static void nodeRadioTaskFunction(UArg arg0, UArg arg1)
             prevTicks = currentTicks;
 
             dmInternalTempSensorPacket.batt = (AONBatMonBatteryVoltageGet() * 125) >> 5;
-            dmInternalTempSensorPacket.internalTemp = INT2FIXED((int16_t)AONBatMonTemperatureGetDegC());
-            dmInternalTempSensorPacket.temp = FLOAT2FIXED(convertADCToTempDouble(adcData));
+            dmInternalTempSensorPacket.temp1 = FLOAT2FIXED(convertADCToTempDouble(adcData1));
+            dmInternalTempSensorPacket.temp2 = FLOAT2FIXED(convertADCToTempDouble(adcData2));
 
             sendDmPacket(dmInternalTempSensorPacket, NODERADIO_MAX_RETRIES, NORERADIO_ACK_TIMEOUT_TIME_MS);
         }
@@ -308,7 +309,7 @@ static void nodeRadioTaskFunction(UArg arg0, UArg arg1)
     }
 }
 
-enum NodeRadioOperationStatus NodeRadioTask_sendAdcData(uint16_t data)
+enum NodeRadioOperationStatus NodeRadioTask_sendAdcData(uint16_t data1, uint16_t data2)
 {
     enum NodeRadioOperationStatus status;
 
@@ -316,7 +317,8 @@ enum NodeRadioOperationStatus NodeRadioTask_sendAdcData(uint16_t data)
     Semaphore_pend(radioAccessSemHandle, BIOS_WAIT_FOREVER);
 
     /* Save data to send */
-    adcData = data;
+    adcData1 = data1;
+    adcData2 = data2;
 
     /* Raise RADIO_EVENT_SEND_ADC_DATA event */
     Event_post(radioOperationEventHandle, RADIO_EVENT_SEND_ADC_DATA);
@@ -351,12 +353,12 @@ static void sendDmPacket(struct DualModeInternalTempSensorPacket sensorPacket, u
      * Note that the EasyLink API will implcitily both add the length byte and the destination address byte. */
     currentRadioOperation.easyLinkTxPacket.payload[0] = dmInternalTempSensorPacket.header.sourceAddress;
     currentRadioOperation.easyLinkTxPacket.payload[1] = dmInternalTempSensorPacket.header.packetType;
-    currentRadioOperation.easyLinkTxPacket.payload[2] = (dmInternalTempSensorPacket.temp & 0xFF00) >> 8;
-    currentRadioOperation.easyLinkTxPacket.payload[3] = (dmInternalTempSensorPacket.temp & 0xFF);
+    currentRadioOperation.easyLinkTxPacket.payload[2] = (dmInternalTempSensorPacket.temp2 & 0xFF00) >> 8;
+    currentRadioOperation.easyLinkTxPacket.payload[3] = (dmInternalTempSensorPacket.temp2 & 0xFF);
     currentRadioOperation.easyLinkTxPacket.payload[4] = (dmInternalTempSensorPacket.batt & 0xFF00) >> 8;
     currentRadioOperation.easyLinkTxPacket.payload[5] = (dmInternalTempSensorPacket.batt & 0xFF);
-    currentRadioOperation.easyLinkTxPacket.payload[6] = (dmInternalTempSensorPacket.internalTemp & 0xFF00) >> 8;
-    currentRadioOperation.easyLinkTxPacket.payload[7] = (dmInternalTempSensorPacket.internalTemp & 0xFF);
+    currentRadioOperation.easyLinkTxPacket.payload[6] = (dmInternalTempSensorPacket.temp1 & 0xFF00) >> 8;
+    currentRadioOperation.easyLinkTxPacket.payload[7] = (dmInternalTempSensorPacket.temp1 & 0xFF);
     currentRadioOperation.easyLinkTxPacket.payload[8] = (dmInternalTempSensorPacket.time100MiliSec & 0xFF000000) >> 24;
     currentRadioOperation.easyLinkTxPacket.payload[9] = (dmInternalTempSensorPacket.time100MiliSec & 0x00FF0000) >> 16;
     currentRadioOperation.easyLinkTxPacket.payload[10] = (dmInternalTempSensorPacket.time100MiliSec & 0xFF00) >> 8;
@@ -441,7 +443,7 @@ static void bleAdv_eventProxyCB(void)
 static void bleAdv_updateTlmCB(uint16_t *pvBatt, uint16_t *pTemp, uint32_t *pTime100MiliSec)
 {
     *pvBatt = dmInternalTempSensorPacket.batt;
-    *pTemp = dmInternalTempSensorPacket.temp;
+    *pTemp = dmInternalTempSensorPacket.temp2;
     *pTime100MiliSec = dmInternalTempSensorPacket.time100MiliSec/10;
 }
 #endif

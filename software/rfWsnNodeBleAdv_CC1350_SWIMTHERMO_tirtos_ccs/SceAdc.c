@@ -94,7 +94,7 @@ static void taskAlertCallback(void) {
         /* Send new ADC value to application via callback */
         if (adcCallback)
         {
-            adcCallback(pOutput->adcValue1);
+            adcCallback(pOutput->adcValue1, pOutput->adcValue2);
         }
     }
 

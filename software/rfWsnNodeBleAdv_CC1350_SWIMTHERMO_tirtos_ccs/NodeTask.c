@@ -76,7 +76,8 @@ Task_Struct nodeTask;    /* Not static so you can see in ROV */
 static uint8_t nodeTaskStack[NODE_TASK_STACK_SIZE];
 Event_Struct nodeEvent;  /* Not static so you can see in ROV */
 static Event_Handle nodeEventHandle;
-static uint16_t latestAdcValue;
+static uint16_t latestAdcValue1;
+static uint16_t latestAdcValue2;
 
 /* Pin driver handle */
 static PIN_Handle buttonPinHandle;
@@ -91,8 +92,6 @@ static BleAdv_AdertiserType advertisementType = BleAdv_AdertiserNone;
 
 /* Enable the 3.3V power domain used by the LCD */
 PIN_Config pinTable[] = {
-                         CC1350_SWIMTHERMO_DIO5_T_ON1 | PIN_GPIO_OUTPUT_EN | PIN_GPIO_HIGH | PIN_PUSHPULL, /* T_ON1 should be default high */
-                         CC1350_SWIMTHERMO_DIO6_T_ON2 | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL, /* T_ON2 should be default low */
                          PIN_TERMINATE
                         };
 
@@ -113,7 +112,7 @@ static BleAdv_Stats bleAdvStats = {0};
 
 /***** Prototypes *****/
 static void nodeTaskFunction(UArg arg0, UArg arg1);
-static void adcCallback(uint16_t adcValue);
+static void adcCallback(uint16_t adcValue1, uint16_t adcValue2);
 static void buttonCallback(PIN_Handle handle, PIN_Id pinId);
 
 
@@ -176,17 +175,18 @@ static void nodeTaskFunction(UArg arg0, UArg arg1)
         /* If new ADC value, send this data */
         if (events & NODE_EVENT_NEW_ADC_VALUE) {
             /* Send ADC value to concentrator */
-            NodeRadioTask_sendAdcData(latestAdcValue);
+            NodeRadioTask_sendAdcData(latestAdcValue1, latestAdcValue2);
         }
     }
 }
 
-static void adcCallback(uint16_t adcValue)
+static void adcCallback(uint16_t adcValue1, uint16_t adcValue2)
 {
     /* Calibrate and save latest values */
     int32_t calADC12_gain = AUXADCGetAdjustmentGain(AUXADC_REF_FIXED);
     int32_t calADC12_offset = AUXADCGetAdjustmentOffset(AUXADC_REF_FIXED);
-    latestAdcValue = AUXADCAdjustValueForGainAndOffset(adcValue, calADC12_gain, calADC12_offset);
+    latestAdcValue1 = AUXADCAdjustValueForGainAndOffset(adcValue1, calADC12_gain, calADC12_offset);
+    latestAdcValue2 = AUXADCAdjustValueForGainAndOffset(adcValue2, calADC12_gain, calADC12_offset);
     /* Post event */
     Event_post(nodeEventHandle, NODE_EVENT_NEW_ADC_VALUE);
 }

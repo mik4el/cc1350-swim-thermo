@@ -37,7 +37,7 @@
 #include "sce/scif.h"
 
 
-typedef void(*SceAdc_adcCallback)(uint16_t adcValue);
+typedef void(*SceAdc_adcCallback)(uint16_t adcValue1, uint16_t adcValue2);
 
 /* Intializes the SCE ADC sampling task.
  *
