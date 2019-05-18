@@ -119,9 +119,6 @@ static struct DualModeInternalTempSensorPacket dmInternalTempSensorPacket;
 /* previous Tick count used to calculate uptime */
 static uint32_t prevTicks;
 
-/* Pin driver handle */
-extern PIN_Handle ledPinHandle;
-
 /***** Prototypes *****/
 static void nodeRadioTaskFunction(UArg arg0, UArg arg1);
 static void returnRadioOperationStatus(enum NodeRadioOperationStatus status);

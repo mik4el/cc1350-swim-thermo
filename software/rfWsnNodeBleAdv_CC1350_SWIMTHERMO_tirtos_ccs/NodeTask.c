@@ -66,7 +66,6 @@
 
 #define NODE_EVENT_ALL                  0xFFFFFFFF
 #define NODE_EVENT_NEW_ADC_VALUE    (uint32_t)(1 << 0)
-#define NODE_EVENT_UPDATE_LCD       (uint32_t)(1 << 1)
 
 #define NUM_EDDYSTONE_URLS      5
 
@@ -213,9 +212,6 @@ static void buttonCallback(PIN_Handle handle, PIN_Id pinId)
 
         //Set advertisement type
         BleAdv_setAdvertiserType(advertisementType);
-
-        /* update display */
-        Event_post(nodeEventHandle, NODE_EVENT_UPDATE_LCD);
     }
 #endif
 }
