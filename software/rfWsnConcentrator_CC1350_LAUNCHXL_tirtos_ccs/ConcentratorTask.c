@@ -60,12 +60,14 @@
 #define CONCENTRATOR_TASK_STACK_SIZE 1024
 #define CONCENTRATOR_TASK_PRIORITY   3
 
-#define CONCENTRATOR_EVENT_ALL                         0xFFFFFFFF
+#define CONCENTRATOR_EVENT_ALL                     0xFFFFFFFF
 #define CONCENTRATOR_EVENT_NEW_ADC_SENSOR_VALUE    (uint32_t)(1 << 0)
+#define CONCENTRATOR_EVENT_UPDATE_DISPLAY          (uint32_t)(1 << 1)
 
 #define CONCENTRATOR_MAX_NODES 7
 
 #define CONCENTRATOR_DISPLAY_LINES 8
+#define CONCENTRATOR_DISPLAY_UPDATE_MS 1000
 
 #define CONCENTRATOR_LED_BLINK_ON_DURATION_MS       100
 #define CONCENTRATOR_LED_BLINK_OFF_DURATION_MS      400
@@ -81,6 +83,7 @@ struct AdcSensorNode {
     uint16_t latestTemp1Value; //Fixed 8.8 notation
     uint32_t latestTime100MiliSec;
     int8_t latestRssi;
+    uint32_t timeForLastRX;
 };
 
 /***** Variable declarations *****/
@@ -93,7 +96,6 @@ static struct AdcSensorNode latestActiveAdcSensorNode;
 struct AdcSensorNode knownSensorNodes[CONCENTRATOR_MAX_NODES];
 static struct AdcSensorNode* lastAddedSensorNode = knownSensorNodes;
 static Display_Handle hDisplayLcd;
-static Display_Handle hDisplaySerial;
 
 /* Pin driver handle */
 static PIN_Handle identifyLedPinHandle;
@@ -108,8 +110,10 @@ PIN_Config identifyLedPinTable[] = {
 /* Clock for sensor stub */
 Clock_Struct ledBlinkClock;     /* Not static so you can see in ROV */
 static Clock_Handle ledBlinkClockHandle;
-
 static uint8_t ledBlinkCnt;
+
+Clock_Struct displayClock;     /* Not static so you can see in ROV */
+static Clock_Handle displayClockHandle;
 
 /***** Prototypes *****/
 static void concentratorTaskFunction(UArg arg0, UArg arg1);
@@ -118,7 +122,9 @@ static void updateLcd(void);
 static void addNewNode(struct AdcSensorNode* node);
 static void updateNode(struct AdcSensorNode* node);
 static uint8_t isKnownNodeAddress(uint8_t address);
+static uint32_t timeForLastRXForAdress(uint8_t address);
 static void ledBlinkClockCb(UArg arg0);
+static void displayClockCb(UArg arg0);
 
 /***** Function definitions *****/
 void ConcentratorTask_init(void) {
@@ -143,50 +149,44 @@ void ConcentratorTask_init(void) {
         System_abort("Error initializing board 3.3V domain pins\n");
     }
 
-    /* Create Identify Clock to Blink LED */
-    Clock_Params clkParams;
-    Clock_Params_init(&clkParams);
-
-    clkParams.startFlag = FALSE;
-    Clock_construct(&ledBlinkClock, ledBlinkClockCb, 1, &clkParams);
+    /* Create Clock to Blink LED */
+    Clock_Params ledBlinkClkParams;
+    Clock_Params_init(&ledBlinkClkParams);
+    ledBlinkClkParams.startFlag = FALSE;
+    Clock_construct(&ledBlinkClock, ledBlinkClockCb, 1, &ledBlinkClkParams);
     ledBlinkClockHandle = Clock_handle(&ledBlinkClock);
-
     ledBlinkCnt = 0;
+
+    /* Create Clock to update LCD */
+    Clock_Params displayClkParams;
+    Clock_Params_init(&displayClkParams);
+    displayClkParams.startFlag = FALSE;
+    Clock_construct(&displayClock, displayClockCb, 1, &displayClkParams);
+    displayClockHandle = Clock_handle(&displayClock);
 }
 
 static void concentratorTaskFunction(UArg arg0, UArg arg1)
 {
-    /* Initialize display and try to open both UART and LCD types of display. */
+    /* Initialize display */
     Display_Params params;
     Display_Params_init(&params);
     params.lineClearMode = DISPLAY_CLEAR_BOTH;
 
-    /* Open both an available LCD display and an UART display.
-     * Whether the open call is successful depends on what is present in the
-     * Display_config[] array of the board file.
-     *
-     * Note that for SensorTag evaluation boards combined with the SHARP96x96
-     * Watch DevPack, there is a pin conflict with UART such that one must be
-     * excluded, and UART is preferred by default. To display on the Watch
-     * DevPack, add the precompiler define BOARD_DISPLAY_EXCLUDE_UART.
-     */
+    /* Open both an available LCD display */
     hDisplayLcd = Display_open(Display_Type_LCD, &params);
-    hDisplaySerial = Display_open(Display_Type_UART, &params);
-
-    /* Check if the selected Display type was found and successfully opened */
-    if (hDisplaySerial)
-    {
-        Display_printf(hDisplaySerial, 0, 0, "Waiting for nodes...");
-    }
 
     /* Check if the selected Display type was found and successfully opened */
     if (hDisplayLcd)
     {
-        Display_printf(hDisplayLcd, 0, 0, "Waiting for nodes...");
+        Display_printf(hDisplayLcd, 0, 0, "Starting...");
     }
 
     /* Register a packet received callback with the radio task */
     ConcentratorRadioTask_registerPacketReceivedCallback(packetReceivedCallback);
+
+    Clock_setTimeout(displayClockHandle,
+                    CONCENTRATOR_DISPLAY_UPDATE_MS * 1000 / Clock_tickPeriod);
+    Clock_start(displayClockHandle);
 
     /* Enter main task loop */
     while(1) {
@@ -203,8 +203,8 @@ static void concentratorTaskFunction(UArg arg0, UArg arg1)
                 /* Else add it */
                 addNewNode(&latestActiveAdcSensorNode);
             }
-
-            /* Update the values on the LCD */
+        }
+        if(events & CONCENTRATOR_EVENT_UPDATE_DISPLAY) {
             updateLcd();
         }
     }
@@ -222,6 +222,7 @@ static void packetReceivedCallback(union ConcentratorPacket* packet, int8_t rssi
         latestActiveAdcSensorNode.latestTemp1Value = packet->dmSensorPacket.temp1;
         latestActiveAdcSensorNode.latestBatt = packet->dmSensorPacket.batt;
         latestActiveAdcSensorNode.latestRssi = rssi;
+        latestActiveAdcSensorNode.timeForLastRX = (Clock_getTicks() * Clock_tickPeriod) / 1000000;
 
         Event_post(concentratorEventHandle, CONCENTRATOR_EVENT_NEW_ADC_SENSOR_VALUE);
 
@@ -255,6 +256,18 @@ static uint8_t isKnownNodeAddress(uint8_t address) {
     return found;
 }
 
+static uint32_t timeForLastRXForAdress(uint8_t address) {
+    uint8_t i;
+    for (i = 0; i < CONCENTRATOR_MAX_NODES; i++)
+    {
+        if (knownSensorNodes[i].address == address)
+        {
+            return knownSensorNodes[i].timeForLastRX;
+        }
+    }
+    return 0;
+}
+
 static void updateNode(struct AdcSensorNode* node) {
     uint8_t i;
     for (i = 0; i < CONCENTRATOR_MAX_NODES; i++) {
@@ -264,6 +277,7 @@ static void updateNode(struct AdcSensorNode* node) {
             knownSensorNodes[i].latestTemp1Value = node->latestTemp1Value;
             knownSensorNodes[i].latestBatt = node->latestBatt;
             knownSensorNodes[i].latestRssi = node->latestRssi;
+            knownSensorNodes[i].timeForLastRX = (Clock_getTicks() * Clock_tickPeriod) / 1000000;
             break;
         }
     }
@@ -304,6 +318,17 @@ static void updateLcd(void) {
             temp1Formatted = temp1Formatted - 256.0; //display negative temperature correct
         }
 
+        uint32_t timeSinceLastRx = 0;
+        if (timeForLastRXForAdress(nodePointer->address)!=0) {
+            uint32_t now = ((Clock_getTicks() * Clock_tickPeriod) / 1000000);
+            // handle wrap around
+            if (now > timeForLastRXForAdress(nodePointer->address)) {
+                timeSinceLastRx = now - timeForLastRXForAdress(nodePointer->address);
+            } else {
+                timeSinceLastRx = timeForLastRXForAdress(nodePointer->address) - now;
+            }
+        }
+
         /* print to LCD */
         Display_printf(hDisplayLcd, currentLcdLine, 0, "NodeID: 0x%02x", nodePointer->address);
         currentLcdLine++;
@@ -314,9 +339,20 @@ static void updateLcd(void) {
         Display_printf(hDisplayLcd, currentLcdLine, 0, "Batt: %i", nodePointer->latestBatt);
         currentLcdLine++;
         Display_printf(hDisplayLcd, currentLcdLine, 0, "RSSI: %04d", nodePointer->latestRssi);
+        currentLcdLine++;
+        Display_printf(hDisplayLcd, currentLcdLine, 0, "Time (s): %i", timeSinceLastRx);
+        currentLcdLine++;
 
         nodePointer++;
     }
+}
+
+static void displayClockCb(UArg arg0) {
+    Event_post(concentratorEventHandle, CONCENTRATOR_EVENT_UPDATE_DISPLAY);
+
+    Clock_setTimeout(displayClockHandle,
+                    CONCENTRATOR_DISPLAY_UPDATE_MS * 1000 / Clock_tickPeriod);
+    Clock_start(displayClockHandle);
 }
 
 static void ledBlinkClockCb(UArg arg0)

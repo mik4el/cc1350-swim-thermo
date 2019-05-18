@@ -92,24 +92,12 @@ static EasyLink_TxPacket txPacket;
 static struct AckPacket ackPacket;
 static uint8_t concentratorAddress;
 static int8_t latestRssi;
-static struct SensorNodeRX latestActiveSensorNodeRX;
-struct SensorNodeRX knownSensorNodeRXs[CONCENTRATOR_MAX_NODES];
-static struct SensorNodeRX* lastAddedSensorNodeRX = knownSensorNodeRXs;
-
-struct SensorNodeRX {
-    uint8_t address;
-    uint32_t timeForLastRX;
-};
-
 
 /***** Prototypes *****/
 static void concentratorRadioTaskFunction(UArg arg0, UArg arg1);
 static void rxDoneCallback(EasyLink_RxPacket * rxPacket, EasyLink_Status status);
 static void notifyPacketReceived(union ConcentratorPacket* latestRxPacket);
 static void sendAck(uint8_t latestSourceAddress);
-static void addNewNodeRX(struct SensorNodeRX* node);
-static void updateNodeRX(struct SensorNodeRX* node);
-static uint8_t isKnownNodeAddress(uint8_t address);
 
 /* Pin driver handle */
 static PIN_Handle ledPinHandle;
@@ -191,17 +179,6 @@ static void concentratorRadioTaskFunction(UArg arg0, UArg arg1)
             /* Call packet received callback */
             notifyPacketReceived(&latestRxPacket);
 
-            /* If we knew this node from before, update the value */
-            if (isKnownNodeAddress(latestActiveSensorNodeRX.address))
-            {
-                updateNodeRX(&latestActiveSensorNodeRX);
-            }
-            else
-            {
-                /* Else add it */
-                addNewNodeRX(&latestActiveSensorNodeRX);
-            }
-
             /* Go back to RX */
             if(EasyLink_receiveAsync(rxDoneCallback, 0) != EasyLink_Status_Success) {
                 System_abort("EasyLink_receiveAsync failed");
@@ -219,42 +196,6 @@ static void concentratorRadioTaskFunction(UArg arg0, UArg arg1)
                 System_abort("EasyLink_receiveAsync failed");
             }
         }
-    }
-}
-
-static uint8_t isKnownNodeAddress(uint8_t address) {
-    uint8_t found = 0;
-    uint8_t i;
-    for (i = 0; i < CONCENTRATOR_MAX_NODES; i++)
-    {
-        if (knownSensorNodeRXs[i].address == address)
-        {
-            found = 1;
-            break;
-        }
-    }
-    return found;
-}
-
-static void updateNodeRX(struct SensorNodeRX* node) {
-    uint8_t i;
-    for (i = 0; i < CONCENTRATOR_MAX_NODES; i++) {
-        if (knownSensorNodeRXs[i].address == node->address)
-        {
-            knownSensorNodeRXs[i].timeForLastRX = (Clock_getTicks() * Clock_tickPeriod) / 1000000;
-            break;
-        }
-    }
-}
-
-static void addNewNodeRX(struct SensorNodeRX* node) {
-    *lastAddedSensorNodeRX = *node;
-
-    /* Increment and wrap */
-    lastAddedSensorNodeRX++;
-    if (lastAddedSensorNodeRX > &knownSensorNodeRXs[CONCENTRATOR_MAX_NODES-1])
-    {
-        lastAddedSensorNodeRX = knownSensorNodeRXs;
     }
 }
 
@@ -280,9 +221,6 @@ static void notifyPacketReceived(union ConcentratorPacket* latestRxPacket)
     if (packetReceivedCallback)
     {
         packetReceivedCallback(latestRxPacket, latestRssi);
-    }
-    if (latestRxPacket->header.packetType == RADIO_PACKET_TYPE_DM_SENSOR_PACKET) {
-        latestActiveSensorNodeRX.address = latestRxPacket->header.sourceAddress;
     }
 }
 
