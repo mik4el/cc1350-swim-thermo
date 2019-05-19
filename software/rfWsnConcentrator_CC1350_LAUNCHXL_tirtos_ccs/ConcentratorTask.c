@@ -66,7 +66,7 @@
 
 #define CONCENTRATOR_MAX_NODES 7
 
-#define CONCENTRATOR_DISPLAY_LINES 8
+#define CONCENTRATOR_DISPLAY_LINES 10
 #define CONCENTRATOR_DISPLAY_UPDATE_MS 1000
 
 #define CONCENTRATOR_LED_BLINK_ON_DURATION_MS       100
@@ -81,9 +81,9 @@ struct AdcSensorNode {
     uint16_t latestTemp2Value; //fixed 8.8 notation
     uint16_t latestBatt;
     uint16_t latestTemp1Value; //Fixed 8.8 notation
-    uint32_t latestTime100MiliSec;
     int8_t latestRssi;
     uint32_t timeForLastRX;
+    uint32_t receivedPackets;
 };
 
 /***** Variable declarations *****/
@@ -96,6 +96,8 @@ static struct AdcSensorNode latestActiveAdcSensorNode;
 struct AdcSensorNode knownSensorNodes[CONCENTRATOR_MAX_NODES];
 static struct AdcSensorNode* lastAddedSensorNode = knownSensorNodes;
 static Display_Handle hDisplayLcd;
+uint32_t prevTicks = 0;
+uint32_t upTime = 0;
 
 /* Pin driver handle */
 static PIN_Handle identifyLedPinHandle;
@@ -122,7 +124,6 @@ static void updateLcd(void);
 static void addNewNode(struct AdcSensorNode* node);
 static void updateNode(struct AdcSensorNode* node);
 static uint8_t isKnownNodeAddress(uint8_t address);
-static uint32_t timeForLastRXForAdress(uint8_t address);
 static void ledBlinkClockCb(UArg arg0);
 static void displayClockCb(UArg arg0);
 
@@ -163,6 +164,8 @@ void ConcentratorTask_init(void) {
     displayClkParams.startFlag = FALSE;
     Clock_construct(&displayClock, displayClockCb, 1, &displayClkParams);
     displayClockHandle = Clock_handle(&displayClock);
+
+    prevTicks = Clock_getTicks();
 }
 
 static void concentratorTaskFunction(UArg arg0, UArg arg1)
@@ -201,6 +204,7 @@ static void concentratorTaskFunction(UArg arg0, UArg arg1)
             }
             else {
                 /* Else add it */
+                latestActiveAdcSensorNode.receivedPackets = 1;
                 addNewNode(&latestActiveAdcSensorNode);
             }
         }
@@ -212,7 +216,7 @@ static void concentratorTaskFunction(UArg arg0, UArg arg1)
 
 static void packetReceivedCallback(union ConcentratorPacket* packet, int8_t rssi)
 {
-    /* If we recived an DualMode ADC sensor packet*/
+    /* If we received an DualMode ADC sensor packet*/
     if(packet->header.packetType == RADIO_PACKET_TYPE_DM_SENSOR_PACKET)
     {
 
@@ -222,7 +226,6 @@ static void packetReceivedCallback(union ConcentratorPacket* packet, int8_t rssi
         latestActiveAdcSensorNode.latestTemp1Value = packet->dmSensorPacket.temp1;
         latestActiveAdcSensorNode.latestBatt = packet->dmSensorPacket.batt;
         latestActiveAdcSensorNode.latestRssi = rssi;
-        latestActiveAdcSensorNode.timeForLastRX = (Clock_getTicks() * Clock_tickPeriod) / 1000000;
 
         Event_post(concentratorEventHandle, CONCENTRATOR_EVENT_NEW_ADC_SENSOR_VALUE);
 
@@ -256,18 +259,6 @@ static uint8_t isKnownNodeAddress(uint8_t address) {
     return found;
 }
 
-static uint32_t timeForLastRXForAdress(uint8_t address) {
-    uint8_t i;
-    for (i = 0; i < CONCENTRATOR_MAX_NODES; i++)
-    {
-        if (knownSensorNodes[i].address == address)
-        {
-            return knownSensorNodes[i].timeForLastRX;
-        }
-    }
-    return 0;
-}
-
 static void updateNode(struct AdcSensorNode* node) {
     uint8_t i;
     for (i = 0; i < CONCENTRATOR_MAX_NODES; i++) {
@@ -277,7 +268,8 @@ static void updateNode(struct AdcSensorNode* node) {
             knownSensorNodes[i].latestTemp1Value = node->latestTemp1Value;
             knownSensorNodes[i].latestBatt = node->latestBatt;
             knownSensorNodes[i].latestRssi = node->latestRssi;
-            knownSensorNodes[i].timeForLastRX = (Clock_getTicks() * Clock_tickPeriod) / 1000000;
+            knownSensorNodes[i].timeForLastRX = 0;
+            knownSensorNodes[i].receivedPackets += 1;
             break;
         }
     }
@@ -285,7 +277,6 @@ static void updateNode(struct AdcSensorNode* node) {
 
 static void addNewNode(struct AdcSensorNode* node) {
     *lastAddedSensorNode = *node;
-
     /* Increment and wrap */
     lastAddedSensorNode++;
     if (lastAddedSensorNode > &knownSensorNodes[CONCENTRATOR_MAX_NODES-1])
@@ -299,15 +290,15 @@ static void updateLcd(void) {
     uint8_t currentLcdLine;
 
     Display_clear(hDisplayLcd);
-    Display_printf(hDisplayLcd, 0, 0, "Nodes:");
+    Display_printf(hDisplayLcd, 0, 0, "Uptime: %is", upTime);
 
-    /* Start on the fourth line */
+    /* Start on the third line */
     currentLcdLine = 2;
 
-    /* Write one line per node */
+    uint32_t currentTicks = Clock_getTicks();
+
     while ((nodePointer < &knownSensorNodes[CONCENTRATOR_MAX_NODES]) &&
-          (nodePointer->address != 0) &&
-          (currentLcdLine < CONCENTRATOR_DISPLAY_LINES))
+          (nodePointer->address != 0) )
     {
         double temp2Formatted = FIXED2DOUBLE(nodePointer->latestTemp2Value);
         if (temp2Formatted > 128.0) {
@@ -318,15 +309,10 @@ static void updateLcd(void) {
             temp1Formatted = temp1Formatted - 256.0; //display negative temperature correct
         }
 
-        uint32_t timeSinceLastRx = 0;
-        if (timeForLastRXForAdress(nodePointer->address)!=0) {
-            uint32_t now = ((Clock_getTicks() * Clock_tickPeriod) / 1000000);
-            // handle wrap around
-            if (now > timeForLastRXForAdress(nodePointer->address)) {
-                timeSinceLastRx = now - timeForLastRXForAdress(nodePointer->address);
-            } else {
-                timeSinceLastRx = timeForLastRXForAdress(nodePointer->address) - now;
-            }
+        if (currentTicks > prevTicks) {
+            nodePointer->timeForLastRX += ((currentTicks - prevTicks) * Clock_tickPeriod) / 1000000;
+        } else {
+            nodePointer->timeForLastRX += ((prevTicks - currentTicks) * Clock_tickPeriod) / 1000000;
         }
 
         /* print to LCD */
@@ -340,11 +326,23 @@ static void updateLcd(void) {
         currentLcdLine++;
         Display_printf(hDisplayLcd, currentLcdLine, 0, "RSSI: %04d", nodePointer->latestRssi);
         currentLcdLine++;
-        Display_printf(hDisplayLcd, currentLcdLine, 0, "Time (s): %i", timeSinceLastRx);
+        Display_printf(hDisplayLcd, currentLcdLine, 0, "Time: %is", nodePointer->timeForLastRX);
+        currentLcdLine++;
+        Display_printf(hDisplayLcd, currentLcdLine, 0, "Packets: %i", nodePointer->receivedPackets);
+        currentLcdLine++;
         currentLcdLine++;
 
         nodePointer++;
     }
+
+    if (currentTicks > prevTicks) {
+        upTime += ((currentTicks - prevTicks) * Clock_tickPeriod) / 1000000;
+    } else {
+        upTime += ((prevTicks - currentTicks) * Clock_tickPeriod) / 1000000;
+    }
+
+    prevTicks = currentTicks;
+
 }
 
 static void displayClockCb(UArg arg0) {
