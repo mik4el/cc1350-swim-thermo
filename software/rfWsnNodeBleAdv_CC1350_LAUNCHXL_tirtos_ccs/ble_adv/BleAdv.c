@@ -762,7 +762,7 @@ static void advPrepareCB(void)
             if(advertiserType == BleAdv_AdertiserUrl)
             {
                 //advertise url
-                updateAdvFrame(&urlAdvFrame);
+                //updateAdvFrame(&urlAdvFrame); // Otherwise gadget-eddystone-scanner won't detect TLM packets? :(
             }
             else
             {
