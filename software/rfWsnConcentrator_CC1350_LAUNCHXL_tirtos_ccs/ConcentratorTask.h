@@ -33,7 +33,17 @@
 #ifndef TASKS_CONCENTRATORTASK_H_
 #define TASKS_CONCENTRATORTASK_H_
 
+#ifdef FEATURE_BLE_ADV
+#include "ble_adv/BleAdv.h"
+#endif
+
 /* Create the ConcentratorRadioTask and creates all TI-RTOS objects */
 void ConcentratorTask_init(void);
+
+#ifdef FEATURE_BLE_ADV
+/* display advertisement stats */
+void NodeTask_advStatsCB(BleAdv_Stats stats);
+extern void rfSwitchCallback(RF_Handle h, RF_ClientEvent event, void* arg);
+#endif
 
 #endif /* TASKS_CONCENTRATORTASK_H_ */
