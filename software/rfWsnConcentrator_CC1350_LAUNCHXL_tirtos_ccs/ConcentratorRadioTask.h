@@ -36,7 +36,6 @@
 #include "stdint.h"
 #include "RadioProtocol.h"
 
-
 enum ConcentratorRadioOperationStatus {
     ConcentratorRadioStatus_Success,
     ConcentratorRadioStatus_Failed,

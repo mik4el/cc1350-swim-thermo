@@ -41,8 +41,6 @@
 void ConcentratorTask_init(void);
 
 #ifdef FEATURE_BLE_ADV
-/* display advertisement stats */
-void NodeTask_advStatsCB(BleAdv_Stats stats);
 extern void rfSwitchCallback(RF_Handle h, RF_ClientEvent event, void* arg);
 #endif
 

@@ -70,8 +70,9 @@
 #define RADIO_EVENT_ALL                     0xFFFFFFFF
 #define RADIO_EVENT_VALID_PACKET_RECEIVED   (uint32_t)(1 << 0)
 #define RADIO_EVENT_INVALID_PACKET_RECEIVED (uint32_t)(1 << 1)
+#define RADIO_EVENT_RX                      (uint32_t)(1 << 2)
 #ifdef FEATURE_BLE_ADV
-#define RADIO_EVENT_UBLE                    (uint32_t)(1 << 2)
+#define RADIO_EVENT_UBLE                    (uint32_t)(1 << 3)
 #endif
 
 #define CONCENTRATORRADIO_MAX_RETRIES 2
@@ -91,8 +92,6 @@ static uint8_t concentratorRadioTaskStack[CONCENTRATORRADIO_TASK_STACK_SIZE];
 Event_Struct radioOperationEvent;  /* not static so you can see in ROV */
 static Event_Handle radioOperationEventHandle;
 
-
-
 static ConcentratorRadio_PacketReceivedCallback packetReceivedCallback;
 static union ConcentratorPacket latestRxPacket;
 static EasyLink_TxPacket txPacket;
@@ -100,11 +99,15 @@ static struct AckPacket ackPacket;
 static uint8_t concentratorAddress;
 static int8_t latestRssi;
 
+Clock_Struct rxClock;     /* Not static so you can see in ROV */
+static Clock_Handle rxClockHandle;
+
 /***** Prototypes *****/
 static void concentratorRadioTaskFunction(UArg arg0, UArg arg1);
 static void rxDoneCallback(EasyLink_RxPacket * rxPacket, EasyLink_Status status);
 static void notifyPacketReceived(union ConcentratorPacket* latestRxPacket);
 static void sendAck(uint8_t latestSourceAddress);
+static void rxClockCb(UArg arg0);
 
 #ifdef FEATURE_BLE_ADV
 static void bleAdv_eventProxyCB(void);
@@ -123,7 +126,6 @@ PIN_Config ledPinTable[] = {
 
 /***** Function definitions *****/
 void ConcentratorRadioTask_init(void) {
-
     /* Open LED pins */
     ledPinHandle = PIN_open(&ledPinState, ledPinTable);
 	if (!ledPinHandle)
@@ -143,6 +145,18 @@ void ConcentratorRadioTask_init(void) {
     concentratorRadioTaskParams.priority = CONCENTRATORRADIO_TASK_PRIORITY;
     concentratorRadioTaskParams.stack = &concentratorRadioTaskStack;
     Task_construct(&concentratorRadioTask, concentratorRadioTaskFunction, &concentratorRadioTaskParams, NULL);
+
+    /* Create Clock to restart RX */
+    Clock_Params rxClkParams;
+    Clock_Params_init(&rxClkParams);
+    rxClkParams.startFlag = FALSE;
+    Clock_construct(&rxClock, rxClockCb, 1, &rxClkParams);
+    rxClockHandle = Clock_handle(&rxClock);
+}
+
+static void rxClockCb(UArg arg0) {
+    BleAdv_setAdvertiserType(BleAdv_AdertiserNone);
+    Event_post(radioOperationEventHandle, RADIO_EVENT_RX);
 }
 
 void ConcentratorRadioTask_registerPacketReceivedCallback(ConcentratorRadio_PacketReceivedCallback callback) {
@@ -153,7 +167,7 @@ static void concentratorRadioTaskFunction(UArg arg0, UArg arg1)
 {
 #ifdef FEATURE_BLE_ADV
     BleAdv_Params_t bleAdv_Params;
-    /* Set mulitclient mode for EasyLink */
+    /* Set multiclient mode for EasyLink */
     EasyLink_setCtrl(EasyLink_Ctrl_MultiClient_Mode, 1);
 #endif
 
@@ -171,7 +185,7 @@ static void concentratorRadioTaskFunction(UArg arg0, UArg arg1)
 		System_abort("EasyLink_init failed");
 	}	
 
-    /* If you wich to use a frequency other than the default use
+    /* If you wish to use a frequency other than the default use
      * the below API
      * EasyLink_setFrequency(868000000);
      */
@@ -190,11 +204,10 @@ static void concentratorRadioTaskFunction(UArg arg0, UArg arg1)
     }
 
 #ifdef FEATURE_BLE_ADV
-    /* Initialize the Simple Beacon module wit default params */
+    /* Initialize the Simple Beacon module with default params */
     BleAdv_Params_init(&bleAdv_Params);
     bleAdv_Params.pfnPostEvtProxyCB = bleAdv_eventProxyCB;
     bleAdv_Params.pfnUpdateTlmCB = bleAdv_updateTlmCB;
-    bleAdv_Params.pfnAdvStatsCB = NodeTask_advStatsCB;
     BleAdv_init(&bleAdv_Params);
     char url_format[] = "https://m4bd.com/s/%x/";
     char url_ready[21];
@@ -215,11 +228,12 @@ static void concentratorRadioTaskFunction(UArg arg0, UArg arg1)
             /* Call packet received callback */
             notifyPacketReceived(&latestRxPacket);
 
-            /* Go back to RX */
-// THIS BLOCKS BLE SENDING ONLY DO THIS AFTER SOME TIME AND AFTER DISABLING BLE SENDING
-//            if(EasyLink_receiveAsync(rxDoneCallback, 0) != EasyLink_Status_Success) {
-//                System_abort("EasyLink_receiveAsync failed");
-//            }
+            /* Go back to RX after 1000ms */
+            Clock_setTimeout(rxClockHandle,
+                            1000 * 1000 / Clock_tickPeriod);
+            Clock_start(rxClockHandle);
+            BleAdv_setAdvertiserType(BleAdv_AdertiserUrl);
+
 
             /* toggle Activity LED */
             PIN_setOutputValue(ledPinHandle, CONCENTRATOR_ACTIVITY_LED,
@@ -229,6 +243,11 @@ static void concentratorRadioTaskFunction(UArg arg0, UArg arg1)
         /* If invalid packet received */
         if(events & RADIO_EVENT_INVALID_PACKET_RECEIVED) {
             /* Go back to RX */
+            Event_post(radioOperationEventHandle, RADIO_EVENT_RX);
+        }
+
+        if (events & RADIO_EVENT_RX)
+        {
             if(EasyLink_receiveAsync(rxDoneCallback, 0) != EasyLink_Status_Success) {
                 System_abort("EasyLink_receiveAsync failed");
             }

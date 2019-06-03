@@ -102,45 +102,8 @@ static Display_Handle hDisplayLcd;
 uint32_t prevTicks = 0;
 uint32_t upTime = 0;
 
-/* Pin driver handle */
-//static PIN_Handle identifyLedPinHandle;
-//static PIN_State identifyLedPinState;
-static PIN_Handle buttonPinHandle;
-static PIN_State buttonPinState;
-
-#ifdef FEATURE_BLE_ADV
-static BleAdv_AdertiserType advertisementType = BleAdv_AdertiserNone;
-#endif
-
-///* Configure LED Pin */
-//PIN_Config identifyLedPinTable[] = {
-//    CONCENTRATOR_IDENTIFY_LED | PIN_GPIO_OUTPUT_EN | PIN_GPIO_LOW | PIN_PUSHPULL | PIN_DRVSTR_MAX,
-//    PIN_TERMINATE
-//};
-
-/*
- * Application button pin configuration table:
- *   - Buttons interrupts are configured to trigger on falling edge.
- */
-PIN_Config buttonPinTable[] = {
-    Board_PIN_BUTTON0  | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_NEGEDGE,
-#ifdef FEATURE_BLE_ADV
-    Board_PIN_BUTTON1  | PIN_INPUT_EN | PIN_PULLUP | PIN_IRQ_NEGEDGE,
-#endif
-    PIN_TERMINATE
-};
-
-/* Clock for sensor stub */
-Clock_Struct ledBlinkClock;     /* Not static so you can see in ROV */
-static Clock_Handle ledBlinkClockHandle;
-static uint8_t ledBlinkCnt;
-
 Clock_Struct displayClock;     /* Not static so you can see in ROV */
 static Clock_Handle displayClockHandle;
-
-#ifdef FEATURE_BLE_ADV
-static BleAdv_Stats bleAdvStats = {0};
-#endif
 
 /***** Prototypes *****/
 static void concentratorTaskFunction(UArg arg0, UArg arg1);
@@ -149,13 +112,10 @@ static void updateLcd(void);
 static void addNewNode(struct AdcSensorNode* node);
 static void updateNode(struct AdcSensorNode* node);
 static uint8_t isKnownNodeAddress(uint8_t address);
-static void ledBlinkClockCb(UArg arg0);
 static void displayClockCb(UArg arg0);
-static void buttonCallback(PIN_Handle handle, PIN_Id pinId);
 
 /***** Function definitions *****/
 void ConcentratorTask_init(void) {
-
     /* Create event used internally for state changes */
     Event_Params eventParam;
     Event_Params_init(&eventParam);
@@ -169,33 +129,6 @@ void ConcentratorTask_init(void) {
     concentratorTaskParams.stack = &concentratorTaskStack;
     Task_construct(&concentratorTask, concentratorTaskFunction, &concentratorTaskParams, NULL);
 
-//    /* Open Identify LED pin */
-//    identifyLedPinHandle = PIN_open(&identifyLedPinState, identifyLedPinTable);
-//    if (!identifyLedPinHandle)
-//    {
-//        System_abort("Error initializing board 3.3V domain pins\n");
-//    }
-
-    buttonPinHandle = PIN_open(&buttonPinState, buttonPinTable);
-    if (!buttonPinHandle)
-    {
-        System_abort("Error initializing button pins\n");
-    }
-
-    /* Setup callback for button pins */
-    if (PIN_registerIntCb(buttonPinHandle, &buttonCallback) != 0)
-    {
-        System_abort("Error registering button callback function");
-    }
-
-    /* Create Clock to Blink LED */
-    Clock_Params ledBlinkClkParams;
-    Clock_Params_init(&ledBlinkClkParams);
-    ledBlinkClkParams.startFlag = FALSE;
-    Clock_construct(&ledBlinkClock, ledBlinkClockCb, 1, &ledBlinkClkParams);
-    ledBlinkClockHandle = Clock_handle(&ledBlinkClock);
-    ledBlinkCnt = 0;
-
     /* Create Clock to update LCD */
     Clock_Params displayClkParams;
     Clock_Params_init(&displayClkParams);
@@ -205,13 +138,6 @@ void ConcentratorTask_init(void) {
 
     prevTicks = Clock_getTicks();
 }
-
-#ifdef FEATURE_BLE_ADV
-void NodeTask_advStatsCB(BleAdv_Stats stats)
-{
-    memcpy(&bleAdvStats, &stats, sizeof(BleAdv_Stats));
-}
-#endif
 
 static void concentratorTaskFunction(UArg arg0, UArg arg1)
 {
@@ -264,7 +190,6 @@ static void packetReceivedCallback(union ConcentratorPacket* packet, int8_t rssi
     /* If we received an DualMode ADC sensor packet*/
     if(packet->header.packetType == RADIO_PACKET_TYPE_DM_SENSOR_PACKET)
     {
-
         /* Save the values */
         latestActiveAdcSensorNode.address = packet->header.sourceAddress;
         latestActiveAdcSensorNode.latestTemp2Value = packet->dmSensorPacket.temp2;
@@ -273,20 +198,6 @@ static void packetReceivedCallback(union ConcentratorPacket* packet, int8_t rssi
         latestActiveAdcSensorNode.latestRssi = rssi;
 
         Event_post(concentratorEventHandle, CONCENTRATOR_EVENT_NEW_ADC_SENSOR_VALUE);
-
-        if(ledBlinkCnt == 0)
-        {
-            /* Turn LED on */
-//            PIN_setOutputValue(identifyLedPinHandle, CONCENTRATOR_IDENTIFY_LED, 1);
-
-            /* Setup timeout to blink LED */
-            Clock_setTimeout(ledBlinkClockHandle,
-                    CONCENTRATOR_LED_BLINK_ON_DURATION_MS * 1000 / Clock_tickPeriod);
-
-            /* Start sensor stub clock */
-            Clock_start(ledBlinkClockHandle);
-        }
-
     }
 }
 
@@ -331,10 +242,6 @@ static void addNewNode(struct AdcSensorNode* node) {
 }
 
 static void updateLcd(void) {
-#ifdef FEATURE_BLE_ADV
-    char advMode[16] = {0};
-#endif
-
     struct AdcSensorNode* nodePointer = knownSensorNodes;
     uint8_t currentLcdLine;
 
@@ -384,29 +291,6 @@ static void updateLcd(void) {
         nodePointer++;
     }
 
-
-#ifdef FEATURE_BLE_ADV
-    if (advertisementType == BleAdv_AdertiserMs)
-    {
-         strncpy(advMode, "BLE MS", 6);
-    }
-    else if (advertisementType == BleAdv_AdertiserUrl)
-    {
-         strncpy(advMode, "Eddystone URL", 13);
-    }
-    else if (advertisementType == BleAdv_AdertiserUid)
-    {
-         strncpy(advMode, "Eddystone UID", 13);
-    }
-    else
-    {
-         strncpy(advMode, "None", 4);
-    }
-
-    /* print to LCD */
-    Display_printf(hDisplayLcd, currentLcdLine, 0, "%s", advMode);
-#endif
-
     if (currentTicks > prevTicks) {
         upTime += ((currentTicks - prevTicks) * Clock_tickPeriod) / 1000000;
     } else {
@@ -423,75 +307,6 @@ static void displayClockCb(UArg arg0) {
     Clock_setTimeout(displayClockHandle,
                     CONCENTRATOR_DISPLAY_UPDATE_MS * 1000 / Clock_tickPeriod);
     Clock_start(displayClockHandle);
-}
-
-static void ledBlinkClockCb(UArg arg0)
-{
-//    if(ledBlinkCnt < CONCENTRATOR_LED_BLINK_TIMES)
-//    {
-//        uint32_t ledState = PIN_getOutputValue(CONCENTRATOR_IDENTIFY_LED);
-//
-//        if(ledState)
-//        {
-//            ledBlinkCnt++;
-//
-//            /* turn off LED */
-//            PIN_setOutputValue(identifyLedPinHandle, CONCENTRATOR_IDENTIFY_LED, 0);
-//
-//            /* Setup timeout to turn LED on */
-//            Clock_setTimeout(ledBlinkClockHandle,
-//                CONCENTRATOR_LED_BLINK_OFF_DURATION_MS * 1000 / Clock_tickPeriod);
-//
-//            /* Start sensor stub clock */
-//            Clock_start(ledBlinkClockHandle);
-//        }
-//        else
-//        {
-//            /* turn on LED */
-//            PIN_setOutputValue(identifyLedPinHandle, CONCENTRATOR_IDENTIFY_LED, 1);
-//
-//            /* Setup timeout to turn LED off */
-//            Clock_setTimeout(ledBlinkClockHandle,
-//                CONCENTRATOR_LED_BLINK_ON_DURATION_MS * 1000 / Clock_tickPeriod);
-//
-//            /* Start sensor stub clock */
-//            Clock_start(ledBlinkClockHandle);
-//        }
-//    }
-//    else
-//    {
-//        PIN_setOutputValue(identifyLedPinHandle, CONCENTRATOR_IDENTIFY_LED, 0);
-//        ledBlinkCnt = 0;
-//    }
-}
-
-/*
- *  ======== buttonCallback ========
- *  Pin interrupt Callback function board buttons configured in the pinTable.
- */
-static void buttonCallback(PIN_Handle handle, PIN_Id pinId)
-{
-    /* Debounce logic, only toggle if the button is still pushed (low) */
-    CPUdelay(8000*50);
-
-
-#ifdef FEATURE_BLE_ADV
-    if (PIN_getInputValue(Board_PIN_BUTTON1) == 0)
-    {
-        if (advertisementType == BleAdv_AdertiserUrl)
-        {
-            advertisementType = BleAdv_AdertiserNone;
-        } else {
-            advertisementType = BleAdv_AdertiserUrl;
-        }
-
-        //Set advertisement type
-        BleAdv_setAdvertiserType(advertisementType);
-
-        /* update display */
-        Event_post(concentratorEventHandle, CONCENTRATOR_EVENT_UPDATE_DISPLAY);
-    }
-#endif
 }
 
 #ifdef FEATURE_BLE_ADV
