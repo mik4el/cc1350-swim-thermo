@@ -98,6 +98,8 @@ static EasyLink_TxPacket txPacket;
 static struct AckPacket ackPacket;
 static uint8_t concentratorAddress;
 static int8_t latestRssi;
+uint32_t ticks = 0;
+uint32_t timeSinceLastRX = 0;
 
 Clock_Struct rxClock;     /* Not static so you can see in ROV */
 static Clock_Handle rxClockHandle;
@@ -152,6 +154,8 @@ void ConcentratorRadioTask_init(void) {
     rxClkParams.startFlag = FALSE;
     Clock_construct(&rxClock, rxClockCb, 1, &rxClkParams);
     rxClockHandle = Clock_handle(&rxClock);
+
+    ticks = Clock_getTicks();
 }
 
 static void rxClockCb(UArg arg0) {
@@ -228,9 +232,17 @@ static void concentratorRadioTaskFunction(UArg arg0, UArg arg1)
             /* Call packet received callback */
             notifyPacketReceived(&latestRxPacket);
 
-            /* Go back to RX after 1000ms */
-            Clock_setTimeout(rxClockHandle,
-                            1000 * 1000 / Clock_tickPeriod);
+            /* Measure time since last RX */
+            uint32_t currentTicks = Clock_getTicks();
+            if (currentTicks > ticks) {
+                timeSinceLastRX = ((currentTicks - ticks) * Clock_tickPeriod) / 1000000;
+            } else {
+                timeSinceLastRX = ((ticks - currentTicks) * Clock_tickPeriod) / 1000000;
+            }
+            ticks = currentTicks;
+
+            /* Go back to RX after 3000ms */
+            Clock_setTimeout(rxClockHandle, 3 * 1000 * 1000 / Clock_tickPeriod);
             Clock_start(rxClockHandle);
             BleAdv_setAdvertiserType(BleAdv_AdertiserUrl);
 
@@ -319,12 +331,9 @@ static void bleAdv_eventProxyCB(void)
 */
 static void bleAdv_updateTlmCB(uint16_t *pvBatt, uint16_t *pTemp, uint32_t *pTime100MiliSec)
 {
-    uint16_t vBatt = 1234; // Debug value
-    uint16_t temp = FLOAT2FIXED(12.34); // Debug value
-    uint32_t time100MiliSec = 4321; // Debug value
-    *pvBatt = vBatt; // dmInternalTempSensorPacket.batt;
-    *pTemp = temp; // dmInternalTempSensorPacket.temp2;
-    *pTime100MiliSec = time100MiliSec; // dmInternalTempSensorPacket.time100MiliSec/10;
+    *pvBatt = latestRxPacket.dmSensorPacket.batt;
+    *pTemp = latestRxPacket.dmSensorPacket.temp2;
+    *pTime100MiliSec = timeSinceLastRX*10;
 }
 #endif
 

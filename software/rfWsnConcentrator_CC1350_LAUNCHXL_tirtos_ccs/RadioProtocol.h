@@ -36,7 +36,7 @@
 #include "stdint.h"
 #include "easylink/EasyLink.h"
 
-#define RADIO_CONCENTRATOR_ADDRESS     0x00
+#define RADIO_CONCENTRATOR_ADDRESS    0x00
 #define RADIO_EASYLINK_MODULATION     EasyLink_Phy_Custom
 
 #define RADIO_PACKET_TYPE_ACK_PACKET             0
