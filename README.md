@@ -48,5 +48,4 @@ Download and install smart rf studio http://www.ti.com/tool/SMARTRFTM-STUDIO, it
 1. `rfWsnConcentrator_CC1350_LAUNCHXL_tirtos_ccs` concentrator for nodes built on `rfWsnNodeBleAdv_CC1350_LAUNCHXL_tirtos_ccs`.
 
 ## Todos
-1. MVP swim thermo software and deploy.
 1. New rev of PCB with potentially input protection on gpios, external low current sleep timer using e.g. http://www.ti.com/product/TPL5111, improved contacts for termometers.
