@@ -318,7 +318,7 @@ static void bleAdv_eventProxyCB(void)
 static void bleAdv_updateTlmCB(uint16_t *pvBatt, uint16_t *pTemp, uint32_t *pTime100MiliSec)
 {
     *pvBatt = latestRxPacket.dmSensorPacket.batt;
-    *pTemp = latestRxPacket.dmSensorPacket.temp2;
+    *pTemp = latestRxPacket.dmSensorPacket.temp1; // temp1 is water temp in swimthermo deployed 20200505
     *pTime100MiliSec = (uint32_t)-latestRssi;
 }
 #endif
